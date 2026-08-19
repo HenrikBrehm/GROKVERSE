@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+training/runs/
+node_modules/
+web/.next/
+.DS_Store

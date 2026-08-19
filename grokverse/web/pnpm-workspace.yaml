@@ -1,0 +1,7 @@
+verifyDepsBeforeRun: false
+onlyBuiltDependencies:
+  - core-js
+# core-js's postinstall is only a funding banner; never needed for the build
+allowBuilds:
+  core-js: false
+  unrs-resolver: false
