@@ -152,7 +152,13 @@ Keep `effective_curves`, `curve_spectra`, `classify_neurons`, `phase_relation`, 
 
 Tests (extend the existing ones): hand-built circuit → tables/masks/phase-relation pass; scrambled
 control fails; activation analysis on an ideal `ReLU(cos(w a − φa) + cos(w b − φb))` neuron shows
-`sum_direction_share` ≫ `diff_direction_share` and `swap_symmetry` ≈ 1 when φa = φb.
+`sum_direction_share ≈ diff_direction_share` (**corrected 2026-09-03**: rectification produces the `(a+b)`
+and `(a−b)` cross terms with *equal* amplitude `8/(3π²)` — see `docs/MLP_MECHANISM_DERIVATION.md` §4.1 and
+`tests/test_derivations.py`; the earlier "≫" here was a false prediction and no run had been analysed
+under it) and `swap_symmetry ≈ 1` when `φa = φb`. Sum-over-difference dominance is a prediction about the
+**logits**, tested in `analysis/logit_formula_fit` against `control_difference`, and about the neuron
+**population** (coherent addition under `φ_out = φ_a + φ_b`); `sum_dependence` and the per-neuron
+`sum/diff` shares are therefore reported descriptively, never as a pass criterion.
 
 ## 6. `analysis/transformer_mechanism.py` — the same tests for the transformer
 

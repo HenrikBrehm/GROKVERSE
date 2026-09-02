@@ -81,3 +81,28 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     `neuron_clusters` secondary; the threshold is a GROKVERSE choice declared now: keep k whose per-frequency
     norm of `W_L` is ≥ 0.25 × the maximum (sensitivity 0.10 and 0.50). Recorded in the brief's addendum
     before any analysis of a new run.
+14. **AI, mechanism derivations written and verified (2026-09-03).** `docs/MLP_MECHANISM_DERIVATION.md`
+    and `docs/TRANSFORMER_MECHANISM_DERIVATION.md`, with every algebraic step checked numerically on
+    **random** models (no trained run read) in the new `training/tests/test_derivations.py` (41 checks,
+    all pass): the transformer forward decomposition reproduces the model output to 2.7e-7; the logits
+    split exactly into a direct and an MLP path; per-neuron contributions through `W_out @ W_U` sum to the
+    MLP path to 2.2e-16; the mean-attention effective curves are exact when attention is uniform
+    (`W_Q = W_K = 0`, error 4.4e-16) and `additivity_r2` drops below 1 as soon as attention is
+    input-dependent; the MLP effective curves reproduce its forward pass to 1.1e-7; a discrete square wave
+    at `p = 113` puts 0.8107 of its non-constant power in the fundamental and 0.1717 of that in the odd
+    harmonics 3/5/7 (continuous ideal 0.8106 / 0.1715) with a small nonzero even share 5.8e-4.
+15. **A pre-registered prediction was found to be WRONG and was corrected before any run was analysed.**
+    The brief and `INTERFACES.md` §5 predicted that an ideal rectified circuit neuron shows
+    `sum_direction_share ≫ diff_direction_share` in its own activation map. It does not: because
+    `|cos s|·|cos t|` is symmetric in `s = (u+v)/2` and `t = (u−v)/2`, rectification produces the `(a+b)`
+    term (phase `φ_a + φ_b`) and the `(a−b)` term (phase `φ_a − φ_b`) with the **same** amplitude
+    `8/(3π²) ≈ 0.2702`. Measured: 0.2698 vs 0.2705. What selects addition is the **population plus the
+    readout** — with `φ_out = φ_a + φ_b` the `(a+b)` contributions add coherently across neurons while the
+    `(a−b)` ones cancel (400 synthetic neurons: R² 0.938 on `cos(ω(a+b−c))` vs 0.003 on `cos(ω(a−b−c))`;
+    a scrambled readout gives 0.113; a difference readout selects `(a−b)` instead, R² 0.909).
+    Consequence, fixed now: the sum-over-difference contrast is a prediction about the **logits**
+    (`logit_formula_fit`'s `control_difference`) and the neuron population, never a per-neuron pass
+    criterion; per-neuron `sum`/`diff` shares are reported descriptively. Corrected in
+    `MLP_MECHANISM_DERIVATION.md` §4.1/§6, `INTERFACES.md` §5, the wave-2 implementation brief, and pinned
+    by `test_derivations.py::check_population_selects_sum`. No result had been computed under the wrong
+    prediction — the correction is a pre-analysis change, and it is recorded rather than silently applied.
