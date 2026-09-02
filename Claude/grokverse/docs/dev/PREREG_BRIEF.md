@@ -174,3 +174,23 @@ hyperparameter region; the honest magnitude of the timing gap comes with its int
 Every claim: observation → quantitative evidence → alternative explanation → causal test → limitation →
 permissible conclusion. Graded language only. Banned without the gate: "proves", "clearly shows",
 "Transformers fundamentally learn…", "MLPs are worse…", "the same circuit", "the same function".
+
+## Addendum 2026-09-03 — resolution of the declared conditional (before any analysis of new runs)
+
+The Nanda source note (`docs/sources/nanda2023_progress_measures.md`, §3 and App. C.2 quotes) establishes
+the published key-frequency rule: the DFT of the neuron→logit map `W_L = W_U W_out` along the logit axis,
+norm taken over neurons, key frequencies = those with "nontrivial coefficients"; the count is measured
+(5 for their main run, 3–4 for other seeds), the numeric threshold is **[NOT FOUND IN SOURCE]**.
+Therefore, as declared above: **primary rule = `nanda`** — for the transformer `W_L = W_out @ W_U[:, :p]`,
+for the MLP and two-hot MLP `W_L = W_out` — with the GROKVERSE threshold **norm_k ≥ 0.25 × max_k norm_k**
+(the TransformerLens demo's `> max/4` convention) and sensitivity thresholds 0.10 and 0.50; the count is
+whatever passes, never capped. `neuron_clusters` (Colab's 0.85 explained-variance cut) and
+`embedding_threshold`, `logit_sum_directions` are reported alongside with Jaccard overlaps;
+`embedding_top8` only as the legacy number. **[AI-PROPOSED threshold — pending human approval]**.
+
+Mask protocol (same note): the released code's restricted/excluded operator is the sum-directions
+projection (`sum_directions_only`) with the constant re-inserted for restricted; excluded loss is measured
+on the **training** pairs; the paper does not state the split of its restricted-loss figure (Colab: all and
+train; TransformerLens demo: test). `nanda_exact_*` therefore evaluates excluded on train and reports
+restricted on test, train and all, quoting test as the "Nanda-style" number with that provenance.
+`same_frequency_block` is reported as `paper_literal_2x2_block` and never as exact.

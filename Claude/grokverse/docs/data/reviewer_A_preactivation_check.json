@@ -1,0 +1,62 @@
+{
+ "generated_utc": "2026-09-02T16:47:15.891226+00:00",
+ "author": "reviewer-A 2026-09-02 (AI, Claude) one-off check for docs/CAPACITY_AND_CONFOUNDS.md; not part of capacity_report.py",
+ "method": "set_seed(seed); m=build_model(cfg); x=make_dataset(cfg)['all_x'] (all p*p inputs); pre-activation = input to the first ReLU: transformer: (W_E[tok]+W_pos + attention output) @ W_in at the '=' position, recomputed with the same einsums as OneLayerTransformer.forward; mlp: concat(W_E[a],W_E[b]) @ W_in + b_in; mlp_twohot: W_in[a] + W_in[p+b] + b_in. Reported: std over all inputs and hidden units. Analytic (drafter-free) expectations: mlp sqrt(1/128)=0.0884, twohot sqrt(2/226)=0.0941, transformer >= sqrt(2/128)=0.125 (attention output adds more).",
+ "torch": "2.12.1+cpu",
+ "seeds": {
+  "0": {
+   "transformer_d512": {
+    "preactivation_std": 0.15542,
+    "logit_std": 0.18656
+   },
+   "mlp_d512": {
+    "preactivation_std": 0.08888,
+    "logit_std": 0.06302
+   },
+   "mlp_param_matched_d572": {
+    "preactivation_std": 0.08864,
+    "logit_std": 0.06504
+   },
+   "mlp_twohot_d512": {
+    "preactivation_std": 0.09418,
+    "logit_std": 0.06657
+   }
+  },
+  "1": {
+   "transformer_d512": {
+    "preactivation_std": 0.15061,
+    "logit_std": 0.16242
+   },
+   "mlp_d512": {
+    "preactivation_std": 0.08879,
+    "logit_std": 0.06192
+   },
+   "mlp_param_matched_d572": {
+    "preactivation_std": 0.08872,
+    "logit_std": 0.06281
+   },
+   "mlp_twohot_d512": {
+    "preactivation_std": 0.09426,
+    "logit_std": 0.06552
+   }
+  },
+  "2": {
+   "transformer_d512": {
+    "preactivation_std": 0.14728,
+    "logit_std": 0.18294
+   },
+   "mlp_d512": {
+    "preactivation_std": 0.08793,
+    "logit_std": 0.06106
+   },
+   "mlp_param_matched_d572": {
+    "preactivation_std": 0.0877,
+    "logit_std": 0.06131
+   },
+   "mlp_twohot_d512": {
+    "preactivation_std": 0.09396,
+    "logit_std": 0.06628
+   }
+  }
+ }
+}
