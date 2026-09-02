@@ -116,11 +116,11 @@ SNR 3; phase recovery within 2°; CV agrees with AIC on both synthetic cases; a 
 | `embedding_threshold` | smallest set reaching 90 % of `W_E` power, **uncapped**; count is measured |
 | `logit_sum_directions` | 2D Fourier of the centered full-grid logits; power in the `cos/sin(w_k(a+b))` directions per k (via `mask_protocols.SumDirectionsOnly` per single k); keep k whose share exceeds `1/half · 3` (three times uniform) — report the share curve |
 | `neuron_clusters` | per hidden neuron (effective curves, §5/§6) dominant frequency; key set = frequencies that are the dominant frequency of at least `min_neurons` (default 5) neurons **and** whose neurons jointly carry ≥ 2 % of total activation variance |
-| `nanda` | the rule reconstructed in `docs/sources/nanda2023_progress_measures.md`; if that note says it is not reconstructable, this rule raises `NotImplementedError` with the reason |
+| `nanda` | **primary** (PREREG_BRIEF addendum 2026-09-03): DFT along the class axis of the neuron→logit map `W_L` — transformer `W_out @ W_U[:, :p]` (`[d_mlp, p]`), MLP / two-hot `W_out` (`[d_mlp, p]`) — per-frequency power `Σ_neurons (c_k² + s_k²)`, norm = its square root; keep every k with `norm_k ≥ threshold_frac · max_k norm_k`, `threshold_frac = 0.25` (sensitivity 0.10, 0.50, all three reported); the count is measured, never capped |
 
-The **pre-registered primary rule** is written in `docs/PREREGISTRATION.md` §Metrics; every module that
-needs a key set takes `rule` as a parameter and records it. `agreement(rules...)` reports the Jaccard
-overlap between the sets from different rules.
+The **pre-registered primary rule** is `nanda` (see the brief's addendum); `neuron_clusters` is
+secondary; every module that needs a key set takes `rule` as a parameter and records it.
+`agreement(rules...)` reports the Jaccard overlap between the sets from different rules.
 
 ## 5. `analysis/mlp_mechanism.py` — per-neuron mechanism of the shared-embedding MLP (extend, keep API)
 
