@@ -106,3 +106,14 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     `MLP_MECHANISM_DERIVATION.md` §4.1/§6, `INTERFACES.md` §5, the wave-2 implementation brief, and pinned
     by `test_derivations.py::check_population_selects_sum`. No result had been computed under the wrong
     prediction — the correction is a pre-analysis change, and it is recorded rather than silently applied.
+16. **AI, checkpoint pipeline validated on real v2 runs (2026-09-03).** For the seed-0 pair, every one of
+    the seven assigned checkpoint roles loads through `analysis/common.load_model_at` and reproduces a
+    logit grid; the test accuracy recomputed from the `generalization` checkpoint equals the value the
+    training loop logged at that step to 1e-6 in both architectures (transformer 0.950324, MLP 0.951331).
+    Checkpoint SHA256 values are carried into the analysis provenance envelope. This is a pipeline check,
+    not a result.
+17. **AI, further documents written while the analysis agents ran:** `AI_DISCLOSURE.md` rewritten with
+    `[HUMAN AUTHORS MUST COMPLETE]` placeholders wherever a human has not acted; `docs/HUMAN_DECISIONS.md`
+    created as the approval gate (status: NOT YET APPROVED), collecting every AI-proposed value with a
+    blank decision column and a sign-off block; Obsidian session note, project-log entry, run-matrix
+    experiment note (raw outcomes only), design-decision note and two learning notes.
