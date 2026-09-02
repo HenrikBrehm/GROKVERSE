@@ -44,8 +44,11 @@ CHECKPOINT_GRID = (0, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000,
 
 ## 2. Two-hot MLP (`grokverse/models/mlp_twohot.py`)
 
-Literature control (Swaroop, arXiv:2603.23784 — exact layer sizes to be confirmed by the source note;
-until then this is *our* two-hot variant and is labelled as such):
+Literature control. Swaroop (arXiv:2603.23784, §2, verified 2026-09-02) uses two-hot `2p` → 256 ReLU → `p`
+at `p = 97` with a split stratified by `c` and early stopping; GROKVERSE deliberately keeps `d_mlp = 512`,
+`p = 113`, the seeded random split and the fixed 25k-step budget so that the control differs from the
+shared-embedding MLP in the input parametrization only. It is *our* two-hot variant of that setup and is
+labelled as such (PREREG_BRIEF addendum 2026-09-03):
 
 ```
 x = concat(onehot_p(a), onehot_p(b))            # [B, 2p]

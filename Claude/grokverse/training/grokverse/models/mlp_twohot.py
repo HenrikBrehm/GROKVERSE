@@ -10,10 +10,15 @@ mapped by one ReLU hidden layer to the ``p`` output classes::
     logits = h @ W_out + b_out                        # W_out [d_mlp, p]
 
 It answers one question only (master prompt §14): *does the structure found in
-the shared-embedding MLP persist when the MLP sees the raw two-hot input?* It
-is the setup described for ReLU MLPs by Swaroop (arXiv:2603.23784); until the
-source note confirms the exact layer sizes this is OUR two-hot variant and is
-labelled as such (docs/dev/RUN_FORMAT_V2.md §2).
+the shared-embedding MLP persist when the MLP sees the raw two-hot input?* The
+input parametrization follows Swaroop (arXiv:2603.23784, §2, verified in
+docs/sources/swaroop2026_relu_mlp_square_waves.md: two-hot 2p → 256 ReLU → p at
+p = 97, split stratified by c, early stopping). GROKVERSE deliberately keeps
+``d_mlp = 512``, ``p = 113``, the seeded random split and the fixed 25k-step
+budget of the primary setting, so that this control differs from the
+shared-embedding MLP in the input parametrization ONLY. It is therefore OUR
+two-hot variant of Swaroop's setup, not a replication of that paper's model,
+and is labelled as such (docs/dev/PREREG_BRIEF.md addendum 2026-09-03).
 
 Because a one-hot row-select equals an index into ``W_in``, the forward pass is
 computed as ``W_in[a] + W_in[p + b]`` — mathematically identical to the two-hot

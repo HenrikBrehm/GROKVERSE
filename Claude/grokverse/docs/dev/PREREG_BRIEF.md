@@ -194,3 +194,28 @@ on the **training** pairs; the paper does not state the split of its restricted-
 train; TransformerLens demo: test). `nanda_exact_*` therefore evaluates excluded on train and reports
 restricted on test, train and all, quoting test as the "Nanda-style" number with that provenance.
 `same_frequency_block` is reported as `paper_literal_2x2_block` and never as exact.
+
+## Addendum 2026-09-03 (2) — definitions fixed from the verified source notes
+
+* **Periodicity score (Swaroop 2603.23784, Eq. 1, verified):** per curve `max_{k=1..p-1} |ŵ_k| / mean_{k=1..p-1} |ŵ_k|`
+  on the full-length DFT of the weight row. The paper's thresholds (> 12 structured, < 5 unstructured, gap
+  excluded) were chosen post hoc from a bimodal histogram; GROKVERSE reports the score and uses the paper's
+  cuts only as a labelled sensitivity variant (`periodicity_swaroop_12_5`), never as the primary definition.
+* **Inverse participation ratio (Doshi 2310.13061, Eq. 3–4, verified):** per curve `Σ_j P_j² / (Σ_j P_j)²`
+  on per-frequency power; per neuron the mean over the `a`-curve, `b`-curve and output curve. The paper uses
+  it as a **ranking** (no threshold); GROKVERSE adopts the ranking and Doshi's cumulative pruning sweep
+  (low-IPR-first vs high-IPR-first, unmodified checkpoint, no retraining) as an additional causal test, plus
+  the size-matched random control the paper does not have.
+* **Two-hot control width (Swaroop: 194 → 256 ReLU → 97 at p = 97):** GROKVERSE keeps `d_mlp = 512` for the
+  two-hot MLP **deliberately**, so that the two-hot control differs from the shared-embedding MLP in the input
+  parametrization only (same hidden width, same p, same split, same budget); it is therefore "our two-hot
+  variant of Swaroop's setup", not a replication of the paper's model, and is labelled so everywhere.
+* **Harmonics / 1/j decay** are textbook Fourier-series facts, not claims of any fetched source; H2's
+  odd-harmonic prediction is derived in `docs/MLP_MECHANISM_DERIVATION.md`, never attributed to Swaroop.
+* **Positioning corrections from the notes:** the phase-sum relation in ReLU MLPs originates with Nanda et
+  al. 2023 and Gromov 2023 (Swaroop's own attribution); the concentration gap (Transformer more concentrated
+  than MLP) and the protocol-dependence of the timing gap are published by Manir & Rupa 2603.25009 (single
+  seed, p = 97, DC included in their top-5) — GROKVERSE's numbers are a replication of the direction under a
+  different protocol and the first multi-seed estimate; McCracken et al. 2505.18266 (NeurIPS 2025) train
+  exactly the concatenation MLP and predict that a trainable embedding reduces the number of learned
+  frequencies relative to one-hot input.
