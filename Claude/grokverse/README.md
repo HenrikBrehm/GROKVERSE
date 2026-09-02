@@ -10,7 +10,7 @@ GROKVERSE is a scientifically rigorous reproduction of **grokking** — the phen
 
 ## Status
 
-Active build. See [`PROGRESS.md`](./PROGRESS.md) for the dated audit trail and [`RESULTS.md`](./RESULTS.md) for findings. The governing documents are [`PROMPT.md`](./PROMPT.md) (how we work) and [`PLAN.md`](./PLAN.md) (what we build, phases 0→7).
+Active build. See [`PROGRESS.md`](PROGRESS.md) for the dated audit trail and [`RESULTS.md`](RESULTS.md) for findings. The governing documents are [`PROMPT.md`](PROMPT.md) (how we work) and [`PLAN.md`](PLAN.md) (what we build, phases 0→7).
 
 ## Repository layout
 
@@ -28,7 +28,7 @@ grokverse/
 
 ## What we found
 
-A 1-layer ReLU transformer on modular addition (mod p=113), at the **canonical un-accelerated config** (`frac=0.3`, `wd=1.0`), **memorizes the training set by step 145** (train acc crosses 0.99; exactly 1.000 by step 156) while test accuracy sits at chance through an **~8,000-step plateau**, then **suddenly generalizes**, crossing 0.95 at **step 8367** — a **grok gap of 8,222 steps** (final test acc 0.981). Its embedding concentrates **76%** of its Fourier power into the top-8 frequencies (vs 32% non-grokked) — the periodic "trig-identity" circuit, with the read-out `=` position attending ~50/50 to both operands. Seed-robust **Grokfast** runs (arXiv:2405.20233; [`PROMPT.md`](./PROMPT.md) §7) reproduce the same transition faster for in-session iteration, and the **original experiment** — run in both the accelerated and the honest un-accelerated setting, 3 seeds each — finds the transformer converges to a **markedly sparser Fourier circuit** than a 2-layer MLP in both settings (0.73 vs 0.44 top-8 power un-accelerated), and generalizes earlier in every seed, though the speed gap shrinks from ~2.9× (accelerated) to ~1.3× (un-accelerated) — reported as such. Full numbers + figures in [`RESULTS.md`](./RESULTS.md).
+A 1-layer ReLU transformer on modular addition (mod p=113), at the **canonical un-accelerated config** (`frac=0.3`, `wd=1.0`), **memorizes the training set by step 145** (train acc crosses 0.99; exactly 1.000 by step 156) while test accuracy sits at chance through an **~8,000-step plateau**, then **suddenly generalizes**, crossing 0.95 at **step 8367** — a **grok gap of 8,222 steps** (final test acc 0.981). Its embedding concentrates **76%** of its Fourier power into the top-8 frequencies (vs 32% non-grokked) — the periodic "trig-identity" circuit, with the read-out `=` position attending ~50/50 to both operands. Seed-robust **Grokfast** runs (arXiv:2405.20233; [`PROMPT.md`](PROMPT.md) §7) reproduce the same transition faster for in-session iteration, and the **original experiment** — run in both the accelerated and the honest un-accelerated setting, 3 seeds each — finds the transformer converges to a **markedly sparser Fourier circuit** than a 2-layer MLP in both settings (0.73 vs 0.44 top-8 power un-accelerated), and generalizes earlier in every seed, though the speed gap shrinks from ~2.9× (accelerated) to ~1.3× (un-accelerated) — reported as such. Full numbers + figures in [`RESULTS.md`](RESULTS.md).
 
 ## Reproduce the science
 
@@ -59,4 +59,4 @@ The explorer renders the **real exported run data**: scrub training to watch the
 
 ## How it's built
 
-This repository is built with **Claude Code** in an autonomous agentic workflow under a strict anti-fabrication constitution. See [`AI_DISCLOSURE.md`](./AI_DISCLOSURE.md) for the full AI-vs-human breakdown and EU-AI-Act note, and [`THIRD_PARTY.md`](./THIRD_PARTY.md) for dependency licenses.
+This repository is built with **Claude Code** in an autonomous agentic workflow under a strict anti-fabrication constitution. See [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md) for the full AI-vs-human breakdown and EU-AI-Act note, and [`THIRD_PARTY.md`](THIRD_PARTY.md) for dependency licenses.

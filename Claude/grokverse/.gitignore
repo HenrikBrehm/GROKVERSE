@@ -5,3 +5,7 @@ training/runs/
 node_modules/
 web/.next/
 .DS_Store
+docs.zip
+archive/
+web/tsconfig.tsbuildinfo
+web/verify-explorer.png

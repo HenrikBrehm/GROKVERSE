@@ -30,6 +30,29 @@ def git_commit() -> str:
         return "unknown"
 
 
+def config_diff(recorded: dict, ours: dict) -> tuple[dict, list[str]]:
+    """Compare a config against one recorded in an existing ``run.json``.
+
+    Returns ``(differs, added_since)``:
+
+    * ``differs``     — fields present in BOTH that disagree; ``{field: (recorded, ours)}``.
+                        These are real protocol mismatches and must block.
+    * ``added_since`` — fields the current ``Config`` has that the recorded run
+                        predates (e.g. ``threads``, added in the §3.8 fix).
+                        A missing key cannot be a disagreement: the recorded run
+                        simply ran before the field existed. Reported, not fatal
+                        — otherwise adding any Config field would retroactively
+                        invalidate every stored run.
+    """
+    differs, added_since = {}, []
+    for k, v in ours.items():
+        if k not in recorded:
+            added_since.append(k)
+        elif recorded[k] != v:
+            differs[k] = (recorded[k], v)
+    return differs, sorted(added_since)
+
+
 def log_step_schedule(steps: int, n: int) -> list[int]:
     """A logarithmic checkpoint schedule including step 0 and the final step."""
     if steps <= 0:

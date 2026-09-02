@@ -21,7 +21,8 @@ from .config import PRESETS, Config, get_config
 from .data import make_dataset
 from .models import build_model
 from .seed import set_seed
-from .utils import git_commit, lib_versions, log_step_schedule, runs_dir, utcnow
+from .utils import (config_diff, git_commit, lib_versions, log_step_schedule,
+                    runs_dir, utcnow)
 
 
 @torch.no_grad()
@@ -97,12 +98,17 @@ def train(cfg: Config, out_dir: Path | None = None, verbose: bool = True,
                   "— treating as no recorded run", flush=True)
             recorded = None
         if recorded is not None:
-            ours = cfg.to_dict()
-            diff = {k: (recorded.get(k), ours[k]) for k in ours if recorded.get(k) != ours[k]}
+            diff, added = config_diff(recorded, cfg.to_dict())
+            if added:
+                print(f"[note] {out_dir / 'run.json'} predates config field(s) "
+                      f"{added} — not treated as a mismatch", flush=True)
             if diff:
                 raise RuntimeError(
                     f"{out_dir} already holds a run with a different config ({diff}); "
                     "delete the directory or pass matching flags (--force to override)")
+    # Pin the CPU thread count BEFORE any tensor work: torch reductions differ
+    # across thread counts, so an unpinned matrix is not reproducible (§3.8).
+    torch.set_num_threads(cfg.threads)
     set_seed(cfg.seed)
     device = torch.device(cfg.device)
     data = make_dataset(cfg)

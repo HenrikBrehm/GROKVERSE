@@ -61,8 +61,9 @@ from ..data import make_dataset  # noqa: E402
 from ..models import build_model  # noqa: E402
 from ..seed import set_seed  # noqa: E402
 from ..train import apply_grokfast, detect_transition  # noqa: E402
-from ..utils import log_step_schedule, runs_dir  # noqa: E402
+from ..utils import config_diff, log_step_schedule, runs_dir  # noqa: E402
 from .fourier import dominant_frequencies, fourier_basis  # noqa: E402
+from .mask_protocols import IMPLEMENTED, build_protocol  # noqa: E402
 
 
 # --------------------------------------------------------------------------- #
@@ -70,6 +71,7 @@ from .fourier import dominant_frequencies, fourier_basis  # noqa: E402
 # step (train.py only persists per-step embeddings, not full weights)          #
 # --------------------------------------------------------------------------- #
 def train_capturing_states(cfg: Config, early_stop_acc: float | None = None):
+    torch.set_num_threads(cfg.threads)   # must match train.py exactly (§3.8)
     set_seed(cfg.seed)
     device = torch.device(cfg.device)
     data = make_dataset(cfg)
@@ -131,8 +133,22 @@ def inv2d(Lhat: np.ndarray, Fb: np.ndarray) -> np.ndarray:
     return np.einsum("jb,ajc->abc", Fb, t, optimize=True)
 
 
+#: Which variant fills the top-level ``restricted_loss``/``excluded_loss`` keys.
+#: Pinned to the legacy variant because ``export.py`` ships those keys to the
+#: frontend and the explorer is frozen (RESEARCH_SPEC §11) — changing the
+#: meaning of an existing key silently would rewrite published numbers. Every
+#: variant is stored alongside under ``variants``, and the file records which
+#: protocol the top-level keys came from, so nothing is ambiguous.
+TOP_LEVEL_PROTOCOL = "legacy_broad_mask"
+
+
 def _mode_indices(p: int, key_freqs: list[int]) -> tuple[np.ndarray, np.ndarray]:
     """Boolean masks over the p Fourier-basis rows.
+
+    SUPERSEDED by ``analysis.mask_protocols`` (RESEARCH_SPEC §3.1): the outer
+    product built from these 1D masks keeps cross-frequency blocks the
+    trig-identity circuit never uses. Kept because ``mask_protocols`` reproduces
+    it as the named ``legacy_broad_mask`` variant and the tests pin both.
 
     Row layout (see fourier.fourier_basis): row 0 = const; then for k=1.. the
     pair (cos_k, sin_k) at rows 1+2(k-1), 2+2(k-1). Returns:
@@ -162,7 +178,8 @@ def _ce(logits_grid: np.ndarray, y: torch.Tensor) -> float:
 
 
 def compute(cfg: Config, early_stop_acc: float | None = None,
-            max_steps_measured: int = 120) -> dict:
+            max_steps_measured: int = 120,
+            protocols: tuple[str, ...] = IMPLEMENTED) -> dict:
     model, data, curves, states = train_capturing_states(cfg, early_stop_acc)
     p = cfg.p
     Fb, _ = fourier_basis(p)
@@ -172,9 +189,12 @@ def compute(cfg: Config, early_stop_acc: float | None = None,
     final_W_E = model.W_E.detach().cpu().numpy()
     dom = dominant_frequencies(final_W_E, p)
     key_freqs = dom["dominant"]
-    keep_restr, is_key = _mode_indices(p, key_freqs)
-    mask_restr = keep_restr[:, None] & keep_restr[None, :]      # key 2D block (+const)
-    mask_excl = ~(is_key[:, None] | is_key[None, :])            # everything NOT touching a key freq
+    # All mask variants side by side (§3.1): the width of the mask is a stated
+    # choice, not an accident of an outer product.
+    protos = {name: build_protocol(name, p, key_freqs) for name in protocols}
+    if TOP_LEVEL_PROTOCOL not in protos:
+        raise ValueError(f"protocols must include {TOP_LEVEL_PROTOCOL!r} "
+                         "(it fills the top-level keys the explorer reads)")
 
     steps = curves["step"]
     # subsample if a long un-accelerated run produced many checkpoints
@@ -183,18 +203,21 @@ def compute(cfg: Config, early_stop_acc: float | None = None,
     idx = np.unique(idx)
 
     base = build_model(cfg)
-    full_loss, restr_loss, excl_loss, m_steps = [], [], [], []
+    full_loss, m_steps = [], []
+    variants: dict[str, dict[str, list]] = {
+        name: {"restricted_loss": [], "excluded_loss": []} for name in protos}
     for t in idx:
         base.load_state_dict(states[t])
         base.eval()
         L = _grid_logits(base, all_x, p)
         Lhat = fwd2d(L, Fb)
-        L_restr = inv2d(Lhat * mask_restr[:, :, None], Fb)
-        L_excl = inv2d(Lhat * mask_excl[:, :, None], Fb)
         full_loss.append(_ce(L, all_y))
-        restr_loss.append(_ce(L_restr, all_y))
-        excl_loss.append(_ce(L_excl, all_y))
+        for name, pr in protos.items():
+            variants[name]["restricted_loss"].append(_ce(inv2d(pr.restrict(Lhat), Fb), all_y))
+            variants[name]["excluded_loss"].append(_ce(inv2d(pr.exclude(Lhat), Fb), all_y))
         m_steps.append(steps[t])
+    restr_loss = variants[TOP_LEVEL_PROTOCOL]["restricted_loss"]
+    excl_loss = variants[TOP_LEVEL_PROTOCOL]["excluded_loss"]
 
     # ---- sanity checks (honesty: a wrong measure is worse than none) ----
     base.load_state_dict(states[-1])
@@ -202,11 +225,11 @@ def compute(cfg: Config, early_stop_acc: float | None = None,
     L = _grid_logits(base, all_x, p)
     Lhat = fwd2d(L, Fb)
     recon_err = float(np.abs(inv2d(Lhat, Fb) - L).max())          # (1) F is a valid orthonormal transform
-    all_modes = inv2d(Lhat * np.ones_like(mask_restr)[:, :, None], Fb)
+    all_modes = inv2d(Lhat * np.ones((p, p, 1)), Fb)
     all_modes_err = float(np.abs(all_modes - L).max())            # (2) keeping all modes == identity
     full_final = _ce(L, all_y)
-    restr_final = _ce(inv2d(Lhat * mask_restr[:, :, None], Fb), all_y)
-    excl_final = _ce(inv2d(Lhat * mask_excl[:, :, None], Fb), all_y)
+    restr_final = _ce(inv2d(protos[TOP_LEVEL_PROTOCOL].restrict(Lhat), Fb), all_y)
+    excl_final = _ce(inv2d(protos[TOP_LEVEL_PROTOCOL].exclude(Lhat), Fb), all_y)
     sanity = {
         "reconstruction_max_abs_err": recon_err,
         "all_modes_max_abs_err": all_modes_err,
@@ -216,6 +239,9 @@ def compute(cfg: Config, early_stop_acc: float | None = None,
         "final_excluded_loss": excl_final,      # expect >> full_loss (circuit destroyed)
         "restricted_recovers_full": bool(restr_final < full_final + 0.10),
         "excluded_destroys_solution": bool(excl_final > full_final + 1.0),
+        # the key-frequency COUNT is capped, not measured (§3.2)
+        "key_freq_cap_binding": dom["cap_binding"],
+        "n_freqs_for_90pct_threshold": dom["n_freqs_for_threshold"],
     }
 
     transition = detect_transition(curves)
@@ -248,8 +274,14 @@ def compute(cfg: Config, early_stop_acc: float | None = None,
         "transition": transition,
         "measured_steps": [int(s) for s in m_steps],
         "full_loss": full_loss,
+        # Top-level keys are the LEGACY variant (see TOP_LEVEL_PROTOCOL): kept
+        # for the frozen explorer's data contract. They are NOT a reproduction
+        # of Nanda et al. — see variants[] and docs/MASK_PROTOCOL_AUDIT.md.
+        "top_level_protocol": TOP_LEVEL_PROTOCOL,
         "restricted_loss": restr_loss,
         "excluded_loss": excl_loss,
+        "variants": {name: {**variants[name], **pr.describe()}
+                     for name, pr in protos.items()},
         "test_acc_at_measured": [curves["test_acc"][t] for t in idx],
         "train_acc_at_measured": [curves["train_acc"][t] for t in idx],
         "sanity": sanity,
@@ -287,6 +319,9 @@ def main() -> None:
     ap.add_argument("--train-frac", type=float, default=None)
     ap.add_argument("--early-stop-acc", type=float, default=None)
     ap.add_argument("--steps", type=int, default=None)
+    ap.add_argument("--protocols", nargs="+", default=list(IMPLEMENTED),
+                    choices=list(IMPLEMENTED),
+                    help="mask variants to compute side by side (§3.1)")
     args = ap.parse_args()
 
     overrides: dict = {"seed": args.seed}
@@ -307,16 +342,18 @@ def main() -> None:
             print(f"[note] {run_json} unreadable — skipping config guard", flush=True)
             recorded_cfg = None
         if recorded_cfg is not None:
-            ours = cfg.to_dict()
-            diff = {k: (recorded_cfg.get(k), ours[k]) for k in ours
-                    if recorded_cfg.get(k) != ours[k]}
+            diff, added = config_diff(recorded_cfg, cfg.to_dict())
+            if added:
+                print(f"[note] {run_json} predates config field(s) {added} "
+                      "— not treated as a mismatch", flush=True)
             if diff:
                 raise SystemExit(
                     f"config differs from recorded {run_json} in {diff}; "
                     f"pass matching flags (e.g. --steps {recorded_cfg.get('steps')})")
 
     print(f"[progress-measures] {cfg.run_id}  (re-training to capture states)", flush=True)
-    res = compute(cfg, early_stop_acc=args.early_stop_acc)
+    res = compute(cfg, early_stop_acc=args.early_stop_acc,
+                  protocols=tuple(args.protocols))
 
     out_dir = runs_dir() / cfg.run_id
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -325,9 +362,22 @@ def main() -> None:
     fig_path.parent.mkdir(parents=True, exist_ok=True)
     plot(res, fig_path)
 
+    variant_summary = {
+        name: {"n_kept": v["n_components_kept_by_restricted"],
+               "n_removed": v["n_components_removed_by_excluded"],
+               "cross_frequency": v["keeps_cross_frequency_blocks"],
+               "final_restricted": round(v["restricted_loss"][-1], 5),
+               "final_excluded": round(v["excluded_loss"][-1], 5)}
+        for name, v in res["variants"].items()}
     print(json.dumps({"transition": res["transition"],
                       "key_frequencies": res["key_frequencies"],
+                      "final_full_loss": round(res["full_loss"][-1], 5),
+                      "variants": variant_summary,
                       "sanity": res["sanity"]}, indent=2))
+    print("[note] top-level restricted/excluded keys use "
+          f"{res['top_level_protocol']!r}, which is NOT a reproduction of "
+          "Nanda et al. — compare the variants above (RESEARCH_SPEC §3.1).",
+          flush=True)
     print(f"[saved] {out_dir / 'progress_measures.json'}\n[saved] {fig_path}", flush=True)
 
 
