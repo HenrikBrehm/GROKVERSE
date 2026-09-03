@@ -4,6 +4,78 @@ Append-only. Newest entry at the top. One block per task-batch / phase, per the 
 
 ---
 
+## [2026-09-03] Architecture study — baseline, pre-registration, pipeline, primary runs
+Done:
+- **Scope change.** Following `GROKVERSE_MASTER_PROMPT_EN.md`, the project is being turned from a
+  reproduction-plus-explorer into a controlled mechanistic comparison of the transformer against the MLP.
+  Grokking reproduction moves from headline to method section. Work happens on branch `arch-study`; the
+  explorer is frozen.
+- **Baseline secured** (master prompt §3 rule 6): tag `baseline/pre-arch-study` at `d9434c1`; byte-copy of
+  all 16 legacy runs, 21 figures and the result documents to `archive/pre_arch_study_2026-09-02/` with a
+  SHA256 manifest of 75 files. The uncommitted move of `grokverse/` and `PREP/` into `Claude/` was recorded
+  as renames. Nothing existing was deleted or overwritten.
+- **Audit** (Phase 1): `docs/CURRENT_EVIDENCE_AUDIT.md`, `docs/CAPACITY_AND_CONFOUNDS.md`,
+  `docs/LEGACY_METRIC_AUDIT.md`, plus seven primary-source notes under `docs/sources/`.
+- **Pre-registration** fixed before the runs (`docs/dev/PREREG_BRIEF.md`, expanded into
+  `docs/PREREGISTRATION.md`): H1-H5 with nulls and refutation criteria, the four-criterion evidence gate
+  with numeric pass rules, the structured-neuron definition and its sensitivity variants, the
+  key-frequency rule, the three-branch decision tree, the statistics plan, and the freeze rule. Every
+  AI-proposed value is collected for approval in `docs/HUMAN_DECISIONS.md` (status: NOT YET APPROVED).
+- **Run format v2**: dense evaluation (train every 10, test every 25 steps), transition detection with
+  evaluation intervals for three threshold sets, 21 pre-specified checkpoints per run with assigned roles,
+  a per-run manifest (split hash, versions, platform, parameter counts, weight norms), a CSV/JSON
+  aggregator, a paired-seed matrix launcher, and a two-hot MLP input-parametrization control.
+- **Mechanism derivations** for both architectures (`docs/MLP_MECHANISM_DERIVATION.md`,
+  `docs/TRANSFORMER_MECHANISM_DERIVATION.md`), each step verified numerically on random models.
+- **Analysis modules** (in progress): `common`, `metrics`, `wave_fitting`, `statistics`,
+  `function_agreement`, `logit_formula_fit`, `driver`.
+- `AI_DISCLOSURE.md` rewritten; `RESULTS.md` and `README.md` marked with inline [AUDIT] notes withdrawing
+  four over-interpreted claims.
+
+Measured results:
+- **Primary run block** (p=113, `train_frac` 0.3, `wd` 1.0, no Grokfast, **fixed 25,000-step budget**,
+  paired seeds 0-9, `threads=1`, commit `d53cf52`): 18 of 20 runs complete at the time of writing, the
+  last two transformer seeds at step 24,000. Transformer memorization crossings 140-150, generalization
+  crossings 5,625-10,275 across seeds 0-7; MLP memorization 160 in every seed, generalization
+  8,150-10,075 across seeds 0-9. Final test accuracy at step 25,000: transformer 0.9971-1.0000 (n=8),
+  MLP 1.0000 (n=10). Every crossing is the first evaluated step at or above threshold, so the true
+  crossing lies in the preceding 10-step (train) or 25-step (test) interval.
+- **No structure metric, no comparison and no statistic has been computed.** That is the pre-registered
+  order: the analysis code is frozen after a seed-0 pilot, and only then are the analyses run.
+- Derivation constants, verified: the ReLU cross term has amplitude 8/(3*pi^2)=0.2702 (measured 0.2698)
+  and phase phi_a+phi_b (error 2.1e-4); a discrete square wave at p=113 holds 0.8107 of its non-constant
+  power in the fundamental and 0.1717 of that in the odd harmonics 3/5/7 (continuous ideal 0.8106/0.1715).
+- Wall clock under 8-way parallelism: ~4.05 h per transformer run, 0.82-0.95 h per MLP run.
+
+Verification:
+- `tests/test_run_format_v2.py` 115 checks pass, incl. that dense evaluation leaves the parameter
+  trajectory bit-identical; `tests/test_derivations.py` 47 pass; `tests/test_driver.py` 19 pass;
+  `tests/test_statistics.py` 94 pass; `tests/test_logit_formula_fit.py` 122 pass.
+- `test_core.py` unchanged at 84 pass with the one pre-existing failure documented in `docs/BASELINE.md`.
+- Every completed manifest validates; every run has 21 checkpoints with all seven roles assigned; a
+  checkpoint reloaded through the shared analysis loader reproduces the training loop's own logged test
+  accuracy to 1e-6 in both architectures.
+
+Open questions / risks:
+- **A pre-registered prediction was wrong and was corrected before any run was analysed:** rectification
+  produces the (a+b) and (a-b) cross terms with EQUAL amplitude, so sum-over-difference dominance is a
+  property of the logits and the neuron population, not of a single neuron's activation map. Fixed in the
+  derivation, the interface contract, the implementation brief and a test (`docs/LABBOOK.md` entry 15).
+- Two interruptions, both recovered without loss: an AI usage limit on 2026-09-02 (13 agents died; the
+  local training was unaffected) and an overnight machine sleep (the runs advanced 6.6 steps/min instead
+  of ~370 for 7.6 hours, then resumed normally). `docs/LABBOOK.md` entries 9-13 and 18-20.
+- Still open: `tests/test_metrics.py` and `tests/test_wave_fitting.py` are being written;
+  `tests/test_function_agreement.py` lags a module upgrade; the three audit documents and two source notes
+  are unreviewed; the confound, parameter-matched and two-hot blocks are queued behind the primary block.
+- The pre-registration is **not human-approved**; every result must be reported as computed under
+  AI-proposed settings until `docs/HUMAN_DECISIONS.md` says otherwise.
+
+Next: finish the wave-1 module tests and reviews, implement the mechanism, ablation and aggregation
+modules against the frozen interface contract, run the seed-0 pilot, freeze the analysis code, then run
+the analyses over the full matrix.
+
+---
+
 ## [2026-08-18] add-vs-mul runs completed — evaluation DELIBERATELY ON HOLD (decision needed: Henrik)
 Done: after the wrap-up entry below was written, the backlog's add-vs-mul stretch was started after all
 (compute had freed up): 3 seeded Grokfast runs of `(a*b) mod 113` (`--config grokfast --train-frac 0.5
