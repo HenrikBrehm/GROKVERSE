@@ -15,6 +15,7 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [ ] E3 — training chain finished (`matrix_launch.log`: `matrix chain finished`); `training/results/` committed —
 - [ ] E4 — full analysis chain launched over every block; finished —
 - [ ] E5 — seed-0 pilot outputs re-run under the freeze commit —
+- [ ] E6 — **re-run `key_frequencies` + `progress_measures` over every seed** (post-freeze fix, labbook 56–57; the driver running since 20:34 UTC holds the old code and its 60 calls fail) —
 - [x] F — `aggregate`, `decision_tree`, `figures_study`, `bounded_alternative` + tests — suite 20/20, 1,794 checks
 - [ ] G1 — aggregate + decision tree run; branch named per architecture in the labbook —
 - [ ] G2 — statistics per `STATISTICAL_ANALYSIS_PLAN.md` computed and stored —
