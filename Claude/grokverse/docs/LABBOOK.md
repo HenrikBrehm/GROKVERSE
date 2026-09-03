@@ -165,3 +165,39 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     interpretation rule for a non-damaging ablation), `docs/LIMITATIONS.md`,
     `docs/HUMAN_INTERPRETATION_TEMPLATE.md`, `docs/LABBOOK_TEMPLATE.md`, and the `PROGRESS.md` entry in
     the project's own format.
+
+## 2026-09-03 (later) — wave 1 complete, two defects found and fixed
+
+23. **All four recovery agents died** — two stalled on a watchdog, two on API 529 overload — but
+    substantially more of their work had landed than their final messages suggested. Measured rather
+    than assumed: `test_metrics.py` existed and passed 242 checks, `test_function_agreement.py` had been
+    repaired to the module's v1.1 API and passed 127, `logit_formula_fit` passed 122. Only
+    `tests/test_wave_fitting.py` was genuinely missing, so it was written directly rather than by a
+    fifth agent. One agent left a useful diagnosis before dying: a test failure it had hit was a Windows
+    MAX_PATH limit in the scratch directory, not a module bug.
+24. **Defect found in `wave_fitting.odd_harmonics_1_over_j` and fixed.** The model documented as "the
+    ideal-square-wave Fourier truncation" omitted the alternating sign `(-1)^((j-1)/2)`, so it was not
+    one. It fitted a square wave with R² = 0.571 — *worse than a plain sinusoid* (0.811), which is
+    impossible for a correct `1/j` truncation. With the sign restored it reaches **0.9499** against the
+    analytic `j ≤ 7` ceiling `(8/π²)(1 + 1/9 + 1/25 + 1/49) = 0.9496`, and matches the free
+    nine-parameter fit to four decimals. Found by writing the test, not by reading the code.
+25. **A caveat pinned rather than avoided.** At `p = 113` the odd-harmonic family of `k = 6, 19` and
+    `51` aliases onto the fundamental 18 (`3·6`, `5·19 → 18`, `7·51 → 18`), so those *wrong*
+    fundamentals fit a `k = 18` sinusoid perfectly. "The harmonic model fits at `k`" therefore does not
+    identify `k` as the fundamental — a caveat that bears directly on `frequency_sensitivity` and on H3,
+    now asserted in `tests/test_wave_fitting.py`.
+26. **The long-standing `test_core.py` failure is resolved, and a second defect it had masked.**
+    `fourier.harmonic_shape` is set-based, and six harmonics of the canonical fundamental set alias onto
+    other members of that set; those are subtracted from both shares, so a clean square wave reports an
+    even share of 0.083 against a true 0.0005 (≈165x) and a separation of 0.092 against the 0.10 the old
+    check demanded. The check asserted a property the statistic cannot have. It is replaced by checks on
+    the diagnosed behaviour plus checks that the replacement, `metrics.harmonic_shares` (per curve, own
+    fundamental, 0 collisions at prime `p`), reports even 0.0005 and separation 0.139. Because
+    `test_core.py` exits at its first failure, everything after that check had never run; fixing it
+    exposed a masked defect in the `u_a` reference check, which computed its reference in the stored
+    float32 while `effective_curves` works in float64 — a 1.9e-9 gap against a 1e-9 tolerance. The module
+    was right, the check was not.
+27. **Test suite state: 9 of 9 files pass, 1,006 checks** — derivations 47, driver 19,
+    function_agreement 127, logit_formula_fit 122, metrics 242, run_format_v2 114, statistics 94,
+    wave_fitting 116, core 125. This is the first point in the study at which the whole suite is green.
+    Wave 1 is complete; wave 2 may now begin.

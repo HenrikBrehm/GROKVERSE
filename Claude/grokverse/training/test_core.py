@@ -295,14 +295,49 @@ def check_harmonic_families():
               - shapes[("square", 0.0)]["ideal_square_odd_share"]) < 0.12)
     check("sinusoids put ~no energy at harmonics",
           abs(shapes[("sinusoid", 0.0)]["odd_minus_even"]) < 0.02)
-    check("odd-minus-even separates square from sinusoid",
-          shapes[("square", 0.0)]["odd_minus_even"]
-          > shapes[("sinusoid", 0.0)]["odd_minus_even"] + 0.10)
-    check("the separation survives noise that swamps the raw shares",
-          shapes[("square", 0.6)]["odd_minus_even"]
-          > shapes[("sinusoid", 0.6)]["odd_minus_even"] + 0.10)
-    check("even-harmonic control absorbs the noise (it rises with it)",
-          shapes[("sinusoid", 0.6)]["even_share"] > shapes[("sinusoid", 0.0)]["even_share"])
+    # --- fourier.harmonic_shape is SUPERSEDED (2026-09-03) -------------------
+    # It is defined on a SET of fundamentals, and inside the canonical set six harmonics
+    # alias onto other members (2*18->36, 7*18->13, 2*11->22, 7*11->36, 7*13->22, 2*56->1).
+    # Those land in `base_idx` and are subtracted from both shares, so a clean square wave
+    # reports even_share = 0.083 where the truth is 0.0005 -- inflated ~165x -- and the
+    # odd-minus-even separation falls to 0.092. The check that used to sit here demanded
+    # > 0.10 and therefore asserted a property this statistic cannot have; it was the one
+    # failing check in the suite. It is replaced by checks on the DIAGNOSED behaviour plus
+    # a check that the replacement, metrics.harmonic_shares (per curve, on that curve's OWN
+    # fundamental, collision-free at prime p), does separate. See docs/LEGACY_METRIC_AUDIT.md
+    # and docs/BASELINE.md.
+    sep = (shapes[("square", 0.0)]["odd_minus_even"]
+           - shapes[("sinusoid", 0.0)]["odd_minus_even"])
+    check("set-based shape: separation is degraded to ~0.09 by in-set aliasing collisions",
+          0.07 < sep < 0.10)
+    check("set-based shape: a clean square wave reports a spurious even share ~0.08",
+          0.06 < shapes[("square", 0.0)]["even_share"] < 0.10)
+    collisions = [(j, k) for k in FUND for j in (2, 3, 4, 5, 6, 7)
+                  if alias_frequency(j * k, p) in FUND]
+    check("set-based shape: the canonical fundamental set has exactly 6 in-set collisions",
+          len(collisions) == 6)
+
+    # the replacement, on the same synthetic data, gets the even share right and separates
+    from grokverse.analysis import metrics as _M
+    rng2 = np.random.default_rng(0)
+    per_curve = {}
+    for kind in ("sinusoid", "square"):
+        for noise in (0.0, 0.6):
+            W = synth(kind, noise, rng2)
+            sp = _M.power_spectrum(W, p)
+            hs = _M.harmonic_shares(sp["power"], sp["dominant_freq"], p)
+            per_curve[(kind, noise)] = {kk: float(np.median(vv)) for kk, vv in hs.items()
+                                        if isinstance(vv, np.ndarray) and vv.ndim == 1}
+            check(f"per-curve shape: no harmonic collisions for {kind} at noise {noise}",
+                  int(np.max(hs["n_collisions"])) == 0)
+    check("per-curve shape: a clean square wave has a near-zero even share (not 0.08)",
+          per_curve[("square", 0.0)]["even_share"] < 0.005)
+    check("per-curve shape: odd-minus-even separates square from sinusoid by > 0.10",
+          per_curve[("square", 0.0)]["odd_minus_even"]
+          > per_curve[("sinusoid", 0.0)]["odd_minus_even"] + 0.10)
+    check("per-curve shape: the separation survives noise that swamps the raw shares",
+          per_curve[("square", 0.6)]["odd_minus_even"]
+          > per_curve[("sinusoid", 0.6)]["odd_minus_even"] + 0.09)
     check("degenerate case is flagged via fundamental_power_fraction",
           harmonic_shape(np.ones(half), [1], p)["fundamental_power_fraction"] < 0.05)
 
@@ -332,11 +367,20 @@ def check_mlp_mechanism():
           cur["u_a"].shape == (p, cfg.d_mlp) and cur["out"].shape == (p, cfg.d_mlp))
 
     # Hand-computed reference: neuron i's a-curve is W_E[a] . W_in[:d, i].
+    # The reference must be taken in float64, as effective_curves does. Computing it in the
+    # stored float32 leaves a ~2e-9 rounding gap on a 128-term dot product, which is larger
+    # than the 1e-9 tolerance -- that was a defect of this check, not of the module, and it
+    # sat masked behind the harmonic-shape failure above until 2026-09-03.
     i, a = 3, 7
-    ref = float(state["W_E"][a] @ state["W_in"][:d, i])
-    check("u_a matches a hand-computed reference", abs(cur["u_a"][a, i] - ref) < 1e-9)
-    ref_b = float(state["W_E"][7] @ state["W_in"][d:, i])
-    check("u_b reads the SECOND half of W_in", abs(cur["u_b"][7, i] - ref_b) < 1e-9)
+    f64 = lambda x: np.asarray(x, dtype=np.float64)          # noqa: E731
+    ref = float(f64(state["W_E"][a]) @ f64(state["W_in"][:d, i]))
+    check("u_a matches a hand-computed reference (float64)",
+          abs(cur["u_a"][a, i] - ref) < 1e-12)
+    ref_b = float(f64(state["W_E"][7]) @ f64(state["W_in"][d:, i]))
+    check("u_b reads the SECOND half of W_in (float64)",
+          abs(cur["u_b"][7, i] - ref_b) < 1e-12)
+    check("the same reference taken in float32 agrees only to ~1e-8 (why float64 is used)",
+          abs(cur["u_a"][a, i] - float(state["W_E"][a] @ state["W_in"][:d, i])) < 1e-7)
 
     # And the curves must reconstruct the model's real forward pass.
     with torch.no_grad():

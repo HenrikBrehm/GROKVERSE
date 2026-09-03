@@ -64,6 +64,20 @@ discrete square wave sampled at odd `p` is not exactly antisymmetric, so it carr
 (`even_share = 0.083`). This is treated as a defect of the WIP harmonic-shape statistic, to be resolved
 in the metric-validity work (H3), not by loosening the threshold.
 
+**RESOLVED 2026-09-03.** `fourier.harmonic_shape` is superseded by
+`metrics.harmonic_shares`, which is defined per curve on that curve's **own** dominant
+frequency and is therefore collision-free at prime `p` (asserted). Measured on the same
+synthetic embeddings: the set-based statistic reports an even-harmonic share of **0.083**
+for a clean square wave, where the truth is **0.0005** — inflated about 165x by the six
+in-set collisions — and its separation is 0.092, below the 0.10 the old check demanded.
+The per-curve statistic reports even 0.0005, separation **0.139**, and 0 collisions in
+every case. The stale check was replaced by checks on the diagnosed behaviour of the old
+statistic plus a check that the replacement separates; the numbers above are pinned in
+`test_core.py`. Fixing it also revealed a **second, masked** defect: the `u_a` reference
+check computed its hand reference in the stored float32 while `effective_curves` works in
+float64, leaving a 1.9e-9 gap against a 1e-9 tolerance. The module was right; the check
+was not. `test_core.py` now passes in full (125 checks).
+
 ## Environment
 
 Windows 11, 12 logical CPUs, no GPU. Pinned single-thread step cost (40-step mean after 5 warm-up
