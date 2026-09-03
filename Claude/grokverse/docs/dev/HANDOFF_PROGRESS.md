@@ -6,10 +6,10 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 
 ## Stages
 
-- [ ] A — `analysis/causal_ablation.py` + tests green; committed —
+- [x] A — `analysis/causal_ablation.py` + tests green; committed — 91 checks; suite 14/14, 1,531; commit below
 - [ ] B — INTERFACES §14 spec for `h3_validity` written; module + tests green; committed —
 - [ ] C — `analysis/structure_over_time.py` + tests green; committed —
-- [ ] D — `tests/test_driver.py` 89–92 updated to a genuinely absent module name; suite green —
+- [x] D — `tests/test_driver.py` 89–92 made durable (asserts the mechanism, not module names); suite green — done with A
 - [ ] E1 — freeze commit named in `PREREGISTRATION.md` §12 and the labbook —
 - [ ] E2 — `run_analysis_chain.ps1 -SkipWait` launched over the primary block; `results/analysis_chain.log` shows the commit —
 - [ ] E3 — training chain finished (`matrix_launch.log`: `matrix chain finished`); `training/results/` committed —
@@ -36,7 +36,7 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 | 3 | tests for every load-bearing function | partly: 3 modules + §13 set missing | `tests/run_all.py` |
 | 4 | effective MLP weights analysed, not only `W_E` | code done, not run | `mlp_mechanism.py` |
 | 5 | hidden activations + output weights of both architectures | code done, not run | `transformer_mechanism.py` |
-| 6 | ≥ 2 causal ablations per architecture | **missing** (stage A) | |
+| 6 | ≥ 2 causal ablations per architecture | module done (9 MLP + 8 transformer ids), not yet run over the matrix | `analysis/causal_ablation.py` |
 | 7 | end-to-end logit fit, both architectures, all seeds | module done, run on 2/28 (stage E) | |
 | 8 | full-domain comparison over 12,769 pairs | module done, 1 pair of 10 (stage E/G) | |
 | 9 | evidence gate evaluated, branch named | **missing** (stage G1) | |

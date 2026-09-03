@@ -88,8 +88,21 @@ def main() -> None:
         # --- planning ------------------------------------------------------
         plan = driver.build_plan([txf, mlp], ["crossing", "final"], None, "nanda", 0)
         missing = {o.module for o in plan.outcomes if o.status == "missing"}
-        check("unimplemented modules are reported as missing, never skipped silently",
-              "causal_ablation" in missing and "structure_over_time" in missing)
+        # This used to name `causal_ablation` and `structure_over_time` literally, and so failed the
+        # day one of them was implemented (2026-09-03). The property worth pinning is the *mechanism*
+        # — an unimplemented module is surfaced, never dropped — so it is now asserted against a name
+        # that can never exist, plus the driver's own list resolved dynamically. It needs no edit as
+        # the remaining modules land.
+        check("a module that does not exist resolves to no entry point",
+              driver._load_entry({"module": "no_such_module_xyz", "needs_key_rule": False,
+                                  "arch": None}) is None)
+        unimportable = {s["module"] for s in driver.PER_RUN + driver.PER_CHECKPOINT
+                        if driver._load_entry(s) is None}
+        check("every module the driver lists but cannot import is reported missing, never skipped "
+              "silently", unimportable <= missing)
+        check("...and an implemented, architecture-agnostic module is planned instead",
+              "causal_ablation" not in missing
+              and any(c[1] == "causal_ablation" for c in plan.calls))
         skipped = {(o.run, o.module) for o in plan.outcomes if o.status == "skipped"}
         check("an MLP-only module is skipped on the transformer run",
               ("txf_x_arch25k", "mlp_mechanism") in skipped)
