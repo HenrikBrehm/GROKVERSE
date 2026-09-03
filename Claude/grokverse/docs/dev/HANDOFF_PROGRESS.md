@@ -7,7 +7,7 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 ## Stages
 
 - [x] A — `analysis/causal_ablation.py` + tests green; committed — 91 checks; suite 14/14, 1,531; commit below
-- [ ] B — INTERFACES §14 spec for `h3_validity` written; module + tests green; committed —
+- [x] B — INTERFACES §14 spec written first, then `analysis/h3_validity.py` + tests — 70 checks; suite 15/15, 1,601
 - [ ] C — `analysis/structure_over_time.py` + tests green; committed —
 - [x] D — `tests/test_driver.py` 89–92 made durable (asserts the mechanism, not module names); suite green — done with A
 - [ ] E1 — freeze commit named in `PREREGISTRATION.md` §12 and the labbook —
@@ -33,7 +33,7 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 |---|---|---|---|
 | 1 | mask methodology checked against the primary source | partly: audit done, Nanda/Doshi source notes only partly verified (labbook 30) | `docs/MASK_PROTOCOL_AUDIT.md` |
 | 2 | old/new restricted-excluded variants separated | done | `mask_protocols.py`, 197 checks |
-| 3 | tests for every load-bearing function | partly: 3 modules + §13 set missing | `tests/run_all.py` |
+| 3 | tests for every load-bearing function | partly: `structure_over_time` + the §13 set missing | `tests/run_all.py` (15 files, 1,601) |
 | 4 | effective MLP weights analysed, not only `W_E` | code done, not run | `mlp_mechanism.py` |
 | 5 | hidden activations + output weights of both architectures | code done, not run | `transformer_mechanism.py` |
 | 6 | ≥ 2 causal ablations per architecture | module done (9 MLP + 8 transformer ids), not yet run over the matrix | `analysis/causal_ablation.py` |

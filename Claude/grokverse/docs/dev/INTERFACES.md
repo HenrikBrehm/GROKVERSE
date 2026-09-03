@@ -344,3 +344,54 @@ which the metric exceeds `init + 3·(its std over the first two checkpoints)`.
   its test split, vs shuffled-label control), effective rank / SVD spectrum of `hidden` and of the logits
   (with the Khanh caveat), cross-seed consistency of the found structure (CKA between seeds), and the
   causal test of removing the top-r singular directions vs random directions.
+
+## 14. `analysis/h3_validity.py` — is top-k concentration a waveform artifact? (H3, the primary contribution)
+
+**Written 2026-09-03, at implementation time — a disclosed deviation.** Every other section of this
+contract was written before its module; this one was missing although `analysis/driver.py` already
+listed `h3_validity` among its per-checkpoint modules. It is derived from `docs/PREREGISTRATION.md` §3
+(H3a/H3b/H3c, their controls and their refutation criteria) and master prompt §12, both of which
+predate any run, so no threshold is invented here. The deviation is recorded in `docs/LABBOOK.md`.
+
+H3 asks whether the **metric** is at fault: does top-k Fourier concentration score a clean
+square-wave-like circuit as *less structured* than a sinusoidal one, although both are equally
+organized? A square wave at fundamental `k` puts its power on the odd harmonics `3k, 5k, 7k`, which at
+`p = 113` alias to scattered indices a top-8 metric cannot see.
+
+`analyse(run_dir, step, key_rule, seed, n_control)` writes `analysis/h3_validity/<tag>.json` (+ npz).
+
+**H3a — the artifact, on synthetic populations.** From this checkpoint's *own* fitted per-neuron
+parameters (`wave_fitting` on `u_a`, `u_b`), build two populations at the **same** frequencies, phases
+and amplitudes: (i) pure sinusoids `A cos(w_k n − φ)` and (ii) discrete square waves
+`A sign(cos(w_k n − φ))` (`metrics.discrete_square_reference`'s convention). Report for each: top-1 /
+top-4 / top-8 concentration, family fraction, and the odd-minus-even harmonic shape, all per curve and
+summarized. `waveform_sensitivity = top8(sinusoid) − top8(square)` is the artifact, in this run's own
+units. Nothing about the trained model is claimed from it; it is a property **of the metric**.
+
+**H3b — structure measured harmonic-aware.** Per neuron and per curve: the **family fraction** (own
+dominant frequency plus its aliased odd harmonics up to 7) against the **top-1 fraction**, each with
+its two mandatory controls — the **cardinality-matched top-m** share of the same curve at `m =
+|family|`, and a **random-m** null over `n_control` seeded draws. Also the structured-neuron fraction
+under the family definition and under the top-1 definition (`mlp_mechanism.structured_neuron_definitions`,
+already computed by the mechanism modules). Those two per-run fractions are the quantities stage G
+pairs across seeds to test H3₀; this module does **not** compare architectures.
+
+**H3c — the legacy number, descriptive only.** `fourier.harmonic_family_concentration` on the
+embedding object (`key_frequencies.embedding_matrix`, so `mlp_twohot`'s documented substitute is used
+where there is no `W_E`), over a sweep of `n_f ∈ {1, 2, 4, 8}` fundamentals rather than one invented
+choice, each carrying its matched top-m and random-null control. `W_E` alone decides nothing for the
+MLP, which reads it through two halves of `W_in`; the module records that next to the number.
+
+**The forbidden criterion, asserted rather than avoided.** `family_fraction ≤ matched_top_m_fraction`
+holds by construction (top-m is the argmax over sets of size m), so "the family beats matched top-m"
+is unsatisfiable and must never be used as support for H3. Every output carries
+`family_minus_matched_top_m` (≤ 0) and the note that the discriminating statistic is the
+odd-versus-even harmonic **shape**, not the concentration. A test asserts the inequality.
+
+**Tests.** A synthetic population of pure sinusoids and one of square waves at identical `(k, φ, A)`:
+top-8 concentration is strictly lower for the squares while both have the same fundamentals →
+`waveform_sensitivity > 0`; the odd-minus-even shape separates them in the opposite direction; the
+family fraction never exceeds the matched top-m for either; the random-m null sits far below both; a
+population of *noise* shows no such separation (the control that must not pass); and the aliasing
+caveat of `tests/test_wave_fitting.py` (at `p = 113` the families of `k = 6, 19, 51` collapse onto 18)
+is re-asserted here, because it bounds what H3b can claim.
