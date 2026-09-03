@@ -9,3 +9,5 @@ docs.zip
 archive/
 web/tsconfig.tsbuildinfo
 web/verify-explorer.png
+docs/sources/_raw/
+docs/sources/_tmp/
