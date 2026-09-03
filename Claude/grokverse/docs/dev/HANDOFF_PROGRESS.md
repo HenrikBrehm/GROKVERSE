@@ -26,7 +26,7 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [ ] G7 — `RESULTS.md`, `README.md`, `docs/LIMITATIONS.md`, `PROGRESS.md` —
 - [ ] G8 — `AI_DISCLOSURE.md` per master prompt §22, human parts as placeholders —
 - [ ] G9 — `docs/HUMAN_DECISIONS.md` sensitivity notes added, status untouched —
-- [ ] H — `docs/dev/EXPLORER_UPDATE_PLAN.md`; labbook, Obsidian, §25 block; final commit —
+- [~] H — `docs/dev/EXPLORER_UPDATE_PLAN.md` written (web/ untouched; approval box open); labbook, Obsidian, §25 block still to come
 
 ## Master prompt §23 — Definition of Done (19 items)
 
