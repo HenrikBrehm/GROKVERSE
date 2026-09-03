@@ -357,7 +357,7 @@ def main() -> None:
         ck = Path(args.run_dir) / "checkpoints.json"
         if not ck.exists():
             raise SystemExit(f"{args.run_dir}: no checkpoints.json (legacy run?)")
-        steps = [int(e["step"]) for e in json.loads(ck.read_text())["checkpoints"]]
+        steps = [int(e["step"]) for e in json.loads(ck.read_text())]
     for s in steps:
         payload, path = analyse(args.run_dir, s, args.key_rule, args.seed, args.n_control)
         ua = payload["results"]["h3a_waveform_sensitivity"]["per_curve"]["u_a"]
