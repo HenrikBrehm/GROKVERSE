@@ -201,3 +201,24 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     function_agreement 127, logit_formula_fit 122, metrics 242, run_format_v2 114, statistics 94,
     wave_fitting 116, core 125. This is the first point in the study at which the whole suite is green.
     Wave 1 is complete; wave 2 may now begin.
+28. **Wave 2 started (2026-09-03).** With wave 1 green, three agents were launched for the first wave-2
+    layer: the `mlp_mechanism` extension, the new `key_frequencies` module, and the `mask_protocols` /
+    `progress_measures` extension. To unblock the last two, `docs/MASK_PROTOCOL_AUDIT.md` was written
+    first: it answers all nine questions of master prompt §6 for the published protocol and for each
+    implemented variant, with the computed counts — the legacy outer-product mask keeps **289**
+    components where the released Nanda operator keeps **17**, and deletes **3,360** of 12,769 cells
+    (26.3 %) where the published one deletes **16**. That is 17× too much freedom and 210× too much
+    deletion, both biased toward the reported conclusion. `same_frequency_block` is renamed
+    `paper_literal_2x2_block` in reports; `sum_directions_only` matches the released operator.
+    `nanda_exact` may now be implemented because the only unresolved item is the *split* of the paper's
+    restricted-loss figure, which is handled by reporting all three splits rather than guessing one.
+29. **Documentation state.** Twelve of the thirteen documents master prompt §18 requires now exist; only
+    `CLAIM_EVIDENCE_TABLE.md` is missing, and it cannot be written before there are results. Added since
+    the last entry: `PREREGISTRATION.md`, `STATISTICAL_ANALYSIS_PLAN.md`, `CAUSAL_ABLATION_PLAN.md`,
+    `METHODS.md` (with a verification-status column, so a method resting on an unverified quote is
+    visible), `NOVELTY_AND_RELATED_WORK.md`, `MASK_PROTOCOL_AUDIT.md`, `LIMITATIONS.md`,
+    `HUMAN_INTERPRETATION_TEMPLATE.md`, `LABBOOK_TEMPLATE.md`, `HUMAN_DECISIONS.md`.
+30. **Still open and honestly outstanding:** the three audit documents remain unreviewed and the Nanda
+    and Doshi source notes only partly verified (all six reviewers and both verifiers died to usage
+    limits or API overload); `METHODS.md` marks every row that rests on them. The confound block was
+    still running at 16:51 UTC, ten hours in on its first eight runs.
