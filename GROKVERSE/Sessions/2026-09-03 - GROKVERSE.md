@@ -83,3 +83,77 @@ input parametrization, the evidence gate, and the analysis-code freeze after a p
 
 [[Primary architecture run matrix]] · [[2026-09-02 Architecture study design decisions]] ·
 [[ReLU as the multiplier in modular addition]] · [[Grokking measurement pitfalls]]
+
+
+---
+
+## Update — evening of 2026-09-03 (editor crash, recovery, transformer mechanism, handoff)
+
+*Appended, not rewritten. Model: Fable 5.1 for the last part; Opus 5 before the switch. All work by Claude Code.*
+
+### What we worked on
+
+Recovery after a Visual Studio crash mid-wave-2, then the transformer mechanism module (master prompt §8,
+INTERFACES §6), then — at the author's request — preparing everything so the next session can continue
+unattended. `Claude/grokverse/docs/LABBOOK.md` entries 31–44 are the primary record.
+
+### Changes
+
+- `tests/test_mask_protocols.py`: two defects fixed (a check asserting `acc == 1/p` on annihilated logits,
+  and a masked `IndexError` behind it). 197 checks.
+- New `analysis/transformer_mechanism.py` + `tests/test_transformer_mechanism.py` (67 checks): exact forward
+  decomposition (2.8e-13 vs the float64 model), mean-attention effective curves with `additivity_r2`,
+  attention report, causal head ablation, key-subspace variance with a size-matched random null,
+  direction spectra. Every §5 battery reused, none re-implemented.
+- `mlp_mechanism` / `mlp_mechanism_activation`: optional `act=` and a `[p,p,p]` bias term so the
+  transformer's *true* hidden layer runs through the same code paths as the MLP.
+- `key_frequencies.operand_curves`: transformer placeholder replaced by the real effective curves.
+- `training/run_analysis_chain.ps1` (detached driver launcher), `docs/dev/HANDOFF_2026-09-04.md`,
+  INTERFACES §6 amendment, `HUMAN_DECISIONS.md` restored after an accidental delete.
+- Machine: standby/hibernate disabled (`powercfg`) — the cause of the 7.6 h overnight stall.
+
+### Experiments
+
+None. One pipeline check only: `transformer_mechanism.analyse` on transformer seed 0, step 25 000
+(29 s; forward check exact; logit-variance shares sum to 1). Produced by unfrozen code — **not a result**.
+Training: primary block 20/20 complete; `confound` 8/18 running since 17:17 UTC; `param_matched`,
+`twohot` queued. ETA all blocks ≈ midday 2026-09-04.
+
+### Learnings
+
+- The transformer's logits split exactly as `direct_path + Σ_f h_f (W_out W_U)[f]` — the same additive
+  law as the MLP, which is why one `logit_contributions` serves both. But its pre-activation is only
+  *approximately* additive in the operand curves; the MLP's is exactly so. `additivity_r2` is the
+  asymmetry, and it must never be compared as if symmetric.
+- When a test fails, ask first whether the *check* is wrong: three times this week the module was right
+  (entries 24, 26, 33).
+
+### Problems / Solutions
+
+- Crash killed the training chain → restarted; zero completed runs lost, ~10 h CPU lost; verified by
+  manifest and parent PIDs (the doubled process list was a venv shim).
+- `h3_validity` is listed by the driver but has no INTERFACES spec → handoff says: write the spec first.
+
+### Decisions
+
+- Store no `[p,p,d_mlp]` tensors in analysis npz files (INTERFACES §6 amendment; master prompt §20).
+- Work directly, not via subagents, after repeated orphaned work (labbook 19, 23).
+- `HUMAN_DECISIONS.md` restored with status unchanged (option B): the gate labels results, it does not
+  block work.
+
+### Open Tasks
+
+- [ ] Stage A–C: `causal_ablation.py`, `h3_validity.py` (spec first), `structure_over_time.py` + tests.
+- [ ] Stage D: update `tests/test_driver.py` 89–92 when A/C land.
+- [ ] Stage E: freeze (fill PREREGISTRATION §12), launch `run_analysis_chain.ps1` for the primary block,
+      then for everything after training ends; re-run the seed-0 pilot outputs.
+- [ ] Stage F: aggregate, decision tree, statistics, `CLAIM_EVIDENCE_TABLE.md`, `RESULTS.md`/`README.md`.
+- [ ] Stage G: explorer, only after human review.
+- [ ] Commit `training/results/` once the training chain has finished.
+- [ ] **Human**: `HUMAN_DECISIONS.md` A–E + F + sign-off; `AI_DISCLOSURE.md` placeholders; final
+      interpretation in own words; the multiplication runs.
+
+### Related Notes
+
+[[HANDOFF_2026-09-04]] (in `Claude/grokverse/docs/dev/`) · [[Primary architecture run matrix]] ·
+[[ReLU as the multiplier in modular addition]] · [[Mechanistic Interpretability]]

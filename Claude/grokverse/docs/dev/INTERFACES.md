@@ -210,6 +210,21 @@ Writes `analysis/transformer_mechanism/<tag>.json` + `.npz`. Tests: on a hand-bu
 an all-zero head changes nothing; the key-subspace variance of a synthetic `cos(w_k(a+b))` field is 1 for
 k and 0 for other k.
 
+**Amendment, 2026-09-03 (at implementation; labbook entries 34–36).** Two deviations from the paragraphs
+above, both recorded in every output file's `params` block so no number can carry them silently:
+
+1. **Storage.** The npz does *not* hold `hidden`, `r_pre` or `r_post`. `hidden` alone is
+   `113² · 512 · 4 B = 26 MB` per checkpoint (~1 GB over the study) and is a deterministic function of a
+   checkpoint whose SHA256 is already in the envelope, so master prompt §20 ("do not save unnecessarily
+   large files") governs. Per-neuron, per-head and per-frequency arrays plus the read-out attention
+   tensor *are* stored; `forward_decomposition` still returns the full tensors in memory.
+2. **`activation_analysis` on the true `hidden`.** §5's activation battery rebuilds the activation from
+   the curves, which is exact for the MLP and an approximation for the transformer. Rather than
+   re-implement the battery, `sum_dependence`, `logit_contributions` and `activation_analysis` gained an
+   optional `act=` argument (and `logit_contributions` a `[p,p,p]` bias term, for the direct path), both
+   defaulting to the previous behaviour. The transformer passes its true `hidden`; the two architectures
+   are therefore measured by literally the same code paths, which is what §17 asks for.
+
 ## 7. `analysis/logit_formula_fit.py` — end-to-end fit to the full logit tensor (mandatory, Phase 5)
 
 Input: centered logits `L [p,p,p]` (`center_logits`), a frequency set `K` (from `key_frequencies`),

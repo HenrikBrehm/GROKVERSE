@@ -154,3 +154,58 @@ aggregation modules against the frozen interface contract.
 `Claude/grokverse/docs/LABBOOK.md` · `docs/dev/PREREG_BRIEF.md` · `docs/BASELINE.md` ·
 `docs/CURRENT_EVIDENCE_AUDIT.md` · `docs/sources/` · `training/runs/*_arch25k/` ·
 commits `25890dc`, `84d449d`, `d53cf52`, `d7b74bc`, `aa536d2`, `aab1ee4`, `6a409a0`, `908222f`
+
+
+## 2026-09-03 (evening)
+
+### What was done
+
+- Recovered from an editor crash: the three interrupted wave-2 agents' work was complete on disk; the one
+  failing test file (`test_mask_protocols.py`) had two defects in the *tests*, both fixed.
+- `analysis/transformer_mechanism.py` written and tested (67 checks): the transformer now undergoes the
+  same mechanism batteries as the MLP through the same functions (master prompt §8, §17).
+- Shared code generalized (`act=`, `[p,p,p]` bias term) instead of duplicated; `key_frequencies`
+  transformer placeholder closed.
+- Handoff prepared for the next session: `docs/dev/HANDOFF_2026-09-04.md`, `run_analysis_chain.ps1`,
+  standby disabled, `HUMAN_DECISIONS.md` restored, memory note, everything committed on `arch-study`.
+
+### Results
+
+- None of the study. Test suite 13/13 files, 1,438 checks. Primary training block 20/20 complete;
+  control blocks training overnight (`confound` 8/18 at 17:17 UTC start).
+- Pipeline check only: `transformer_mechanism.analyse` on seed 0 / step 25 000 — forward decomposition
+  exact, variance shares sum to 1. Unfrozen code; not a result.
+
+### Decisions
+
+- No large tensors in analysis outputs (INTERFACES §6 amendment).
+- No subagents for the remaining modules; commit after every green stage.
+- Restore rather than drop the approval gate; it labels results and never blocked work.
+
+### Problems
+
+- Machine standby after 15 min idle was the cause of the earlier 7.6 h stall — now disabled.
+- `h3_validity` has no interface specification; the §13 modules (`aggregate`, `figures_study`,
+  `decision_tree`) were not counted as missing before tonight.
+
+### Solutions
+
+- Everything is measured and written into the handoff and labbook entries 31–44 so the next session
+  starts from facts, not recollection.
+
+### Open tasks
+
+- [ ] `causal_ablation.py`, `h3_validity.py` (spec first), `structure_over_time.py`, driver-test update.
+- [ ] Freeze the analysis code (PREREGISTRATION §12), run the driver over the primary block, then all.
+- [ ] Aggregate, decision tree, statistics, `CLAIM_EVIDENCE_TABLE.md`, `RESULTS.md`, `README.md`.
+- [ ] **Human**: approve `HUMAN_DECISIONS.md`, fill section F and the `AI_DISCLOSURE.md` placeholders,
+      write the interpretation.
+
+### Next step
+
+Stage A of the handoff: `analysis/causal_ablation.py` with its tests, then commit.
+
+### Evidence
+
+`Claude/grokverse/docs/LABBOOK.md` entries 31–44 · `Claude/grokverse/docs/dev/HANDOFF_2026-09-04.md` ·
+`training/tests/run_all.py` · `training/results/matrix_launch.log` · `training/runs/*_arch25k/manifest.json`

@@ -38,15 +38,31 @@ and held-out points together). Nanda et al. evaluate restricted loss on test
 data and excluded loss on train data; the full-grid variant carries the same
 divergence signature and is what RESULTS.md §2 describes.
 
+TWO PATHS, both in this module:
+
+1. ``compute(cfg)`` — the ORIGINAL re-train path, unchanged. It re-trains
+   deterministically, measures the ``IMPLEMENTED`` variants on the FULL grid, and
+   fills the frozen explorer's top-level ``restricted_loss``/``excluded_loss``
+   keys from ``TOP_LEVEL_PROTOCOL``. Legacy runs use this.
+2. ``compute_from_checkpoints(run_dir)`` — the run-format-v2 path (INTERFACES
+   §10). NO re-training: it reads ``checkpoints.json``, fixes the key set once
+   from the FINAL checkpoint, and measures every implemented protocol *and* the
+   five named functions of ``docs/MASK_PROTOCOL_AUDIT.md`` §4 on every
+   checkpoint, reporting each loss on all three splits (``test``, ``train``,
+   ``all``) with the split labelled. Writes
+   ``analysis/progress_measures/all_checkpoints.json``.
+
 Usage (from training/) — pass the SAME --steps as the recorded run:
     python -m grokverse.analysis.progress_measures --config grokfast --train-frac 0.5 --steps 8000 --seed 0 --early-stop-acc 0.98
     python -m grokverse.analysis.progress_measures --config nanda --steps 40000 --seed 0 --early-stop-acc 0.95   # canonical (slow)
+    python -m grokverse.analysis.progress_measures --from-checkpoints runs/<run_id>   # v2 runs, no re-training
 """
 from __future__ import annotations
 
 import argparse
 import copy
 import json
+from pathlib import Path
 
 import matplotlib
 
@@ -56,14 +72,21 @@ import numpy as np  # noqa: E402
 import torch  # noqa: E402
 import torch.nn.functional as F  # noqa: E402
 
+from ..checkpoints import list_checkpoints  # noqa: E402
 from ..config import PRESETS, Config, get_config  # noqa: E402
 from ..data import make_dataset  # noqa: E402
 from ..models import build_model  # noqa: E402
 from ..seed import set_seed  # noqa: E402
 from ..train import apply_grokfast, detect_transition  # noqa: E402
 from ..utils import config_diff, log_step_schedule, runs_dir  # noqa: E402
+from .common import (envelope, grid_logits, load_model_at,  # noqa: E402
+                     masked_ce_and_acc, split_masks, write_result)
 from .fourier import dominant_frequencies, fourier_basis  # noqa: E402
-from .mask_protocols import IMPLEMENTED, build_protocol  # noqa: E402
+from .mask_protocols import (ALL_IMPLEMENTED, IMPLEMENTED, SPLITS,  # noqa: E402
+                             build_protocol, full_grid_extension_excluded_loss,
+                             full_grid_extension_restricted_loss,
+                             legacy_broad_mask_variant, nanda_exact_excluded_loss,
+                             nanda_exact_restricted_loss, per_frequency_shares)
 
 
 # --------------------------------------------------------------------------- #
@@ -312,6 +335,264 @@ def plot(res: dict, out_path) -> None:
     plt.close(fig)
 
 
+
+# --------------------------------------------------------------------------- #
+# Checkpoint path (INTERFACES §10): every protocol on every saved checkpoint,   #
+# NO re-training. The re-train path above is untouched — legacy runs use it.    #
+# --------------------------------------------------------------------------- #
+MODULE = "progress_measures"
+MODULE_VERSION = "2.0"
+
+#: Output tag: ``<run_dir>/analysis/progress_measures/all_checkpoints.json``.
+FROM_CHECKPOINTS_TAG = "all_checkpoints"
+
+#: Pre-registered primary key-frequency rule (INTERFACES §4, PREREGISTRATION §4.3).
+#: NOT the legacy top-8 — the audit's §1 row 7 records that the top-8 cap binds on
+#: every legacy run, so that count was never data-determined.
+DEFAULT_KEY_RULE = "nanda"
+
+#: Used only when ``analysis.key_frequencies`` cannot be imported. Recorded in the
+#: output as ``key_selection.fallback_used`` with the reason, never silently.
+FALLBACK_KEY_RULE = "embedding_top8"
+
+
+def _select_key_frequencies(run_dir, step, key_rule: str, state: dict, p: int) -> tuple[list[int], dict]:
+    """Key set fixed ONCE from the final checkpoint (Nanda's protocol, audit §1 row 7).
+
+    Delegates to ``analysis.key_frequencies.select`` (INTERFACES §4) when that module
+    exists. If it cannot be imported the legacy ``embedding_top8`` rule is used and the
+    result records ``fallback_used=True`` together with the import error and the fact
+    that the top-8 **cap** is a fixed number, not a measurement.
+    """
+    try:
+        from . import key_frequencies  # noqa: WPS433 — optional module (INTERFACES §4)
+    except Exception as exc:          # noqa: BLE001 — an unimportable module is "absent"
+        reason = f"{type(exc).__name__}: {exc}"
+        key_frequencies = None
+    else:
+        reason = None
+
+    if key_frequencies is not None:
+        sel = key_frequencies.select(run_dir, step, key_rule)
+        ks = [int(k) for k in sel["key_frequencies"]]
+        info = {k: v for k, v in sel.items() if not isinstance(v, np.ndarray)}
+        return ks, {**info, "key_rule": key_rule, "key_frequencies": ks,
+                    "source": "analysis.key_frequencies.select", "fallback_used": False,
+                    "fixed_from_step": step}
+
+    if "W_E" not in state:
+        raise ValueError(
+            f"{run_dir}: analysis.key_frequencies is unavailable ({reason}) and this model "
+            "has no W_E, so the embedding_top8 fallback is undefined. Install/await "
+            "analysis.key_frequencies (INTERFACES §4) or pass an explicit key set.")
+    dom = dominant_frequencies(np.asarray(state["W_E"], dtype=np.float64)[:p], p)
+    ks = [int(k) for k in dom["dominant"]]
+    return ks, {
+        "key_rule": FALLBACK_KEY_RULE,
+        "key_frequencies": ks,
+        "source": "analysis.fourier.dominant_frequencies on W_E[:p]",
+        "fallback_used": True,
+        "fallback_reason": f"analysis.key_frequencies not importable ({reason})",
+        "requested_key_rule": key_rule,
+        "fixed_from_step": step,
+        "threshold": dom["threshold"], "max_k": dom["max_k"], "n_keep": dom["n_keep"],
+        "n_freqs_for_threshold": dom["n_freqs_for_threshold"],
+        "cap_binding": dom["cap_binding"],
+        "dominant_fraction": dom["dominant_fraction"],
+        "note": ("embedding_top8 caps the count at 8; audit §1 row 7 records that the cap "
+                 "binds on every legacy run, so this count is FIXED, not measured."),
+    }
+
+
+def _split_masks_dict(cfg: Config) -> dict[str, np.ndarray]:
+    train_mask, test_mask = split_masks(cfg)
+    return {"test": test_mask, "train": train_mask,
+            "all": np.ones((cfg.p, cfg.p), dtype=bool)}
+
+
+def _eval_all_splits(L: np.ndarray, masks: dict[str, np.ndarray], p: int) -> dict:
+    out = {}
+    for name, m in masks.items():
+        ce, acc = masked_ce_and_acc(L, m, p)
+        out[name] = {"loss": ce, "accuracy": acc, "n_cells": int(m.sum())}
+    return out
+
+
+def compute_from_checkpoints(run_dir, key_rule: str = DEFAULT_KEY_RULE,
+                             protocols: tuple[str, ...] = ALL_IMPLEMENTED,
+                             per_frequency: bool = True,
+                             write: bool = True) -> dict:
+    """Every implemented protocol on EVERY checkpoint of a v2 run — no re-training.
+
+    Differences from ``compute`` (which stays exactly as it was, for legacy runs):
+
+    * the states come from ``checkpoints.json``, not from a deterministic re-train,
+      so nothing depends on reproducing a training grid;
+    * the key set is fixed ONCE from the FINAL checkpoint by ``key_rule``
+      (``analysis.key_frequencies.select``, else the ``embedding_top8`` fallback with
+      a recorded note) and applied unchanged to every earlier checkpoint — Nanda's
+      protocol (audit §1 row 7; Colab ``get_metrics`` reuses the global ``key_freqs``);
+    * every loss is reported on **all three splits** (``test``, ``train``, ``all``)
+      with the split labelled, so no number travels without its convention;
+    * the five named functions of MASK_PROTOCOL_AUDIT §4 are called directly, so the
+      published operator, our full-grid extension and the legacy mask are measured by
+      the same code path a caller would use.
+
+    Writes ``<run_dir>/analysis/progress_measures/all_checkpoints.json`` through
+    ``common.write_result``. Returns the payload.
+    """
+    run_dir = Path(run_dir)
+    unknown = [n for n in protocols if n not in ALL_IMPLEMENTED]
+    if unknown:
+        raise ValueError(f"unknown protocol(s) {unknown}; choices: {list(ALL_IMPLEMENTED)}")
+
+    entries = list_checkpoints(run_dir)
+    if not entries:
+        raise ValueError(f"{run_dir}/checkpoints.json is empty — nothing to measure")
+    final_step = int(entries[-1]["step"])
+
+    cfg, _model, final_state, final_meta = load_model_at(run_dir, final_step)
+    p = cfg.p
+    if cfg.task != "add":
+        raise ValueError(
+            f"{final_meta['run_id']}: task {cfg.task!r} — the split evaluation labels cells "
+            "(a+b) mod p (common.masked_ce_and_acc); only modular addition is defined here")
+    key_freqs, key_info = _select_key_frequencies(run_dir, final_step, key_rule, final_state, p)
+
+    Fb, _ = fourier_basis(p)
+    masks = _split_masks_dict(cfg)
+    # Protocols whose numbers do NOT come from a named §4 function.
+    table_only = [n for n in protocols if n not in ("legacy_broad_mask", "nanda_exact")]
+
+    checkpoints: list[dict] = []
+    for entry in entries:
+        step = int(entry["step"])
+        cfg_i, model_i, _state_i, meta_i = load_model_at(run_dir, step)
+        L = grid_logits(model_i, cfg_i)
+        Lhat = fwd2d(L, Fb)
+
+        # --- the five named functions of MASK_PROTOCOL_AUDIT §4 ---
+        functions = {
+            "nanda_exact_restricted_loss":
+                nanda_exact_restricted_loss(L, key_freqs, cfg_i),
+            "nanda_exact_excluded_loss":
+                nanda_exact_excluded_loss(L, key_freqs, cfg_i, per_frequency=per_frequency),
+            "full_grid_extension_restricted_loss":
+                full_grid_extension_restricted_loss(L, key_freqs, cfg_i),
+            "full_grid_extension_excluded_loss":
+                full_grid_extension_excluded_loss(L, key_freqs, cfg_i),
+            "legacy_broad_mask_variant_restricted":
+                legacy_broad_mask_variant(L, key_freqs, cfg_i, which="restricted"),
+            "legacy_broad_mask_variant_excluded":
+                legacy_broad_mask_variant(L, key_freqs, cfg_i, which="excluded"),
+        }
+
+        # --- the protocol table (same splits, one row per operator) ---
+        table: dict[str, dict] = {}
+        if "legacy_broad_mask" in protocols:
+            table["legacy_broad_mask"] = {
+                "restricted": functions["legacy_broad_mask_variant_restricted"]["splits"],
+                "excluded": functions["legacy_broad_mask_variant_excluded"]["splits"],
+                **build_protocol("legacy_broad_mask", p, key_freqs).describe(),
+            }
+        if "nanda_exact" in protocols:
+            table["nanda_exact"] = {
+                "restricted": functions["nanda_exact_restricted_loss"]["splits"],
+                "excluded": functions["nanda_exact_excluded_loss"]["splits"],
+                **build_protocol("nanda_exact", p, key_freqs, split="all").describe(),
+            }
+        for name in table_only:
+            pr = build_protocol(name, p, key_freqs)
+            table[name] = {
+                "restricted": _eval_all_splits(inv2d(pr.restrict(Lhat), Fb), masks, p),
+                "excluded": _eval_all_splits(inv2d(pr.exclude(Lhat), Fb), masks, p),
+                **pr.describe(),
+            }
+
+        checkpoints.append({
+            "step": step,
+            "kind": entry.get("kind"),
+            "checkpoint_file": entry.get("path"),
+            "checkpoint_sha256": entry.get("sha256"),
+            "full_loss": _eval_all_splits(L, masks, p),
+            "protocols": table,
+            "functions": functions,
+            "per_frequency_shares": per_frequency_shares(Lhat, key_freqs),
+        })
+        print(f"[from-checkpoints] step {step:>6d}  "
+              f"full(all)={checkpoints[-1]['full_loss']['all']['loss']:.5f}", flush=True)
+
+    params = {
+        "key_rule": key_rule,
+        "key_frequencies": key_freqs,
+        "key_selection": key_info,
+        "key_frequencies_fixed_from": {"step": final_step, "role": "final checkpoint"},
+        "protocols": list(protocols),
+        "per_frequency": bool(per_frequency),
+        "splits_reported": list(SPLITS),
+        "n_checkpoints": len(entries),
+        "retrained": False,
+        "loss": "cross-entropy, float64, on the model's own train/test split "
+                "(common.masked_ce_and_acc)",
+        "audit_reference": "docs/MASK_PROTOCOL_AUDIT.md §4; docs/dev/INTERFACES.md §10",
+    }
+    meta_all = {**final_meta, "step": FROM_CHECKPOINTS_TAG,
+                "checkpoint_file": None, "checkpoint_sha256": None}
+    payload = envelope(MODULE, MODULE_VERSION, meta_all, params)
+    payload["results"] = {
+        "steps": [c["step"] for c in checkpoints],
+        "checkpoints": checkpoints,
+        "final_step": final_step,
+        "top_level_protocol_note": (
+            "This file has NO top-level restricted_loss/excluded_loss keys. Every number "
+            "is under checkpoints[].protocols[<name>][restricted|excluded][<split>] or "
+            "checkpoints[].functions[<function name>], always with its protocol and split. "
+            f"The frozen explorer's keys come from {TOP_LEVEL_PROTOCOL!r} via compute()."),
+    }
+    if write:
+        path = write_result(run_dir, MODULE, FROM_CHECKPOINTS_TAG, payload)
+        payload["output_path"] = str(path)
+        print(f"[saved] {path}", flush=True)
+    return payload
+
+
+def from_checkpoints_summary(payload: dict, step: int | None = None) -> dict:
+    """Compact legacy-vs-exact contrast at one checkpoint (default: the last one)."""
+    cps = payload["results"]["checkpoints"]
+    cp = cps[-1] if step is None else next(c for c in cps if c["step"] == int(step))
+    fn = cp["functions"]
+    return {
+        "run_id": payload["run_id"],
+        "step": cp["step"],
+        "key_frequencies": payload["params"]["key_frequencies"],
+        "key_rule": payload["params"]["key_selection"]["key_rule"],
+        "key_rule_fallback_used": payload["params"]["key_selection"]["fallback_used"],
+        "full_loss": {s: cp["full_loss"][s]["loss"] for s in SPLITS},
+        "legacy_broad_mask": {
+            "restricted": {s: fn["legacy_broad_mask_variant_restricted"]["splits"][s]["loss"]
+                           for s in SPLITS},
+            "excluded": {s: fn["legacy_broad_mask_variant_excluded"]["splits"][s]["loss"]
+                         for s in SPLITS},
+            "n_kept": fn["legacy_broad_mask_variant_restricted"]["n_components_kept_by_restricted"],
+            "n_removed": fn["legacy_broad_mask_variant_excluded"]["n_components_removed_by_excluded"],
+            "is_reproduction": False,
+        },
+        "nanda_exact": {
+            "restricted": {s: fn["nanda_exact_restricted_loss"]["splits"][s]["loss"]
+                           for s in SPLITS},
+            "restricted_quoted_split": fn["nanda_exact_restricted_loss"]["quoted_split"],
+            "restricted_paper_split": fn["nanda_exact_restricted_loss"]["paper_split"],
+            "excluded": {s: fn["nanda_exact_excluded_loss"]["splits"][s]["loss"]
+                         for s in SPLITS},
+            "excluded_split": fn["nanda_exact_excluded_loss"]["split"],
+            "n_kept": fn["nanda_exact_restricted_loss"]["n_components_kept_by_restricted"],
+            "n_removed": fn["nanda_exact_excluded_loss"]["n_components_removed_by_excluded"],
+        },
+        "sum_direction_share_of_nonconstant_power": cp["per_frequency_shares"]["sum_share_total"],
+        "diff_direction_share_of_nonconstant_power": cp["per_frequency_shares"]["diff_share_total"],
+    }
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Restricted/excluded loss progress measures")
     ap.add_argument("--config", default="grokfast", choices=list(PRESETS))
@@ -321,8 +602,32 @@ def main() -> None:
     ap.add_argument("--steps", type=int, default=None)
     ap.add_argument("--protocols", nargs="+", default=list(IMPLEMENTED),
                     choices=list(IMPLEMENTED),
-                    help="mask variants to compute side by side (§3.1)")
+                    help="mask variants to compute side by side (§3.1); re-train path only")
+    ap.add_argument("--from-checkpoints", type=Path, default=None, metavar="RUN_DIR",
+                    help="measure every protocol on every checkpoint of a run-format-v2 "
+                         "directory instead of re-training (INTERFACES §10)")
+    ap.add_argument("--key-rule", default=DEFAULT_KEY_RULE,
+                    help="key-frequency rule for --from-checkpoints (INTERFACES §4; "
+                         f"primary: {DEFAULT_KEY_RULE})")
+    ap.add_argument("--no-per-frequency", action="store_true",
+                    help="skip the per-key excluded-loss variant (Colab excl_loss / Fig. 15)")
+    ap.add_argument("--from-checkpoints-protocols", nargs="+", default=list(ALL_IMPLEMENTED),
+                    choices=list(ALL_IMPLEMENTED),
+                    help="protocols for --from-checkpoints (default: all implemented)")
     args = ap.parse_args()
+
+    # --- checkpoint path: no re-training, nothing below this block runs ---
+    if args.from_checkpoints is not None:
+        payload = compute_from_checkpoints(
+            args.from_checkpoints, key_rule=args.key_rule,
+            protocols=tuple(args.from_checkpoints_protocols),
+            per_frequency=not args.no_per_frequency)
+        print(json.dumps(from_checkpoints_summary(payload), indent=2))
+        print("[note] legacy_broad_mask is NOT a reproduction of Nanda et al. "
+              "(docs/MASK_PROTOCOL_AUDIT.md §3); the restricted split of the paper's own "
+              "figure is [NOT FOUND IN SOURCE], so all three splits are reported.",
+              flush=True)
+        return
 
     overrides: dict = {"seed": args.seed}
     if args.train_frac is not None:

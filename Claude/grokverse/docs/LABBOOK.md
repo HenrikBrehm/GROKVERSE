@@ -222,3 +222,121 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     and Doshi source notes only partly verified (all six reviewers and both verifiers died to usage
     limits or API overload); `METHODS.md` marks every row that rests on them. The confound block was
     still running at 16:51 UTC, ten hours in on its first eight runs.
+
+## 2026-09-03 (evening) — editor crash, recovery, and the transformer mechanism module
+
+31. **The editor crashed; the measured state, not the assumed one.** Visual Studio died mid-wave-2.
+    Nothing in the repository was lost: the three wave-2 agents of entry 28 had all landed their work
+    (1,463 changed lines across `mask_protocols.py`, `mlp_mechanism.py`, `progress_measures.py` plus
+    the new `key_frequencies.py`, `mlp_mechanism_activation.py` and three test files). Running the
+    suite rather than trusting the agents' last messages: **11 of 12 test files passed**, and the one
+    failure was in `test_mask_protocols.py` — the file belonging to the agent that was interrupted.
+32. **The training chain was restarted, and it lost compute but no data.** The crash killed the
+    `run_matrix_chain.ps1` chain that entry 30 left running. It was restarted at 17:17 UTC and is
+    running the `confound` block's first eight runs again. The manifest is the evidence that nothing
+    was corrupted or duplicated: **20 completed** (the primary block), **16 legacy**, **8 running**,
+    and the eight running processes are eight *distinct* configurations under one matrix driver. The
+    earlier confound attempt had completed **zero** runs in its ten hours, so the restart re-does work
+    that had produced no artifact; roughly ten hours of CPU is the whole loss. (The doubled process
+    list is a venv shim re-executing the base interpreter, not a second chain — checked by parent PID
+    before concluding anything.)
+33. **Two defects in `test_mask_protocols.py`, the second one masked by the first.** The failing check
+    asserted that excluding an ideal circuit's own key frequencies leaves accuracy at exactly `1/p`.
+    The exclusion is in fact perfect — it annihilates the circuit to `max|logit| = 1.7e-13` against an
+    amplitude-40 field, and the loss equals `log p` to `1.5e-14` — but the *argmax* of that residue is
+    driven entirely by rounding noise: it spreads over all 23 classes and landed at `2/529`, not
+    `1/23`. The check asserted a property the quantity cannot have — the same failure mode as entry 26,
+    and it is now replaced by checks on what the operator does guarantee (loss `= log p`, annihilation
+    relative to the circuit's own scale, and accuracy carrying no signal). Because the file exits at
+    its first failure, everything after it had never run; fixing it exposed a second defect, an
+    `IndexError` from feeding a deliberately cheap **3-channel** grid to `masked_ce_and_acc`, which
+    needs the class axis to be the label axis. The projection identities stay on the cheap grid; the
+    loss check got its own `[p, p, p]` grid. **197 checks now pass** in that file.
+34. **`analysis/transformer_mechanism.py` written (INTERFACES §6, master prompt §8) — 67 checks.**
+    This is the module that makes the comparison symmetric: master prompt §8 forbids assuming the
+    Fourier circuit for the transformer and testing only the MLP. Every §5 battery is applied to the
+    transformer by *calling the same functions*, so no threshold or metric definition can drift
+    between architectures.
+    * The forward decomposition is exact: `logits = r_pre @ W_U + sum_f h_f (W_out @ W_U)[f]`
+      reproduces the model to **2.8e-13** on logits of scale 270 against the same weights in float64
+      (the 1.5e-4 against the stored float32 checkpoint is float32 accumulation in the reference, and
+      both bounds are asserted so a regression cannot hide in the loose one).
+    * That split has the *same additive form* as the MLP's, with the neuron→logit map `W_out @ W_U` in
+      place of `W_out` and the direct attention-only path in place of the output bias. So
+      `logit_contributions` applies unchanged — and it does: the variance shares plus the bias share
+      sum to **1.0000000000000** on a real checkpoint, which is the identity that proves the
+      generalization correct rather than merely type-compatible.
+    * **Where the architectures genuinely differ is recorded, not smoothed over.** The MLP's
+      pre-activation is exactly `u_a + u_b + b_in`; the transformer's is not, because attention depends
+      on the input. The comparable curves are built at the grid-mean attention and `additivity_r2`
+      reports per neuron how much of the true pre-activation that captures. **The MLP's value is
+      identically 1 by construction, so the two numbers are not symmetric evidence** and the module
+      says so. The activation batteries therefore run on the model's **true** `hidden`, never on the
+      rectified reconstruction.
+35. **The enabling refactor was made in the shared code, not duplicated into the new module.**
+    `sum_dependence`, `logit_contributions` and `activation_analysis` each rebuilt the activation from
+    the curves, which is right for the MLP and wrong for the transformer. All three now take an
+    optional `act=`, and `logit_contributions` additionally accepts a `[p, p, p]` bias term. Both
+    default to the previous behaviour, and the whole suite stayed green across the change — the point
+    of doing it this way is that the MLP and the transformer are now measured by literally the same
+    code paths.
+36. **A documented placeholder was closed.** `key_frequencies.operand_curves` had been returning
+    `W_E[:p] @ W_in` for the transformer — no attention, no `W_pos`, and the *same* curve for both
+    operands — labelled in its own docstring as a placeholder for this module. It now calls
+    `transformer_mechanism.effective_curves` and records that in the provenance string. On a real
+    checkpoint the `neuron_clusters` rule changes its key set from the placeholder's to `[11, 13, 15,
+    18]`, so this was not a cosmetic substitution.
+37. **Test suite: 13 of 13 files, 1,438 checks.** Up from the 1,006 of entry 27 and the 1,371 wave-2
+    layer 1 reached; `transformer_mechanism` adds 67.
+38. **What was run on real data, and what it is NOT.** `transformer_mechanism.analyse` was executed on
+    one real checkpoint (transformer seed 0, step 25,000) purely to confirm the module runs on a
+    trained model and that its internal identities hold there. It does — 29 s, forward check exact,
+    shares summing to 1. **These numbers are a pipeline check, not a result.** The analysis code is
+    not frozen, the run is one seed of twenty, and entry 21's rule still stands: no comparison and no
+    structure statistic enters the study until the freeze. The seed-0 output file exists on disk and
+    was produced by unfrozen code, which is recorded here so it cannot later be mistaken for a
+    measurement of record.
+39. **Still open.** `structure_over_time.py`, `h3_validity.py` and `causal_ablation.py` are the three
+    modules the driver still reports as missing; `CLAIM_EVIDENCE_TABLE.md` still cannot be written
+    before there are results. The three audit documents remain unreviewed and the Nanda and Doshi
+    source notes only partly verified (entry 30) — unchanged, and `METHODS.md` still marks every row
+    that rests on them.
+
+## 2026-09-03 (night) — handoff prepared for the next session
+
+40. **Model switch and a change of task.** The human author switched the session to a different model
+    and asked for everything to be *made ready* for a following session that will do the remaining
+    work unattended by them, without doing that work now. This section is the record of that
+    preparation; nothing scientific was computed.
+41. **The overnight sleep of entry 18 had a cause, and it is fixed.** `powercfg` showed
+    `standby-timeout-ac = 0x384` — the machine suspends after 15 minutes of idle input regardless of
+    CPU load, which is exactly what stalled two transformer seeds for 7.6 hours. Standby and hibernate
+    timeouts are now 0 on AC and DC (`powercfg /change ...`, verified by re-query). Recorded here
+    because the manifest's `elapsed_seconds` for seeds 8 and 9 (entry 21's caveat) is explained by it.
+42. **`docs/HUMAN_DECISIONS.md` was deleted by the human author and restored unchanged from commit
+    `6841a99`.** The deletion cost nothing scientific — every threshold and gate rule is also in
+    `PREREGISTRATION.md` §4.2/§4.3/§5 and in code constants — but ten files reference the document,
+    including the `status` strings of both mechanism modules, and its sections F and sign-off are the
+    only place the division of labour for `AI_DISCLOSURE.md` can be recorded. Its status remains
+    `NOT YET APPROVED`. Clarified in the conversation and repeated here: the approval gate labels
+    results, it never blocked the analysis work.
+43. **Preparation, measured.** The driver plans cleanly over all 20 primary runs at both measurement
+    points (`--dry-run`): 60 outcomes are "missing" — `causal_ablation`, `h3_validity`,
+    `structure_over_time` × 20 runs — and 20 are the expected cross-architecture skips. Found while
+    preparing: (i) **`h3_validity` has no INTERFACES section** although the driver lists it; the
+    handoff instructs the next session to write the spec (from PREREGISTRATION §3 H3) as INTERFACES
+    §14 *before* implementing; (ii) INTERFACES §13 specifies four further modules (`aggregate`,
+    `figures_study`, `decision_tree`, conditional `bounded_alternative`) that no earlier entry counted
+    among the missing ones; (iii) `tests/test_driver.py` lines 89–92 pin `causal_ablation` and
+    `structure_over_time` as *missing* and will fail by design when they land. Written:
+    `training/run_analysis_chain.ps1` (detached driver launcher that logs the launch commit as the
+    freeze evidence, waits for the training chain unless `-SkipWait`, runs `aggregate` if present);
+    `docs/dev/HANDOFF_2026-09-04.md` (state, environment, staged work plan A–G with the spec pointers
+    and reuse map for each module, the traps of this week, session-end duties, and the list of what
+    only the human may fill in). The primary-block glob `*_frac0.3_seed*_arch25k` resolves to exactly
+    the 20 primary runs (checked).
+44. **Committed.** The full suite was run once more (13/13, 1,438) and the working tree — the three
+    interrupted agents' wave-2 work, the transformer mechanism module, the test repairs, the launchers
+    and the documents — was committed on `arch-study`. `training/results/` stays untracked until the
+    training chain has finished rewriting the manifests. Training at the time of the commit: confound
+    block 8/18 running, `param_matched` and `twohot` queued.
