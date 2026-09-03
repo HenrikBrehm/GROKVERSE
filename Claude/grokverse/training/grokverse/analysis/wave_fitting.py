@@ -573,10 +573,19 @@ def analyse(run_dir, step: int | None = None, curve_names=CURVE_NAMES, seed: int
                                "square_phase_centred_in_flat_interval": True}}
     payload = envelope(MODULE, MODULE_VERSION, meta, params)
     arrays: dict[str, np.ndarray] = {}
+    # fit_matrix is called through the per-k split, NOT directly. It decides which parameter
+    # entries are per-column by comparing shapes against its first batch, so `odd_harmonics`'
+    # constant (1, 3, 5, 7) is mistaken for a per-column array whenever the lowest-k group holds
+    # exactly four neurons, and the gather raises IndexError. That was documented in
+    # mlp_mechanism_activation.fit_curve_matrix as a defect of this file and left unfixed; it then
+    # failed 4 of the 20 primary MLP runs at the crossing checkpoint on 2026-09-03. The import is
+    # deferred to keep the module-level dependency direction unchanged.
+    from .mlp_mechanism_activation import fit_curve_matrix
+
     for name in curve_names:
         Y = curves[name]
         k = power_spectrum(Y, cfg.p)["dominant_freq"]
-        fits = fit_matrix(Y, k, cv_folds, seed)
+        fits = fit_curve_matrix(Y, k, cv_folds, seed)
         payload["results"][name] = summarize(fits)
         arrays.update(_flatten_arrays(name, fits))
     path = write_result(run_dir, MODULE, meta["tag"], payload, arrays)

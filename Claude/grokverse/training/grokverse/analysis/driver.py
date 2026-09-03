@@ -37,7 +37,11 @@ PER_CHECKPOINT: tuple[dict, ...] = (
     {"module": "key_frequencies", "needs_key_rule": False, "arch": None},
     {"module": "mlp_mechanism", "needs_key_rule": True, "arch": ("mlp", "mlp_twohot")},
     {"module": "transformer_mechanism", "needs_key_rule": True, "arch": ("transformer",)},
-    {"module": "wave_fitting", "needs_key_rule": False, "arch": None},
+    # MLP-only: wave_fitting reads mlp_mechanism.effective_curves and refuses a transformer. The
+    # transformer's waveform comparison is not missing — transformer_mechanism computes it from its
+    # own effective curves and reports it under `wave_fits`, in the identical shape. Declaring the
+    # module arch-agnostic made the driver attempt 20 calls that could never succeed.
+    {"module": "wave_fitting", "needs_key_rule": False, "arch": ("mlp", "mlp_twohot")},
     {"module": "logit_formula_fit", "needs_key_rule": True, "arch": None},
     {"module": "h3_validity", "needs_key_rule": True, "arch": None},
     {"module": "causal_ablation", "needs_key_rule": True, "arch": None},

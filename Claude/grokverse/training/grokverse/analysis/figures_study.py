@@ -87,7 +87,11 @@ COMPARISONS: tuple[dict, ...] = (
      "get": lambda r: _f(r.get("phase_R"))},
     {"id": "p5_square_or_harmonic_fraction",
      "label": "fraction of neurons best fit by square or odd-harmonic (H2)",
-     "modules": ("wave_fitting",), "points": ("final",), "get": _square_or_harmonic_fraction},
+     # wave_fitting is MLP-only; the transformer's identical `wave_fits` block lives in its own
+     # mechanism module, and mlp_mechanism carries it too as a fallback for any run whose
+     # standalone wave_fitting call failed. Duplicate rows carry identical numbers.
+     "modules": ("wave_fitting", "mlp_mechanism", "transformer_mechanism"),
+     "points": ("final",), "get": _square_or_harmonic_fraction},
     {"id": "p6_family_minus_top1", "label": "family-fraction minus top-1 fraction (H3b)",
      "modules": ("h3_validity",), "points": ("final",),
      "get": lambda r: _gap(r, "h3b__u_a__family_median", "h3b__u_a__top1_median")},

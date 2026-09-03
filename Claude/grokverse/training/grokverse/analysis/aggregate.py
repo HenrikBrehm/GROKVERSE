@@ -85,6 +85,13 @@ def _mechanism(res: dict) -> dict:
         out[f"top8_median_{curve}"] = _q(pc, curve, "topk_concentration", "8", "median")
     for name, entry in (sn.get("definitions") or {}).items():
         out[f"structured_fraction__{name}"] = (entry or {}).get("fraction_of_live_neurons")
+    # Both mechanism modules also report the waveform comparison under `wave_fits`, in exactly the
+    # shape analysis/wave_fitting writes. Extracting it here is what gives the H2 comparison its
+    # TRANSFORMER side: wave_fitting itself is MLP-only, so without this the p5 figure would have
+    # one architecture and silently look like missing data.
+    for curve, block in (res.get("wave_fits") or {}).items():
+        for model, value in ((block or {}).get("fraction_best_by_aic") or {}).items():
+            out[f"{curve}__fraction_best_aic_{model}"] = value
     return out
 
 
