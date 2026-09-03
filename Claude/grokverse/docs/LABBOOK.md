@@ -147,3 +147,21 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     traceability, recomputing at least ten numbers from the raw artifacts); and verify the Nanda and Doshi
     notes against the re-fetched sources, with the restricted-loss split and the IPR object and formula
     named as the load-bearing items. Nothing already written is being rerun.
+21. **Primary block complete, 2026-09-03 06:53 UTC — 20 of 20 runs, none failed.** Verified: all 20
+    manifests validate; each run has 21 checkpoints with all seven roles assigned; **every paired seed
+    shares its training split hash**, which the paired design depends on. Transformer generalization
+    crossings span 5,625–10,275 with final test accuracy 0.9971–1.0000; MLP crossings span 8,150–10,075
+    with final test accuracy 1.0000 in all ten. Memorization is 140 in nine transformer seeds and 150 in
+    one; 160 in every MLP seed. Every run reached the full 25,000-step budget. Block summary:
+    `training/results/matrix_primary_20260902T164330Z.json`. The `confound` block (18 runs) started
+    immediately; `param_matched` (10) and `twohot` (3) are queued. **No comparison, no structure metric
+    and no statistic has been computed from these runs** — that waits for the analysis-code freeze.
+    Caveat recorded: the elapsed time of transformer seeds 8 and 9 (10.12 h) spans the overnight
+    suspension of entry 18 and is not a compute measurement.
+22. **Documents completed while the agents ran:** `docs/PREREGISTRATION.md` (expansion of the committed
+    brief, with the order deviation disclosed), `docs/STATISTICAL_ANALYSIS_PLAN.md` (eight pre-specified
+    primary comparisons, multiplicity handled without leaning on p-values, interval-consistent timing
+    bounds), `docs/CAUSAL_ABLATION_PLAN.md` (per-architecture tables, size-matched controls, and the
+    interpretation rule for a non-damaging ablation), `docs/LIMITATIONS.md`,
+    `docs/HUMAN_INTERPRETATION_TEMPLATE.md`, `docs/LABBOOK_TEMPLATE.md`, and the `PROGRESS.md` entry in
+    the project's own format.

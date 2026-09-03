@@ -38,32 +38,42 @@ the `confound`, `param_matched` and `twohot` blocks in the same chained process.
 
 ## Results — raw run outcomes only
 
-18 of 20 primary runs completed as of 2026-09-03; transformer seeds 8 and 9 were still training. Every
-completed manifest validates, every run has 21 checkpoints and all seven checkpoint roles assigned.
-Wall clock under 8-way contention: ~4.05 h per transformer run, 0.82–0.95 h per MLP run.
+**The primary block completed on 2026-09-03 at 06:53 UTC: 20 of 20 runs, none failed.** All 20 manifests
+validate; every run has 21 checkpoints with all seven roles assigned; **every paired seed shares its
+training split hash**, which is what makes the paired design valid.
 
-Memorization and generalization crossings under the primary thresholds (train acc >= 0.99, test acc
->= 0.95), from each run's dense evaluation. **Each crossing is the first evaluated step at or above the
-threshold; the true crossing lies in the interval since the previous evaluation (10 steps for train,
-25 for test).**
+Memorization and generalization crossings under the primary thresholds (train accuracy >= 0.99, test
+accuracy >= 0.95), from each run's dense evaluation. **Each crossing is the first evaluated step at or
+above the threshold; the true crossing lies in the interval since the previous evaluation — 10 steps for
+train, 25 for test.**
 
-| seed | transformer memorize / generalize | MLP memorize / generalize |
-|---|---|---|
-| 0 | 140 / 7975 | 160 / 9125 |
-| 1 | 140 / 6250 | 160 / 10075 |
-| 2 | 140 / 8125 | 160 / 9175 |
-| 3 | 140 / 7425 | 160 / 8150 |
-| 4 | 150 / 10275 | 160 / 8650 |
-| 5 | 140 / 5625 | 160 / 9375 |
-| 6 | 140 / 6325 | 160 / 9900 |
-| 7 | 140 / 7750 | 160 / 9200 |
-| 8 | still training | 160 / 9800 |
-| 9 | still training | 160 / 9300 |
+| seed | txf memorize | txf generalize | txf final test acc | mlp memorize | mlp generalize | mlp final test acc |
+|---|---|---|---|---|---|---|
+| 0 | 140 | 7975 | 0.9977 | 160 | 9125 | 1.0000 |
+| 1 | 140 | 6250 | 0.9994 | 160 | 10075 | 1.0000 |
+| 2 | 140 | 8125 | 0.9971 | 160 | 9175 | 1.0000 |
+| 3 | 140 | 7425 | 0.9996 | 160 | 8150 | 1.0000 |
+| 4 | 150 | 10275 | 1.0000 | 160 | 8650 | 1.0000 |
+| 5 | 140 | 5625 | 1.0000 | 160 | 9375 | 1.0000 |
+| 6 | 140 | 6325 | 1.0000 | 160 | 9900 | 1.0000 |
+| 7 | 140 | 7750 | 1.0000 | 160 | 9200 | 1.0000 |
+| 8 | 140 | 8125 | 0.9993 | 160 | 9800 | 1.0000 |
+| 9 | 140 | 5825 | 0.9998 | 160 | 9300 | 1.0000 |
 
-Final test accuracy at step 25,000: transformer 0.9971–1.0000, MLP 1.0000 in all ten runs.
+Ranges: transformer generalization 5,625–10,275, final test accuracy 0.9971–1.0000; MLP generalization
+8,150–10,075, final test accuracy 1.0000 in every seed. Every run reached its full 25,000-step budget.
+
+Wall clock: MLP runs 0.82–0.95 h each. Transformer runs 4.04 h each under 8-way contention, except seeds 8
+and 9, whose recorded 10.12 h **spans an overnight machine suspension** and is therefore not a valid
+compute measurement (`Claude/grokverse/docs/LABBOOK.md` entry 18).
+
+The `confound` block (18 runs) started immediately afterwards; `param_matched` (10) and `twohot` (3)
+are queued behind it.
 
 Artifacts: `Claude/grokverse/training/runs/txf_add_p113_wd1.0_frac0.3_seed*_arch25k/` and
-`mlp_add_p113_wd1.0_frac0.3_seed*_arch25k/`; aggregate manifest via `python -m grokverse.manifest`.
+`mlp_add_p113_wd1.0_frac0.3_seed*_arch25k/`; block summary
+`training/results/matrix_primary_20260902T164330Z.json`; aggregate manifest via
+`python -m grokverse.manifest`.
 
 ## Interpretation
 
