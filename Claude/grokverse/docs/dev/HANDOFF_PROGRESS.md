@@ -10,8 +10,8 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] B — INTERFACES §14 spec written first, then `analysis/h3_validity.py` + tests — 70 checks; suite 15/15, 1,601
 - [x] C — `analysis/structure_over_time.py` + tests — 56 checks; suite 16/16, 1,657; driver reports NO missing modules
 - [x] D — `tests/test_driver.py` 89–92 made durable (asserts the mechanism, not module names); suite green — done with A
-- [ ] E1 — freeze commit named in `PREREGISTRATION.md` §12 and the labbook —
-- [ ] E2 — `run_analysis_chain.ps1 -SkipWait` launched over the primary block; `results/analysis_chain.log` shows the commit —
+- [x] E1 — analysis code frozen at `0b55e1d`; recorded in `PREREGISTRATION.md` §12 (commit `1e3f646`)
+- [~] E2 — launched 2026-09-03T20:34:04Z over `*_frac0.3_seed*_arch25k` (20 runs, 280 calls, 4 workers); `results/analysis_chain.log` records commit `1e3f646`, tree clean — RUNNING
 - [ ] E3 — training chain finished (`matrix_launch.log`: `matrix chain finished`); `training/results/` committed —
 - [ ] E4 — full analysis chain launched over every block; finished —
 - [ ] E5 — seed-0 pilot outputs re-run under the freeze commit —

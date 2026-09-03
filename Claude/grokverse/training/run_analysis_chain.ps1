@@ -22,6 +22,13 @@ param(
     [int]$PollSeconds = 300
 )
 $ErrorActionPreference = 'Continue'
+# The training chain holds 8 of this machine's 12 logical CPUs with threads=1 each. numpy/BLAS would
+# otherwise spawn a full thread pool per analysis worker and thrash the trainers, so every analysis
+# process is pinned to a single BLAS thread and the default worker count fits the 4 free cores.
+$env:OMP_NUM_THREADS = '1'
+$env:MKL_NUM_THREADS = '1'
+$env:OPENBLAS_NUM_THREADS = '1'
+$env:NUMEXPR_NUM_THREADS = '1'
 $train = 'C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training'
 $py    = 'C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\.venv\Scripts\python.exe'
 $log   = Join-Path $train 'results\analysis_chain.log'
