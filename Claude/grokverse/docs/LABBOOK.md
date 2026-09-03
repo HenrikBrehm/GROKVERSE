@@ -397,3 +397,57 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     commit `1e3f646` and a clean tree. The chain pins `OMP/MKL/OPENBLAS/NUMEXPR` to one thread per
     process, because the training chain holds 8 of the machine's 12 logical CPUs and an unpinned BLAS
     pool per worker would thrash it. Training was unaffected and continued at 8 concurrent runs.
+
+## 2026-09-03 (late) — the aggregation layer, and two modules that were failing silently in the driver
+
+53. **Stage F complete: `aggregate`, `decision_tree`, `figures_study`, `bounded_alternative`.**
+    `aggregate` walks every per-run JSON into one table per module; it extracts and never recomputes,
+    never averages a seed away, and distinguishes **missing** from **not applicable to this
+    architecture** (mixing the two inflates the missing count and makes completeness look worse than
+    it is). `decision_tree` applies the PREREGISTRATION §5 gate and names the §6 branch, with every
+    constant copied from the pre-registration and echoed into the output. `figures_study` draws
+    exactly the eight paired comparisons `STATISTICAL_ANALYSIS_PLAN.md` §3 fixes in advance — a test
+    asserts the count is eight, because a ninth headline figure would quietly widen the study's
+    claims. `bounded_alternative` implements §6.3's four pre-committed questions and no fifth.
+54. **Three-valued logic in the gate, and why it is not a detail.** Every criterion returns `True`,
+    `False` or `None` = *not evaluable*, and `None` is never coerced to `False`. Counting an untested
+    criterion as a failure manufactures evidence against the hypothesis exactly as surely as the
+    reverse manufactures evidence for it. Two consequences the first implementation got wrong and the
+    live data exposed: with fewer than ten seeds analysed the gate must read **undetermined**, not
+    `neither_passes` — that would be a claim about the architectures when the only fact is that the
+    driver has not finished; and the measurement point must be resolved against each run's own
+    metadata rather than the file tag, because both checkpoints carry a `step` tag and one seed was
+    entering the gate arithmetic twice.
+55. **A degenerate control found in the real outputs, and reported rather than passed.** G3's second
+    condition asks that a formula's `r2_test` exceed the random-frequency control's 95th percentile.
+    In some `logit_formula_fit` outputs that control draws `set_size = 56` of the 56 frequencies
+    available at `p = 113` — the odd-harmonic family of a large key set aliases onto the whole
+    spectrum — so the "random" set is the same set every time, its standard deviation is ~1e-16, and
+    it cannot discriminate anything. `decision_tree` detects this and reports the condition **not
+    evaluable**. It is a limitation of the pre-registered G3 control at this prime and key-set size,
+    and it belongs in `LIMITATIONS.md`.
+56. **Two modules were failing on every driver call, and the file counts are what showed it.**
+    `key_frequencies` had written only the two pre-freeze pilot files while `logit_formula_fit` had
+    24 — yet `key_frequencies` runs *first* in the driver order. Cause: `analysis/driver.py` passes
+    `seed` to every module it invokes, and both `key_frequencies.analyse` and
+    `progress_measures.compute_from_checkpoints` accepted `**kw` and forwarded it into a helper that
+    rejects `seed`. Every one of their **60 calls** (40 + 20) raised `TypeError`. The driver recorded
+    them as failed and correctly carried on, so nothing was corrupted — but nothing was loud either.
+    The 12 `progress_measures` files on disk had been written by `structure_over_time`, which calls
+    that function internally without a seed.
+57. **Both fixed as post-freeze bug fixes under PREREGISTRATION §9**, which permits "genuine bug
+    fixes — each logged in the labbook with its reason, and every affected analysis re-run on all
+    seeds". Both now accept `seed`, **record it, and do not use it**: no §4 selection rule and no
+    restricted/excluded protocol draws a random number, so no result depends on it. No threshold,
+    definition, pass rule, control or statistic changed. **The affected analyses must be re-run**:
+    the driver process running since 20:34 UTC holds the old code in memory, so its
+    `key_frequencies` and `progress_measures` calls will still fail and both modules need a re-run
+    over every seed once it exits.
+58. **A contract test that catches this class of bug, added to `test_driver.py`.**
+    `inspect.signature` cannot catch it — both modules accepted `**kw`, so the signature bound
+    cleanly and the failure happened at runtime inside the call. The new check therefore *invokes*
+    every module the driver lists, on a small synthetic v2 run of each architecture, with exactly the
+    kwargs the driver passes, and asserts the failure is never a `TypeError` about those arguments.
+    A module may legitimately raise something else on a tiny synthetic run; that is allowed and
+    labelled. Runtime 22 s.
+59. **Suite: 20 of 20 files, 1,810 checks.**

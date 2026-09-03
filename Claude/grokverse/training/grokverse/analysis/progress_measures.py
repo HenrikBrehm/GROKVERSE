@@ -421,7 +421,7 @@ def _eval_all_splits(L: np.ndarray, masks: dict[str, np.ndarray], p: int) -> dic
 def compute_from_checkpoints(run_dir, key_rule: str = DEFAULT_KEY_RULE,
                              protocols: tuple[str, ...] = ALL_IMPLEMENTED,
                              per_frequency: bool = True,
-                             write: bool = True) -> dict:
+                             write: bool = True, seed: int = 0) -> dict:
     """Every implemented protocol on EVERY checkpoint of a v2 run — no re-training.
 
     Differences from ``compute`` (which stays exactly as it was, for legacy runs):
@@ -524,6 +524,12 @@ def compute_from_checkpoints(run_dir, key_rule: str = DEFAULT_KEY_RULE,
 
     params = {
         "key_rule": key_rule,
+        "seed": int(seed),
+        # Accepted and RECORDED, not used: no restricted/excluded protocol draws a random number.
+        # It is in the signature because analysis/driver.py passes `seed` to every module it
+        # invokes (INTERFACES §0); without it every driver call raised TypeError.
+        # Post-freeze bug fix, 2026-09-03; see docs/LABBOOK.md.
+        "seed_is_unused": "no protocol here draws a random number; recorded for provenance only",
         "key_frequencies": key_freqs,
         "key_selection": key_info,
         "key_frequencies_fixed_from": {"step": final_step, "role": "final checkpoint"},

@@ -461,6 +461,12 @@ they rest on. The aggregation layer (`aggregate`, `decision_tree`, `figures_stud
 `bounded_alternative`, INTERFACES §13) is **not** frozen here: it consumes the outputs and does not
 change any measured number. Its own freeze is recorded when it lands.
 
+**Post-freeze fixes so far** (§9 permits genuine bug fixes, logged and re-run):
+
+| commit | what | why it is not a threshold change |
+|---|---|---|
+| 2026-09-03 | `key_frequencies.analyse` and `progress_measures.compute_from_checkpoints` now accept `seed` | both forwarded `**kw` into a helper that rejects it, so all 60 driver calls raised `TypeError`; the seed is **recorded and unused** — neither draws a random number. Both modules must be re-run over every seed (labbook 56–57). |
+
 **What may still change after this commit** (PREREGISTRATION §9): performance, logging, figure styling
 and genuine bug fixes, each logged in `docs/LABBOOK.md` with its reason and forcing a re-run of every
 affected analysis. **What may not:** any threshold, definition, pass rule, control or statistic.

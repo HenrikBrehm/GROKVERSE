@@ -25,6 +25,69 @@ def check(name, cond):
         raise SystemExit(1)
 
 
+def check_entry_points_accept_driver_kwargs() -> None:
+    """Every module the driver lists must actually RUN with the kwargs the driver passes.
+
+    This is an integration check on purpose. `inspect.signature` cannot catch the failure it exists
+    for: on 2026-09-03 both `key_frequencies.analyse` and `progress_measures.compute_from_checkpoints`
+    accepted ``**kw`` and forwarded it into a helper that rejects ``seed``, so the signature bound
+    fine and every one of their 60 driver calls raised TypeError at runtime. The driver recorded them
+    as failed and carried on, which is correct behaviour — but nothing failed *loudly* until the
+    outputs were counted. Only a real invocation catches that class of bug.
+
+    A module may legitimately raise something else here (a synthetic run is small and odd); the
+    assertion is specifically that it is never a TypeError about the driver's own arguments.
+    """
+    import dataclasses
+
+    import torch
+
+    from grokverse import checkpoints as CK
+    from grokverse.config import get_config
+    from grokverse.models import build_model
+    from grokverse.seed import set_seed
+
+    print("\n-- every driver module runs with the driver's kwargs --")
+    steps = (0, 10, 100)
+    with tempfile.TemporaryDirectory() as td:
+        tmp = Path(td)
+        for arch in ("mlp", "transformer"):
+            extra = dict(d_model=16, d_head=4, n_heads=4) if arch == "transformer" else {}
+            cfg = get_config("nanda", p=23, arch=arch, d_mlp=8, seed=0, **extra)
+            set_seed(0)
+            model = build_model(cfg)
+            model.eval()
+            run_dir = tmp / f"{arch}_{cfg.run_id}"
+            run_dir.mkdir(parents=True, exist_ok=True)
+            entries: list[dict] = []
+            for step in steps:
+                CK.save_checkpoint(run_dir, model, step, "grid", entries)
+            CK.write_checkpoint_index(run_dir, entries)
+            (run_dir / "run.json").write_text(json.dumps({
+                "config": dataclasses.asdict(cfg), "git_commit": "synthetic-test",
+                "steps_completed": steps[-1],
+                "transitions": {"primary": {"memorization": {"first_crossing_step": 10},
+                                            "generalization": {"first_crossing_step": 100}}}}))
+            for spec in driver.PER_RUN + driver.PER_CHECKPOINT:
+                if spec["arch"] is not None and cfg.arch not in spec["arch"]:
+                    continue
+                entry = driver._load_entry(spec)
+                if entry is None:
+                    continue
+                kwargs = ({"key_rule": "nanda", "seed": 0} if spec["needs_key_rule"]
+                          else {"seed": 0})
+                if spec in driver.PER_CHECKPOINT:
+                    kwargs["step"] = steps[-1]
+                try:
+                    entry(run_dir, **kwargs)
+                    ok, detail = True, "ran"
+                except TypeError as exc:
+                    ok, detail = False, f"TypeError: {exc}"
+                except Exception as exc:                       # not a contract failure
+                    ok, detail = True, f"ran ({type(exc).__name__}, not a signature problem)"
+                check(f"{arch}: {spec['module']} accepts the driver's kwargs — {detail}", ok)
+
+
 def _fake_run(base: Path, name: str, arch: str, *, completed: bool = True,
               checkpoints: bool = True) -> Path:
     d = base / name
@@ -146,6 +209,8 @@ def main() -> None:
 
         driver.run(driver.Plan(calls=[(mlp, "per_run", per_run, "", None, {"seed": 0})]), workers=1)
         check("a per-run module is called without a step argument", "step" not in seen["kwargs"])
+
+        check_entry_points_accept_driver_kwargs()
 
         print("\nALL DRIVER CHECKS PASSED")
     finally:

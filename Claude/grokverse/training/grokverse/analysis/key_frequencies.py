@@ -571,12 +571,18 @@ def select(run_dir, step: int | None = None, rule: str = PRIMARY_RULE, **kw) -> 
     return out
 
 
-def analyse(run_dir, step: int | None = None, rules=RULES, **kw) -> dict:
+def analyse(run_dir, step: int | None = None, rules=RULES, seed: int = 0, **kw) -> dict:
     """Run the requested rules on one checkpoint and write the §0 result envelope.
 
     Writes ``<run_dir>/analysis/key_frequencies/<tag>.json`` (every rule's key set,
     its full score curve, its ``cap_binding`` flag and the pairwise Jaccard matrix)
     plus ``<tag>.npz`` with the score curves and the per-neuron arrays.
+
+    ``seed`` is accepted and **recorded, not used**: none of the §4 selection rules draws a random
+    number, so no result depends on it. It is in the signature because `analysis/driver.py` passes
+    ``seed`` to every module it invokes (INTERFACES §0), and this function previously forwarded it
+    into ``select_from_arrays``, which rejects it — every driver call therefore failed with a
+    TypeError. Post-freeze bug fix, 2026-09-03; see `docs/LABBOOK.md`.
     """
     from . import common
     rules = tuple(rules)
@@ -597,6 +603,9 @@ def analyse(run_dir, step: int | None = None, rules=RULES, **kw) -> dict:
     jac = agreement({r: results[r]["key_frequencies"] for r in rules})
 
     params = {"step": meta["step"], "rules": list(rules), "primary_rule": PRIMARY_RULE,
+              "seed": int(seed),
+              "seed_is_unused": ("no §4 selection rule draws a random number; the seed is recorded "
+                                 "for provenance only"),
               "threshold_frac": float(kw.get("threshold_frac", NANDA_THRESHOLD_FRAC)),
               "nanda_sensitivity_fracs": list(NANDA_SENSITIVITY_FRACS),
               "embedding_power_threshold": EMBEDDING_POWER_THRESHOLD,
