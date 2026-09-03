@@ -11,11 +11,11 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] C — `analysis/structure_over_time.py` + tests — 56 checks; suite 16/16, 1,657; driver reports NO missing modules
 - [x] D — `tests/test_driver.py` 89–92 made durable (asserts the mechanism, not module names); suite green — done with A
 - [x] E1 — analysis code frozen at `0b55e1d`; recorded in `PREREGISTRATION.md` §12 (commit `1e3f646`)
-- [~] E2 — launched 2026-09-03T20:34:04Z over `*_frac0.3_seed*_arch25k` (20 runs, 280 calls, 4 workers); `results/analysis_chain.log` records commit `1e3f646`, tree clean — RUNNING
+- [x] E2 — finished 2026-09-03T23:00:43Z, exit 1: **196 ok, 84 failed, 20 skipped** (`results/analysis_driver.json`). Failures were 3 module bugs, all now fixed (labbook 56–57, 60): key_frequencies 40 + progress_measures 20 (seed arg), wave_fitting 24 (IndexError ×4, wrong arch declaration ×20)
 - [ ] E3 — training chain finished (`matrix_launch.log`: `matrix chain finished`); `training/results/` committed —
 - [ ] E4 — full analysis chain launched over every block; finished —
 - [ ] E5 — seed-0 pilot outputs re-run under the freeze commit —
-- [ ] E6 — **re-run `key_frequencies` + `progress_measures` over every seed** (post-freeze fix, labbook 56–57; the driver running since 20:34 UTC holds the old code and its 60 calls fail) —
+- [~] E6 — re-run of `key_frequencies` + `progress_measures` + `wave_fitting` over the primary block launched 2026-09-03T23:2x UTC at commit `eeeef82` (`results/rerun_e6*.log`) — RUNNING
 - [x] F — `aggregate`, `decision_tree`, `figures_study`, `bounded_alternative` + tests — suite 20/20, 1,794 checks
 - [ ] G1 — aggregate + decision tree run; branch named per architecture in the labbook —
 - [ ] G2 — statistics per `STATISTICAL_ANALYSIS_PLAN.md` computed and stored —
