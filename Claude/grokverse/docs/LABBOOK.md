@@ -117,3 +117,33 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     created as the approval gate (status: NOT YET APPROVED), collecting every AI-proposed value with a
     blank decision column and a sign-off block; Obsidian session note, project-log entry, run-matrix
     experiment note (raw outcomes only), design-decision note and two learning notes.
+
+## 2026-09-03 — overnight machine sleep, and a second recovery
+
+18. **The machine slept overnight; nothing was lost.** Between roughly 23:05 UTC on 2026-09-02 and
+    06:40 UTC on 2026-09-03 the host suspended. Consequences, all benign: the two remaining transformer
+    runs advanced only ~3 000 steps in 7.6 hours (6.6 steps/min) instead of the ~370 steps/min they had
+    been managing, and both multi-agent workflows stopped writing at 22:35 and 22:42 UTC and never
+    resumed. On wake the training processes (PIDs 7880 and 10080, started 20:45 UTC) resumed at the
+    normal rate for two concurrent runs (500 steps/min, 0.12 s/step) and reached step 23 000 of 25 000.
+    No run was restarted, no checkpoint or log was overwritten, and the completed 18 runs were untouched.
+19. **State of the interrupted analysis work, measured rather than assumed** (all five test files run):
+    * `test_derivations` 47 checks pass, `test_driver` 19 pass, `test_statistics` 94 pass,
+      `test_logit_formula_fit` **122 pass** — so the completion agent *had* fixed the `IndexError` in the
+      square-wave phase fit before it died. That work is real and was kept.
+    * `test_function_agreement` fails at **import**: a reviewer had upgraded
+      `analysis/function_agreement.py` to v1.1 (adding `ModelSide`, `compare_sides`, `error_structure`,
+      `symmetric_share_control`, `compare_all_checkpoints`, and representing an undefined ratio as `None`
+      instead of the constant `EMPTY_UNION_JACCARD`) and was killed before updating the test. The module
+      is the intended state; the test lags it.
+    * `tests/test_metrics.py` and `tests/test_wave_fitting.py` were never written, although both modules
+      exist and are substantial (483 and 603 lines; `metrics.py` has already resolved the IPR definition
+      from the Doshi source note).
+    * The three audit documents carry **no** reviewer marks and the Nanda and Doshi source notes carry no
+      verifier marks: all six audit reviewers and both verifiers died before doing anything.
+20. **Recovery, second round.** Four agents launched directly (not as a workflow): write the missing
+    `test_metrics.py` and `test_wave_fitting.py`; repair `test_function_agreement.py` against the module's
+    v1.1 API; review all three audit documents under both lenses (evidence grading and numeric
+    traceability, recomputing at least ten numbers from the raw artifacts); and verify the Nanda and Doshi
+    notes against the re-fetched sources, with the restricted-loss split and the IPR object and formula
+    named as the load-bearing items. Nothing already written is being rerun.
