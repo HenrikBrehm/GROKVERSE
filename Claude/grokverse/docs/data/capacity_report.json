@@ -1,31 +1,18 @@
 {
-  "generated_utc": "2026-09-02T16:34:29.532318+00:00",
+  "generated_utc": "2026-09-02T22:38:15.657774+00:00",
   "generator": "training/grokverse/analysis/capacity_report.py (python -m grokverse.analysis.capacity_report); AI-drafted (Claude), 2026-09-02 — not yet human-reviewed",
   "environment": {
     "python": "3.12.10",
     "torch": "2.12.1+cpu",
     "numpy": "2.4.6",
     "torch_num_threads": 1,
-    "git_head": "84d449d5b542c0f639b0bd8d48fb5693c9acc958",
+    "git_head": "aab1ee45a98b538a53c5dd392e21a8be2b096c9d",
     "git_branch": "arch-study",
     "git_dirty_files": [
-      "M training/grokverse/config.py",
-      " M training/grokverse/data.py",
-      " M training/grokverse/models/__init__.py",
-      " M training/grokverse/train.py",
+      "M docs/data/legacy_metrics_all_runs.json",
       "?? ../Test.md",
-      "?? docs/data/",
-      "?? docs/dev/PREREG_BRIEF.md",
-      "?? docs/sources/",
-      "?? training/audit_legacy_metrics.py",
-      "?? training/grokverse/analysis/capacity_report.py",
-      "?? training/grokverse/analysis/common.py",
-      "?? training/grokverse/checkpoints.py",
-      "?? training/grokverse/manifest.py",
-      "?? training/grokverse/matrix.py",
-      "?? training/grokverse/models/mlp_twohot.py",
-      "?? training/results/",
-      "?? training/tests/"
+      "?? docs/sources/_raw/",
+      "?? training/results/"
     ]
   },
   "optimizer": {
@@ -2246,21 +2233,111 @@
   },
   "excluded_runs": [
     {
-      "run_id": "m2h_add_p113_wd1.0_frac0.3_seed0_smoketest",
-      "study": "smoketest",
-      "steps": 300,
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
       "reason": "study/smoke-test run, not one of the 16 legacy runs"
     },
     {
-      "run_id": "mlp_add_p113_wd1.0_frac0.3_seed0_smoketest",
-      "study": "smoketest",
-      "steps": 300,
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
       "reason": "study/smoke-test run, not one of the 16 legacy runs"
     },
     {
-      "run_id": "txf_add_p113_wd1.0_frac0.3_seed0_smoketest",
-      "study": "smoketest",
-      "steps": 300,
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
+      "reason": "study/smoke-test run, not one of the 16 legacy runs"
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "study": "arch25k",
+      "steps": 25000,
       "reason": "study/smoke-test run, not one of the 16 legacy runs"
     }
   ]

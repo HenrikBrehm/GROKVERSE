@@ -14,13 +14,13 @@ tables here). Anything not traceable to that file is marked.
 
 | item | value |
 |---|---|
-| runs | the 16 run directories listed in `docs/BASELINE.md` (pinned by run_id in the script; the three `*_smoketest` v2 directories that appeared in `training/runs/` during this session are excluded) |
+| runs | the 16 run directories listed in `docs/BASELINE.md` (pinned by run_id in the script). The 20 `*_arch25k` run-format-v2 directories of the running study matrix that share `training/runs/` are excluded; the excluded names are listed in the JSON's `meta.non_legacy_dirs_skipped` |
 | weight object | `training/runs/<run_id>/embeddings.npy[-1][:p]` — the last logged embedding snapshot, rows 0..112 (number tokens; the transformer's `=` row 113 is dropped by `[:p]`); float32 on disk, cast to float64 |
 | snapshot step | `logged_steps[-1]` of each `run.json` (column "step" in Table A). For the six un-accelerated `frac0.3` runs this is the generalization crossing (`docs/BASELINE.md`: "every legacy 'final' structure number is an at-transition number") |
 | spectrum | `grokverse.analysis.fourier.embedding_power_spectrum`: orthonormal real Fourier basis over Z_113, `power[k] = cos_k^2 + sin_k^2` summed over `d_model`, k = 1..56; the constant mode is excluded from every denominator (its share of total power is 0.03–0.6 % on these runs, column `const_power` in the JSON) |
 | legacy metric | `grokverse.analysis.fourier.dominant_frequencies(W_E, p, threshold=0.9, max_k=8)` |
 | family metric | `grokverse.analysis.fourier.harmonic_family_concentration(W_E, p, n_f, max_harmonic=7, n_null=2000, seed=0)` |
-| environment | Python 3.12.10, numpy 2.4.6, Windows 11; git HEAD `84d449d` on branch `arch-study` (working tree carries uncommitted changes from parallel work) |
+| environment | Python 3.12.10, numpy 2.4.6, Windows 11, branch `arch-study`. First run 2026-09-02 at git HEAD `84d449d`; re-run 2026-09-03 (JSON `meta.generated_utc` = 2026-09-02T22:36Z) at HEAD `aa536d2`. Every value outside `meta` is identical between the two JSON files (compared field by field, relative tolerance 10⁻¹²); only `git_head`, the timestamp and the skipped-directory list differ |
 | script | `training/audit_legacy_metrics.py` (run from `training/`; deterministic, all random draws seeded) |
 
 ### 0.1 Definitions used in the tables
@@ -281,7 +281,8 @@ These are statements about the numbers in §3.1–3.4, not about H3.
 ```
 
 (`check` raises `SystemExit(1)` at the first failure, so the remaining harmonic-family assertions and
-the whole `check_mlp_mechanism` / `check_config_additions` groups do not run.)
+the whole `check_mlp_mechanism` / `check_config_additions` groups do not run.) Re-run on 2026-09-03 at
+HEAD `aa536d2`: the same three `[PASS]` lines precede the same `[FAIL]` line, exit code 1.
 
 The synthetic embeddings of `check_harmonic_families` were rebuilt with the identical generator and draw
 order (`np.random.default_rng(0)`; fundamentals `FUND = [18, 15, 11, 1, 13, 22, 56, 36]`; four random
@@ -471,3 +472,34 @@ fact above.
 * The order-only discrepancy in the canonical key set (§2) was noted, not investigated.
 * `training/audit_legacy_metrics.py` is a new file in the tree; it duplicates nothing in
   `grokverse/` but is not covered by `test_core.py`.
+* This document and its JSON were committed as work in progress (`d7b74bc`, "unreviewed") after the
+  session-limit interruption recorded in `docs/LABBOOK.md`; the adversarial reviews scheduled there
+  have not run on it. The one reviewer artifact in `docs/data/`
+  (`reviewer_A_preactivation_check.json`) concerns `docs/CAPACITY_AND_CONFOUNDS.md`, not this audit.
+
+## 8. Verification record (2026-09-03, AI, not a human review)
+
+What was re-checked when this document was finalized, so a reviewer knows what has and has not been
+looked at:
+
+* `training/audit_legacy_metrics.py` re-executed at HEAD `aa536d2`; the regenerated JSON was compared
+  field by field with the 2026-09-02 file: no difference outside `meta` (§0).
+* Every aggregate statement in §1–§3 (cap binds on 16/16, n90 ∈ [23, 50], 101 collisions over the 16
+  legacy sets, `family ≤ top-m` on 48/48 cells with differences in [−0.299, −0.004], `odd_share > 1`
+  on 47/48, `even_share` ∈ [0.18, 5.54], `fpf` ∈ [0.019, 0.354], `odd_minus_even > 0` on 48/48 with
+  minimum +0.123, the per-n_f ranges of `coll`, `ovl` and index-set sizes, and every group mean ± std
+  in §1.1 and §3.4) was recomputed from the JSON and matches the text.
+* The §4 table, the §5.1 square-wave numbers, the §5.2 attribution table, the §5.4 per-index shares
+  and the phase / isolated-fundamental / bijection / even-p entries were read back from the JSON and
+  match the text. The §5.3 figures 0.1687 and "1.7 % foreign power" (not stored in the JSON) were
+  recomputed directly: own j = 1 power / denominator = 0.98268, own j = 3,5,7 power / denominator =
+  0.16873.
+* Quotations were checked against their sources: the `dominant_frequencies` docstring and provenance
+  comment (`analysis/fourier.py`), `docs/RESEARCH_SPEC.md` §3.2, the two `docs/BASELINE.md` passages,
+  and the "~+0.16" sentence of the `harmonic_shape` docstring (`analysis/fourier.py` line 182).
+* The reported legacy numbers in §1.1 were located verbatim in `RESULTS.md` (§3 table and the
+  "~76 % / ~32 %" sentence), `README.md` (76 % / 32 %, 0.73 vs 0.44) and `PROGRESS.md`
+  (52 % / 60 %); the canonical key set `[18, 15, 11, 1, 13, 56, 22, 36]` was read from
+  `training/runs/txf_add_p113_wd1.0_frac0.3_seed0/progress_measures.json` (`key_frequencies`).
+* Not checked: nothing outside `W_E`; no run other than the 16 legacy runs; no new synthetic
+  configuration beyond those the script already computes.

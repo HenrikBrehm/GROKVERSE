@@ -27,11 +27,20 @@ Source status of the borrowed metrics
 * ``binarization_score``: the same note records that the paper provides NO per-neuron
   binariness statistic (§2, "[NOT FOUND IN SOURCE]"), so this is OUR definition, named
   ``binarization_score_ours``.
-* ``inverse_participation_ratio``: ``docs/sources/doshi2023_grok_or_not.md`` did not exist
-  when this module was written (2026-09-02); the definition of Doshi et al. (arXiv:2310.13061)
-  is therefore PENDING and only ``inverse_participation_ratio_ours`` is implemented
-  (``sum_k q_k^2`` on the normalized half-spectrum power). Both names are exposed; the
-  plain name is an alias of the ``_ours`` function until the source note lands.
+* ``inverse_participation_ratio_doshi``: Doshi et al. (2023), arXiv:2310.13061, Eq. 3 with
+  footnote 4 (``r = 2``) on the DFT of a length-``p`` weight vector; their ``U_k.``, ``V_k.``,
+  ``W_.k`` are exactly our ``u_a``, ``u_b``, ``out`` columns (``docs/sources/
+  doshi2023_grok_or_not.md`` §2.1 and reuse item 2). ``ipr_doshi_neuron`` is their Eq. 4
+  (mean of the three). The paper does not state the DFT convention: the released code uses
+  ``np.fft.rfft`` (DC included; ideal cosine = 1), while the stated range ``[1/p, 1]`` matches
+  the full ``fft`` (ideal cosine = 0.5) — note §2.1 [FROM CODE] / [DERIVED]. Both are
+  implemented behind the ``dft`` parameter, echoed in every result. The source defines NO
+  threshold (it ranks neurons), so none is applied here.
+* ``inverse_participation_ratio_ours``: the same ``sum P^2 / (sum P)^2`` formula on the
+  half-spectrum ``power`` (DC excluded) — ``= 1 / participation_ratio``. The plain name
+  ``inverse_participation_ratio(power)`` stays this power-array variant so that callers written
+  against the pre-source version of this module keep working; the source-exact function is the
+  ``_doshi`` one. Every result names the definition it used (``IPR_DEFINITIONS``).
 """
 from __future__ import annotations
 
@@ -39,10 +48,19 @@ import numpy as np
 
 from .fourier import MAX_ODD_HARMONIC, alias_frequency, fourier_basis
 
-#: Status string echoed by the IPR functions (see module docstring).
-IPR_DEFINITION_STATUS = ("ours_pending_source: docs/sources/doshi2023_grok_or_not.md absent at "
-                         "implementation time (2026-09-02); IPR_ours = sum_k q_k^2 on the "
-                         "normalized half-spectrum power")
+#: The three IPR definitions exposed here, echoed by name in every result that uses one.
+IPR_DEFINITIONS = {
+    "doshi_rfft": ("Doshi et al. 2023 (arXiv:2310.13061) Eq. 3, r=2, on |rfft(curve)| with DC "
+                   "included (released-code convention); ideal cosine 1, one-hot 1/(floor(p/2)+1)"),
+    "doshi_fft": ("Doshi et al. 2023 Eq. 3, r=2, on |fft(curve)| (full DFT) — matches the stated "
+                  "range [1/p, 1]; ideal cosine 0.5, one-hot 1/p"),
+    "ours": ("sum_k q_k^2 on the normalized half-spectrum power, DC excluded "
+             "(= 1 / participation_ratio); GROKVERSE definition"),
+}
+IPR_DFT_CONVENTIONS: tuple[str, ...] = ("rfft", "fft")
+#: Kept for callers of the pre-source version; now points at the resolved definitions.
+IPR_DEFINITION_STATUS = ("resolved 2026-09-03 from docs/sources/doshi2023_grok_or_not.md; "
+                         "see IPR_DEFINITIONS")
 
 #: Swaroop (2026) §3 thresholds on Eq. 1, chosen "to capture the clear gap in the bimodal
 #: distribution" at p = 97. The score's maximum is (p-1)/2, so these do NOT transfer to
@@ -169,11 +187,12 @@ def participation_ratio(power):
 def inverse_participation_ratio_ours(power):
     """``IPR_ours = sum_k q_k^2`` on the normalized half-spectrum power (``= 1 / PR``).
 
-    OUR definition. The published IPR of Doshi et al. (arXiv:2310.13061) is to be taken
-    from ``docs/sources/doshi2023_grok_or_not.md``, which did not exist when this was
-    written — see ``IPR_DEFINITION_STATUS``. Whether the source defines it on the same
-    object (half-spectrum power of a per-neuron curve) or another (full DFT, weights) is
-    exactly what is pending; do not cite this function as the source's IPR.
+    OUR definition (``IPR_DEFINITIONS["ours"]``). The published IPR of Doshi et al.
+    (arXiv:2310.13061) is ``inverse_participation_ratio_doshi`` below: same algebraic form
+    but on the DFT coefficients of the length-``p`` curve with the constant mode INCLUDED
+    (``rfft``) or on the full complex DFT (``fft``), not on the half-spectrum power. The
+    two differ (ideal cosine: 1 here and under ``rfft``, 0.5 under ``fft``); do not cite
+    this function as the source's IPR. See ``IPR_DEFINITION_STATUS``.
     """
     P, was_1d = _as_power(power)
     q = normalized_power(P)
@@ -181,12 +200,66 @@ def inverse_participation_ratio_ours(power):
 
 
 def inverse_participation_ratio(power):
-    """Alias of ``inverse_participation_ratio_ours`` while the source definition is pending.
+    """Alias of ``inverse_participation_ratio_ours`` — the POWER-ARRAY variant.
 
-    Exposed under the plain name so callers written against INTERFACES §2 resolve; the
-    value they get is ``IPR_ours`` (see ``IPR_DEFINITION_STATUS``).
+    Exposed under the plain name so callers written against INTERFACES §2 (and against the
+    pre-source version of this module) resolve; the value they get is ``IPR_ours``. The
+    source-exact function is ``inverse_participation_ratio_doshi``, which takes a CURVE.
+    Both give 1 for an ideal single-frequency curve (``rfft`` convention) and ~2/n_freq for
+    white noise; they are not identical in general (see ``IPR_DEFINITIONS``).
     """
     return inverse_participation_ratio_ours(power)
+
+
+# FIX 2026-09-03: the module docstring, IPR_DEFINITIONS and IPR_DFT_CONVENTIONS documented
+# `inverse_participation_ratio_doshi` / `ipr_doshi_neuron`, but neither function existed —
+# every caller of the documented source-exact API raised AttributeError. Added here.
+def inverse_participation_ratio_doshi(curve, dft: str = "rfft"):
+    """Doshi et al. 2023 (arXiv:2310.13061) Eq. 3 with footnote 4 (``r = 2``), literally.
+
+    ``IPR(x) = (||x~||_4 / ||x~||_2)^4 = sum_j |x~_j|^4 / (sum_j |x~_j|^2)^2`` on the DFT
+    ``x~`` of a length-``p`` real curve ``x`` (their ``U_k.``, ``V_k.``, ``W_.k`` are our
+    ``u_a``, ``u_b``, ``out`` columns — source note §6.1 item 2). Scale-invariant, so the
+    DFT normalization is irrelevant; the CONVENTION is not:
+
+    * ``dft="rfft"`` — the released code's one-sided real FFT, DC included. Ideal cosine
+      1.0, one-hot ``1/(p//2 + 1)`` (= 1/57 at p=113), i.i.d. Gaussian ~ 2/(p//2+1).
+    * ``dft="fft"`` — the full complex DFT, matching the paper's stated range ``[1/p, 1]``.
+      Ideal cosine 0.5, one-hot ``1/p``, i.i.d. Gaussian ~ 2/p.
+
+    Both are verified in ``tests/test_metrics.py``. The source defines NO threshold (it
+    ranks neurons), so none is applied. ``NaN`` for an all-zero column.
+    """
+    Y, was_1d = _as_matrix(curve, "curve")
+    if str(dft) not in IPR_DFT_CONVENTIONS:
+        raise ValueError(f"dft must be one of {IPR_DFT_CONVENTIONS}, got {dft!r}")
+    coeff = np.fft.rfft(Y, axis=0) if dft == "rfft" else np.fft.fft(Y, axis=0)
+    P = np.abs(coeff) ** 2
+    total = P.sum(axis=0)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        ipr = np.where(total > 0, (P ** 2).sum(axis=0) / total ** 2, np.nan)
+    return _squeeze(ipr, was_1d)
+
+
+def ipr_doshi_neuron(u_a, u_b, out, dft: str = "rfft"):
+    """Doshi et al. Eq. 4: per-neuron IPR = mean of the three per-vector IPRs.
+
+    ``u_a``, ``u_b``, ``out`` are the neuron's length-``p`` curves (``[p]`` or ``[p, n]``,
+    all the same shape). Returns ``{"ipr_u_a", "ipr_u_b", "ipr_out", "ipr_neuron",
+    "dft", "definition"}``; the network-level ``IPR_bar`` of the paper is the mean of
+    ``ipr_neuron`` over neurons and is left to the caller (it is an aggregation, not a
+    per-neuron metric).
+    """
+    curves = {"u_a": u_a, "u_b": u_b, "out": out}
+    shapes = {name: _as_matrix(curve, name)[0].shape for name, curve in curves.items()}
+    if len(set(shapes.values())) != 1:
+        raise ValueError(f"u_a, u_b, out must have the same shape, got {shapes}")
+    was_1d = np.ndim(u_a) == 1
+    iprs = {name: inverse_participation_ratio_doshi(curve, dft) for name, curve in curves.items()}
+    mean = sum(np.atleast_1d(np.asarray(v, dtype=float)) for v in iprs.values()) / 3.0
+    return {"ipr_u_a": iprs["u_a"], "ipr_u_b": iprs["u_b"], "ipr_out": iprs["out"],
+            "ipr_neuron": float(mean[0]) if was_1d else mean,
+            "dft": str(dft), "definition": IPR_DEFINITIONS[f"doshi_{dft}"]}
 
 
 def dominant_frequency(power):
@@ -458,6 +531,10 @@ def curve_metrics(curves, p: int, topk: tuple[int, ...] = (1, 4, 8),
         "spectral_entropy": spectral_entropy(P),
         "participation_ratio": participation_ratio(P),
         "inverse_participation_ratio_ours": inverse_participation_ratio_ours(P),
+        # FIX 2026-09-03: the wrapper claims "every §2 metric" but omitted the source-exact
+        # IPR of INTERFACES §2 (only the _ours variant was reported).
+        "inverse_participation_ratio_doshi_rfft": inverse_participation_ratio_doshi(Y, "rfft"),
+        "inverse_participation_ratio_doshi_fft": inverse_participation_ratio_doshi(Y, "fft"),
         "periodicity_score_swaroop": periodicity_score(Y),
         "binarization_score_ours": binarization_score_ours(Y, binarization_threshold),
         "harmonic_shares": shares,

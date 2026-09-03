@@ -10,7 +10,10 @@ from __future__ import annotations
 
 import json
 import shutil
+import subprocess
 import sys
+import tempfile
+import types
 from pathlib import Path
 
 import numpy as np
@@ -20,15 +23,17 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from grokverse.analysis.common import center_logits, split_masks  # noqa: E402
 from grokverse.analysis.logit_formula_fit import (  # noqa: E402
-    FORMULA_IDS, FeatureSet, analyse, design_matrix, diff_features, fit_all_formulas,
-    fit_formula, normal_equations, phase_grid, resolve_key_set, search_square_phases,
-    square_features, square_wave, sum_direction_power, sum_features)
+    FORMULA_IDS, KEY_RULES, PRIMARY_KEY_RULE, FeatureSet, _parse_key_freqs, analyse,
+    design_matrix, diff_features, fit_all_formulas, fit_formula, normal_equations, phase_grid,
+    resolve_key_set, search_square_phases, square_features, square_partial_fitted, square_wave,
+    sum_direction_power, sum_features)
+from grokverse.checkpoints import CKPT_FMT, INDEX_NAME  # noqa: E402
 from grokverse.config import get_config  # noqa: E402
 from grokverse.models import build_model  # noqa: E402
 from grokverse.seed import set_seed  # noqa: E402
 
-SCRATCH = Path("C:/Users/henri/AppData/Local/Temp/claude/C--Users-henri-Documents-Brain-bwki/"
-               "19fe38fd-ad0c-4eae-bfeb-002bb125b3f5/scratchpad")
+TRAINING = Path(__file__).resolve().parents[1]
+SCRATCH = Path(tempfile.mkdtemp(prefix="lff_test_"))
 P = 23
 
 
@@ -43,6 +48,42 @@ def _raises(fn, exc=Exception) -> bool:
         fn()
     except exc:
         return True
+    return False
+
+
+KEY_FREQUENCIES_MODULE = "grokverse.analysis.key_frequencies"
+
+
+def _with_key_frequencies_module(module, fn):
+    """Run ``fn`` with ``analysis.key_frequencies`` replaced by ``module`` (``None`` = absent),
+    restoring both ``sys.modules`` and the package attribute afterwards — so the delegation
+    branch of ``resolve_key_set`` is tested deterministically whether or not that file exists."""
+    import grokverse.analysis as pkg
+    had_mod, saved_mod = KEY_FREQUENCIES_MODULE in sys.modules, sys.modules.get(KEY_FREQUENCIES_MODULE)
+    had_attr, saved_attr = hasattr(pkg, "key_frequencies"), getattr(pkg, "key_frequencies", None)
+    sys.modules[KEY_FREQUENCIES_MODULE] = module
+    if module is None and had_attr:
+        delattr(pkg, "key_frequencies")
+    try:
+        return fn()
+    finally:
+        if had_mod:
+            sys.modules[KEY_FREQUENCIES_MODULE] = saved_mod
+        else:
+            sys.modules.pop(KEY_FREQUENCIES_MODULE, None)
+        if had_attr:
+            pkg.key_frequencies = saved_attr
+        elif hasattr(pkg, "key_frequencies"):
+            delattr(pkg, "key_frequencies")
+
+
+def _not_implemented_names(rule: str, W: np.ndarray) -> bool:
+    try:
+        resolve_key_set(None, None, None, rule, {"W_E": W}, P)
+    except NotImplementedError as exc:
+        return "key_frequencies" in str(exc) and rule in str(exc)
+    except ImportError:
+        return False
     return False
 
 
@@ -219,6 +260,7 @@ def check_square_tensor():
     check("no grid phase lands on a zero crossing of the sampled square wave", min_cos > 1e-6)
     check("phase search alone recovers the phases (grid indices reported)",
           len(search_square_phases(L, K, tr, te)["grid_index"]) == 2)
+    check_phase_search_bookkeeping(L, K, phis, tr, te)
 
     # AIC on the sinusoid side too: the sparse model must not lose to the ceiling on noise
     Ls = sinusoid_tensor(P, K, (1.0, 1.0), (0.0, 0.0)) + 0.1 * rng.standard_normal((P, P, P))
@@ -227,6 +269,47 @@ def check_square_tensor():
           rs["formulas"]["sparse_sinusoid"]["aic"] < rs["formulas"]["full_sum_basis"]["aic"])
     check("noisy sinusoid circuit: sparse_sinusoid beats ideal_square by AIC",
           rs["formulas"]["sparse_sinusoid"]["aic"] < rs["formulas"]["ideal_square"]["aic"])
+
+
+def check_phase_search_bookkeeping(L, K, phis, tr, te):
+    """The two stages of the phase search and the partial fit they are built from."""
+    Lc = center_logits(L)
+    # Regression: the very first residual is the constant-only model (no phase fitted yet).
+    const_only = square_partial_fitted(Lc, [], [], tr, te)
+    check("partial square fit with no fitted phase is the constant-only model (~0 on centred L)",
+          const_only.shape == L.shape and np.abs(const_only).max() < 1e-9)
+    one = square_partial_fitted(Lc, [K[0]], [phis[0]], tr, te)
+    check("partial square fit with one phase reproduces that wave's fit",
+          np.abs(one - fit_formula(Lc, square_features([K[0]], P, [phis[0]]), tr, te)["fitted"]).max()
+          < 1e-12)
+    check("partial square fit rejects a phase/frequency count mismatch",
+          _raises(lambda: square_partial_fitted(Lc, [3, 5], [0.1], tr, te), ValueError))
+
+    full = search_square_phases(L, K, tr, te)
+    stage1 = search_square_phases(L, K, tr, te, n_refine_passes=0)
+    check("n_refine_passes=0 returns the stage-1 phases and is NOT flagged converged",
+          stage1["phases_rad"] == stage1["phases_initial_rad"]
+          and stage1["n_refine_passes_used"] == 0 and stage1["refinement_converged"] is False
+          and stage1["n_phases_changed_by_refinement"] == 0)
+    check("stage-1 phases are identical with and without refinement",
+          full["phases_initial_rad"] == stage1["phases_initial_rad"])
+    check("refinement converged within the pass budget on the synthetic square tensor",
+          full["refinement_converged"] is True
+          and 1 <= full["n_refine_passes_used"] <= full["n_refine_passes"])
+    check("number of phases changed by refinement is reported and consistent",
+          full["n_phases_changed_by_refinement"]
+          == sum(a != b for a, b in zip(full["grid_index"], full["grid_index_initial"])))
+    check("correlation grid is [|K|, 4p] and its argmax is the reported initial index",
+          full["correlation_grid"].shape == (len(K), 4 * P)
+          and tuple(full["correlation_grid"].argmax(axis=1)) == full["grid_index_initial"])
+    # The refined phases must fit at least as well as the stage-1 phases (joint LSQ on both).
+    r2_final = fit_formula(L, square_features(K, P, full["phases_rad"]), tr, te)["report"]["r2_all"]
+    r2_init = fit_formula(L, square_features(K, P, full["phases_initial_rad"]), tr, te)["report"]["r2_all"]
+    check("refined phases fit no worse than the stage-1 phases", r2_final >= r2_init - 1e-12)
+    check("negative refinement budget rejected",
+          _raises(lambda: search_square_phases(L, K, tr, te, n_refine_passes=-1), ValueError))
+    check("phase search on an empty key set rejected",
+          _raises(lambda: search_square_phases(L, (), tr, te), ValueError))
 
 
 # --------------------------------------------------------------------------- #
@@ -318,12 +401,32 @@ def check_key_set_and_errors():
           _raises(lambda: resolve_key_set(None, None, [], None, {}, P), ValueError))
     check("embedding_top8 without W_E -> ValueError",
           _raises(lambda: resolve_key_set(None, None, None, "embedding_top8", {}, P), ValueError))
-    try:
-        resolve_key_set(None, None, None, "neuron_clusters", {"W_E": W}, P)
-        named = False
-    except NotImplementedError as exc:
-        named = "key_frequencies" in str(exc) and "neuron_clusters" in str(exc)
-    check("other rules raise NotImplementedError naming analysis.key_frequencies", named)
+    delegated = [r for r in KEY_RULES if r != "embedding_top8"]
+    for rule in delegated:
+        check(f"rule {rule!r} without analysis.key_frequencies -> NotImplementedError naming both",
+              _with_key_frequencies_module(None, lambda: _not_implemented_names(rule, W)))
+    fake = types.ModuleType(KEY_FREQUENCIES_MODULE)
+    calls = []
+
+    def select(run_dir, step, rule, **kw):
+        calls.append((run_dir, step, rule))
+        return {"rule": rule, "key_frequencies": [6, 4], "n": 2, "scores": np.zeros(3)}
+
+    fake.select = select
+    K3, info3 = _with_key_frequencies_module(
+        fake, lambda: resolve_key_set("some_run", 25000, None, PRIMARY_KEY_RULE, {"W_E": W}, P))
+    check("the primary rule 'nanda' is delegated to key_frequencies.select(run_dir, step, rule)",
+          calls == [("some_run", 25000, "nanda")] and K3 == [6, 4]
+          and info3["key_rule"] == "nanda" and info3["n"] == 2 and "scores" not in info3)
+    check("the primary rule of INTERFACES §4 is 'nanda' and is listed",
+          PRIMARY_KEY_RULE == "nanda" and "nanda" in KEY_RULES)
+    check("a rule name outside INTERFACES §4 -> ValueError (not NotImplementedError)",
+          _raises(lambda: resolve_key_set(None, None, None, "made_up_rule", {"W_E": W}, P),
+                  ValueError))
+    check("--key-freqs parsing: '3, 5,7' -> [3, 5, 7]; None -> None",
+          _parse_key_freqs("3, 5,7") == [3, 5, 7] and _parse_key_freqs(None) is None)
+    check("--key-freqs parsing rejects non-integers",
+          _raises(lambda: _parse_key_freqs("3,x"), ValueError))
 
     tr, te = masks(P)
     L = np.random.default_rng(5).standard_normal((P, P, P))
@@ -378,11 +481,20 @@ def check_analyse_end_to_end():
     check("results hold every formula and the random control",
           tuple(saved["results"]["formulas"]) == FORMULA_IDS
           and saved["results"]["control_random_m"]["n_control"] == 5)
-    npz = np.load(path.with_suffix(".npz"))
-    check("npz holds coefficients + residual maps per formula and the control draws",
-          all(f"coefficients_{fid}" in npz and f"residual_rms_map_{fid}" in npz for fid in FORMULA_IDS)
-          and "control_random_r2_test" in npz and "control_random_frequency_sets" in npz)
+    with np.load(path.with_suffix(".npz")) as npz:   # context manager: Windows keeps it open
+        check("npz holds coefficients, per-class r2 + residual maps per formula and control draws",
+              all(f"coefficients_{fid}" in npz and f"residual_rms_map_{fid}" in npz
+                  and f"per_class_r2_{fid}" in npz for fid in FORMULA_IDS)
+              and "control_random_r2_test" in npz and "control_random_frequency_sets" in npz)
+        check("per-class r2 array has one entry per class and matches the JSON summary",
+              npz["per_class_r2_sparse_sinusoid"].shape == (P,)
+              and abs(float(np.nanmedian(npz["per_class_r2_sparse_sinusoid"]))
+                      - saved["results"]["formulas"]["sparse_sinusoid"]["per_class_r2"]["median"])
+              < 1e-12)
     check("returned payload names the output path", out["output_path"] == str(path))
+    check("params echo the phase-refinement budget and the primary §4 rule",
+          saved["params"]["phase_refine_passes_max"] >= 1
+          and saved["params"]["primary_key_rule_interfaces_s4"] == PRIMARY_KEY_RULE)
 
     with_rule = analyse(run_dir, key_rule="embedding_top8", seed=0, n_control=3)
     check("embedding_top8 rule recorded with its cap provenance",
@@ -401,6 +513,53 @@ def check_analyse_end_to_end():
     shutil.rmtree(mul_dir)
 
 
+# --------------------------------------------------------------------------- #
+# 10. v2 checkpoints (--step) and the CLI (--all-checkpoints)                  #
+# --------------------------------------------------------------------------- #
+def check_v2_checkpoints_and_cli():
+    print("\n-- v2 run directory: --step tags, missing step, CLI --all-checkpoints --")
+    cfg = get_config("nanda", p=P, arch="mlp", d_mlp=16, seed=0)
+    run_dir = SCRATCH / "lff_test_run_v2"
+    if run_dir.exists():
+        shutil.rmtree(run_dir)
+    run_dir.mkdir(parents=True)
+    set_seed(1)
+    model = build_model(cfg)
+    entries = []
+    for step in (0, 5):
+        name = CKPT_FMT.format(step=step)
+        torch.save(model.state_dict(), run_dir / name)
+        entries.append({"step": step, "path": name, "kind": "grid", "sha256": "unused-in-test"})
+    (run_dir / INDEX_NAME).write_text(json.dumps(entries))
+    (run_dir / "run.json").write_text(json.dumps({"config": cfg.to_dict(), "git_commit": "test"}))
+
+    out = analyse(run_dir, step=5, key_freqs=[3], n_control=3)
+    path = run_dir / "analysis" / "logit_formula_fit" / "step000005.json"
+    check("--step writes analysis/logit_formula_fit/step000005.json", path.exists()
+          and out["step"] == 5 and out["params"]["step"] == 5)
+    check("a step without a checkpoint is a ValueError naming the run",
+          _raises(lambda: analyse(run_dir, step=7, key_freqs=[3], n_control=3), ValueError))
+
+    cmd = [sys.executable, "-m", "grokverse.analysis.logit_formula_fit", str(run_dir),
+           "--key-freqs", "3,5", "--n-control", "3", "--all-checkpoints"]
+    proc = subprocess.run(cmd, cwd=TRAINING, capture_output=True, text=True)
+    check("CLI --all-checkpoints exits 0", proc.returncode == 0)
+    check("CLI wrote one JSON per checkpoints.json entry",
+          all((run_dir / "analysis" / "logit_formula_fit" / f"step{s:06d}.json").exists()
+              for s in (0, 5)))
+    check("CLI prints the per-formula table and the saved paths",
+          "sparse_sinusoid" in proc.stdout and proc.stdout.count("[saved]") == 2)
+    both = subprocess.run(cmd[:-1] + ["--step", "5", "--key-rule", "embedding_top8"],
+                          cwd=TRAINING, capture_output=True, text=True)
+    check("CLI with both --key-freqs and --key-rule fails loudly (ValueError: exactly one)",
+          both.returncode != 0 and "exactly one" in both.stderr)
+    unknown = subprocess.run(cmd[:-1] + ["--step", "5", "--key-rule", "made_up"],
+                             cwd=TRAINING, capture_output=True, text=True)
+    check("CLI rejects a rule outside INTERFACES §4 at argument parsing",
+          unknown.returncode != 0 and "invalid choice" in unknown.stderr)
+    shutil.rmtree(run_dir)
+
+
 def main():
     check_normal_equations()
     check_sinusoid_circuit()
@@ -411,6 +570,8 @@ def main():
     check_centering()
     check_key_set_and_errors()
     check_analyse_end_to_end()
+    check_v2_checkpoints_and_cli()
+    shutil.rmtree(SCRATCH, ignore_errors=True)
     print("\nALL LOGIT_FORMULA_FIT CHECKS PASSED")
 
 

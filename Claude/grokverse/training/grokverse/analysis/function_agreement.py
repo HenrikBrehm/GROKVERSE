@@ -13,26 +13,35 @@ this module measures
 * Pearson correlation of the centered logits and of the correct-class margins;
 * top-2 agreement (unordered set and ordered);
 * the structure of each model's errors (and of the disagreement cells): counts by
-  residue ``(a+b) mod p``, by ``a``, by ``b``, by ``|a-b|``, and the share of wrong
-  cells whose mirror ``(b, a)`` is also wrong, against a seeded random-placement
-  control;
+  residue ``(a+b) mod p``, by the correct class, by ``a``, by ``b``, by ``|a-b|``,
+  and the share of wrong cells whose mirror ``(b, a)`` is also wrong, against a
+  seeded random-placement control;
 * the list of disagreement cells (npz).
 
 Every number is a measurement. Nothing here decides whether two models "compute
-the same function"; ``baseline`` runs the identical comparison on every
-same-architecture pair of a list of runs so that a cross-architecture number can
-be read against within-architecture, cross-seed variability.
+the same function"; ``baseline`` runs the identical comparison on every pair of
+runs that share a configuration and differ only by seed, so that a
+cross-architecture number can be read against within-configuration, cross-seed
+variability.
 
-Split hashes: paired seeds share the split. Both hashes and their equality are
-RECORDED, never asserted -- a cross-seed comparison is legitimate -- and the
-per-split numbers are always reported on each model's own split.
+Split hashes: paired seeds share the split (PREREG_BRIEF "Setting"). ``compare``
+records both hashes and their equality and, by default (``require_same_split=True``,
+INTERFACES section 8 "assert and record"), raises when they differ; ``baseline``
+compares seeds of one configuration, whose splits differ by construction, and
+passes ``require_same_split=False`` (echoed in its params). The per-split numbers
+are always reported on each model's own split.
+
+Undefined ratios (Jaccard of two empty error sets, symmetric share with no error)
+are written as ``null`` with their counts next to them -- never as a convention
+value that could pass as a measurement.
 
 Output: ``results/function_agreement/<id_a>__vs__<id_b>.json`` + ``.npz`` where
 ``<id>`` is the run id for the legacy final model (``step=None``) and
 ``<run_id>_step{N:06d}`` for a v2 checkpoint.
 
 Usage (from training/):
-    python -m grokverse.analysis.function_agreement <run_dir_a> <run_dir_b> [--step-a N --step-b N]
+    python -m grokverse.analysis.function_agreement <run_dir_a> <run_dir_b> [--step N | --step-a N --step-b N]
+    python -m grokverse.analysis.function_agreement <run_dir_a> <run_dir_b> --all-checkpoints
     python -m grokverse.analysis.function_agreement --baseline <run_dir> <run_dir> ... [--step N]
 """
 from __future__ import annotations
@@ -41,6 +50,7 @@ import argparse
 import hashlib
 import itertools
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -52,14 +62,19 @@ from .common import (_jsonable, center_logits, envelope, grid_logits,
                      load_model_at, split_hash, split_masks, summarize)
 
 MODULE = "function_agreement"
-MODULE_VERSION = "1.0"
-#: Jaccard overlap of two EMPTY error sets is 0/0. Two identical (empty) sets are
-#: reported with this value; ``n_errors_union`` is always written next to it and
-#: the value is echoed in ``params`` so it can never pass as a measurement.
-EMPTY_UNION_JACCARD = 1.0
+MODULE_VERSION = "1.1"
 DEFAULT_N_CONTROL = 50
 DEFAULT_SEED = 0
 SPLIT_NAMES = ("train", "test")
+HISTOGRAM_NAMES = ("by_residue_sum", "by_target_class", "by_a", "by_b", "by_abs_diff")
+
+#: Config fields allowed to differ between the runs of one baseline group. Everything
+#: else must match exactly: a baseline group is "same configuration, other seed", and
+#: ``run_id`` does not encode every field (``steps``, ``lr``, ...), so the full config
+#: is compared (``label``/``device`` do not enter the computed function; ``run_id`` and
+#: ``vocab_size`` are derived).
+BASELINE_IGNORED_FIELDS = ("seed", "label", "device", "run_id", "vocab_size")
+_SEED_TOKEN = re.compile(r"_seed\d+")
 
 #: Per-pair numbers the baseline table summarizes (mean/min/max/... via ``summarize``).
 BASELINE_METRICS = (
@@ -129,20 +144,22 @@ def top2_classes(L: np.ndarray) -> np.ndarray:
     return np.argsort(-L, axis=-1, kind="stable")[..., :2]
 
 
-def pearson(x: np.ndarray, y: np.ndarray) -> float:
+def pearson(x: np.ndarray, y: np.ndarray, name: str = "pearson") -> float:
     """Pearson r of the flattened arrays:
     ``sum((x - x_mean)(y - y_mean)) / sqrt(sum (x - x_mean)^2 * sum (y - y_mean)^2)``.
 
-    Raises if either input has zero variance (r is undefined there; no value is invented).
+    Raises (naming ``name`` and the side) if either input has zero variance -- r is
+    undefined there and no value is invented.
     """
     x = np.asarray(x, dtype=np.float64).ravel()
     y = np.asarray(y, dtype=np.float64).ravel()
     if x.shape != y.shape:
-        raise ValueError(f"pearson: shapes differ ({x.shape} vs {y.shape})")
+        raise ValueError(f"{name}: shapes differ ({x.shape} vs {y.shape})")
     xc, yc = x - x.mean(), y - y.mean()
     nx, ny = float(np.sqrt((xc ** 2).sum())), float(np.sqrt((yc ** 2).sum()))
     if nx == 0.0 or ny == 0.0:
-        raise ValueError("pearson correlation undefined: an input has zero variance")
+        side = "model a" if nx == 0.0 else "model b"
+        raise ValueError(f"{name} undefined: {side}'s values have zero variance")
     return float((xc * yc).sum() / (nx * ny))
 
 
@@ -153,10 +170,12 @@ def agreement_block(pred_a: np.ndarray, pred_b: np.ndarray, correct_a: np.ndarra
                     correct_b: np.ndarray, mask: np.ndarray | None = None) -> dict:
     """Argmax agreement and correctness contingency over the cells where ``mask`` (all if None).
 
-    ``agreement_rate = mean(pred_a == pred_b)``; ``both_correct = mean(correct_a & correct_b)``
+    ``agreement_rate = mean(pred_a == pred_b)`` (argmax classes equal -- two models that are
+    both wrong with DIFFERENT wrong classes disagree); ``both_correct = mean(correct_a & correct_b)``
     and likewise ``only_a_correct``, ``only_b_correct``, ``both_wrong`` -- fractions of the
     ``n_cells`` selected cells that sum to 1; ``error_jaccard = |E_a & E_b| / |E_a | E_b|``
-    with ``E`` the set of wrong cells (``EMPTY_UNION_JACCARD`` when both sets are empty).
+    with ``E`` the set of wrong cells -- ``None`` (0/0, undefined) when neither model has an
+    error on the selected cells; ``n_errors_union`` is always written next to it.
     """
     if mask is None:
         mask = np.ones(pred_a.shape, dtype=bool)
@@ -180,7 +199,7 @@ def agreement_block(pred_a: np.ndarray, pred_b: np.ndarray, correct_a: np.ndarra
         "n_errors_b": int(eb.sum()),
         "n_errors_intersection": inter,
         "n_errors_union": union,
-        "error_jaccard": (inter / union) if union > 0 else EMPTY_UNION_JACCARD,
+        "error_jaccard": (inter / union) if union > 0 else None,
     }
 
 
@@ -190,17 +209,19 @@ def disagreement_pairs(pred_a: np.ndarray, pred_b: np.ndarray) -> np.ndarray:
 
 
 def logit_agreement(L_a: np.ndarray, L_b: np.ndarray, p: int, task: str) -> dict:
-    """Logit-level agreement: ``logit_pearson`` on the flattened class-centered grids,
-    ``margin_pearson`` on the correct-class margins, ``top2_agreement`` = fraction of cells
-    whose unordered top-2 class sets coincide, ``top2_ordered_agreement`` = both ranks equal.
+    """Logit-level agreement: ``logit_pearson`` on the flattened class-centered grids
+    (``center_logits``: per-cell mean over classes removed, so a per-cell offset -- a
+    softmax invariance -- cannot change it), ``margin_pearson`` on the correct-class margins,
+    ``top2_agreement`` = fraction of cells whose unordered top-2 class sets coincide,
+    ``top2_ordered_agreement`` = both ranks equal.
     """
     t2a, t2b = top2_classes(L_a), top2_classes(L_b)
     ordered = (t2a == t2b).all(axis=-1)
     unordered = (np.sort(t2a, axis=-1) == np.sort(t2b, axis=-1)).all(axis=-1)
     return {
-        "logit_pearson": pearson(center_logits(L_a), center_logits(L_b)),
+        "logit_pearson": pearson(center_logits(L_a), center_logits(L_b), "logit_pearson"),
         "margin_pearson": pearson(correct_class_margin(L_a, p, task),
-                                  correct_class_margin(L_b, p, task)),
+                                  correct_class_margin(L_b, p, task), "margin_pearson"),
         "top2_agreement": float(unordered.mean()),
         "top2_ordered_agreement": float(ordered.mean()),
     }
@@ -209,14 +230,22 @@ def logit_agreement(L_a: np.ndarray, L_b: np.ndarray, p: int, task: str) -> dict
 # --------------------------------------------------------------------------- #
 # error structure                                                              #
 # --------------------------------------------------------------------------- #
-def error_histograms(error_mask: np.ndarray, p: int) -> dict[str, np.ndarray]:
-    """Counts of the wrong cells by ``(a+b) mod p``, by ``a``, by ``b``, by ``|a-b|``.
+def error_histograms(error_mask: np.ndarray, p: int, task: str = "add") -> dict[str, np.ndarray]:
+    """Counts of the wrong cells by ``(a+b) mod p``, by the correct class ``y[a, b]``
+    (identical to ``by_residue_sum`` for ``task='add'``; ``(a*b) mod p`` for ``'mul'``),
+    by ``a``, by ``b``, by ``|a-b|``.
 
     Each histogram has ``p`` bins (``|a-b|`` ranges over 0..p-1) and sums to the error count.
+    ``a`` indexes the first (row) axis of the mask, ``b`` the second, as in ``grid_logits``.
     """
-    a, b = np.nonzero(np.asarray(error_mask, dtype=bool))
+    E = np.asarray(error_mask, dtype=bool)
+    if E.shape != (p, p):
+        raise ValueError(f"error_histograms: mask must be [p, p] = {(p, p)}, got {E.shape}")
+    a, b = np.nonzero(E)
+    y = target_grid(p, task)
     return {
         "by_residue_sum": np.bincount((a + b) % p, minlength=p),
+        "by_target_class": np.bincount(y[a, b], minlength=p),
         "by_a": np.bincount(a, minlength=p),
         "by_b": np.bincount(b, minlength=p),
         "by_abs_diff": np.bincount(np.abs(a - b), minlength=p),
@@ -298,9 +327,14 @@ def symmetric_share_control(error_mask: np.ndarray, n_control: int, seed: int) -
     }
 
 
-def error_structure(error_mask: np.ndarray, p: int, n_control: int, seed: int) -> tuple[dict, dict]:
-    """JSON summary and npz arrays of one wrong-cell mask (histograms + symmetric share)."""
-    hists = error_histograms(error_mask, p)
+def error_structure(error_mask: np.ndarray, p: int, task: str, n_control: int,
+                    seed: int) -> tuple[dict, dict]:
+    """JSON summary and npz arrays of one cell mask (histograms + symmetric share).
+
+    The mask is a model's wrong cells or -- under the label ``disagreement`` -- the cells
+    where the two argmaxes differ; the ``n_errors`` keys then count those cells.
+    """
+    hists = error_histograms(error_mask, p, task)
     control = symmetric_share_control(error_mask, n_control, seed)
     control_values = control.pop("control_values")
     summary = {
@@ -350,7 +384,7 @@ def compare_logits(L_a: np.ndarray, L_b: np.ndarray, p: int, task: str, splits_a
     errors = {}
     for label, mask in (("model_a", ~correct_a), ("model_b", ~correct_b),
                         ("disagreement", pred_a != pred_b)):
-        summary, arrs = error_structure(mask, p, n_control, seed)
+        summary, arrs = error_structure(mask, p, task, n_control, seed)
         errors[label] = summary
         arrays.update({f"{label}_{k}": v for k, v in arrs.items()})
     results["error_structure"] = errors
@@ -396,29 +430,45 @@ def _check_comparable(a: ModelSide, b: ModelSide) -> None:
 
 
 def _write(payload: dict, arrays: dict | None, stem: str, out_dir: Path | None) -> dict:
+    """Write ``<out_dir>/<stem>.json`` (+ ``.npz``); returns a new payload with the paths."""
     out_dir = Path(out_dir) if out_dir is not None else results_dir()
     out_dir.mkdir(parents=True, exist_ok=True)
     json_path = out_dir / f"{stem}.json"
+    out = dict(payload)
     if arrays is not None:
         npz_path = out_dir / f"{stem}.npz"
-        payload["arrays_file"] = npz_path.name
         np.savez_compressed(npz_path, **{k: np.asarray(v) for k, v in arrays.items()})
-        payload["output_npz"] = str(npz_path)
-    json_path.write_text(json.dumps(_jsonable(payload), indent=2, allow_nan=False))
-    payload["output_json"] = str(json_path)
-    return payload
+        out.update({"arrays_file": npz_path.name, "output_npz": str(npz_path)})
+    json_path.write_text(json.dumps(_jsonable(out), indent=2, allow_nan=False))
+    return {**out, "output_json": str(json_path)}
+
+
+def _check_split(a: ModelSide, b: ModelSide) -> None:
+    if a.split_hash != b.split_hash:
+        raise ValueError(
+            f"{a.id} and {b.id} do not share a train/test split (split_hash "
+            f"{a.split_hash[:12]}... vs {b.split_hash[:12]}...); paired seeds must share the "
+            "split (INTERFACES section 8). Pass require_same_split=False "
+            "(CLI: --allow-different-splits) for a deliberate cross-split comparison")
 
 
 def compare_sides(a: ModelSide, b: ModelSide, n_control: int = DEFAULT_N_CONTROL,
-                  seed: int = DEFAULT_SEED, out_dir: Path | None = None) -> dict:
-    """Compare two loaded models and write ``<id_a>__vs__<id_b>.json`` + ``.npz``."""
+                  seed: int = DEFAULT_SEED, out_dir: Path | None = None,
+                  require_same_split: bool = True) -> dict:
+    """Compare two loaded models and write ``<id_a>__vs__<id_b>.json`` + ``.npz``.
+
+    ``require_same_split`` asserts split-hash equality before anything is measured
+    (INTERFACES section 8); the hashes and their equality are recorded either way.
+    """
     _check_comparable(a, b)
+    if require_same_split:
+        _check_split(a, b)
     p, task = a.cfg.p, a.cfg.task
     params = {
         "run_dir_a": a.run_dir, "run_dir_b": b.run_dir,
         "step_a": a.meta["step"], "step_b": b.meta["step"], "task": task,
         "n_control": int(n_control), "seed": int(seed),
-        "error_jaccard_empty_union_value": EMPTY_UNION_JACCARD,
+        "require_same_split": bool(require_same_split),
     }
     payload = envelope(MODULE, MODULE_VERSION, a.meta, params)
     payload.update({
@@ -441,14 +491,41 @@ def compare_sides(a: ModelSide, b: ModelSide, n_control: int = DEFAULT_N_CONTROL
 
 def compare(run_dir_a: Path | str, run_dir_b: Path | str, step_a: int | None = None,
             step_b: int | None = None, n_control: int = DEFAULT_N_CONTROL,
-            seed: int = DEFAULT_SEED, out_dir: Path | None = None) -> dict:
+            seed: int = DEFAULT_SEED, out_dir: Path | None = None,
+            require_same_split: bool = True) -> dict:
     """INTERFACES section 8 ``compare``: load both runs and measure their functional agreement.
 
     ``step=None`` loads the legacy ``model_final.pt``; an integer loads the v2 checkpoint.
-    Split-hash equality is recorded, not asserted (cross-seed comparisons are legitimate).
+    Split-hash equality is asserted (``require_same_split``, default True) and recorded.
     """
     return compare_sides(load_side(run_dir_a, step_a), load_side(run_dir_b, step_b),
-                         n_control, seed, out_dir)
+                         n_control, seed, out_dir, require_same_split)
+
+
+def common_checkpoint_steps(run_dir_a: Path | str, run_dir_b: Path | str) -> list[int]:
+    """Steps listed in BOTH runs' ``checkpoints.json`` (sorted); raises for legacy runs."""
+    from ..checkpoints import list_checkpoints  # lazy: legacy runs need no checkpoints module
+    listed = []
+    for d in (run_dir_a, run_dir_b):
+        try:
+            listed.append({int(e["step"]) for e in list_checkpoints(Path(d))})
+        except FileNotFoundError as exc:
+            raise ValueError(f"{d}: --all-checkpoints needs checkpoints.json ({exc})") from exc
+    common = sorted(listed[0] & listed[1])
+    if not common:
+        raise ValueError(f"no checkpoint step is listed in both {run_dir_a} and {run_dir_b} "
+                         f"({sorted(listed[0])} vs {sorted(listed[1])})")
+    return common
+
+
+def compare_all_checkpoints(run_dir_a: Path | str, run_dir_b: Path | str,
+                            n_control: int = DEFAULT_N_CONTROL, seed: int = DEFAULT_SEED,
+                            out_dir: Path | None = None,
+                            require_same_split: bool = True) -> list[dict]:
+    """``compare`` at every step present in both runs' ``checkpoints.json`` (same step on
+    both sides); one JSON/npz per step, the payloads returned in step order."""
+    return [compare(run_dir_a, run_dir_b, s, s, n_control, seed, out_dir, require_same_split)
+            for s in common_checkpoint_steps(run_dir_a, run_dir_b)]
 
 
 # --------------------------------------------------------------------------- #
@@ -479,72 +556,128 @@ def headline(payload: dict) -> dict:
     }
 
 
-def _baseline_group(arch: str, group: list[ModelSide], n_control: int, seed: int,
+def config_key(cfg: Config) -> str:
+    """``run_id`` with its ``_seed{N}`` token removed: the label of a baseline group.
+
+    Two runs belong to one group iff their configs agree on every field outside
+    ``BASELINE_IGNORED_FIELDS`` (checked by ``_check_group_configs``, since the label alone
+    does not encode every field).
+    """
+    return _SEED_TOKEN.sub("", cfg.run_id)
+
+
+def _config_fields(cfg: Config) -> dict:
+    return {k: v for k, v in cfg.to_dict().items() if k not in BASELINE_IGNORED_FIELDS}
+
+
+def _check_group_configs(key: str, group: list[ModelSide]) -> None:
+    ref = _config_fields(group[0].cfg)
+    for s in group[1:]:
+        other = _config_fields(s.cfg)
+        differing = sorted(k for k in ref if ref[k] != other.get(k))
+        if differing:
+            raise ValueError(f"baseline group {key!r}: {group[0].id} and {s.id} differ in config "
+                             f"field(s) {differing} -- not a same-configuration seed pair")
+
+
+def _metric_summary(values: list) -> dict:
+    """``summarize`` over the defined values; ``n_undefined`` counts the ``None`` entries."""
+    arr = np.array([np.nan if v is None else v for v in values], dtype=float)
+    return {**summarize(arr), "n_undefined": int(np.isnan(arr).sum())}
+
+
+def _baseline_group(key: str, group: list[ModelSide], n_control: int, seed: int,
                     out_dir: Path | None) -> dict:
-    pairs = [headline(compare_sides(a, b, n_control, seed, out_dir))
+    _check_group_configs(key, group)
+    pairs = [headline(compare_sides(a, b, n_control, seed, out_dir, require_same_split=False))
              for a, b in itertools.combinations(group, 2)]
     return {
-        "arch": arch, "n_runs": len(group), "run_ids": [s.id for s in group],
+        "config_key": key, "arch": group[0].cfg.arch, "n_runs": len(group),
+        "run_ids": [s.id for s in group], "seeds": [int(s.cfg.seed) for s in group],
         "n_pairs": len(pairs), "pairs": pairs,
-        "summary": {m: summarize(np.array([pr[m] for pr in pairs], dtype=float))
-                    for m in BASELINE_METRICS},
+        "summary": {m: _metric_summary([pr[m] for pr in pairs]) for m in BASELINE_METRICS},
     }
 
 
 def baseline(run_dirs, step: int | None = None, n_control: int = DEFAULT_N_CONTROL,
              seed: int = DEFAULT_SEED, out_dir: Path | None = None) -> dict:
-    """``compare`` for every unordered pair of runs of the SAME architecture in ``run_dirs``.
+    """``compare`` for every unordered pair of runs in ``run_dirs`` that share a
+    configuration and differ only by seed (INTERFACES section 8 "same-architecture seed pair").
 
-    Runs are grouped by ``cfg.arch``; a group with a single run yields zero pairs (reported,
-    not hidden). Every pair's JSON/npz is written as by ``compare``; the table is written to
-    ``baseline__<sha256(sorted ids)[:12]>.json`` and returned.
+    Runs are grouped by ``config_key`` (the seedless ``run_id``); runs with the same key but a
+    differing config field raise. A group with a single run yields zero pairs (reported, not
+    hidden). Seeds of one configuration never share a split, so every pair is compared with
+    ``require_same_split=False`` (echoed in ``params``). Every pair's JSON/npz is written as
+    by ``compare``; the table is written to ``baseline__<sha256(sorted ids)[:12]>.json``.
     """
     run_dirs = [Path(d) for d in run_dirs]
     if len(run_dirs) < 2:
         raise ValueError("baseline needs at least two run directories")
     sides = [load_side(d, step) for d in run_dirs]
+    ids = [s.id for s in sides]
+    duplicates = sorted({i for i in ids if ids.count(i) > 1})
+    if duplicates:
+        raise ValueError(f"baseline: duplicate run ids {duplicates} (a run paired with itself)")
     groups: dict[str, list[ModelSide]] = {}
     for s in sides:
-        groups.setdefault(s.cfg.arch, []).append(s)
+        groups.setdefault(config_key(s.cfg), []).append(s)
     payload = {
         "module": MODULE, "module_version": MODULE_VERSION, "kind": "baseline",
         "analysis_git_commit": git_commit(), "created_utc": utcnow(),
         "params": {"run_dirs": run_dirs, "step": step, "n_control": int(n_control),
-                   "seed": int(seed)},
-        "run_ids": [s.id for s in sides],
-        "by_arch": {arch: _baseline_group(arch, group, n_control, seed, out_dir)
-                    for arch, group in sorted(groups.items())},
+                   "seed": int(seed), "require_same_split": False,
+                   "ignored_config_fields": list(BASELINE_IGNORED_FIELDS)},
+        "run_ids": ids,
+        "by_config": {key: _baseline_group(key, group, n_control, seed, out_dir)
+                      for key, group in sorted(groups.items())},
     }
-    digest = hashlib.sha256("\n".join(sorted(s.id for s in sides)).encode()).hexdigest()[:12]
+    digest = hashlib.sha256("\n".join(sorted(ids)).encode()).hexdigest()[:12]
     return _write(payload, None, f"baseline__{digest}", out_dir)
 
 
 # --------------------------------------------------------------------------- #
 # CLI                                                                          #
 # --------------------------------------------------------------------------- #
-def main(argv: list[str] | None = None) -> None:
+def _build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description="Functional agreement of two models over all p^2 inputs")
     ap.add_argument("run_dirs", nargs="*", type=Path, help="two run directories to compare")
-    ap.add_argument("--step-a", type=int, default=None, help="checkpoint step of run a (default: legacy final)")
-    ap.add_argument("--step-b", type=int, default=None, help="checkpoint step of run b (default: legacy final)")
+    ap.add_argument("--step", type=int, default=None,
+                    help="checkpoint step for every run (default: legacy model_final.pt)")
+    ap.add_argument("--step-a", type=int, default=None, help="checkpoint step of run a (overrides --step)")
+    ap.add_argument("--step-b", type=int, default=None, help="checkpoint step of run b (overrides --step)")
+    ap.add_argument("--all-checkpoints", action="store_true",
+                    help="compare at every step listed in BOTH runs' checkpoints.json")
     ap.add_argument("--baseline", nargs="+", type=Path, default=None, metavar="RUN_DIR",
-                    help="compare every same-architecture pair of these runs")
-    ap.add_argument("--step", type=int, default=None, help="baseline: checkpoint step for every run")
+                    help="compare every same-configuration (seed-only) pair of these runs")
+    ap.add_argument("--allow-different-splits", action="store_true",
+                    help="do not raise when the two runs' split hashes differ (recorded either way)")
     ap.add_argument("--n-control", type=int, default=DEFAULT_N_CONTROL)
     ap.add_argument("--seed", type=int, default=DEFAULT_SEED)
     ap.add_argument("--out-dir", type=Path, default=None,
                     help="output directory (default: training/results/function_agreement)")
-    args = ap.parse_args(argv)
+    return ap
 
+
+def main(argv: list[str] | None = None) -> None:
+    ap = _build_parser()
+    args = ap.parse_args(argv)
+    require = not args.allow_different_splits
     if args.baseline is not None:
-        if args.run_dirs:
-            ap.error("pass run directories either positionally or via --baseline, not both")
+        if args.run_dirs or args.all_checkpoints:
+            ap.error("--baseline takes its run directories itself and excludes --all-checkpoints")
         res = baseline(args.baseline, args.step, args.n_control, args.seed, args.out_dir)
+    elif len(args.run_dirs) != 2:
+        ap.error("exactly two run directories are required (or use --baseline)")
+    elif args.all_checkpoints:
+        payloads = compare_all_checkpoints(args.run_dirs[0], args.run_dirs[1], args.n_control,
+                                           args.seed, args.out_dir, require)
+        res = {"steps": [pl["step"] for pl in payloads], "pairs": [headline(pl) for pl in payloads],
+               "output_json": [pl["output_json"] for pl in payloads]}
     else:
-        if len(args.run_dirs) != 2:
-            ap.error("exactly two run directories are required (or use --baseline)")
-        res = compare(args.run_dirs[0], args.run_dirs[1], args.step_a, args.step_b,
-                      args.n_control, args.seed, args.out_dir)
+        step_a = args.step_a if args.step_a is not None else args.step
+        step_b = args.step_b if args.step_b is not None else args.step
+        res = compare(args.run_dirs[0], args.run_dirs[1], step_a, step_b,
+                      args.n_control, args.seed, args.out_dir, require)
     print(json.dumps(_jsonable(res), indent=2))
 
 

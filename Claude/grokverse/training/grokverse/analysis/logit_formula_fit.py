@@ -60,6 +60,12 @@ FORMULA_IDS: tuple[str, ...] = ("sparse_sinusoid", "odd_harmonics", "ideal_squar
 CONTROL_METRICS: tuple[str, ...] = ("r2_all", "r2_train", "r2_test",
                                     "argmax_accuracy_train", "argmax_accuracy_test")
 AIC_FORMULA = "N * ln(RSS / N) + 2 * n_params, N = p^3 cells, RSS over all cells"
+#: Key-frequency rules of INTERFACES §4.  ``nanda`` is the pre-registered primary rule
+#: (PREREG_BRIEF addendum 2026-09-03); only ``embedding_top8`` is computed in this module, every
+#: other rule is delegated to ``analysis.key_frequencies.select`` (see ``resolve_key_set``).
+KEY_RULES: tuple[str, ...] = ("nanda", "neuron_clusters", "embedding_threshold",
+                              "logit_sum_directions", "embedding_top8")
+PRIMARY_KEY_RULE = "nanda"
 
 
 # --------------------------------------------------------------------------- #
@@ -238,13 +244,13 @@ def _subset_stats(Lc: np.ndarray, resid: np.ndarray, cells: np.ndarray | None) -
             "residual_rms": float(np.sqrt(rss / n)) if n else None, "n_values": n}
 
 
-def _per_class_r2(Lc: np.ndarray, resid: np.ndarray) -> dict:
-    """R² of each class column c over its p² inputs (TSS about the class mean)."""
+def per_class_r2(Lc: np.ndarray, resid: np.ndarray) -> np.ndarray:
+    """``r2[c] = 1 − Σ_{a,b} resid[a,b,c]² / Σ_{a,b} (Lc[a,b,c] − mean_{a,b} Lc[·,·,c])²`` per class;
+    NaN where the class column is constant (TSS = 0)."""
     tss = ((Lc - Lc.mean(axis=(0, 1), keepdims=True)) ** 2).sum(axis=(0, 1))
     rss = (resid ** 2).sum(axis=(0, 1))
     with np.errstate(divide="ignore", invalid="ignore"):
-        r2 = np.where(tss > 0, 1.0 - rss / tss, np.nan)
-    return {"per_class_r2": summarize(r2), "n_classes_r2_undefined": int((~np.isfinite(r2)).sum())}
+        return np.where(tss > 0, 1.0 - rss / tss, np.nan)
 
 
 def argmax_accuracy(fitted: np.ndarray, train_mask: np.ndarray, test_mask: np.ndarray) -> dict:
@@ -318,13 +324,15 @@ def fit_formula(L: np.ndarray, features: FeatureSet, train_mask: np.ndarray,
         report[f"residual_rms_{s}"] = st["residual_rms"]
         report[f"rss_{s}"] = st["rss"]
         report[f"tss_{s}"] = st["tss"]
-    report.update(_per_class_r2(Lc, resid))
+    class_r2 = per_class_r2(Lc, resid)
+    report["per_class_r2"] = summarize(class_r2)
+    report["n_classes_r2_undefined"] = int((~np.isfinite(class_r2)).sum())
     report.update(_aic(stats["all"]["rss"], p ** 3, features.n_params))
     report.update(argmax_accuracy(fitted, train_mask, test_mask))
     report["coefficient_table"] = _coefficient_table(features, beta)
     if features.phases_rad:
         report["phases_rad"] = list(features.phases_rad)
-    return {"coefficients": beta, "fitted": fitted,
+    return {"coefficients": beta, "fitted": fitted, "per_class_r2": class_r2,
             "residual_rms_map": np.sqrt((resid ** 2).mean(axis=-1)), "report": report}
 
 
@@ -357,26 +365,44 @@ def phase_correlation_row(k: int, resid: np.ndarray, grid: np.ndarray) -> np.nda
     return (Xc @ (R - y_mean) / p) / np.sqrt((Xc ** 2).mean(axis=1) * var_y)
 
 
-def _partial_square_fit(L, ks, phases, skip: int, train_mask, test_mask) -> np.ndarray:
-    """Fitted tensor of const + every square wave of ``ks`` except index ``skip``."""
+def square_partial_fitted(Lc: np.ndarray, ks, phases, train_mask: np.ndarray,
+                          test_mask: np.ndarray) -> np.ndarray:
+    """Fitted tensor of ``const + Σ_i α_i sq(w_{ks[i]}(a+b−c) + phases[i])`` (amplitudes by LSQ).
+
+    ``ks`` holds only the frequencies whose phase is already fixed; with no fitted phase yet
+    (``ks == []``) the model is the constant alone, which is what the first grid search of every
+    frequency is compared against.
+    """
+    p = int(Lc.shape[0])
+    ks, phases = list(ks), list(phases)
+    if len(ks) != len(phases):
+        raise ValueError(f"{len(phases)} phases for {len(ks)} fitted frequencies")
+    fs = square_features(ks, p, phases) if ks else sum_features((), p)
+    return fit_formula(Lc, fs, train_mask, test_mask)["fitted"]
+
+
+def _residual_without(Lc, ks, grid_index, skip: int, grid, train_mask, test_mask) -> np.ndarray:
+    """Residual of ``Lc`` after const + every square wave of ``ks`` except index ``skip``."""
     keep = [i for i in range(len(ks)) if i != skip]
-    if not keep:
-        return fit_formula(L, sum_features((), L.shape[0]), train_mask, test_mask)["fitted"]
-    fs = square_features([ks[i] for i in keep], L.shape[0], [phases[i] for i in keep])
-    return fit_formula(L, fs, train_mask, test_mask)["fitted"]
+    fitted = square_partial_fitted(Lc, [ks[i] for i in keep],
+                                   [float(grid[grid_index[i]]) for i in keep],
+                                   train_mask, test_mask)
+    return Lc - fitted
 
 
 def search_square_phases(L: np.ndarray, K, train_mask: np.ndarray, test_mask: np.ndarray,
                          n_refine_passes: int = DEFAULT_PHASE_REFINE_PASSES) -> dict:
     """Grid phases of the ``ideal_square`` formula, one per k ∈ K, over ``phase_grid(p)``.
 
-    Stage 1 (INTERFACES §7): each k independently, argmax of the correlation of
-    ``sq(w_k(a+b−c) + φ)`` with the residual of the constant-only model → ``phases_initial``.
+    Stage 1 (INTERFACES §7): each k independently, argmax over the grid of the correlation of
+    ``sq(w_k(a+b−c) + φ)`` with the residual of the constant-only model (no phase fitted yet)
+    → ``phases_initial_rad``.
     Stage 2 (backfitting): sweep k ∈ K, re-search φ_k against the residual of const + the other
     |K|−1 square waves at their current phases (amplitudes by LSQ), until a full sweep changes no
     phase or ``n_refine_passes`` sweeps ran.  Square waves of different k are not orthogonal on Z_p
     (their aliased harmonics collide), so the stage-1 argmax can sit one grid step off the joint
-    optimum; the test file shows the case.  Both stages are reported.
+    optimum.  Both stages are reported; ``refinement_converged`` is True only when a full sweep
+    changed nothing (never with ``n_refine_passes = 0``).
     """
     p = int(np.asarray(L).shape[0])
     ks = validate_frequencies(p, K, allow_empty=False)
@@ -384,29 +410,29 @@ def search_square_phases(L: np.ndarray, K, train_mask: np.ndarray, test_mask: np
         raise ValueError("n_refine_passes must be >= 0")
     Lc = center_logits(np.asarray(L, dtype=np.float64))
     grid = phase_grid(p)
-    resid0 = Lc - _partial_square_fit(Lc, ks, (), None, train_mask, test_mask)
+    resid0 = Lc - square_partial_fitted(Lc, [], [], train_mask, test_mask)
     corr0 = np.stack([phase_correlation_row(k, resid0, grid) for k in ks])
     best = [int(g) for g in corr0.argmax(axis=1)]
     initial = list(best)
-    passes_used, converged = 0, (int(n_refine_passes) == 0)
+    passes_used, converged = 0, False
     for _ in range(int(n_refine_passes)):
         passes_used += 1
         before = list(best)
         for i, k in enumerate(ks):
-            phases = [float(grid[g]) for g in best]
-            resid = Lc - _partial_square_fit(Lc, ks, phases, i, train_mask, test_mask)
+            resid = _residual_without(Lc, ks, best, i, grid, train_mask, test_mask)
             best[i] = int(phase_correlation_row(k, resid, grid).argmax())
         if best == before:
             converged = True
             break
-    final_corr = [float(phase_correlation_row(k, Lc - _partial_square_fit(
-        Lc, ks, [float(grid[g]) for g in best], i, train_mask, test_mask), grid)[best[i]])
+    final_corr = [float(phase_correlation_row(
+        k, _residual_without(Lc, ks, best, i, grid, train_mask, test_mask), grid)[best[i]])
         for i, k in enumerate(ks)]
     return {"frequencies": ks, "phases_rad": tuple(float(grid[g]) for g in best),
             "grid_index": tuple(best), "correlation_max": tuple(final_corr),
             "phases_initial_rad": tuple(float(grid[g]) for g in initial),
             "grid_index_initial": tuple(initial),
             "correlation_max_initial": tuple(float(corr0[i, g]) for i, g in enumerate(initial)),
+            "n_phases_changed_by_refinement": int(sum(a != b for a, b in zip(best, initial))),
             "n_refine_passes": int(n_refine_passes), "n_refine_passes_used": int(passes_used),
             "refinement_converged": bool(converged), "n_grid": int(grid.size),
             "correlation_grid": corr0}
@@ -543,6 +569,7 @@ def fit_all_formulas(L: np.ndarray, K, train_mask: np.ndarray, test_mask: np.nda
         fit = fit_formula(L, sets[fid], train_mask, test_mask)
         reports[fid] = fit["report"]
         arrays[f"coefficients_{fid}"] = fit["coefficients"]
+        arrays[f"per_class_r2_{fid}"] = fit["per_class_r2"]
         arrays[f"residual_rms_map_{fid}"] = fit["residual_rms_map"].astype(np.float32)
     control, control_arrays = random_frequency_control(L, info["family_size"], train_mask,
                                                        test_mask, n_control, seed)
@@ -563,17 +590,20 @@ def fit_all_formulas(L: np.ndarray, K, train_mask: np.ndarray, test_mask: np.nda
 # key set                                                                      #
 # --------------------------------------------------------------------------- #
 def resolve_key_set(run_dir, step, key_freqs, key_rule, state: dict, p: int) -> tuple[list[int], dict]:
-    """Exactly one of ``key_freqs`` (explicit list) or ``key_rule`` must be given.
+    """Exactly one of ``key_freqs`` (explicit list) or ``key_rule`` (a name in ``KEY_RULES``) is given.
 
     ``embedding_top8`` is implemented here (``fourier.dominant_frequencies`` on ``W_E[:p]``, its
-    threshold / cap echoed); every other rule is delegated to ``analysis.key_frequencies.select``
-    and raises ``NotImplementedError`` naming that module if it is absent.
+    threshold / cap echoed); every other §4 rule — including the primary ``nanda`` — is delegated
+    to ``analysis.key_frequencies.select`` and raises ``NotImplementedError`` naming that module if
+    it is absent.  A rule name outside ``KEY_RULES`` is a ``ValueError``.
     """
     if (key_freqs is None) == (key_rule is None):
         raise ValueError("give exactly one of key_freqs (explicit list) or key_rule")
     if key_freqs is not None:
         ks = validate_frequencies(p, key_freqs, allow_empty=False)
         return list(ks), {"key_rule": "explicit", "key_frequencies": list(ks)}
+    if key_rule not in KEY_RULES:
+        raise ValueError(f"unknown key rule {key_rule!r}; INTERFACES §4 rules: {list(KEY_RULES)}")
     if key_rule == "embedding_top8":
         if "W_E" not in state:
             raise ValueError("state has no W_E — embedding_top8 is undefined for this model")
@@ -611,9 +641,12 @@ def analyse(run_dir, step: int | None = None, key_freqs=None, key_rule: str | No
     train_mask, test_mask = split_masks(cfg)
     K, key_info = resolve_key_set(run_dir, step, key_freqs, key_rule, state, p)
     params = {"step": meta["step"], "key_frequencies": K, "key_rule": key_info["key_rule"],
+              "primary_key_rule_interfaces_s4": PRIMARY_KEY_RULE,
               "key_selection": key_info, "seed": int(seed), "n_control": int(n_control),
               "max_odd_harmonic": MAX_ODD_HARMONIC,
-              "phase_grid_points": PHASE_GRID_POINTS_PER_P * p, "fit_cells": "all_p3",
+              "phase_grid_points_per_p": PHASE_GRID_POINTS_PER_P,
+              "phase_grid_points": PHASE_GRID_POINTS_PER_P * p,
+              "phase_refine_passes_max": DEFAULT_PHASE_REFINE_PASSES, "fit_cells": "all_p3",
               "centering": "per_(a,b)_mean_over_classes", "aic_formula": AIC_FORMULA}
     results, arrays = fit_all_formulas(L, K, train_mask, test_mask, seed, n_control)
     payload = envelope(MODULE, MODULE_VERSION, meta, params)
@@ -658,7 +691,9 @@ def main() -> None:
     ap.add_argument("run_dir", type=Path)
     ap.add_argument("--step", type=int, default=None, help="checkpoint step (default: legacy final)")
     ap.add_argument("--key-freqs", type=str, default=None, help="explicit key set, e.g. 18,15,1")
-    ap.add_argument("--key-rule", type=str, default=None, help="e.g. embedding_top8")
+    ap.add_argument("--key-rule", type=str, default=None, choices=KEY_RULES,
+                    help=f"INTERFACES §4 rule (primary: {PRIMARY_KEY_RULE}); rules other than "
+                         "embedding_top8 need analysis.key_frequencies")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--n-control", type=int, default=50)
     ap.add_argument("--all-checkpoints", action="store_true",

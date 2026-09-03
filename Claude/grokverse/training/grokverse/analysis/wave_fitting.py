@@ -8,7 +8,10 @@ A curve ``y[n]``, ``n = 0..p-1``, is fitted at a given fundamental ``k`` (``thet
     sinusoid                y = alpha cos(theta - phi) + beta                              3 params
     square                  y = alpha sign(cos(theta - phi)) + beta                        3 params
     odd_harmonics           y = beta + sum_{j in 1,3,5,7} alpha_j cos(j theta - phi_j)     9 params
-    odd_harmonics_1_over_j  y = beta + alpha sum_{j in 1,3,5,7} (1/j) cos(j (theta - phi)) 3 params
+    odd_harmonics_1_over_j  y = beta + alpha sum_{j in 1,3,5,7} s_j (1/j) cos(j (theta-phi)) 3 params
+                            with s_j = (-1)^((j-1)/2), i.e. +, -, +, - : the truncated Fourier
+                            series of the ideal square wave. Its analytic ceiling on a square
+                            wave is (8/pi^2)(1 + 1/9 + 1/25 + 1/49) = 0.9496, not 1.
 
 ``sinusoid`` and ``odd_harmonics`` are linear least squares (``cos``/``sin`` pairs + const).
 ``square`` and ``odd_harmonics_1_over_j`` are linear in ``(alpha, beta)`` for a fixed ``phi``;
@@ -129,7 +132,13 @@ def _basis(model: str, th: np.ndarray, phi: np.ndarray) -> np.ndarray:
     if model == "square":
         return np.where(np.cos(arg) >= 0, 1.0, -1.0)
     if model == "odd_harmonics_1_over_j":
-        return sum(np.cos(j * arg) / j for j in ODD_HARMONICS)
+        # BUG FIX 2026-09-03: the alternating sign (-1)^((j-1)/2) was missing, so this basis
+        # was NOT the square-wave truncation it is documented to be. Without it the model fit
+        # a square wave with r2 = 0.571 -- worse than a plain sinusoid (0.811) -- which is
+        # impossible for a correct 1/j truncation. With it the fit reaches 0.9495 against the
+        # analytic j<=7 ceiling (8/pi^2)(1 + 1/9 + 1/25 + 1/49) = 0.9496.
+        # sign(cos psi) = (4/pi) * sum_{j odd} (-1)^((j-1)/2) cos(j psi) / j.
+        return sum((-1.0) ** ((j - 1) // 2) * np.cos(j * arg) / j for j in ODD_HARMONICS)
     raise ValueError(f"{model} is not a phase model")
 
 
