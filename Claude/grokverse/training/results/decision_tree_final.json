@@ -1,0 +1,1628 @@
+{
+  "module": "decision_tree",
+  "module_version": "1.0",
+  "created_utc": "2026-09-03T23:42:35.153167+00:00",
+  "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+  "aggregate_dir": "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\results\\aggregate",
+  "measurement_point": "final",
+  "structured_definition": "primary",
+  "thresholds": {
+    "G1_min_structured_fraction": 0.25,
+    "G1_min_median_family_fraction": 0.5,
+    "G2_min_R": 0.5,
+    "G3_min_argmax_acc_test": 0.9,
+    "G3_difference_control_ratio": 0.5,
+    "seeds_required": 8,
+    "seeds_total": 10,
+    "provenance": "docs/PREREGISTRATION.md \u00a75 \u2014 [AI-PROPOSED], HUMAN_DECISIONS C2\u2013C6; this module never changes them"
+  },
+  "per_architecture": {
+    "mlp": {
+      "seeds": [
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+          "seed": 0,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.880859375,
+              "family_fraction_median_u_a": 0.9970946679338384,
+              "family_fraction_median_u_b": 0.997119318724353,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9996821962022615,
+              "null_q95": 0.0813132531086901,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 451
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9666662666008347,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9673792992799198,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.9525309631031939,
+              "control_std_r2_test": 0.13063361326081388,
+              "control_set_size": 42.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.00020029681230682161,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": true,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+          "seed": 1,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.869140625,
+              "family_fraction_median_u_a": 0.9970200503314508,
+              "family_fraction_median_u_b": 0.9971670967014832,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9995503135069195,
+              "null_q95": 0.08499660776652551,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 445
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9730093784589631,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9734514406155487,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.819233725501712,
+              "control_std_r2_test": 0.16791397050967152,
+              "control_set_size": 35.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.00037558713886620687,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": true,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+          "seed": 2,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.8671875,
+              "family_fraction_median_u_a": 0.9974767051919666,
+              "family_fraction_median_u_b": 0.9972973556677429,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9992849114995066,
+              "null_q95": 0.08189731529061323,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 444
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9768631980224562,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9771412317494812,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.7830980305283306,
+              "control_std_r2_test": 0.16309256575345776,
+              "control_set_size": 32.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.00010887643766599453,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": true,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+          "seed": 3,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.982421875,
+              "family_fraction_median_u_a": 0.9976764286729407,
+              "family_fraction_median_u_b": 0.9977141094555793,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9994207140130618,
+              "null_q95": 0.077113609054399,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 503
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9773159582384066,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9777562710500949,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.8648328775169913,
+              "control_std_r2_test": 0.18916297795224093,
+              "control_set_size": 31.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.00016022800030346396,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": true,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+          "seed": 4,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.935546875,
+              "family_fraction_median_u_a": 0.9981297905534816,
+              "family_fraction_median_u_b": 0.9981884394992053,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9997360518503196,
+              "null_q95": 0.0788021581648027,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 479
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9772124368673663,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9772767071404005,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.8911936813270683,
+              "control_std_r2_test": 0.1666998867099478,
+              "control_set_size": 37.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.00020507301509598008,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": true,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+          "seed": 5,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.880859375,
+              "family_fraction_median_u_a": 0.9962902224015677,
+              "family_fraction_median_u_b": 0.9961469141494608,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9991616223283983,
+              "null_q95": 0.08078364997660385,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 451
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9686472289929219,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9688830854210537,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.8833342989484055,
+              "control_std_r2_test": 0.15412044598355298,
+              "control_set_size": 38.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 8.523934529458543e-05,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": true,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+          "seed": 6,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.875,
+              "family_fraction_median_u_a": 0.9958626928022015,
+              "family_fraction_median_u_b": 0.9958968048066636,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9992647846837982,
+              "null_q95": 0.08305398737235135,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 448
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9619451194872644,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9620624406126488,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.8713377011631568,
+              "control_std_r2_test": 0.16287123084537858,
+              "control_set_size": 34.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.00028463654151389406,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": true,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+          "seed": 7,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.888671875,
+              "family_fraction_median_u_a": 0.9970727838142917,
+              "family_fraction_median_u_b": 0.9969760816811811,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9997535977255323,
+              "null_q95": 0.0819059157575669,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 455
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9719204141506282,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9720380982470935,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.7310927521431593,
+              "control_std_r2_test": 0.12818113329189093,
+              "control_set_size": 34.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0002166030050965162,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": true,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+          "seed": 8,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.91796875,
+              "family_fraction_median_u_a": 0.9976770265036967,
+              "family_fraction_median_u_b": 0.9976022952703806,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9997447191075761,
+              "null_q95": 0.07920695403606157,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 470
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9742523012142609,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9745880631749239,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.9115822856565138,
+              "control_std_r2_test": 0.17678813688656253,
+              "control_set_size": 36.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.00015373973804122532,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": true,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+          "seed": 9,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.908203125,
+              "family_fraction_median_u_a": 0.997648644807889,
+              "family_fraction_median_u_b": 0.9976349593253679,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.999730407921189,
+              "null_q95": 0.0806398442412582,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 465
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.9751875016328618,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.976108378417332,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.8032038451857078,
+              "control_std_r2_test": 0.1691493802153314,
+              "control_set_size": 27.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 1.965293182049077e-05,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": true,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        }
+      ],
+      "n_seeds_present": 10,
+      "n_evaluable": 10,
+      "n_passed": 0,
+      "n_failed": 10,
+      "n_not_evaluable": 0,
+      "seeds_passed": [],
+      "seeds_failed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "seeds_not_evaluable": [],
+      "rule": ">= 8 of 10 seeds pass all four criteria",
+      "per_criterion_passed": {
+        "G1": 10,
+        "G2": 10,
+        "G3": 10,
+        "G4": 0
+      },
+      "per_criterion_not_evaluable": {
+        "G1": 0,
+        "G2": 0,
+        "G3": 0,
+        "G4": 0
+      },
+      "n_distinct_seeds": 10,
+      "passes_gate": false,
+      "verdict_reason": "0 of 10 seeds passed all four criteria"
+    },
+    "transformer": {
+      "seeds": [
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+          "seed": 0,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.96484375,
+              "family_fraction_median_u_a": 0.9928296456427864,
+              "family_fraction_median_u_b": 0.9929032171904257,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.99511573843323,
+              "null_q95": 0.0784740850606054,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 494
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.42706695039279896,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.4272823463017096,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.4177278061315562,
+              "control_std_r2_test": 0.13273249086474823,
+              "control_set_size": 28.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0005139320736383679,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+          "seed": 1,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.990234375,
+              "family_fraction_median_u_a": 0.992135698786496,
+              "family_fraction_median_u_b": 0.9921554604494952,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9894872750058621,
+              "null_q95": 0.08409017061757941,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 507
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6949890328085759,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6949890579579046,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.3883060461946477,
+              "control_std_r2_test": 0.1463711517443152,
+              "control_set_size": 15.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0017202076597585547,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+          "seed": 2,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.966796875,
+              "family_fraction_median_u_a": 0.9962774740015383,
+              "family_fraction_median_u_b": 0.9963015572692457,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.990887882845428,
+              "null_q95": 0.12150244407607798,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 495
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5016023143489403,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5016049125015847,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.46247766034801674,
+              "control_std_r2_test": 0.18676169611810847,
+              "control_set_size": 18.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 2.0211741458608934e-05,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+          "seed": 3,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.994140625,
+              "family_fraction_median_u_a": 0.9929592953827187,
+              "family_fraction_median_u_b": 0.9929391446879983,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9893228343695744,
+              "null_q95": 0.08079720052906494,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 509
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.47855887181596246,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.4786930355522495,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.4224947278119412,
+              "control_std_r2_test": 0.17430694628687618,
+              "control_set_size": 18.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 3.729796419993381e-05,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+          "seed": 4,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.98046875,
+              "family_fraction_median_u_a": 0.991536922911262,
+              "family_fraction_median_u_b": 0.991521165839576,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9877875947725753,
+              "null_q95": 0.11685030805141722,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 502
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6115900668391671,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6115900307346167,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.37501853514197675,
+              "control_std_r2_test": 0.13790882515451028,
+              "control_set_size": 18.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 4.527606737025902e-05,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+          "seed": 5,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 1.0,
+              "family_fraction_median_u_a": 0.9940119513262342,
+              "family_fraction_median_u_b": 0.9940129748473655,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9950337496168515,
+              "null_q95": 0.11172101205700576,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 512
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5636532110553911,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5636728321785907,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.3934827767599516,
+              "control_std_r2_test": 0.14651848570680348,
+              "control_set_size": 12.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 6.947113850930275e-05,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+          "seed": 6,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.986328125,
+              "family_fraction_median_u_a": 0.9925504324280334,
+              "family_fraction_median_u_b": 0.9925348982476752,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9860212462174819,
+              "null_q95": 0.11923353072504905,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 505
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.731086829885722,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7310869625796033,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.46495599312628766,
+              "control_std_r2_test": 0.14781765464610852,
+              "control_set_size": 14.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 6.119236722190724e-05,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+          "seed": 7,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.974609375,
+              "family_fraction_median_u_a": 0.9921197619862697,
+              "family_fraction_median_u_b": 0.9921009473198699,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9969156119592372,
+              "null_q95": 0.08136955068918646,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 499
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6942882203727194,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6942889294007599,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.4572206609577087,
+              "control_std_r2_test": 0.17007542772429263,
+              "control_set_size": 14.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": -1.1885024780333708e-05,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+          "seed": 8,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.982421875,
+              "family_fraction_median_u_a": 0.9912491525438484,
+              "family_fraction_median_u_b": 0.9912498734927363,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9932622748350523,
+              "null_q95": 0.12810762159436326,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 503
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5284110898385631,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5284109513530616,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.43476272702508295,
+              "control_std_r2_test": 0.16693364077800818,
+              "control_set_size": 13.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0002651769043465757,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed9_arch25k",
+          "seed": 9,
+          "tag": "step025000",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.982421875,
+              "family_fraction_median_u_a": 0.9827238618820058,
+              "family_fraction_median_u_b": 0.9826476189782519,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9947662681936331,
+              "null_q95": 0.07837811709760534,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 503
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5091617357472791,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5094619116981026,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.32193056272126874,
+              "control_std_r2_test": 0.10320422949340737,
+              "control_set_size": 17.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0006934106593690093,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        }
+      ],
+      "n_seeds_present": 10,
+      "n_evaluable": 10,
+      "n_passed": 0,
+      "n_failed": 10,
+      "n_not_evaluable": 0,
+      "seeds_passed": [],
+      "seeds_failed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "seeds_not_evaluable": [],
+      "rule": ">= 8 of 10 seeds pass all four criteria",
+      "per_criterion_passed": {
+        "G1": 10,
+        "G2": 10,
+        "G3": 10,
+        "G4": 0
+      },
+      "per_criterion_not_evaluable": {
+        "G1": 0,
+        "G2": 0,
+        "G3": 0,
+        "G4": 0
+      },
+      "n_distinct_seeds": 10,
+      "passes_gate": false,
+      "verdict_reason": "0 of 10 seeds passed all four criteria"
+    }
+  },
+  "branch": {
+    "branch": "neither_passes",
+    "architectures_passing": [],
+    "architectures_failing": [
+      "mlp",
+      "transformer"
+    ],
+    "action": "report that the Fourier evidence tested does not identify the learned mechanisms, and investigate the validity of the existing metrics; run the bounded alternative-mechanism analysis for both architectures"
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "module": "figures_study",
+  "module_version": "1.0",
+  "created_utc": "2026-09-03T23:44:21.473051+00:00",
+  "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+  "aggregate_dir": "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\results\\aggregate",
+  "rule": "exactly the eight paired comparisons of STATISTICAL_ANALYSIS_PLAN \u00a73, plus a gate summary; the count is fixed in advance and does not grow",
+  "source_rule": "drawn from results/aggregate/*.json only \u2014 no checkpoint is read",
+  "figures": [
+    {
+      "id": "p1_generalization_step",
+      "label": "generalization step",
+      "point": "final",
+      "source_files": [
+        "aggregate/mlp_mechanism.json",
+        "aggregate/transformer_mechanism.json"
+      ],
+      "n_pairs": 10,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n_only_transformer": [],
+      "n_only_mlp": [],
+      "note": "reported with its evaluation interval in the statistics, not on the figure",
+      "drawn": true,
+      "path": "p1_generalization_step__final.png",
+      "caption": "generalization step \u2014 final checkpoint, 10 paired seeds. Drawn from aggregate/mlp_mechanism.json, aggregate/transformer_mechanism.json; nothing recomputed.",
+      "statistics": {
+        "n_pairs": 10,
+        "median_a": 7587.5,
+        "median_b": 9250.0,
+        "median_diff": -1562.5,
+        "mean_diff": -1905.0,
+        "bootstrap_ci95": [
+          -2895.0,
+          -822.5
+        ],
+        "direction": "mixed",
+        "sign_test_p": 0.021484375,
+        "wilcoxon_signed_rank_p": 0.01953125,
+        "cohens_dz": -1.0847214733507746,
+        "cliffs_delta": -0.8,
+        "difference_definition": "d_s = a_s - b_s for every seed s present in both samples"
+      }
+    },
+    {
+      "id": "p2_grokking_gap",
+      "label": "grokking gap (generalization \u2212 memorization)",
+      "point": "final",
+      "source_files": [
+        "aggregate/mlp_mechanism.json",
+        "aggregate/transformer_mechanism.json"
+      ],
+      "n_pairs": 10,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n_only_transformer": [],
+      "n_only_mlp": [],
+      "drawn": true,
+      "path": "p2_grokking_gap__final.png",
+      "caption": "grokking gap (generalization \u2212 memorization) \u2014 final checkpoint, 10 paired seeds. Drawn from aggregate/mlp_mechanism.json, aggregate/transformer_mechanism.json; nothing recomputed.",
+      "statistics": {
+        "n_pairs": 10,
+        "median_a": 7447.5,
+        "median_b": 9090.0,
+        "median_diff": -1542.5,
+        "mean_diff": -1886.0,
+        "bootstrap_ci95": [
+          -2875.0,
+          -805.4750000000004
+        ],
+        "direction": "mixed",
+        "sign_test_p": 0.021484375,
+        "wilcoxon_signed_rank_p": 0.01953125,
+        "cohens_dz": -1.0752692553352476,
+        "cliffs_delta": -0.8,
+        "difference_definition": "d_s = a_s - b_s for every seed s present in both samples"
+      }
+    },
+    {
+      "id": "p3_structured_fraction",
+      "label": "structured-neuron fraction (primary definition)",
+      "point": "crossing",
+      "source_files": [
+        "aggregate/mlp_mechanism.json",
+        "aggregate/transformer_mechanism.json"
+      ],
+      "n_pairs": 10,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n_only_transformer": [],
+      "n_only_mlp": [],
+      "drawn": true,
+      "path": "p3_structured_fraction__crossing.png",
+      "caption": "structured-neuron fraction (primary definition) \u2014 crossing checkpoint, 10 paired seeds. Drawn from aggregate/mlp_mechanism.json, aggregate/transformer_mechanism.json; nothing recomputed.",
+      "statistics": {
+        "n_pairs": 10,
+        "median_a": 0.5791015625,
+        "median_b": 0.2783203125,
+        "median_diff": 0.302734375,
+        "mean_diff": 0.3005859375,
+        "bootstrap_ci95": [
+          0.257421875,
+          0.337109375
+        ],
+        "direction": "a>b",
+        "sign_test_p": 0.001953125,
+        "wilcoxon_signed_rank_p": 0.001953125,
+        "cohens_dz": 4.479169001662955,
+        "cliffs_delta": 1.0,
+        "difference_definition": "d_s = a_s - b_s for every seed s present in both samples"
+      }
+    },
+    {
+      "id": "p3_structured_fraction",
+      "label": "structured-neuron fraction (primary definition)",
+      "point": "final",
+      "source_files": [
+        "aggregate/mlp_mechanism.json",
+        "aggregate/transformer_mechanism.json"
+      ],
+      "n_pairs": 10,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n_only_transformer": [],
+      "n_only_mlp": [],
+      "drawn": true,
+      "path": "p3_structured_fraction__final.png",
+      "caption": "structured-neuron fraction (primary definition) \u2014 final checkpoint, 10 paired seeds. Drawn from aggregate/mlp_mechanism.json, aggregate/transformer_mechanism.json; nothing recomputed.",
+      "statistics": {
+        "n_pairs": 10,
+        "median_a": 0.982421875,
+        "median_b": 0.884765625,
+        "median_diff": 0.0849609375,
+        "mean_diff": 0.081640625,
+        "bootstrap_ci95": [
+          0.0599609375,
+          0.100390625
+        ],
+        "direction": "a>b",
+        "sign_test_p": 0.001953125,
+        "wilcoxon_signed_rank_p": 0.001953125,
+        "cohens_dz": 2.3590774297097155,
+        "cliffs_delta": 0.9,
+        "difference_definition": "d_s = a_s - b_s for every seed s present in both samples"
+      }
+    },
+    {
+      "id": "p4_phase_R",
+      "label": "phase-relation resultant length R",
+      "point": "crossing",
+      "source_files": [
+        "aggregate/mlp_mechanism.json",
+        "aggregate/transformer_mechanism.json"
+      ],
+      "n_pairs": 10,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n_only_transformer": [],
+      "n_only_mlp": [],
+      "drawn": true,
+      "path": "p4_phase_R__crossing.png",
+      "caption": "phase-relation resultant length R \u2014 crossing checkpoint, 10 paired seeds. Drawn from aggregate/mlp_mechanism.json, aggregate/transformer_mechanism.json; nothing recomputed.",
+      "statistics": {
+        "n_pairs": 10,
+        "median_a": 0.984624221010475,
+        "median_b": 0.9957695851358515,
+        "median_diff": -0.011289746887113206,
+        "mean_diff": -0.011195151618709553,
+        "bootstrap_ci95": [
+          -0.01318247328995017,
+          -0.009201955500655098
+        ],
+        "direction": "a<b",
+        "sign_test_p": 0.001953125,
+        "wilcoxon_signed_rank_p": 0.001953125,
+        "cohens_dz": -3.346497393954403,
+        "cliffs_delta": -1.0,
+        "difference_definition": "d_s = a_s - b_s for every seed s present in both samples"
+      }
+    },
+    {
+      "id": "p4_phase_R",
+      "label": "phase-relation resultant length R",
+      "point": "final",
+      "source_files": [
+        "aggregate/mlp_mechanism.json",
+        "aggregate/transformer_mechanism.json"
+      ],
+      "n_pairs": 10,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n_only_transformer": [],
+      "n_only_mlp": [],
+      "drawn": true,
+      "path": "p4_phase_R__final.png",
+      "caption": "phase-relation resultant length R \u2014 final checkpoint, 10 paired seeds. Drawn from aggregate/mlp_mechanism.json, aggregate/transformer_mechanism.json; nothing recomputed.",
+      "statistics": {
+        "n_pairs": 10,
+        "median_a": 0.9920750788402402,
+        "median_b": 0.9996162548545905,
+        "median_diff": -0.007439736463301261,
+        "mean_diff": -0.007672884258963719,
+        "bootstrap_ci95": [
+          -0.00981763705071061,
+          -0.005619399759382505
+        ],
+        "direction": "a<b",
+        "sign_test_p": 0.001953125,
+        "wilcoxon_signed_rank_p": 0.001953125,
+        "cohens_dz": -2.1392743032187833,
+        "cliffs_delta": -1.0,
+        "difference_definition": "d_s = a_s - b_s for every seed s present in both samples"
+      }
+    },
+    {
+      "id": "p5_square_or_harmonic_fraction",
+      "label": "fraction of neurons best fit by square or odd-harmonic (H2)",
+      "point": "final",
+      "source_files": [
+        "aggregate/mlp_mechanism.json",
+        "aggregate/transformer_mechanism.json",
+        "aggregate/wave_fitting.json"
+      ],
+      "n_pairs": 10,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n_only_transformer": [],
+      "n_only_mlp": [],
+      "drawn": true,
+      "path": "p5_square_or_harmonic_fraction__final.png",
+      "caption": "fraction of neurons best fit by square or odd-harmonic (H2) \u2014 final checkpoint, 10 paired seeds. Drawn from aggregate/mlp_mechanism.json, aggregate/transformer_mechanism.json, aggregate/wave_fitting.json; nothing recomputed.",
+      "statistics": {
+        "n_pairs": 10,
+        "median_a": 0.3671875,
+        "median_b": 0.6943359375,
+        "median_diff": -0.32421875,
+        "mean_diff": -0.262109375,
+        "bootstrap_ci95": [
+          -0.396494140625,
+          -0.11991699218750007
+        ],
+        "direction": "mixed",
+        "sign_test_p": 0.021484375,
+        "wilcoxon_signed_rank_p": 0.013671875,
+        "cohens_dz": -1.0996569135417789,
+        "cliffs_delta": -0.62,
+        "difference_definition": "d_s = a_s - b_s for every seed s present in both samples"
+      }
+    },
+    {
+      "id": "p6_family_minus_top1",
+      "label": "family-fraction minus top-1 fraction (H3b)",
+      "point": "final",
+      "source_files": [
+        "aggregate/h3_validity.json"
+      ],
+      "n_pairs": 10,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n_only_transformer": [],
+      "n_only_mlp": [],
+      "drawn": true,
+      "path": "p6_family_minus_top1__final.png",
+      "caption": "family-fraction minus top-1 fraction (H3b) \u2014 final checkpoint, 10 paired seeds. Drawn from aggregate/h3_validity.json; nothing recomputed.",
+      "statistics": {
+        "n_pairs": 10,
+        "median_a": 0.002126830109334954,
+        "median_b": 0.005146070094417254,
+        "median_diff": -0.002492737521126276,
+        "mean_diff": -0.0015456653505626639,
+        "bootstrap_ci95": [
+          -0.006048630397373572,
+          0.003547017271603237
+        ],
+        "direction": "mixed",
+        "sign_test_p": 0.109375,
+        "wilcoxon_signed_rank_p": 0.431640625,
+        "cohens_dz": -0.18896461328594424,
+        "cliffs_delta": -0.44,
+        "difference_definition": "d_s = a_s - b_s for every seed s present in both samples"
+      }
+    },
+    {
+      "id": "p7_ablation_damage_minus_control",
+      "label": "ablation damage: structured minus size-matched control (H5)",
+      "point": "final",
+      "source_files": [
+        "aggregate/causal_ablation.json"
+      ],
+      "n_pairs": 9,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n_only_transformer": [],
+      "n_only_mlp": [
+        5
+      ],
+      "drawn": true,
+      "path": "p7_ablation_damage_minus_control__final.png",
+      "caption": "ablation damage: structured minus size-matched control (H5) \u2014 final checkpoint, 9 paired seeds. Drawn from aggregate/causal_ablation.json; nothing recomputed.",
+      "statistics": {
+        "n_pairs": 9,
+        "median_a": 0.024477511747594605,
+        "median_b": 0.1250973372119043,
+        "median_diff": -0.07933318415752966,
+        "mean_diff": -0.0675281569329455,
+        "bootstrap_ci95": [
+          -0.09314954252753539,
+          -0.03880907361825928
+        ],
+        "direction": "mixed",
+        "sign_test_p": 0.0390625,
+        "wilcoxon_signed_rank_p": 0.0078125,
+        "cohens_dz": -1.5181911622503759,
+        "cliffs_delta": -0.7530864197530864,
+        "difference_definition": "d_s = a_s - b_s for every seed s present in both samples"
+      }
+    },
+    {
+      "id": "p8_best_fourier_r2",
+      "label": "end-to-end logit-fit R\u00b2 of the best Fourier formula (G3)",
+      "point": "final",
+      "source_files": [
+        "aggregate/logit_formula_fit.json"
+      ],
+      "n_pairs": 10,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "n_only_transformer": [],
+      "n_only_mlp": [],
+      "drawn": true,
+      "path": "p8_best_fourier_r2__final.png",
+      "caption": "end-to-end logit-fit R\u00b2 of the best Fourier formula (G3) \u2014 final checkpoint, 10 paired seeds. Drawn from aggregate/logit_formula_fit.json; nothing recomputed.",
+      "statistics": {
+        "n_pairs": 10,
+        "median_a": 0.5460419610085769,
+        "median_b": 0.9740197518952363,
+        "median_diff": -0.4256936132894119,
+        "mean_diff": -0.3985603870860262,
+        "bootstrap_ci95": [
+          -0.4593826263681708,
+          -0.3361073698940058
+        ],
+        "direction": "a<b",
+        "sign_test_p": 0.001953125,
+        "wilcoxon_signed_rank_p": 0.001953125,
+        "cohens_dz": -3.7587724786528156,
+        "cliffs_delta": -1.0,
+        "difference_definition": "d_s = a_s - b_s for every seed s present in both samples"
+      }
+    },
+    {
+      "id": "gate_summary",
+      "label": "evidence gate: criteria passed per architecture",
+      "source_files": [
+        "decision_tree.json"
+      ],
+      "drawn": true,
+      "path": "gate_summary.png",
+      "caption": "Evidence gate per architecture, from decision_tree.json. Solid = seeds passing the criterion, shaded = seeds on which it is not evaluable. Nothing recomputed.",
+      "branch": "neither_passes",
+      "passes_gate": {
+        "mlp": false,
+        "transformer": false
+      }
+    }
+  ],
+  "n_drawn": 11,
+  "n_not_drawn": 0
+}

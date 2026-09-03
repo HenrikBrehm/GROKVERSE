@@ -451,3 +451,82 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     A module may legitimately raise something else on a tiny synthetic run; that is allowed and
     labelled. Runtime 22 s.
 59. **Suite: 20 of 20 files, 1,810 checks.**
+
+## 2026-09-04 — the primary block is analysed, and the evidence gate is evaluated
+
+60. **The driver's first full pass exited 1: 196 ok, 84 failed, 20 skipped.** All 84 were module
+    defects, not data problems, and all are fixed: `key_frequencies` (40) and `progress_measures`
+    (20) rejected the driver's `seed` argument (entries 56–57); `wave_fitting` (24) failed two
+    different ways — an `IndexError` on 4 MLP runs at the crossing checkpoint, and 20 calls on
+    transformer runs it was never able to serve. The re-run at commit `eeeef82` was **80 ok, 0
+    failed**, and the primary block is now complete: 40 rows each for `key_frequencies`,
+    `logit_formula_fit`, `h3_validity`, `causal_ablation`; 20 each for the two mechanism modules,
+    `wave_fitting` (MLP-only), `structure_over_time` and `progress_measures`. **0 missing.**
+61. **The `wave_fitting` IndexError had been predicted in writing and left unfixed.**
+    `mlp_mechanism_activation.fit_curve_matrix` exists solely to avoid it, and its docstring names
+    this exact case — "reachable at `p = 113` whenever the smallest dominant frequency is shared by
+    exactly four neurons" — but closes with "``wave_fitting.py`` belongs to another work package and
+    is not edited from here; the defect is reported instead." Every other caller was protected; the
+    one that was not lost 4 of 20 runs. `analyse` now goes through the per-k split.
+62. **Evidence gate at the final checkpoint (`results/decision_tree_final.json`): neither
+    architecture passes.** Per criterion, over 10 paired seeds:
+
+    | criterion | transformer | MLP |
+    |---|---|---|
+    | G1 periodic structure | 10/10 | 10/10 |
+    | G2 phase addition | 10/10 | 10/10 |
+    | G3 end-to-end logit fit | 10/10 | 10/10 |
+    | **G4 causal** | **0/10** | **0/10** |
+
+    Decision-tree branch, per PREREGISTRATION §6: **`neither_passes`** — "report that the Fourier
+    evidence tested does not identify the learned mechanisms, and investigate the validity of the
+    existing metrics". That branch was fixed before the experiments and is taken as written.
+63. **Why G4 fails is a fact about the structured-neuron definition, not about the models.** Under
+    the pre-registered primary definition the structured set is **442 of 512 neurons (86 %) in the
+    MLP and 501 of 512 (98 %) in the transformer** — for transformer seed 5 it is all 512. At that
+    size neither necessity nor sufficiency can discriminate, and the size-matched control says so
+    directly (medians over 10 seeds, final checkpoint):
+
+    * MLP `remove_structured`: observed drop **0.991**, size-matched control drop **0.873**;
+    * transformer `remove_structured_neurons`: observed **0.942**, control **0.916**;
+    * both `keep_structured`: retained accuracy **1.000** / **0.9997** — but a random set of the same
+      size also retains it (control drop 0.000).
+
+    This is `CAUSAL_ABLATION_PLAN.md` §6's "removing `C` and the control do comparable damage → `C`
+    is **not** specifically load-bearing" outcome, and §9's "removing more removes more" guard doing
+    exactly its job. For transformer seed 5 no control set exists at all (the kept set is empty), and
+    that is recorded as `null` rather than fabricated.
+64. **The key-frequency ablations, by contrast, are sharply discriminating — and this is where an
+    AI decision changed a verdict.** Medians over 10 seeds at the final checkpoint:
+
+    | ablation | drop | control | necessary |
+    |---|---|---|---|
+    | MLP `remove_key_freqs_from_curves` | 0.989 | 0.000 | **10/10** |
+    | transformer `remove_key_freqs_from_embedding` | 0.984 | 0.0005 | **10/10** |
+    | transformer `remove_key_subspace_from_residual` | 0.235 | 0.000 | **0/10** |
+    | transformer `keep_key_freqs_in_embedding` | 0.004 | 0.990 | (sufficiency) |
+    | transformer `restricted_circuit_only` | −0.000 | 0.991 | (sufficiency) |
+
+    `PREREGISTRATION.md` §5 names G4's second condition "`remove_key_freqs`" but does **not** say
+    which transformer ablation that is — the transformer has three candidates. I wired
+    `remove_key_subspace_from_residual` into `causal_ablation._gate_g4`; had I wired
+    `remove_key_freqs_from_embedding`, which is arguably the closer analogue of the MLP's
+    filter-the-input-representation ablation, that condition would read 10/10 instead of 0/10. **The
+    overall gate verdict does not change** — both architectures still fail on `remove_structured` —
+    but the reported reason does. The mapping is an AI choice that materially affects a criterion, so
+    it is added to `docs/HUMAN_DECISIONS.md` as D5 rather than left implicit, and it is **not**
+    changed here: swapping it after seeing the numbers is exactly the post-hoc tuning §3.9 forbids.
+65. **At the crossing checkpoint the gate is undetermined**
+    (`results/decision_tree_crossing.json`): the transformer fails (G1 9/10, G2 10/10, G3 10/10,
+    G4 0/10) while the MLP is **not evaluable** — its G3 is untestable on all 10 seeds because the
+    random-frequency control draws all 56 available frequencies at `p = 113` (entry 55), and its G1
+    passes 0/10. Per the module's own rule an unevaluable criterion is not a failure, so no branch is
+    taken at that point.
+66. **Aggregation and figures.** `results/aggregate/` holds one table per module with **every seed
+    shown** and `TABLES.md` beside it; `results/figures/` holds all **11** figures — the eight
+    pre-specified comparisons of `STATISTICAL_ANALYSIS_PLAN.md` §3 plus the gate summary — each
+    naming its source files in its caption, drawn from the aggregate tables only. Two wiring gaps
+    were found and fixed while drawing them: the H2 comparison had no transformer side (its wave
+    fits live in `transformer_mechanism.wave_fits`, not in `wave_fitting`), and the H5 figure read
+    only the MLP's ablation id. Both had produced "no seed has both architectures", which reads like
+    absent data rather than a naming difference.

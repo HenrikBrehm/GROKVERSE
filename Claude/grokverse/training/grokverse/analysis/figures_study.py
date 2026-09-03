@@ -58,6 +58,21 @@ def _gap(row, a, b):
     return None if x is None or y is None else x - y
 
 
+def _structured_damage_minus_control(row):
+    """Damage above the size-matched control, under whichever id this architecture uses.
+
+    The MLP's ablation is `remove_structured`; the transformer's is `remove_structured_neurons`
+    (`CAUSAL_ABLATION_PLAN.md` §4 vs §5). Reading only the MLP spelling left this figure with one
+    architecture and the message "no seed has both", which reads like missing data rather than a
+    naming difference.
+    """
+    for name in ("remove_structured", "remove_structured_neurons"):
+        got = _gap(row, f"{name}__drop", f"{name}__control_mean_drop")
+        if got is not None:
+            return got
+    return None
+
+
 def _best_fourier_r2(row):
     vals = [_f(row.get(f"{n}__r2_test")) for n in ("sparse_sinusoid", "odd_harmonics")]
     vals = [v for v in vals if v is not None]
@@ -98,7 +113,7 @@ COMPARISONS: tuple[dict, ...] = (
     {"id": "p7_ablation_damage_minus_control",
      "label": "ablation damage: structured minus size-matched control (H5)",
      "modules": ("causal_ablation",), "points": ("final",),
-     "get": lambda r: _gap(r, "remove_structured__drop", "remove_structured__control_mean_drop")},
+     "get": _structured_damage_minus_control},
     {"id": "p8_best_fourier_r2", "label": "end-to-end logit-fit R² of the best Fourier formula (G3)",
      "modules": ("logit_formula_fit",), "points": ("final",), "get": _best_fourier_r2},
 )

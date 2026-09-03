@@ -1,0 +1,853 @@
+{
+  "runs": [
+    "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed9_arch25k"
+  ],
+  "points": [
+    "crossing",
+    "final"
+  ],
+  "key_rule": "nanda",
+  "seed": 0,
+  "n_calls": 80,
+  "analysis_git_commit": "eeeef82ad8bd4bb9a6a072c80fc221bbe5e28e9e",
+  "started_utc": "2026-09-03T23:36:56.876380+00:00",
+  "outcomes": [
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 153.82
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.71
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.78
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 5.8
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.19
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 142.59
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 10075,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.81
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.8
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 10075,
+      "status": "ok",
+      "detail": "",
+      "seconds": 5.61
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.17
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 143.37
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.69
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.68
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.4
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.45
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 137.2
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8150,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.64
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.57
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 8150,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.38
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.05
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 160.18
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.61
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.56
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 8650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 5.43
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.96
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 147.89
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9375,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.6
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.6
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9375,
+      "status": "ok",
+      "detail": "",
+      "seconds": 5.59
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.42
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 148.24
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9900,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.63
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.66
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9900,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.14
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.47
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 155.83
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9200,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.63
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.57
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9200,
+      "status": "ok",
+      "detail": "",
+      "seconds": 5.25
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.66
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 153.74
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9800,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.55
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.63
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9800,
+      "status": "ok",
+      "detail": "",
+      "seconds": 5.5
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.82
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 128.61
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9300,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.6
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.62
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9300,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.26
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.36
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 133.63
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 7975,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.91
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.94
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 107.82
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 6250,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.78
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.82
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 120.16
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.79
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.97
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 113.29
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 7425,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.84
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.95
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 113.75
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 10275,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.83
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.98
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 100.73
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 5625,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.89
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.85
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 107.24
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 6325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.86
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.95
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 107.33
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 7750,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.82
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.87
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 105.69
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.91
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.86
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 106.24
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 5825,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.75
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.62
+    }
+  ],
+  "summary": {
+    "counts": {
+      "skipped": 10,
+      "ok": 80
+    },
+    "failed": [],
+    "missing_modules": []
+  }
+}

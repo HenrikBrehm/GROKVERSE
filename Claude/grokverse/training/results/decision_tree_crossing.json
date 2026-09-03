@@ -1,0 +1,1661 @@
+{
+  "module": "decision_tree",
+  "module_version": "1.0",
+  "created_utc": "2026-09-03T23:42:35.560316+00:00",
+  "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+  "aggregate_dir": "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\results\\aggregate",
+  "measurement_point": "crossing",
+  "structured_definition": "primary",
+  "thresholds": {
+    "G1_min_structured_fraction": 0.25,
+    "G1_min_median_family_fraction": 0.5,
+    "G2_min_R": 0.5,
+    "G3_min_argmax_acc_test": 0.9,
+    "G3_difference_control_ratio": 0.5,
+    "seeds_required": 8,
+    "seeds_total": 10,
+    "provenance": "docs/PREREGISTRATION.md \u00a75 \u2014 [AI-PROPOSED], HUMAN_DECISIONS C2\u2013C6; this module never changes them"
+  },
+  "per_architecture": {
+    "mlp": {
+      "seeds": [
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+          "seed": 0,
+          "tag": "step009125",
+          "verdicts": {
+            "G1": false,
+            "G2": true,
+            "G3": null,
+            "G4": false
+          },
+          "all_four_passed": null,
+          "evaluable": false,
+          "not_evaluable_because": {
+            "G3": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+          },
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.298828125,
+              "family_fraction_median_u_a": 0.2636863264650154,
+              "family_fraction_median_u_b": 0.2750156567001254,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9955132094614129,
+              "null_q95": 0.1405482152317209,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 153
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.4993628605677175,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.4993628605677175,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.4993628605677175,
+              "control_std_r2_test": 5.607473066727768e-17,
+              "control_set_size": 56.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": true,
+              "difference_control_r2_test": 0.028166753020875568,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics",
+              "not_evaluable": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+          "seed": 1,
+          "tag": "step010075",
+          "verdicts": {
+            "G1": false,
+            "G2": true,
+            "G3": null,
+            "G4": false
+          },
+          "all_four_passed": null,
+          "evaluable": false,
+          "not_evaluable_because": {
+            "G3": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+          },
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.265625,
+              "family_fraction_median_u_a": 0.2502972106961432,
+              "family_fraction_median_u_b": 0.24872649547454453,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9954344318653308,
+              "null_q95": 0.14744852275851636,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 136
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.539819647388213,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.539819647388213,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.539819647388213,
+              "control_std_r2_test": 0.0,
+              "control_set_size": 56.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": true,
+              "difference_control_r2_test": 0.038609041507533304,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics",
+              "not_evaluable": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+          "seed": 2,
+          "tag": "step009175",
+          "verdicts": {
+            "G1": false,
+            "G2": true,
+            "G3": null,
+            "G4": false
+          },
+          "all_four_passed": null,
+          "evaluable": false,
+          "not_evaluable_because": {
+            "G3": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+          },
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.287109375,
+              "family_fraction_median_u_a": 0.26802042907318857,
+              "family_fraction_median_u_b": 0.27140363979486437,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9955223721246074,
+              "null_q95": 0.13992430471118528,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 147
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5103934891073272,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.510382493341177,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.510382493341177,
+              "control_std_r2_test": 0.0,
+              "control_set_size": 56.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": true,
+              "difference_control_r2_test": 0.045687182481382704,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics",
+              "not_evaluable": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+          "seed": 3,
+          "tag": "step008150",
+          "verdicts": {
+            "G1": false,
+            "G2": true,
+            "G3": null,
+            "G4": false
+          },
+          "all_four_passed": null,
+          "evaluable": false,
+          "not_evaluable_because": {
+            "G3": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+          },
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.23046875,
+              "family_fraction_median_u_a": 0.25084789330371593,
+              "family_fraction_median_u_b": 0.23475363702414082,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9963573819428895,
+              "null_q95": 0.16201024777784567,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 118
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6375411907984323,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6375339457864528,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.6375339457864528,
+              "control_std_r2_test": 0.0,
+              "control_set_size": 56.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": true,
+              "difference_control_r2_test": 0.02379419443478581,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics",
+              "not_evaluable": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+          "seed": 4,
+          "tag": "step008650",
+          "verdicts": {
+            "G1": false,
+            "G2": true,
+            "G3": null,
+            "G4": false
+          },
+          "all_four_passed": null,
+          "evaluable": false,
+          "not_evaluable_because": {
+            "G3": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+          },
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.279296875,
+              "family_fraction_median_u_a": 0.2451306311728042,
+              "family_fraction_median_u_b": 0.24796279572699947,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9963033345474851,
+              "null_q95": 0.1435554434026866,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 143
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6066976391040565,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6066976391040565,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.6066976391040565,
+              "control_std_r2_test": 1.1214946133455537e-16,
+              "control_set_size": 56.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": true,
+              "difference_control_r2_test": 0.02648262132813417,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics",
+              "not_evaluable": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+          "seed": 5,
+          "tag": "step009375",
+          "verdicts": {
+            "G1": false,
+            "G2": true,
+            "G3": null,
+            "G4": false
+          },
+          "all_four_passed": null,
+          "evaluable": false,
+          "not_evaluable_because": {
+            "G3": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+          },
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.314453125,
+              "family_fraction_median_u_a": 0.26772731481601775,
+              "family_fraction_median_u_b": 0.2623252740721873,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9960167981470955,
+              "null_q95": 0.13807293670631438,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 161
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5095797742339854,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5095797742339854,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.5095797742339854,
+              "control_std_r2_test": 0.0,
+              "control_set_size": 56.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": true,
+              "difference_control_r2_test": 0.04604179522257035,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics",
+              "not_evaluable": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+          "seed": 6,
+          "tag": "step009900",
+          "verdicts": {
+            "G1": false,
+            "G2": true,
+            "G3": null,
+            "G4": false
+          },
+          "all_four_passed": null,
+          "evaluable": false,
+          "not_evaluable_because": {
+            "G3": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+          },
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.291015625,
+              "family_fraction_median_u_a": 0.24600922445960788,
+              "family_fraction_median_u_b": 0.25970457918357903,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9939059095564822,
+              "null_q95": 0.14294553029918192,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 149
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.4964413114605102,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.4964413114605102,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.4964413114605102,
+              "control_std_r2_test": 5.607473066727768e-17,
+              "control_set_size": 56.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": true,
+              "difference_control_r2_test": 0.06060887933099013,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics",
+              "not_evaluable": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+          "seed": 7,
+          "tag": "step009200",
+          "verdicts": {
+            "G1": false,
+            "G2": true,
+            "G3": null,
+            "G4": false
+          },
+          "all_four_passed": null,
+          "evaluable": false,
+          "not_evaluable_because": {
+            "G3": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+          },
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.27734375,
+              "family_fraction_median_u_a": 0.23999521757535558,
+              "family_fraction_median_u_b": 0.24298080405233588,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9968468632470583,
+              "null_q95": 0.14463103418243087,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 142
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5702393493990208,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5702393493990208,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.5702393493990208,
+              "control_std_r2_test": 0.0,
+              "control_set_size": 56.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": true,
+              "difference_control_r2_test": 0.03523399336248956,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics",
+              "not_evaluable": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+          "seed": 8,
+          "tag": "step009800",
+          "verdicts": {
+            "G1": false,
+            "G2": true,
+            "G3": null,
+            "G4": false
+          },
+          "all_four_passed": null,
+          "evaluable": false,
+          "not_evaluable_because": {
+            "G3": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+          },
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.271484375,
+              "family_fraction_median_u_a": 0.2263257591002626,
+              "family_fraction_median_u_b": 0.234968300278468,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9946737567297825,
+              "null_q95": 0.14526308186367057,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 139
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.576316425181318,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.576316425181318,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.576316425181318,
+              "control_std_r2_test": 0.0,
+              "control_set_size": 56.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": true,
+              "difference_control_r2_test": 0.034667367765620516,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics",
+              "not_evaluable": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        },
+        {
+          "run_id": "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+          "seed": 9,
+          "tag": "step009300",
+          "verdicts": {
+            "G1": false,
+            "G2": true,
+            "G3": null,
+            "G4": false
+          },
+          "all_four_passed": null,
+          "evaluable": false,
+          "not_evaluable_because": {
+            "G3": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+          },
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.263671875,
+              "family_fraction_median_u_a": 0.24654536538249877,
+              "family_fraction_median_u_b": 0.24580392657711214,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9962128852165291,
+              "null_q95": 0.1454748007202662,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 135
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5764435857559183,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.5764435857559183,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.5764435857559183,
+              "control_std_r2_test": 0.0,
+              "control_set_size": 56.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": true,
+              "difference_control_r2_test": 0.0345542621796463,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics",
+              "not_evaluable": "the random-frequency control draws 56 of 56 available frequencies, so it is the same set every time (std ~ 0) and cannot discriminate; the r2-above-control condition is untestable as specified"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured",
+                "remove_key_freqs": "remove_key_freqs_from_curves",
+                "keep_structured": "keep_structured"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "mlp_mechanism"
+          ]
+        }
+      ],
+      "n_seeds_present": 10,
+      "n_evaluable": 0,
+      "n_passed": 0,
+      "n_failed": 0,
+      "n_not_evaluable": 10,
+      "seeds_passed": [],
+      "seeds_failed": [],
+      "seeds_not_evaluable": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "rule": ">= 8 of 10 seeds pass all four criteria",
+      "per_criterion_passed": {
+        "G1": 0,
+        "G2": 10,
+        "G3": 0,
+        "G4": 0
+      },
+      "per_criterion_not_evaluable": {
+        "G1": 0,
+        "G2": 0,
+        "G3": 10,
+        "G4": 0
+      },
+      "n_distinct_seeds": 10,
+      "passes_gate": null,
+      "verdict_reason": "0 passed, 10 not evaluable; the untested seeds could still reach 8"
+    },
+    "transformer": {
+      "seeds": [
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+          "seed": 0,
+          "tag": "step007975",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.6171875,
+              "family_fraction_median_u_a": 0.6663671001081495,
+              "family_fraction_median_u_b": 0.6611623347067328,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9842841321420812,
+              "null_q95": 0.09853254930276772,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 316
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6899811677944965,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6900367847112612,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.6187846644005747,
+              "control_std_r2_test": 0.23720050541297769,
+              "control_set_size": 21.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0008047194003373281,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+          "seed": 1,
+          "tag": "step006250",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.544921875,
+              "family_fraction_median_u_a": 0.5989356382045837,
+              "family_fraction_median_u_b": 0.5826418854064748,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.985917619485811,
+              "null_q95": 0.10255609668744882,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 279
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7182589628123717,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7182553955206546,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.4503478903587929,
+              "control_std_r2_test": 0.17299129685299508,
+              "control_set_size": 17.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0007213205482407004,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+          "seed": 2,
+          "tag": "step008125",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.603515625,
+              "family_fraction_median_u_a": 0.7056385724472565,
+              "family_fraction_median_u_b": 0.7132140950277905,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9802521733555195,
+              "null_q95": 0.09921522962293233,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 309
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.74332632062444,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7433474986825641,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.6644625883093865,
+              "control_std_r2_test": 0.2795721787745084,
+              "control_set_size": 19.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0018897654596428115,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+          "seed": 3,
+          "tag": "step007425",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.625,
+              "family_fraction_median_u_a": 0.719170328714213,
+              "family_fraction_median_u_b": 0.7171425793152254,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9849643098788687,
+              "null_q95": 0.09701247925354382,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 320
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6361395721866907,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6361458898569052,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.5736553428690885,
+              "control_std_r2_test": 0.18429895502836555,
+              "control_set_size": 21.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0017060757490567902,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+          "seed": 4,
+          "tag": "step010275",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.572265625,
+              "family_fraction_median_u_a": 0.6067716891241639,
+              "family_fraction_median_u_b": 0.6055337674739043,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.981057957001603,
+              "null_q95": 0.10208890271193828,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 293
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7163803953130274,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7163827454988556,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.6443954620393955,
+              "control_std_r2_test": 0.22342978643002587,
+              "control_set_size": 22.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0012956572439513092,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+          "seed": 5,
+          "tag": "step005625",
+          "verdicts": {
+            "G1": false,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.4609375,
+              "family_fraction_median_u_a": 0.48265508843878546,
+              "family_fraction_median_u_b": 0.48203291158865846,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9895777891364493,
+              "null_q95": 0.11395000562197845,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 236
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7396869058339192,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7397035105908621,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.574143788974542,
+              "control_std_r2_test": 0.20488886571317622,
+              "control_set_size": 16.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 6.818833189425888e-05,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+          "seed": 6,
+          "tag": "step006325",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.57421875,
+              "family_fraction_median_u_a": 0.6331535696025603,
+              "family_fraction_median_u_b": 0.6218621853921837,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9825554931015874,
+              "null_q95": 0.09976233704818344,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 294
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6909190124905371,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6909193289188034,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.5221178945199334,
+              "control_std_r2_test": 0.17502494868898041,
+              "control_set_size": 22.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0013520490822283016,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+          "seed": 7,
+          "tag": "step007750",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.560546875,
+              "family_fraction_median_u_a": 0.5977190509802046,
+              "family_fraction_median_u_b": 0.6045559564547331,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9881828689380678,
+              "null_q95": 0.10345112801236207,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 287
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7164255393057997,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7164213233584469,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.557326879874842,
+              "control_std_r2_test": 0.20657527073789542,
+              "control_set_size": 17.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.000694500954316446,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+          "seed": 8,
+          "tag": "step008125",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.583984375,
+              "family_fraction_median_u_a": 0.6835304156002814,
+              "family_fraction_median_u_b": 0.6830833738593876,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9874768666470869,
+              "null_q95": 0.0974691305592616,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 299
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7241108670782359,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.7241150771914175,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.6247651291096914,
+              "control_std_r2_test": 0.2283973386534443,
+              "control_set_size": 13.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.00041484234978672596,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        },
+        {
+          "run_id": "txf_add_p113_wd1.0_frac0.3_seed9_arch25k",
+          "seed": 9,
+          "tag": "step005825",
+          "verdicts": {
+            "G1": true,
+            "G2": true,
+            "G3": true,
+            "G4": false
+          },
+          "all_four_passed": false,
+          "evaluable": true,
+          "not_evaluable_because": {},
+          "detail": {
+            "G1": {
+              "structured_fraction_of_live": 0.642578125,
+              "family_fraction_median_u_a": 0.6844717959762299,
+              "family_fraction_median_u_b": 0.6744824149343169,
+              "definition": "primary",
+              "thresholds": {
+                "structured_fraction": 0.25,
+                "median_family_fraction": 0.5
+              }
+            },
+            "G2": {
+              "resultant_length": 0.9805662169645026,
+              "null_q95": 0.0967953316697169,
+              "threshold_R": 0.5,
+              "insufficient_neurons": false,
+              "n_neurons_in_test": 329
+            },
+            "G3": {
+              "formulas": {
+                "sparse_sinusoid": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6831294207074916,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                },
+                "odd_harmonics": {
+                  "argmax_acc_test": 1.0,
+                  "r2_test": 0.6831302625127738,
+                  "passes_argmax": true,
+                  "passes_difference_control": true
+                }
+              },
+              "thresholds": {
+                "argmax_acc_test": 0.9,
+                "difference_control_ratio": 0.5
+              },
+              "control_q95_r2_test": 0.5778640630132678,
+              "control_std_r2_test": 0.18916171865217782,
+              "control_set_size": 25.0,
+              "n_frequencies_available": 56,
+              "control_degenerate": false,
+              "difference_control_r2_test": 0.0029344672656248516,
+              "formula_satisfying_argmax_and_difference": "odd_harmonics"
+            },
+            "G4": {
+              "remove_structured_necessary": false,
+              "remove_key_freqs_necessary": false,
+              "keep_structured_sufficient": true,
+              "ids_used": {
+                "remove_structured": "remove_structured_neurons",
+                "remove_key_freqs": "remove_key_subspace_from_residual",
+                "keep_structured": "keep_structured_neurons"
+              }
+            }
+          },
+          "modules_present": [
+            "causal_ablation",
+            "h3_validity",
+            "logit_formula_fit",
+            "transformer_mechanism"
+          ]
+        }
+      ],
+      "n_seeds_present": 10,
+      "n_evaluable": 10,
+      "n_passed": 0,
+      "n_failed": 10,
+      "n_not_evaluable": 0,
+      "seeds_passed": [],
+      "seeds_failed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "seeds_not_evaluable": [],
+      "rule": ">= 8 of 10 seeds pass all four criteria",
+      "per_criterion_passed": {
+        "G1": 9,
+        "G2": 10,
+        "G3": 10,
+        "G4": 0
+      },
+      "per_criterion_not_evaluable": {
+        "G1": 0,
+        "G2": 0,
+        "G3": 0,
+        "G4": 0
+      },
+      "n_distinct_seeds": 10,
+      "passes_gate": false,
+      "verdict_reason": "0 of 10 seeds passed all four criteria"
+    }
+  },
+  "branch": {
+    "branch": "undetermined",
+    "reason": "the gate is not yet decided for ['mlp'] \u2014 analyses are incomplete",
+    "architectures_passing": [],
+    "architectures_failing": [
+      "transformer"
+    ],
+    "architectures_undetermined": [
+      "mlp"
+    ],
+    "action": "complete the missing analyses; no branch may be taken meanwhile"
+  }
+}

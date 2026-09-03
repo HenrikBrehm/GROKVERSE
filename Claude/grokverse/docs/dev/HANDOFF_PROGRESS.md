@@ -15,13 +15,13 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [ ] E3 — training chain finished (`matrix_launch.log`: `matrix chain finished`); `training/results/` committed —
 - [ ] E4 — full analysis chain launched over every block; finished —
 - [ ] E5 — seed-0 pilot outputs re-run under the freeze commit —
-- [~] E6 — re-run of `key_frequencies` + `progress_measures` + `wave_fitting` over the primary block launched 2026-09-03T23:2x UTC at commit `eeeef82` (`results/rerun_e6*.log`) — RUNNING
+- [x] E6 — re-run at commit `eeeef82`: **80 ok, 0 failed**; primary block now complete, 0 missing rows in every module
 - [x] F — `aggregate`, `decision_tree`, `figures_study`, `bounded_alternative` + tests — suite 20/20, 1,794 checks
-- [ ] G1 — aggregate + decision tree run; branch named per architecture in the labbook —
+- [x] G1 — aggregate (0 missing) + gate at both points; **branch: `neither_passes` at final** (G1/G2/G3 10/10 both, G4 0/10 both), `undetermined` at crossing — labbook 62–65, `results/decision_tree_{final,crossing}.json`
 - [ ] G2 — statistics per `STATISTICAL_ANALYSIS_PLAN.md` computed and stored —
 - [ ] G3 — control-block comparisons (factorial, parameter-matched, two-hot) —
 - [ ] G4 — H3a/H3b/H3c with both controls, refutation criteria applied —
-- [ ] G5 — figures from stored files only —
+- [x] G5 — all 11 figures drawn from the aggregate tables only, captions naming sources — `results/figures/index.json`
 - [ ] G6 — `docs/CLAIM_EVIDENCE_TABLE.md` —
 - [ ] G7 — `RESULTS.md`, `README.md`, `docs/LIMITATIONS.md`, `PROGRESS.md` —
 - [ ] G8 — `AI_DISCLOSURE.md` per master prompt §22, human parts as placeholders —
