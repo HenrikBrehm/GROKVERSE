@@ -166,14 +166,26 @@ def _structure_over_time(res: dict) -> dict:
 
 
 def _wave_fitting(res: dict) -> dict:
+    """Per curve: the share of neurons each waveform model wins by AIC.
+
+    The result is keyed `results[curve]["fraction_best_by_aic"][model]` — an earlier version of this
+    extractor guessed flat `fraction_best_aic_<model>` keys, found nothing, and silently produced
+    rows with no waveform columns at all. The H2 figure would have stayed blank with no error.
+    """
     out = {}
     for curve, block in (res or {}).items():
         if not isinstance(block, dict):
             continue
-        for key in ("fraction_best_aic_square", "fraction_best_aic_sinusoid",
-                    "fraction_best_aic_odd_harmonics"):
-            if key in block:
-                out[f"{curve}__{key}"] = block[key]
+        for model, value in (block.get("fraction_best_by_aic") or {}).items():
+            out[f"{curve}__fraction_best_aic_{model}"] = value
+        for model, value in (block.get("fraction_best_by_aicc") or {}).items():
+            out[f"{curve}__fraction_best_aicc_{model}"] = value
+        if "fraction_square_aic_below_sinusoid" in block:
+            out[f"{curve}__fraction_square_aic_below_sinusoid"] = \
+                block["fraction_square_aic_below_sinusoid"]
+        delta = block.get("delta_aic_sinusoid_minus_square")
+        if isinstance(delta, dict) and "median" in delta:
+            out[f"{curve}__delta_aic_sinusoid_minus_square_median"] = delta["median"]
     return out
 
 
