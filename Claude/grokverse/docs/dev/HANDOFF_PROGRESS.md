@@ -34,13 +34,13 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 
 | # | item | state | evidence |
 |---|---|---|---|
-| 1 | mask methodology checked against the primary source | partly: audit done, Nanda/Doshi source notes only partly verified (labbook 30) | `docs/MASK_PROTOCOL_AUDIT.md` |
+| 1 | mask methodology checked against the primary source | **partly** — audit done and four protocols separated; the Nanda/Doshi source notes remain only partly verified against the papers (labbook 30). Honest residual gap. | `docs/MASK_PROTOCOL_AUDIT.md` |
 | 2 | old/new restricted-excluded variants separated | done | `mask_protocols.py`, 197 checks |
-| 3 | tests for every load-bearing function | every driver module done; the §13 set (aggregate/decision_tree/figures) still to come | `tests/run_all.py` (16 files, 1,657) |
-| 4 | effective MLP weights analysed, not only `W_E` | code done, not run | `mlp_mechanism.py` |
-| 5 | hidden activations + output weights of both architectures | code done, not run | `transformer_mechanism.py` |
-| 6 | ≥ 2 causal ablations per architecture | module done (9 MLP + 8 transformer ids), not yet run over the matrix | `analysis/causal_ablation.py` |
-| 7 | end-to-end logit fit, both architectures, all seeds | module done, run on 2/28 (stage E) | |
+| 3 | tests for every load-bearing function | **done**: driver modules and the §13 set, plus `check_results_numbers.py` which re-derives every number quoted in `RESULTS.md` | `tests/run_all.py` (24 files, 1,913 checks) |
+| 4 | effective MLP weights analysed, not only `W_E` | **done**: run over all 10 MLP seeds at both points | `results/aggregate/mlp_mechanism.json` |
+| 5 | hidden activations + output weights of both architectures | **done**: both architectures, 10 seeds each; transformer `additivity_r2` median 0.922 reported as the approximation bound | `results/aggregate/{transformer,mlp}_mechanism.json` |
+| 6 | ≥ 2 causal ablations per architecture | **done**: 6 MLP + 15 transformer ablation ids, each with a size-matched random control over 50 draws | `results/aggregate/causal_ablation.json` |
+| 7 | end-to-end logit fit, both architectures, all seeds | **done**: 40 rows (20 runs × 2 points), R² median 0.546 (txf) / 0.974 (MLP), argmax 1.000 in both | `results/aggregate/logit_formula_fit.json` |
 | 8 | full-domain comparison over 12,769 pairs | **done**: 10 paired seeds, median agreement 0.99977 | `results/function_agreement/*_arch25k_*` |
 | 9 | evidence gate evaluated, branch named | **done**: `neither_passes` at final, `undetermined` at crossing | `results/decision_tree_*.json` |
 | 10 | primary setting with multiple paired seeds | done | 20/20, shared split hashes |
@@ -48,10 +48,10 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 | 12 | parameter count + input parametrization as confounds | **done**: both measured; differences survive matching, waveform result is partly parametrization | `results/controls_report.json` |
 | 13 | grokking times with measurement interval | **done**: interval-consistent bounds, 10/10 seed intervals exclude zero | `results/statistics.json` |
 | 14 | delineation vs Manir/Rupa, Swaroop, Doshi, Khanh; H1/H2 as replication | done | `docs/NOVELTY_AND_RELATED_WORK.md` |
-| 15 | every figure reproducible from stored raw data | **done**: 11 figures from the aggregate tables only | `results/figures/index.json` |
-| 16 | negative results documented | **two so far**: gate `neither_passes` and H3 refuted by its own criterion | labbook 62–63, 70 |
-| 17 | README claims match the evidence | old numbers `[AUDIT]`-marked; rewrite in stage G7 | |
-| 18 | `AI_DISCLOSURE.md` describes the actual process | done for now; update in stage G8 | |
+| 15 | every figure reproducible from stored raw data | **done and verified**: 11 figures, sources all resolve, and a re-run reproduces all 11 **byte-identically** | `results/figures/index.json`, labbook 104 |
+| 16 | negative results documented | **done: eight**, incl. the gate, H3's refutation, G4's untestability, the unconverged MLP metric, and CKA failing to identify same-architecture seeds | `RESULTS.md` §11 |
+| 17 | README claims match the evidence | **done**: `README.md` and `RESULTS.md` rewritten, with an explicit "what this does not claim" list and four withdrawn claims, each retired by a number | `README.md`, `RESULTS.md` §11 |
+| 18 | `AI_DISCLOSURE.md` describes the actual process | **done**: §6 rewritten for the completed documents, 2026-09-04 changelog entry; **11 `[HUMAN AUTHORS MUST COMPLETE]` placeholders intact** | `AI_DISCLOSURE.md` |
 | 19 | final conclusions checked and written by the human authors | `[!]` **human only** | `docs/HUMAN_DECISIONS.md` F + sign-off; `AI_DISCLOSURE.md` placeholders |
 
 ## Human-only items (never fill in)
