@@ -662,3 +662,45 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     are uniform: the linear probe decodes `(a+b) mod 113` from the hidden layer at **1.000** while its
     shuffled-label control sits at **0.008–0.010** against a chance level of 0.009, and the hidden
     layer's entropy effective rank is ~59–66 of 512 dimensions.
+83. **The bounded alternative-mechanism analysis is complete: 20 runs, 0 failed.** It answers the four
+    questions `PREREGISTRATION.md` §6.3 pre-committed, and no fifth. Medians over 10 seeds per
+    architecture at the final checkpoint:
+
+    | | transformer | MLP |
+    |---|---|---|
+    | linear probe for `(a+b) mod 113` | **1.0000** | 0.9999 |
+    | its shuffled-label control | 0.0079 | 0.0091 (chance 0.0088) |
+    | one-hidden-layer probe | 0.9999 | 1.0000 |
+    | effective rank of `hidden` (of 512) | **12.7** | **66.6** |
+    | components for 90 % of the variance | 12 | 56 |
+    | effective rank of the logits | 5.0 | 17.4 |
+
+    The sum is decodable from both hidden layers at ceiling while the shuffled-label control sits at
+    chance, so the representation genuinely carries `(a+b) mod p` in both.
+84. **The two architectures differ sharply in how compactly they carry it, and the causal test
+    separates them.** Removing the top-`r` singular directions of `hidden` against `r` random
+    directions of the same rank:
+
+    | r | transformer drop | MLP drop | random-direction control |
+    |---|---|---|---|
+    | 4 | +0.0002 | 0.0000 | 0.0000 |
+    | 8 | **+0.4616** | 0.0000 | 0.0000 |
+    | 16 | **+0.9644** (exceeds every control in 10/10 seeds) | **0.0000** (0/10) | 0.0001 |
+
+    The transformer's computation lives in a subspace of roughly 16 dimensions and is destroyed by
+    removing it; the MLP is **completely unaffected** by removing its top 16 directions. That is
+    consistent with the effective ranks (12.7 vs 66.6) and is a genuine architectural difference, not
+    a metric artifact — the random-direction control does nothing in either case.
+85. **A limitation of that ablation, stated rather than papered over.** `REMOVE_RANKS` was fixed in
+    advance at `(1, 2, 4, 8, 16)`, and 16 is **below the MLP's effective rank of 66.6**. So the MLP
+    result is "not damaged by removing up to 16 directions", *not* "has no low-rank structure": the
+    pre-committed grid simply does not reach far enough to find where it breaks. Extending the grid
+    now, after seeing that the MLP survives it, would be exactly the post-hoc tuning §3.9 forbids;
+    the honest statement is the bounded one, and the gap is recorded here for the human authors.
+86. **Cross-seed CKA is low in both architectures — an honest negative for question 3.** Linear CKA
+    between the hidden representations of all 45 seed pairs: transformer median **0.0017** (range
+    0.0003–0.5404), MLP median **0.0973** (0.0020–0.2683). The structure each model finds does **not**
+    align across seeds. This is consistent with what the study already knew — the key frequencies
+    differ by seed (PROGRESS.md, Phase 3) — and it means the low-rank subspace the transformer uses is
+    seed-specific, not a shared basis. Low CKA here says "not the same subspace", not "no structure";
+    both readings are recorded so the number is not over-read in either direction.

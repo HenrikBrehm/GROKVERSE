@@ -21,7 +21,7 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] G2 — `analysis/statistics_report.py` + tests; the 8 pre-specified comparisons (10 rows) with per-seed differences, bootstrap CIs, exact tests, effect sizes, Holm aid and the §6 timing bounds — `results/statistics.json`, suite 21/21
 - [~] G3 — confound block (18 runs) complete 00:40:48 UTC and its analysis launched; `param_matched` training, `twohot` queued
 - [x] G4b — `analysis/h4_report.py` + tests: structure onset precedes generalization in 10/10 seeds, both architectures — `results/h4_report.json`, labbook 79–81
-- [~] G4c — bounded alternative-mechanism analysis (pre-committed by `neither_passes`) running over the 20 primary runs — `results/bounded_alternative_out.log`
+- [x] G4c — bounded alternative-mechanism analysis: **20 ok, 0 failed**; probes at ceiling vs chance controls, effective rank 12.7 (txf) vs 66.6 (MLP), transformer destroyed by removing its top-16 directions while the MLP is unaffected, cross-seed CKA low in both — `results/aggregate/bounded_alternative.json`, `results/cross_seed_cka.json`, labbook 83–86
 - [x] G4 — `analysis/h3_report.py` + tests; both refutation criteria applied literally. **H3 is REFUTED** by criterion 2 (family gap +0.0850, CI [+0.0600, +0.1004]); the family definition closes only 5.4 % of the gap — `results/h3_report.json`, labbook 70–74
 - [x] G5 — all 11 figures drawn from the aggregate tables only, captions naming sources — `results/figures/index.json`
 - [x] G6 — `docs/CLAIM_EVIDENCE_TABLE.md`: 8 claims in the §21 six-part structure, a forbidden-claims table, and what each pending item would settle

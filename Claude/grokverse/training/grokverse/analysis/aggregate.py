@@ -37,7 +37,7 @@ MODULE_VERSION = "1.0"
 MODULES: tuple[str, ...] = (
     "key_frequencies", "mlp_mechanism", "transformer_mechanism", "wave_fitting",
     "logit_formula_fit", "h3_validity", "causal_ablation", "structure_over_time",
-    "progress_measures",
+    "progress_measures", "bounded_alternative",
 )
 #: The two pre-registered measurement points, resolved from the file tag.
 POINT_OF_TAG = {"final": "final"}
@@ -231,7 +231,33 @@ def _progress_measures(res: dict) -> dict:
     return out
 
 
+def _bounded_alternative(res: dict) -> dict:
+    """The four pre-committed questions of PREREGISTRATION §6.3, one row per run."""
+    out: dict = {"n_hidden_units": res.get("n_hidden_units")}
+    for depth in ("linear", "one_hidden_layer"):
+        block = _q(res, "probes", depth, default={}) or {}
+        out[f"probe_{depth}__test_acc"] = _q(block, "real", "test_acc")
+        out[f"probe_{depth}__control_test_acc"] = _q(block, "shuffled_label_control", "test_acc")
+        out[f"probe_{depth}__above_control"] = block.get("test_acc_above_control")
+    out["probe_chance_level"] = _q(res, "probes", "chance_level")
+    for name, key in (("hidden", "spectrum_hidden"), ("logits", "spectrum_logits")):
+        block = res.get(key) or {}
+        out[f"spectrum_{name}__effective_rank"] = block.get("effective_rank_entropy")
+        out[f"spectrum_{name}__participation_ratio"] = block.get("participation_ratio")
+        out[f"spectrum_{name}__n_for_90pct"] = block.get("n_components_for_90pct")
+        out[f"spectrum_{name}__top1_share"] = block.get("top1_share")
+    abl = _q(res, "singular_direction_ablation", default={}) or {}
+    out["svd_ablation__baseline_test_acc"] = _q(abl, "baseline", "test_acc")
+    for rank, block in (abl.get("per_rank") or {}).items():
+        out[f"svd_ablation__r{rank}__drop"] = _q(block, "observed", "test_accuracy_drop")
+        out[f"svd_ablation__r{rank}__control_mean_drop"] = _q(block, "control", "mean_drop")
+        out[f"svd_ablation__r{rank}__z"] = block.get("z")
+        out[f"svd_ablation__r{rank}__exceeds_all_controls"] = block.get("exceeds_all_controls")
+    return out
+
+
 EXTRACTORS = {
+    "bounded_alternative": _bounded_alternative,
     "mlp_mechanism": _mechanism, "transformer_mechanism": _mechanism,
     "logit_formula_fit": _logit_formula_fit, "causal_ablation": _causal_ablation,
     "h3_validity": _h3_validity, "structure_over_time": _structure_over_time,
