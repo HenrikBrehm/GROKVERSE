@@ -5,9 +5,8 @@ training/runs/
 node_modules/
 web/.next/
 .DS_Store
-docs.zip
-archive/
+archive/interrupted_*/
+archive/pre_arch_study_*/
+archive/untracked/
 web/tsconfig.tsbuildinfo
 web/verify-explorer.png
-docs/sources/_raw/
-docs/sources/_tmp/

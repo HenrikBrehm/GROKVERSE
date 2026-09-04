@@ -1069,3 +1069,39 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
      audited and the four protocols are separated, but the Nanda and Doshi source notes are only partly
      verified against the papers themselves (labbook 30). It is recorded as partial in the checklist
      rather than ticked.
+
+108. **Repository tidied: one `archive/` folder for everything not load-bearing. Nothing deleted.**
+     Asked to make the tree navigable again without removing anything. Rule applied: keep everything
+     master prompt §18 lists, everything code, tests, `README.md`, `RESULTS.md` or the chain scripts
+     read, and everything still live (E3, the human decisions); move logs, session scaffolding,
+     superseded figures and raw dumps. Every move is a `git mv`, so history follows the file.
+
+     The existing `archive/` was gitignored as a whole, so a tracked file moved there would have
+     silently left the repository. `.gitignore` now ignores only its big subfolders
+     (`interrupted_*/`, `pre_arch_study_*/`, `untracked/`), and the folder gained tracked subfolders:
+
+     | moved to | from | count |
+     |---|---|---|
+     | `archive/logs/` | `training/results/*.log`, `analysis_driver_sot_probe.json` | 15 |
+     | `archive/legacy_figures/` | `training/figures/` (pre-study figures, claims withdrawn in `RESULTS.md` §11) | 21 |
+     | `archive/session_handoff/` | `docs/dev/HANDOFF_2026-09-04.md` (job done; status lives in `HANDOFF_PROGRESS.md`) | 1 |
+     | `archive/untracked/` (ignored) | `docs.zip`, `docs/sources/_raw/`, `docs/sources/_tmp/` | 3 |
+
+     Also removed: the **empty** root `results/` directory (0 files) and the then-empty
+     `training/figures/`. Those are the only removals, and both held nothing.
+
+     Checked before moving: the chain scripts only *append* to their logs, so a re-run recreates the
+     original paths; the legacy `figures.py` creates its output folder itself; the raw dumps are cited
+     once, in the Khanh source note, and that pointer was updated. `docs/BASELINE.md` and
+     `docs/CURRENT_EVIDENCE_AUDIT.md` gained a one-line relocation note for `training/figures/`; their
+     content is untouched. `archive/README.md` carries the full forwarding table. Older labbook entries
+     and `PROGRESS.md` keep their original paths, as `CLAUDE.md` requires.
+
+     Deliberately left in place, with the reason in `archive/README.md`: `docs/{BASELINE,
+     CAPACITY_AND_CONFOUNDS, LEGACY_METRIC_AUDIT}.md` and `docs/data/` (master-prompt requirements
+     with code writing into them), the `docs/dev/` specs, the four `training/` root scripts (each the
+     reproducible command for a committed artifact) and `training/runs/` (gitignored; the legacy runs
+     still feed the manifest, and `txf_mul_*` is reserved).
+
+     After the move: suite 24/24; `check_results_numbers.py` agrees on every number; all 11 figures
+     and their sources resolve. 36 renames, 0 deletions of content.

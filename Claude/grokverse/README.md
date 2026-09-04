@@ -90,7 +90,8 @@ grokverse/
 │  ├─ tests/                     # 24 test files, 1,913 checks
 │  ├─ runs/                      # per-run outputs (gitignored; regenerable)
 │  └─ results/                   # aggregates, reports, figures (committed)
-└─ web/                          # Next.js + React Three Fiber: the explorer
+├─ web/                          # Next.js + React Three Fiber: the explorer
+└─ archive/                      # logs, pre-study figures, session scaffolding, raw dumps — nothing load-bearing (see archive/README.md)
 ```
 
 ## Reproduce the science

@@ -1,5 +1,7 @@
 # CURRENT_EVIDENCE_AUDIT — Phase-1 evidence audit of the GROKVERSE claims
 
+> **Relocation note (2026-09-04).** The pre-study figures this document cites under `training/figures/` now live in `archive/legacy_figures/` (moved, not deleted; see `archive/README.md`). The current figures are `training/results/figures/`.
+
 > **AI-drafted audit (Claude), 2026-09-02 — not yet human-reviewed**
 >
 > This document only *classifies* the evidence behind the claims in `README.md` and `RESULTS.md` (master prompt `GROKVERSE_MASTER_PROMPT_EN.md` §5). It proposes no fixes. Every number below was recomputed on 2026-09-02 from the artifacts in `training/runs/` and carries its provenance (run_id, file, function). Statements taken from the primary literature are quoted verbatim from the page text returned by the fetch tool on 2026-09-02 and carry the section numbers as reported there; anything not found in that text is marked `[NOT FOUND IN SOURCE]`; anything from memory is marked `[FROM MEMORY - UNVERIFIED]`.

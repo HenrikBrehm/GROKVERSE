@@ -1,5 +1,7 @@
 # Baseline state before the architecture study
 
+> **Relocation note (2026-09-04).** The pre-study figures this document cites under `training/figures/` now live in `archive/legacy_figures/` (moved, not deleted; see `archive/README.md`). The current figures are `training/results/figures/`.
+
 Recorded 2026-09-02 before any new experiment or analysis change (master prompt §3 rule 6).
 
 ## Git
