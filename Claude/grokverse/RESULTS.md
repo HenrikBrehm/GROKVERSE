@@ -618,6 +618,13 @@ python -m grokverse.analysis.figures_study     --aggregate-dir results/aggregate
 Every figure in `training/results/figures/` is drawn from the aggregate tables alone and carries a
 caption naming its source file, so no figure can drift from the numbers above.
 
+**Freeze audit.** Every analysis module stamps the git commit it ran at into its own output envelope.
+Reading those back: **all 696 analysis artifacts across all 51 runs record a commit that is a
+descendant of the freeze `0b55e1d`**, across 17 distinct analysis commits, with none missing the
+field. No pilot-era output survives anywhere in the study. This is checkable in a second by anyone
+with the repository, and is the reason the freeze is a property of the artifacts rather than a claim
+about what we remember doing.
+
 **The explorer (`web/`) still shows the pre-study runs** and is deliberately untouched; the required
 changes are specified in [`docs/dev/EXPLORER_UPDATE_PLAN.md`](docs/dev/EXPLORER_UPDATE_PLAN.md) and are
 blocked on human review (**E3**).

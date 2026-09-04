@@ -14,7 +14,7 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] E2 — finished 2026-09-03T23:00:43Z, exit 1: **196 ok, 84 failed, 20 skipped** (`results/analysis_driver.json`). Failures were 3 module bugs, all now fixed (labbook 56–57, 60): key_frequencies 40 + progress_measures 20 (seed arg), wave_fitting 24 (IndexError ×4, wrong arch declaration ×20)
 - [x] E3 — training chain finished 2026-09-04T02:46:36Z; **51 runs, all completed, none failed** (primary 20, confound 18, param_matched 10, two-hot 3); `training/results/` committed
 - [x] E4 — every block analysed: primary 280, confound 234 ok/0 failed, controls 181 ok/1 failed (a race, fixed and re-run); aggregate over all 51 runs shows **0 missing**
-- [ ] E5 — seed-0 pilot outputs re-run under the freeze commit —
+- [x] E5 — verified, not assumed: every seed-0 pilot output records an `analysis_git_commit` that is a descendant of the freeze `0b55e1d`. Extended to the whole matrix — **all 696 analysis artifacts across all 51 runs** postdate the freeze, 17 distinct analysis commits, **0 missing a commit field** (labbook 102)
 - [x] E6 — re-run at commit `eeeef82`: **80 ok, 0 failed**; primary block now complete, 0 missing rows in every module
 - [x] F — `aggregate`, `decision_tree`, `figures_study`, `bounded_alternative` + tests — suite 20/20, 1,794 checks
 - [x] G1 — aggregate (0 missing) + gate at both points; **branch: `neither_passes` at final** (G1/G2/G3 10/10 both, G4 0/10 both), `undetermined` at crossing — labbook 62–65, `results/decision_tree_{final,crossing}.json`

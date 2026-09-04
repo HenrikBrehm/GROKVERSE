@@ -928,3 +928,19 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
      cannot satisfy** (shares summing to 1) and a **cross-module agreement check** at a shared
      checkpoint. Both are now in place for this module; the other extractors have only the former
      where one exists.
+
+102. **E5 closed by measurement: every analysis artifact in the study postdates the code freeze.**
+     The handoff listed E5 as "seed-0 pilot outputs re-run under the freeze commit" and my own note
+     said they had "likely" been regenerated. Likely is not a record, so I checked it instead of
+     ticking it. For each stored artifact I read its `analysis_git_commit` and asked git whether the
+     freeze commit `0b55e1d` is an ancestor of it.
+
+     Seed 0, both architectures, the five modules E5 names: **all at or after the freeze**. Extended
+     to the whole matrix: **696 analysis artifacts across all 51 runs, 17 distinct analysis commits,
+     every one of them a descendant of the freeze, and none missing the field.** So no pilot-era
+     output survives anywhere in the study, not just in the seed-0 pair E5 asked about.
+
+     Worth keeping as a technique: the check costs a second and turns "we re-ran it" from a
+     recollection into a property of the artifacts. It works only because every module stamps its own
+     commit into its envelope — a discipline whose value is not obvious until a freeze has to be
+     audited after the fact.
