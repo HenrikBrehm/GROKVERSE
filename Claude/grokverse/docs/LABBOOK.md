@@ -944,3 +944,27 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
      recollection into a property of the artifacts. It works only because every module stamps its own
      commit into its envelope — a discipline whose value is not obvious until a freeze has to be
      audited after the fact.
+
+103. **The withdrawn "markedly sparser" claim, quantified rather than merely retracted.** While
+     checking that `NOVELTY_AND_RELATED_WORK.md` still matched the evidence (master prompt §23 item
+     14), I found it still quoting **0.73 versus 0.44** for the transformer-vs-MLP embedding top-8
+     concentration. Those came from the superseded `RESULTS.md`, and — per that page's own `[AUDIT]`
+     note — from **early-stopped runs read at the generalization crossing**.
+
+     The architecture study runs to a fixed 25,000 steps with no early stopping, so the same quantity
+     can be measured after convergence. Over the 10 primary seeds at step 25,000:
+
+     | | transformer | MLP |
+     |---|---|---|
+     | embedding top-8 concentration | **0.961** (0.950–0.971) | **0.891** (0.772–0.960) |
+     | top-8 cap binding | 0/10 | **6/10** |
+
+     Same direction, **gap 0.07 instead of 0.29**. This is Khanh 2026's overstatement-at-the-transition
+     effect measured on our own data rather than cited from theirs, and it is a much better argument
+     for withdrawing the word *markedly* than the abstract methodological objection I had recorded.
+     A claim retracted with a number attached is worth more than one retracted with a caveat.
+
+     The cap result is the second half of it: the metric is "top-8", and for the MLP the cap **binds on
+     6 of 10 runs**, so for those runs the number partly reports the cap rather than the network. The
+     superseded page's `[AUDIT]` note said the cap bound on all 16 runs it covered; at convergence it
+     binds on none of the transformer runs. Both documents now carry the measured version.

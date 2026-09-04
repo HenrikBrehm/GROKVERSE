@@ -60,7 +60,14 @@ regularization at `p = 97`. Three findings bear directly on us:
 
 1. **The concentration gap is already published.** §5.7 / Table 8: "the Transformer concentrates 98.5 %
    of its embedding energy in just 5 frequencies, compared to 74.7 % for MLP-GELU and 75.6 % for
-   MLP-ReLU." Our 0.73 versus 0.44 is a replication of the *direction* under a different protocol.
+   MLP-ReLU." We replicate the *direction* under a different protocol, but the **size depends on when
+   it is measured**, which is itself worth recording. The 0.73 versus 0.44 quoted in the superseded
+   `RESULTS.md` came from early-stopped runs read at the generalization crossing. Measured at the
+   25,000-step budget with no early stopping, over 10 seeds, embedding top-8 concentration is
+   **0.961** (transformer, range 0.950–0.971) versus **0.891** (MLP, range 0.772–0.960) — the same
+   direction, a gap of 0.07 rather than 0.29. This is the Khanh 2026 overstatement measured on our own
+   data. Note also that the top-8 *cap* binds on 6 of 10 MLP runs and 0 of 10 transformer runs, so for
+   the MLP the metric is partly reporting the cap rather than the network.
 2. **The attention interpretation is already published.** §5.7: self-attention "acts as an implicit
    sparsity-promoting mechanism in the frequency domain". The sentence in our `RESULTS.md` saying
    attention steers the transformer toward a cleaner circuit is the same claim.

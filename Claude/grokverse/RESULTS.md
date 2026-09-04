@@ -512,7 +512,7 @@ its residue.
 |---|---|
 | "the eight key frequencies alone solve the task while removing them destroys it", *as a reproduction of Nanda et al.* | it used `legacy_broad_mask`, which keeps 101 components where the released operator keeps 10. The statement is now made under named protocols in §5.2, where it holds for **both** architectures. |
 | "attention ~50/50 directly links the learned structure to the computation" | it was a mean without a variance. Fixing attention to its mean costs 0.336 accuracy (§6), so the input-dependent part is not negligible. |
-| "the transformer learns a markedly sparser Fourier circuit" (as a discovery) | the direction is a **replication** of Manir & Rupa 2026, and §6 gives no causal warrant for the word "circuit". |
+| "the transformer learns a markedly sparser Fourier circuit" (as a discovery) | the direction is a **replication** of Manir & Rupa 2026, and §6 gives no causal warrant for the word "circuit". The word *markedly* also does not survive the change of measurement point: the retired 0.73-vs-0.44 gap came from early-stopped runs read at the crossing, and at the 25,000-step budget the same quantity is **0.961 vs 0.891** — same direction, gap 0.07 rather than 0.29. The top-8 cap additionally binds on 6 of 10 MLP runs and 0 of 10 transformer runs. |
 | "transformer groks ~3× faster" | the ratio moved between settings that differed in two knobs at once; §10 separates them. |
 
 **Claims that may not be made from this evidence at all:** "the two architectures use the same
