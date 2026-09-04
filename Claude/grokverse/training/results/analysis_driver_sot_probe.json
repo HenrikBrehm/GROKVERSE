@@ -1,0 +1,32 @@
+{
+  "runs": [
+    "txf_add_p113_wd1.0_frac0.3_seed0_arch25k"
+  ],
+  "points": [
+    "crossing",
+    "final"
+  ],
+  "key_rule": "nanda",
+  "seed": 0,
+  "n_calls": 1,
+  "analysis_git_commit": "9927c60fd20cceb25ce927148d00535ba7dab330",
+  "started_utc": "2026-09-04T05:01:14.545932+00:00",
+  "outcomes": [
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 113.19
+    }
+  ],
+  "summary": {
+    "counts": {
+      "ok": 1
+    },
+    "failed": [],
+    "missing_modules": []
+  }
+}

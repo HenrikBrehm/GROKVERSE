@@ -117,12 +117,31 @@ architecture. Claims C1–C4 are about measured structure; none of them is a mec
 | "the transformer learns a sparser Fourier circuit" | the concentration gap is a **replication** (Manir & Rupa 2026), and C3 shows no causal warrant for "circuit" |
 | "transformers grok faster" | one hyperparameter point, direction not unanimous (C7) |
 | "the MLP's structure is a measurement artifact" | refuted by C5 — it is a real difference |
-| any claim from the control blocks | **pending**: confound analysed now, parameter-matched and two-hot still training |
+| "the MLP is more square-wave-like *because it is an MLP*" | the two-hot control moves the same metric by **+0.1836** with 3 seeds, so the input parametrization carries part of it |
+| any effect attributed to Grokfast alone | the 2 x 2 separates it from `train_frac`, and its main effect is the size of the interaction and, for the transformer, indistinguishable from zero |
+| any of the above read as a comparison of **converged** states | `structured_fraction_of_live` is settled in 2 of 10 MLP seeds at the budget (`LIMITATIONS.md` B3) |
 
-## Pending, and what each would settle
+## Resolved since this table was first written (2026-09-04)
 
-* **Confound block** (Grokfast × `train_frac`, 18 runs, analysis running) — whether C7's ordering is protocol-dependent (master prompt §14 forbids attributing a change to one factor while the two are unseparated).
-* **Parameter-matched block** (10 runs, training) — whether C8's structure differences survive matching parameter count to ≤ 5 %.
-* **Two-hot block** (3 runs, queued) — whether the MLP's waveform result (C8) is an architecture effect or an input-parametrization effect.
-* **H4 / structure over time** — computed per run; the cross-seed onset comparison is not yet aggregated.
-* **Bounded alternative-mechanism analysis** — `neither_passes` triggers it for **both** architectures (`PREREGISTRATION.md` §6.3). Module written and tested; not yet run over the matrix.
+Every item that stood as *pending* has been measured. The results are in `RESULTS.md`; what they change
+here is recorded below, so the table is not read against a state that no longer exists.
+
+| was pending | outcome | does it change a claim above? |
+|---|---|---|
+| **Confound block** (Grokfast x `train_frac`, 18 runs) | `train_frac` moves the generalization step by -6,367 (txf) / -8,217 (MLP); Grokfast by -350 / +892; interaction +883 / -933. No CI at 3 seeds per cell. | **No** — C7 stands. It retires the *earlier repository* claim that read a speed-ratio change as a Grokfast effect. |
+| **Parameter-matched block** (10 runs, `d_mlp = 572`, 0.02 % apart) | every structure difference survives with the same sign and an interval excluding zero: structured fraction +0.0969 [+0.0863, +0.1240], phase `R` -0.0076, square/harmonic -0.2230, generalization -2,212. | **No** — it removes C8's leading alternative explanation. |
+| **Two-hot block** (3 runs) | the two-hot MLP is **more** square-wave-like than the shared-embedding MLP: **+0.1836** [+0.1133, +0.2109]. | **Yes — C8 is weakened.** The waveform difference is at least partly input parametrization, not architecture. C8's permissible conclusion must be read with that attached. |
+| **H4 / structure over time** | 4 of 7 metrics reach onset before the generalization crossing in 10/10 seeds, both architectures; 2 metrics never produce a defined onset. Correlational. | **No** — it adds a claim rather than changing one. |
+| **Bounded alternative-mechanism analysis** | probes at ceiling; effective rank 12.7 (txf) vs 66.6 (MLP); top-16 singular-direction removal destroys the transformer (0.964) and not the MLP (0.000); **cross-seed CKA 0.0017 / 0.0973 between seeds of the same architecture**. | **Yes, indirectly.** The CKA result means representation similarity cannot be cited for or against mechanism sameness anywhere in this study. |
+
+## Two further limits found after this table was written
+
+- **C2 and C8 rest on a metric that has not converged.** `structured_fraction_of_live` is settled at the
+  25,000-step budget in 10/10 transformer seeds but only **2/10 MLP seeds**, and the MLP's is still
+  rising. The +0.085 gap is a budget-fixed comparison whose bias has a known direction: a longer budget
+  would shrink it. (`docs/LIMITATIONS.md` B3.)
+- **C6's waveform trajectory was unmeasurable until 2026-09-04.** `structure_over_time` reported the
+  square- and sinusoid-best-fit shares as exactly 0.0 at every checkpoint, because it compared an
+  integer model index to a model name (labbook 101). The corrected series shows the transformer's
+  operand curves starting at 0.770 square-best-fit and decaying to 0.000. No claim in this table
+  consumed the broken values.

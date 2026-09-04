@@ -53,6 +53,7 @@ from .mlp_mechanism import (CURVE_NAMES, PRIMARY_DEFINITION, PRIMARY_KEY_RULE, c
                             resolve_key_frequencies, structured_neuron_definitions)
 from . import key_frequencies as KF
 from . import transformer_mechanism as TM
+from .wave_fitting import MODEL_NAMES
 
 MODULE = "structure_over_time"
 MODULE_VERSION = "1.0"
@@ -68,6 +69,31 @@ N_CONTROL_SERIES = 10
 # --------------------------------------------------------------------------- #
 # per-checkpoint metric set                                                    #
 # --------------------------------------------------------------------------- #
+def _fraction_best(best, model: str) -> float:
+    """Fraction of columns whose best-by-AIC model is ``model``.
+
+    ``wave_fitting`` uses **two** conventions for ``best_by_aic`` and they are not interchangeable:
+    the batched ``fit_matrix`` stores ``aic.argmin(axis=0)``, an **integer index** into
+    ``MODEL_NAMES``, while the single-curve ``fit_curve`` path stores the model **name**.
+    ``fit_curve_matrix`` merges the batched results, so what arrives here is an integer array.
+
+    Comparing that integer array to the string ``"square"`` is not an error in numpy — it is
+    elementwise-False — so the metric reported **0.0 for every model at every checkpoint** while
+    looking like a measurement. It went unnoticed because 0.0 is a plausible value for a waveform
+    share, and because the downstream onset detector then reported "no onset", which is also
+    plausible. Found 2026-09-04 while filling in `docs/LIMITATIONS.md` §B, by noticing that the
+    trajectory's value at step 25,000 disagreed with the final-checkpoint module's value for the
+    same run and step. Both conventions are accepted here so the trap cannot be re-armed by a
+    caller that passes names.
+    """
+    b = np.asarray(best)
+    if b.dtype.kind in "iub":
+        return float((b == MODEL_NAMES.index(model)).mean())
+    if b.dtype.kind in "US":
+        return float((b == model).mean())
+    raise TypeError(f"best_by_aic has dtype {b.dtype!r}; expected an index or a name array")
+
+
 def _opt_float(x) -> float | None:
     """``float(x)`` or ``None`` — ``common._jsonable`` rejects nan/inf, and a missing statistic
     (an empty structured set at `init`, say) must travel as JSON null, never as a made-up 0."""
@@ -147,8 +173,11 @@ def checkpoint_metrics(state: dict, cfg: Config, key_freqs, seed: int, n_boot: i
         "phase_relation_exceeds_null": bool(pr.get("exceeds_null_q95", False)),
         "phase_relation_insufficient_neurons": bool(pr.get("insufficient_neurons", False)),
         "phase_relation_n": int(pr.get("n", 0)),
-        "fraction_best_aic_square": float((best == "square").mean()),
-        "fraction_best_aic_sinusoid": float((best == "sinusoid").mean()),
+        "fraction_best_aic_square": _fraction_best(best, "square"),
+        "fraction_best_aic_sinusoid": _fraction_best(best, "sinusoid"),
+        # all four are reported, so the shares sum to 1 and an empty one is visible as an anomaly
+        "fraction_best_aic_odd_harmonics": _fraction_best(best, "odd_harmonics"),
+        "fraction_best_aic_odd_harmonics_1_over_j": _fraction_best(best, "odd_harmonics_1_over_j"),
         "median_odd_minus_even_u_a": float(np.median(odd_minus_even)),
         "median_family_fraction": float(np.median(np.concatenate([fam_a, fam_b]))),
         "logit_key_subspace_share": float(sub["share_total"]),

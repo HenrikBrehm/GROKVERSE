@@ -1,9 +1,9 @@
 # Limitations
 
-AI-drafted (Claude), 2026-09-03 — not yet human-reviewed. Two kinds of limitation are separated:
+AI-drafted (Claude); §A 2026-09-03, §B 2026-09-04 — not yet human-reviewed. Two kinds of limitation are separated:
 **design limitations**, which are fixed by the study's construction and are known before any result, and
-**result limitations**, which can only be written once the analyses have run. The second section is
-deliberately empty of content and lists what must be filled in.
+**result limitations**, which can only be written once the analyses have run. Section B was
+deliberately left empty until then; it was filled in on 2026-09-04, after the analyses.
 
 ---
 
@@ -111,20 +111,140 @@ negative result stands even if the bounded analysis finds nothing.
 
 ---
 
-## B. Result limitations — **to be written after the analyses**
+## B. Result limitations — measured, 2026-09-04
 
-Each of these can only be filled in with the measurement in hand. Leaving them empty is deliberate; they
-must not be pre-filled with expectations.
+Written after the analyses, from the stored artifacts. AI-drafted, not yet human-reviewed. Each item
+answers the question the design left open; none of them is a hedge added after the fact.
 
-- [ ] Which architectures passed the evidence gate, in how many seeds, and which criterion failed where.
-- [ ] Which decision-tree branch was taken, and what that branch permits saying.
-- [ ] For every structure metric: whether it had converged at the budget, per seed and per architecture.
-- [ ] The measured `additivity_r2` distribution for the transformer, and therefore how much of it the
-      effective-curve comparison explains (A4).
-- [ ] Whether the confound matrix separated Grokfast from the training fraction, or whether the cells
-      were too few to do so.
-- [ ] Whether the parameter-matched and two-hot controls changed any conclusion, and by how much.
-- [ ] Ablations that did **not** damage the model (these are findings and must be listed).
-- [ ] Any hypothesis refuted, with the number that refuted it.
-- [ ] Any run that failed or was excluded, with the reason and a sensitivity analysis without it.
-- [ ] Any analysis that had to change after the code freeze, with its labbook entry.
+### B1. Which architectures passed the evidence gate, and which criterion failed where
+
+Neither. G1, G2 and G3 hold on **10 of 10 seeds for both** architectures at the final checkpoint; **G4
+fails 0/10 in both**. Within G4, `keep_structured` is *sufficient* 10/10 in both, and the failure is
+entirely in the necessity conditions: `remove_structured` is not necessary in either architecture,
+because the size-matched random control does **0.873** (MLP) and **0.916** (transformer) of the same
+damage. `remove_key_freqs` is necessary 10/10 for the MLP and 0/10 for the transformer — but only
+because the gate was wired to `remove_key_subspace_from_residual`; the embedding-level ablation gives
+10/10 (see B9 and **D5**). Source: `training/results/decision_tree_final.json`.
+
+### B2. Which decision-tree branch was taken, and what it permits
+
+**`neither_passes`** at the final checkpoint; **`undetermined`** at the memorization crossing, because
+G3's random-frequency control degenerates there on all 10 MLP seeds. The branch forbids every mechanism
+reading, including the study's own conditional main claim. It permits: reporting the measured structure
+as structure, reporting the gate failure, and running the bounded alternative-mechanism analysis —
+which was done for both architectures.
+
+### B3. Convergence at the budget, per metric and per architecture
+
+A6 promised this test; here it is. Relative change between the step-20,000 and step-25,000 checkpoints,
+computed from the stored trajectories; "settled" means below 5 %.
+
+| metric | transformer | MLP | note |
+|---|---|---|---|
+| `structured_fraction_of_live` | **10/10 settled** (median 0.41 %) | **2/10 settled** (median 7.09 %, max 9.00 %) | the MLP is **not settled at the budget** |
+| `embedding_top8_concentration` | 10/10 (0.59 %) | 8/10 (2.80 %, max 8.15 %) | |
+| `phase_relation_R` | 10/10 (0.37 %) | 10/10 (0.03 %) | |
+| `median_family_fraction` | 10/10 (0.15 %) | 10/10 (0.09 %) | |
+| `logit_key_subspace_share` | 9/10 (1.25 %) | 10/10 (0.40 %) | |
+| `median_odd_minus_even_u_a` | 0/10 | 0/10 | the relative test is meaningless here: the value sits at ~1e-3, so **maximum absolute change is 0.003**. Reported as unsettled *in relative terms only*. |
+
+**This is the most consequential entry in this document.** `structured_fraction_of_live` is the metric
+behind G1 and behind the headline architecture gap (+0.085), and for the MLP it is **still rising at
+the budget** in 8 of 10 seeds — from 0.861 at step 20,000 to 0.881 at 25,000 in seed 0, having climbed
+from 0.223 at step 8,000. The transformer's has flattened (0.959 to 0.965). A longer budget would
+therefore be expected to **shrink** the gap this study reports, and possibly to change G1's margin for
+the MLP. This is precisely the censoring Khanh 2026 warns about (A6), now measured rather than
+anticipated. No claim in `RESULTS.md` may be read as a converged-state comparison; every one of them is
+a comparison **at a fixed 25,000-step budget**.
+
+### B4. The measured `additivity_r2` distribution for the transformer
+
+Median **0.922**, range 0.871–0.961 across the 10 seeds (final checkpoint). The mean-attention
+effective curves therefore capture roughly 92 % of the transformer's pre-activation variance, and the
+remaining ~8 % is not represented in any effective-curve comparison. The direct (non-MLP) logit path
+carries a **0.002** share, so the approximation error is in the attention, not in a bypassed path. Two
+independent checks bound this: the exact forward decomposition reproduces the model's logits to 2.8e-13
+against a float64 reference, and fixing attention to its mean costs **0.336** test accuracy — so the
+input-dependent part of attention is real, and is exactly what the effective curves omit.
+
+### B5. Whether the confound matrix separated Grokfast from the training fraction
+
+Yes, in direction and magnitude, but with no interval. With 3 paired seeds per cell the 2 × 2
+decomposition is computed but **no bootstrap CI is reported**, deliberately. The training fraction
+moves the generalization step by −6,367 (transformer) and −8,217 (MLP) steps; Grokfast by −350 and
++892; the interaction by +883 and −933. The Grokfast main effect is the same order as the interaction,
+and for the transformer indistinguishable from zero at this resolution. That is enough to retire the
+earlier repository claim that attributed a change of speed ratio to Grokfast, and **not** enough to
+make any positive claim about Grokfast.
+
+### B6. Whether the parameter-matched and two-hot controls changed a conclusion
+
+**Parameter-matched: no.** At 226,217 vs 226,176 parameters (0.02 %), every structure difference
+survives with the same sign and an interval excluding zero (structured fraction +0.0969
+[+0.0863, +0.1240]; phase `R` −0.0076; square/harmonic fraction −0.2230; generalization step −2,212).
+
+**Two-hot: yes.** The two-hot MLP is **more** square-wave-like than the shared-embedding MLP by
+**+0.1836** [+0.1133, +0.2109] — roughly half the size of the transformer-vs-MLP waveform difference
+itself (−0.324). The waveform result is therefore at least partly a property of the input
+parametrization rather than of the architecture, and `RESULTS.md` says so. With 3 seeds this control
+can only detect a large effect; it found one.
+
+### B7. Ablations that did not damage the model
+
+These are findings, and are listed rather than omitted. `keep_structured` / `keep_structured_neurons`:
+drop 0.000 in both — but the size-matched random control also drops 0.000, so the sufficiency is not
+informative about the *structured* set specifically. `keep_key_freqs_in_embedding` (transformer): drop
+0.004 while its control drops 0.990. `restricted_circuit_only` (transformer): drop **−0.000** — test
+accuracy 1.0000, marginally above the unablated model. `replace_with_sinusoid_fit` and
+`replace_with_square_fit` (MLP): drop 0.000 each, test accuracy **1.0000** — replacing every neuron's
+curves with a fitted waveform costs nothing. `remove_key_subspace_from_residual` (transformer): drop
+0.235, far below the 0.5 necessity threshold. Singular-direction ablation on the **MLP**: drop **0.0000
+at every rank up to 16**, exceeding no control on any seed.
+
+### B8. Hypotheses refuted, with the number that refuted them
+
+**H3**, the study's proposed primary contribution, by its own criterion 2: the architecture gap under
+the family definition is **+0.0850**, CI95 [+0.0600, +0.1004], unanimous across 10 seeds. The family
+definition closes **+0.0049** of a +0.0898 gap — **5.4 %**. The postulated artifact is real and
+measured at +0.1893 on synthetic populations differing only in waveform; it is simply an order of
+magnitude too small to be the explanation.
+
+### B9. Runs that failed or were excluded
+
+**None.** 51 of 51 completed; no run was dropped, so no sensitivity analysis for an excluded run is
+required. Where a *value* is missing it is `null` with a stated reason: transformer seed 5's structured
+set is all 512 neurons, so no size-matched control exists for it; `error_jaccard` is undefined in 4 of
+10 function-agreement pairs because neither model errs; G3 is not evaluable at the crossing point for
+the MLP; two H4 metrics never produce a defined onset. Denominators are always stated.
+
+### B10. Analyses that changed after the code freeze
+
+Five defects were found and fixed after the freeze at `0b55e1d`; each is in the post-freeze table of
+`docs/PREREGISTRATION.md` §12 with its labbook entry. Three of them were **silent**: they produced
+well-formed output containing no information, rather than an error.
+
+| defect | labbook | what it would have changed |
+|---|---|---|
+| `key_frequencies` / `progress_measures` rejected `seed` | 56–57 | 60 driver calls failed loudly — caught immediately |
+| `wave_fitting` `IndexError`, and a wrong architecture declaration | 58, 60 | 24 calls failed loudly |
+| `aggregate._wave_fitting` guessed flat keys | 58 | **silent**: the H2 figure would have been blank |
+| `aggregate._progress_measures` read one level too shallow | 99 | **silent**: every restricted/excluded column was `null` |
+| `structure_over_time` compared a model **index** to a model **name** | 101 | **silent, and it produced 0.0 rather than `null`** — two H4 waveform trajectories were flat zero for the whole study |
+
+The last is the reason this section exists in the form it does. A defect that returns `null` announces
+itself as an absence; one that returns `0.0` does not. The countermeasure adopted is an invariant the
+empty case cannot satisfy (the four waveform shares must sum to exactly 1) plus a cross-module
+agreement check at a shared checkpoint. **It is likelier than not that further defects of this class
+remain in extractors that have neither.**
+
+### B11. What this study measured that it did not set out to measure
+
+Two things, both reported because they bound what the other numbers mean.
+
+- **Cross-seed CKA does not identify same-architecture seeds as similar** (median 0.0017 transformer,
+  0.0973 MLP). Representation similarity is therefore unusable here as evidence about mechanism
+  sameness *or* difference, in either direction.
+- **The two architectures agree on 99.98 % of inputs while their logits correlate at 0.083** and their
+  top-2 predictions agree 0.6 % of the time. Behavioural agreement and representational agreement come
+  apart completely on this task, which is worth stating before anyone reads §4 of `RESULTS.md` as a
+  similarity result.

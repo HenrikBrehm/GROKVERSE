@@ -871,3 +871,60 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     no such compensation. A network can be destroyed by an exact logit-space projection and still route
     around the removal of the corresponding parameters. The two measures disagree by construction, and
     which of them the study's G4 is supposed to mean is exactly what [D5] leaves to the human authors.
+
+101. **The fifth extraction defect, and the only one that produced a plausible number instead of a
+     null.** `structure_over_time` reported `fraction_best_aic_square` and
+     `fraction_best_aic_sinusoid` as **exactly 0.0 at every checkpoint of every run**. The cause:
+     `wave_fitting` uses two different conventions for `best_by_aic` and they are not
+     interchangeable. The batched `fit_matrix` stores `aic.argmin(axis=0)` — an **integer index**
+     into `MODEL_NAMES` — while the single-curve `fit_curve` path stores the model **name**.
+     `fit_curve_matrix` merges the batched results, so an integer array arrives at
+     `checkpoint_metrics`, which compared it to the string `"square"`. In numpy that is not an
+     error; it is elementwise-False.
+
+     This one is worse than entries 58 and 99. Those produced `null`, which at least looks like an
+     absence. This produced **0.0**, which looks like a measurement — a perfectly plausible waveform
+     share — and the downstream onset detector then reported "no onset", which is also perfectly
+     plausible. Nothing in the pipeline could have flagged it, and nothing did: it survived the
+     module's own tests, because the test that covered it asserted only
+     `0 <= square <= 1 and square + sinusoid <= 1`, which `0.0, 0.0` satisfies.
+
+     **How it was caught.** Not by a test, and not by reading the code. While filling in
+     `LIMITATIONS.md` §B I computed the A6 convergence check (change between the step-20,000 and
+     step-25,000 checkpoints) from the stored series, and the two waveform metrics came back with
+     *exactly* 0.0000 % change on all 20 runs. Exact zeros across independent seeds are not a
+     measurement. Checking the trajectory's value at step 25,000 against `transformer_mechanism`'s
+     value for the same run at the same step showed 0.0 against 0.4023 — two modules disagreeing
+     about one checkpoint.
+
+     **The fix and the cross-check.** `_fraction_best` now resolves the model index through
+     `MODEL_NAMES` and accepts either convention, so a caller passing names cannot re-arm the trap.
+     All four shares are now reported rather than two, which makes the invariant *the shares sum to
+     exactly 1* available — an invariant no empty table can satisfy. The test now asserts that sum,
+     and that the shares are not all zero. After the fix, the trajectory's final value for
+     `txf_..._seed0` is sinusoid 0.4023 / square 0.0 / odd 0.5977, matching
+     `transformer_mechanism`'s independent computation for the same checkpoint **exactly**.
+
+     **What was hidden.** The recovered trajectory is not a flat line — it is a substantive result.
+     For `txf_..._seed0` the effective operand curves start **0.770 best-fit by a square wave** at
+     initialization and decay monotonically to **0.000** by step ~14,000, while the odd-harmonic
+     share rises from 0.025 to 0.598. A waveform trajectory of that size was invisible for the whole
+     study.
+
+     **What it changes in the reported results: nothing, by luck rather than by design.** The two
+     affected metrics fed only H4's onset detector, which reported them as "onset undefined on all
+     10 seeds" — the same words it would use for a metric that genuinely never crosses its
+     threshold. No gate criterion, no statistic, no figure and no claim consumed them. The published
+     H4 verdict is unchanged. But the *reason* recorded for those two rows was wrong, and had any
+     run's series been non-constant the report would have been wrong too. `results/h4_report.json`
+     and both aggregates are regenerated from the corrected series.
+
+     **The pattern, now five deep.** Every one of these defects was an extraction or comparison that
+     produced well-formed output containing no information: `_wave_fitting` guessing flat keys (58),
+     `_progress_measures` reading one level too shallow (99), and now a type mismatch between two
+     conventions in the same module. None crashed. None failed a test. Each was found only because
+     someone went looking for a specific number and it was not there. The countermeasure that
+     actually works is not more unit tests of the extractor — it is an **invariant the empty case
+     cannot satisfy** (shares summing to 1) and a **cross-module agreement check** at a shared
+     checkpoint. Both are now in place for this module; the other extractors have only the former
+     where one exists.

@@ -167,9 +167,17 @@ def check_metric_set(tmp: Path):
     check("per-neuron arrays are returned for the bootstrap",
           {"family_fraction_u_a", "odd_minus_even_u_a", "structured", "alive"} <= set(per_neuron)
           and per_neuron["structured"].shape == (cfg.d_mlp,))
-    check("the two waveform fractions are shares of the same population",
-          0.0 <= scalars["fraction_best_aic_square"] <= 1.0
-          and scalars["fraction_best_aic_square"] + scalars["fraction_best_aic_sinusoid"] <= 1.0)
+    # The old form of this check ("each in [0,1] and the two sum to <= 1") passed while every
+    # waveform share was silently 0.0 -- `best_by_aic` is an integer index into MODEL_NAMES and was
+    # being compared to the string "square". The invariant below cannot pass on an empty table:
+    # every column has exactly one best model, so the four shares must sum to exactly 1.
+    shares = {m: scalars[f"fraction_best_aic_{m}"] for m in
+              ("sinusoid", "square", "odd_harmonics", "odd_harmonics_1_over_j")}
+    check("all four waveform shares are reported", all(v is not None for v in shares.values()))
+    check("the waveform shares sum to exactly 1 -- every column has one best model",
+          abs(sum(shares.values()) - 1.0) < 1e-12)
+    check("...and they are not all zero, which is what comparing an index to a name produced",
+          any(v > 0.0 for v in shares.values()))
     check("a missing phase relation is null, never a fabricated 0",
           scalars["phase_relation_R"] is None or isinstance(scalars["phase_relation_R"], float))
     check("weight norms are reported per parameter tensor as well as in total",

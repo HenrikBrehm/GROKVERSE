@@ -222,3 +222,64 @@ The faithful un-accelerated run (`txf_add_p113_wd1.0_frac0.3_seed0`; **no Grokfa
 in ~24 min on CPU. Its embedding is the sparsest yet: **76%** of Fourier power in the top-8 frequencies
 (vs 0.52–0.60 accelerated, 0.32 non-grokked). Exported + figures generated; it is now the explorer's **default** run.
 RESULTS §1/§2 and README updated — the main honesty caveats (un-accelerated transition; embedding sparsity) are resolved.
+
+
+## [2026-09-04] Architecture study (branch `arch-study`) — matrix complete, analyses complete, docs rewritten
+
+Done:
+- **51 runs, all completed, none failed**: primary 20 (10 transformer + 10 MLP seeds, `p=113`, `frac=0.3`,
+  `wd=1.0`, 25,000 steps, no Grokfast, no early stopping), confound 18 (Grokfast x train_frac, 2x2),
+  parameter-matched 10 (`d_mlp=572`), two-hot 3. Paired seeds share a split hash.
+- Analysis modules written test-first and run over the matrix: `transformer_mechanism`, `causal_ablation`,
+  `h3_validity`, `structure_over_time`, `aggregate`, `decision_tree`, `figures_study`,
+  `bounded_alternative`, `statistics_report`, `h3_report`, `h4_report`, `controls_report`.
+  Suite: **24 test files, 1,913 checks, green**.
+- `RESULTS.md`, `README.md`, `docs/LIMITATIONS.md` (section B) rewritten against the completed study;
+  `docs/CLAIM_EVIDENCE_TABLE.md` carries the six-part structure per master prompt section 21.
+
+Measured results:
+- **Grokking reproduced in both architectures, 20/20 runs.** Transformer memorizes at a median step of
+  140 and generalizes at 7,588 (final test acc 0.99966); MLP at 160 and 9,250 (final test acc 1.000000
+  in all 10 seeds). Transformer crosses earlier in 9 of 10 seeds; median paired difference **-1,562
+  steps**, CI95 [-2,895, -822]; **seed 4 reverses the direction**.
+- **The pre-registered evidence gate reports `neither_passes`.** G1, G2, G3 hold 10/10 for both; **G4
+  fails 0/10 for both**, because removing the structured neurons is not separable from removing an
+  equal number of random ones (control does 0.873 / 0.916 of the damage). The definition selects
+  88-98 % of the network, which is what makes the criterion untestable -- escalated as **D6**.
+- **H3, the proposed primary contribution, is refuted by its own criterion.** The family definition
+  closes **+0.0049** of a **+0.0898** gap = **5.4 %**; the gap under the family definition remains
+  **+0.0850**, CI95 [+0.0600, +0.1004], unanimous over 10 seeds. The postulated artifact is real
+  (+0.1893 on synthetic populations differing only in waveform) and an order of magnitude too small.
+- **Key frequencies ARE causally load-bearing in both** (removal costs ~0.99 accuracy vs ~0.000 for a
+  size-matched random set), unlike the neuron sets. Which transformer ablation the gate refers to was
+  never specified and decides that condition -- escalated as **D5**.
+- **Function agreement 0.99977** over all 12,769 inputs (identical in 4 of 10 seeds) while logits
+  correlate at only **0.083** and top-2 predictions agree 0.6 % of the time.
+- **H4 holds**: 4 of 7 structure metrics reach onset before the generalization crossing in 10/10 seeds,
+  both architectures. Correlational, and labelled as such.
+- **Bounded alternative analysis**: effective rank 12.7 (transformer) vs 66.6 (MLP); removing the top-16
+  singular directions destroys the transformer (drop 0.964, 10/10 above all controls) and leaves the MLP
+  untouched (0.000, 0/10). **Cross-seed CKA is 0.0017 / 0.0973 between seeds of the SAME architecture**,
+  so representation similarity is unusable here as evidence in either direction.
+- **Controls**: `train_frac` dominates Grokfast by an order of magnitude, retiring the earlier ~2.9x-to-1.3x
+  reading; every structure difference survives parameter matching to 0.02 %; but the **two-hot MLP is more
+  square-wave-like (+0.1836)** than the shared-embedding MLP, so the waveform result is at least partly
+  about input parametrization rather than architecture.
+
+Verification: every threshold frozen before the runs at commit `0b55e1d`; `python tests/run_all.py`
+green before every commit; every figure drawn from the stored aggregate tables only.
+
+Open questions / risks:
+- **The MLP's `structured_fraction_of_live` has not converged at the 25,000-step budget** (settled in
+  only 2 of 10 seeds, still rising). The headline structure gap is a budget-fixed comparison and a
+  longer budget would be expected to shrink it. See `docs/LIMITATIONS.md` B3.
+- **Five post-freeze defects, three of them silent** -- they produced well-formed output containing no
+  information rather than an error. The worst returned **0.0** rather than `null`
+  (`structure_over_time` comparing a model index to a model name, labbook 101). Each now has a
+  regression test, but this class of defect is likelier than not to remain elsewhere.
+- Human-only items outstanding: the final interpretation in the authors' own words, `HUMAN_DECISIONS`
+  A-F including **D5**/**D6**, the `AI_DISCLOSURE` placeholders, the `txf_mul_*` runs (**E6**), and the
+  explorer update (**E3**, `web/` deliberately untouched).
+
+Next: human review of `docs/HUMAN_DECISIONS.md`, then the explorer update per
+`docs/dev/EXPLORER_UPDATE_PLAN.md`.

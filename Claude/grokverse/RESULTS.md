@@ -1,107 +1,623 @@
 # RESULTS.md — GROKVERSE findings
 
-> Every number here traces to a real seeded run in `training/runs/` and a figure in `training/figures/`. Nothing on this page is fabricated, hard-coded, or cherry-picked. Negative and fragile results are reported as results. (PROMPT.md §6)
-
-> ### ⚠ Under revision — architecture study in progress (2026-09-03)
+> Every number on this page traces to a real seeded run under `training/runs/` and to a stored
+> analysis artifact under `training/results/`. Nothing here is fabricated, hard-coded or
+> cherry-picked. Negative and fragile results are reported as results (PROMPT.md §6).
 >
-> This page predates the mechanistic architecture study on branch `arch-study` and **several of its
-> claims are classified as over-interpreted or methodologically problematic** by
-> [`docs/CURRENT_EVIDENCE_AUDIT.md`](docs/CURRENT_EVIDENCE_AUDIT.md). The specific corrections known
-> today are marked inline below with **[AUDIT]**. Every number here still traces to a real seeded run;
-> what is wrong is not the arithmetic but what the numbers were said to show. The page is rewritten
-> only after the new analyses are complete, so that the corrections are made once, against evidence.
+> **Status of the writing.** AI-drafted from the stored artifacts on 2026-09-04, under master prompt
+> §21. The **final scientific interpretation in the authors' own words has not yet been written** —
+> see §14 and `docs/HUMAN_INTERPRETATION_TEMPLATE.md`. Wording follows §21's graded forms; the
+> per-claim six-part structure lives in [`docs/CLAIM_EVIDENCE_TABLE.md`](docs/CLAIM_EVIDENCE_TABLE.md)
+> and this page does not state anything more strongly than that table's "permissible conclusion" line.
 
-Status: **Phases 0–7 complete and verified** — an un-accelerated canonical reproduction, seed-robust mechanistic analysis, a cross-architecture finding, and a verified interactive 3D explorer.
+> **This page replaces the version dated 2026-09-03.** That version carried inline `[AUDIT]` notes
+> because its claims had been classified as over-interpreted by
+> [`docs/CURRENT_EVIDENCE_AUDIT.md`](docs/CURRENT_EVIDENCE_AUDIT.md). Rather than patch it, it has
+> been rewritten against the completed architecture study. Four of its headline statements do not
+> survive and are listed as withdrawn in §11. The earlier arithmetic was not wrong; what was wrong was
+> what the numbers were said to show.
 
 ---
 
-## 1. Reproduction of grokking — VERIFIED
+## 0. How to read this page
 
-**Setup.** 1-layer ReLU transformer, no LayerNorm; modular addition `(a + b) mod 113`; `d_model=128`, 4 heads, `d_head=32`, `d_mlp=512` (Nanda et al. 2023 recipe). Full-batch AdamW, `lr=1e-3`, `betas=(0.9, 0.98)`, `weight_decay=1.0`. Tokens `[a, b, =]`; prediction read off the `=` position. Every run seeded and deterministic.
+Four rules govern everything below.
 
-**Canonical reproduction (headline) — `txf_add_p113_wd1.0_frac0.3_seed0`**, the full Nanda config (`train_frac=0.3`, `wd=1.0`, **no acceleration**, ~24 min on CPU). Measured transition (`run.json["transition"]`):
+1. **The pre-registered evidence gate reports `neither_passes`.** Master prompt §12 therefore forbids
+   reading a harmonic-family or "same Fourier principle" interpretation into these numbers for
+   *either* architecture. The main claim the study was permitted to make **conditional on the gate** —
+   "Transformer and MLP can solve the same modular task through related Fourier-based principles, but
+   may express them in different neural representations" — **is not licensed by this data and is not
+   made.** §21 requires that if neither architecture passes the Fourier tests, exactly that is
+   reported. That is what §3 reports.
+2. **Every threshold, definition and pass rule was fixed before the runs** and is recorded in
+   [`docs/PREREGISTRATION.md`](docs/PREREGISTRATION.md), frozen at commit `0b55e1d`. Nothing was
+   changed after a number was seen; the two places where a *choice* turned out to be load-bearing are
+   escalated to the human authors as **D5** and **D6**, not resolved by the AI.
+3. **Numbers are medians over 10 paired seeds** unless stated otherwise, with the observed range or a
+   percentile-bootstrap 95 % interval. All ten seeds are shown per comparison in
+   `training/results/aggregate/TABLES.md`; no seed is averaged away.
+4. **`None` means "not evaluable", never "fails".** Where a criterion could not be tested, this page
+   says so rather than scoring it.
 
-| quantity | value |
+---
+
+## 1. What was run
+
+**Task.** `(a + b) mod 113`, all 12,769 input pairs, a fixed 30 % train split. Paired seeds share a
+split (identical `split_hash`), so every cross-architecture comparison is on the same data.
+
+**Architectures.**
+
+| | transformer | MLP (shared embedding) | MLP (parameter-matched) | MLP (two-hot) |
+|---|---|---|---|---|
+| description | 1 layer, ReLU, **no LayerNorm**, `d_model=128`, 4 heads, `d_head=32`, `d_mlp=512`; tokens `[a, b, =]`, read out at `=` | same embedding table `W_E[p, d]`, operand embeddings concatenated into a 2-layer MLP, `d_mlp=512` | as MLP, `d_mlp=572` | two-hot input, no shared embedding, `d_mlp=512` |
+| parameters | **226,176** | **204,017** (−9.8 %) | **226,217** (+0.02 %) | 174,193 |
+
+**Optimizer.** Full-batch AdamW, `lr = 1e-3`, `weight_decay = 1.0`, 25,000 steps, **no early stopping**
+and **no acceleration** in the primary block. One CPU thread, pinned and recorded per run.
+
+**The matrix — 51 runs, all completed, none failed.**
+
+| block | runs | purpose |
+|---|---|---|
+| **primary** | 20 (10 transformer + 10 MLP seeds) | every claim below unless marked otherwise |
+| confound | 18 | Grokfast × `train_frac` as a 2 × 2, 3 paired seeds per cell |
+| parameter-matched | 10 | MLP at `d_mlp = 572` against the same 10 transformer seeds |
+| two-hot | 3 | input parametrization as an alternative explanation to architecture |
+
+`training/results/run_manifest.csv` lists all 51 with their config hashes and git commits.
+
+---
+
+## 2. Grokking is reproduced, in both architectures, on every seed
+
+**Observation.** Both architectures memorize the training split within ~150 steps and sit at chance on
+held-out data for thousands of steps before test accuracy rises sharply.
+
+**Quantitative evidence** (crossings at train ≥ 0.99 / test ≥ 0.95, the pre-registered `primary`
+definition; the evaluation grid is 10 steps for train and 25 for test):
+
+| | memorization | generalization | grokking gap | final test accuracy |
+|---|---|---|---|---|
+| **transformer** | median **140** (140–150) | median **7,588** (5,625–10,275) | median 7,448 | median **0.99966** (0.9971–1.0000) |
+| **MLP** | median **160** (160 in all 10) | median **9,250** (8,150–10,075) | median 9,090 | **1.000000 in all 10 seeds** |
+
+Every crossing is reported with its evaluation interval; **the phrase "exact transition" is not used**
+anywhere in this study. A crossing recorded at step *c* is known only to lie in `(c − eval_every, c]`.
+Two sensitivity definitions (`sens_loose` 0.98/0.90, `sens_strict` 1.00/0.99) are stored alongside the
+primary one in each `run.json`; they move the crossings by a few hundred steps without changing the
+ordering.
+
+**Permissible conclusion.** Grokking as described by Power et al. 2022 is reproduced un-accelerated in
+both architectures, 20 of 20 runs, with the phase transition logged.
+
+### 2.1 Timing: the transformer crosses earlier in 9 of 10 seeds
+
+Paired difference (transformer − MLP), median **−1,562 steps**, bootstrap CI95 **[−2,895, −822]**,
+Cliff's δ −0.80, Cohen's *d_z* −1.08. **Seed 4 reverses the direction** (10,275 vs 8,650). All ten
+per-seed interval-consistent bounds exclude zero, so the ±25-step evaluation grid never flips a sign;
+what limits the claim is the seed spread, not the grid.
+
+> Under the conditions examined, the transformer's generalization crossing precedes the MLP's by a
+> median of about 1,560 steps, in 9 of 10 seeds. This is **not** "transformers grok faster": it is one
+> hyperparameter point, and the direction is not unanimous.
+
+---
+
+## 3. The pre-registered evidence gate: `neither_passes`
+
+The gate (`docs/PREREGISTRATION.md` §5) asks four questions of each architecture and requires each to
+hold on **≥ 8 of 10 seeds**. Evaluated at the final checkpoint
+(`training/results/decision_tree_final.json`):
+
+| criterion | what it requires | transformer | MLP |
+|---|---|---|---|
+| **G1** structure | structured fraction ≥ 0.25 of live neurons **and** median family fraction ≥ 0.50 | **10/10 ✓** | **10/10 ✓** |
+| **G2** phase relation | resultant length `R` ≥ 0.5 **and** above the permutation null's 95th percentile | **10/10 ✓** | **10/10 ✓** |
+| **G3** end-to-end formula | a sparse-sinusoid or odd-harmonic formula reaching argmax accuracy ≥ 0.90 on test cells, above the size-matched random-frequency control, with the `(a−b)` control below half | **10/10 ✓** | **10/10 ✓** |
+| **G4** causality | `remove_structured` **and** `remove_key_freqs` each *necessary*, and `keep_structured` *sufficient* | **0/10 ✗** | **0/10 ✗** |
+
+**Branch: `neither_passes`.** At the memorization crossing the branch is `undetermined`, because G3 is
+not evaluable on any MLP seed there (the random-frequency control degenerates).
+
+This is the study's central negative result, and §21 requires that it be reported exactly: **the
+Fourier evidence tested does not, by the pre-registered standard, identify the learned mechanism in
+either architecture.** Everything in §4–§6 is therefore a description of measured structure, not a
+mechanism claim.
+
+---
+
+## 4. What the two networks compute
+
+**Observation.** The two architectures land on very nearly the same input–output function, while the
+internal quantities behind it do not resemble each other.
+
+**Quantitative evidence.** Over all 12,769 input pairs at the final checkpoint, across the 10 paired
+seeds: median agreement **0.99977**; median 3 disagreeing cells (range 0–26); the MLP is correct on
+every cell in all 10 seeds; in **4 of 10 seeds the two agree on every input**. But at the level of the
+logits themselves, over the same pairs: **Pearson correlation median 0.083** (0.002–0.205), margin
+correlation 0.100, and **top-2 agreement 0.0056** — the runner-up class almost never matches.
+(`training/results/function_agreement/`.)
+
+**Alternative explanation.** The task is small enough that any sufficiently flexible model may land on
+the same function; agreement over inputs need not indicate a shared mechanism.
+
+**Causal test.** None applies — this is a behavioural measurement by construction.
+
+**Limitation.** `error_jaccard` is 0.000 where defined and **undefined in 4 seeds** because neither
+model errs (empty union), so error-overlap structure carries almost no information here.
+
+**Permissible conclusion.** Under the conditions examined, the two architectures agree on 99.98 % of
+all inputs and are identical on 4 of 10 seeds, while agreeing on the *shape* of the logits hardly at
+all. The phrase **"both learn the same function" remains unsupported**: they agree closely; they are
+not identical in 6 of 10 seeds.
+
+---
+
+## 5. The structure that is present
+
+**Observation.** Periodic structure, the predicted phase-addition relation, and an end-to-end Fourier
+fit are observed in both architectures on every seed.
+
+**Quantitative evidence** (final checkpoint, medians over 10 seeds):
+
+| | transformer | MLP |
+|---|---|---|
+| live neurons | 512 / 512 | 512 / 512 |
+| structured neurons | 503 (494–512) = **0.982** of live | 453 (444–503) = **0.885** of live |
+| median family fraction, curve `u_a` | 0.9923 | 0.9973 |
+| phase resultant `R` | **0.9921**, null *q*₉₅ 0.098 | **0.9996**, null *q*₉₅ 0.081 |
+| best Fourier formula, argmax accuracy on test cells | **1.0000** | **1.0000** |
+| best Fourier formula, R² on test cells | **0.546** (0.427–0.731) | **0.974** (0.962–0.977) |
+| size-matched random-frequency control, R² *q*₉₅ | 0.420 | 0.868 |
+| `(a−b)` difference control, R² | 0.0001 | 0.0002 |
+
+Structured-neuron fraction is reported under six definitions, not one, and the ordering is unchanged
+under all of them (transformer 0.978–0.984, MLP 0.863–0.920 across the family-threshold, top-1 and
+IPR-rank-matched variants). Swaroop's periodicity criterion selects 0.000 / 0.005 of neurons at its
+strict setting and 0.998 / 0.888 at its loose one — a spread that is itself informative about how much
+such definitions carry.
+
+**Alternative explanation.** The structured-neuron definition is permissive: it selects 88–98 % of all
+neurons. "Most neurons are structured" is compatible with the threshold being loose rather than the
+network being organised. This alternative is **not** ruled out; §6 is where it bites.
+
+**Limitation.** The transformer's per-neuron "effective curves" are a **mean-attention approximation**
+(`additivity_r2` median 0.922, range 0.871–0.961), while the MLP's are exact. The two are therefore
+not on identical footing. The direct path contributes a 0.002 share of the logits — the computation
+runs through the MLP block, not around it.
+
+**Permissible conclusion.** Periodic structure, the phase relation and an end-to-end Fourier fit are
+observed in both architectures at the final checkpoint, on all 10 seeds, under the pre-registered
+thresholds. This is **not** "the models implement a Fourier algorithm" — that requires G4.
+
+### 5.1 A caveat that bounds this whole section: the MLP has not settled at the budget
+
+Every run stops at a fixed 25,000 steps, and whether a metric has actually converged there is tested
+per metric and per seed (relative change between the step-20,000 and step-25,000 checkpoints, "settled"
+below 5 %):
+
+| metric | transformer | MLP |
+|---|---|---|
+| **`structured_fraction_of_live`** | **10/10 settled** (median 0.41 %) | **2/10 settled** (median 7.09 %, max 9.00 %) |
+| `embedding_top8_concentration` | 10/10 (0.59 %) | 8/10 (2.80 %) |
+| `phase_relation_R` | 10/10 (0.37 %) | 10/10 (0.03 %) |
+| `median_family_fraction` | 10/10 (0.15 %) | 10/10 (0.09 %) |
+| `logit_key_subspace_share` | 9/10 (1.25 %) | 10/10 (0.40 %) |
+
+`structured_fraction_of_live` is the metric behind G1 and behind the headline architecture gap of
++0.085, and for the MLP it is **still rising at the budget in 8 of 10 seeds** — in seed 0 from 0.223 at
+step 8,000 to 0.861 at 20,000 to 0.881 at 25,000, while the transformer's has flattened (0.959 to
+0.965). A longer budget would therefore be expected to **shrink** the gap this study reports.
+
+This is the censoring Khanh 2026 (arXiv:2607.06639) warns about, measured here rather than assumed. It
+does not invalidate the comparison, but it fixes its meaning: **every number on this page is a
+comparison at a fixed 25,000-step budget, not a comparison of converged states.** See
+`docs/LIMITATIONS.md` §B3.
+
+### 5.2 Restricted and excluded loss (Nanda et al. protocol)
+
+Medians over 10 seeds at step 25,000, **test split**. Unrestricted test loss for reference:
+transformer 0.00182, MLP 0.00001.
+
+| protocol | arch | components kept | restricted | excluded |
+|---|---|---|---|---|
+| `nanda_exact` | transformer | 10 | **0.0000** | **19.16** |
+| `nanda_exact` | MLP | 25 | **0.0000** | **5.00** |
+| `paper_literal_2x2_block` | transformer | 19 | 0.0000 | 19.13 |
+| `paper_literal_2x2_block` | MLP | 49 | 0.0000 | 4.86 |
+| `legacy_broad_mask` | transformer | 101 | 0.0001 | 18.92 |
+| `legacy_broad_mask` | MLP | 625 | 0.0000 | 4.37 |
+
+Restricted loss near zero under every protocol says the key frequencies alone suffice to reproduce the
+correct logits — **for the MLP as much as for the transformer**. Excluded loss far above the
+unrestricted loss says removing them destroys the function in both. Both directions of the Nanda
+progress measure therefore hold for the MLP too.
+
+**The excluded losses must not be compared across architectures**: the protocols keep different
+numbers of components (10 vs 25 under `nanda_exact`) and the logit scales differ, so a larger excluded
+loss means "further from the correct logits", not "more Fourier". What is comparable is the
+qualitative pattern, and that pattern is the same in both.
+
+The four protocols are separated and audited in
+[`docs/MASK_PROTOCOL_AUDIT.md`](docs/MASK_PROTOCOL_AUDIT.md). The earlier version of this page used
+only `legacy_broad_mask` — which keeps 101 components where the released Nanda operator keeps 10 — and
+reported it as a reproduction. It was not one; see §11.
+
+---
+
+## 6. Causality — where the Fourier reading fails
+
+This is the section that decides the gate, so it is given in full.
+
+**Observation.** Ablating the *structured-neuron set* is not distinguishable from ablating an equally
+large random set of neurons. Ablating the *key frequencies* is sharply distinguishable from ablating
+an equal number of random frequencies.
+
+**Quantitative evidence** (final checkpoint, medians over 10 seeds; "control" is a size-matched random
+set drawn 50 times; *necessary* requires drop ≥ 0.5 **and** control mean drop < 0.1 **and** z ≥ 3):
+
+| ablation | arch | test acc after | drop | control drop | z | necessary | sufficient |
+|---|---|---|---|---|---|---|---|
+| `remove_structured` | MLP | 0.009 | 0.991 | **0.873** | 3.4 | **0/10** | — |
+| `remove_structured_neurons` | transformer | 0.057 | 0.942 | **0.916** | 1.4 | **0/10** | — |
+| `keep_structured` | MLP | 1.000 | 0.000 | 0.000 | −0.2 | — | **10/10** |
+| `keep_structured_neurons` | transformer | 0.9997 | 0.000 | 0.000 | −0.4 | — | **10/10** |
+| `remove_key_freqs_from_curves` | MLP | 0.011 | **0.989** | **0.000** | — | **10/10** | — |
+| `remove_key_freqs_from_embedding` | transformer | 0.015 | **0.984** | **0.0005** | 887 | **10/10** | — |
+| `remove_key_subspace_from_residual` | transformer | 0.763 | 0.235 | 0.000 | 4172 | **0/10** | 4/10 |
+| `keep_key_freqs_in_curves` | MLP | 1.000 | 0.000 | 0.991 | −399 | — | **10/10** |
+| `keep_key_freqs_in_embedding` | transformer | 0.995 | 0.004 | 0.990 | −485 | — | **10/10** |
+| `restricted_circuit_only` | transformer | **1.0000** | −0.000 | 0.991 | −311 | — | **10/10** |
+| `replace_with_sinusoid_fit` | MLP | **1.0000** | 0.000 | 0.991 | −206 | — | **10/10** |
+| `replace_with_square_fit` | MLP | **1.0000** | 0.000 | 0.991 | −185 | — | **10/10** |
+| `ablate_head_k` (4 heads × 2 modes) | transformer | 0.51–0.56 | 0.44–0.49 | 0.034–0.041 | 19–27 | 3–4/10 | 0/10 |
+
+Three things follow.
+
+1. **G4 fails in both architectures for the same reason, and the reason is the structured-neuron
+   threshold rather than the models.** Removing 88–98 % of any network destroys it, so the
+   size-matched control cannot discriminate: the control alone already does 0.873 (MLP) and 0.916
+   (transformer) of the damage. `CAUSAL_ABLATION_PLAN.md` §6 named this outcome in advance — "removing
+   `C` and the control do comparable damage → `C` is **not** specifically load-bearing". Changing the
+   threshold now, because the outcome is inconvenient, is exactly what pre-registration forbids.
+   Recorded for the human authors as **D6**.
+2. **The key frequencies, by contrast, are load-bearing in both.** Removing them costs ~0.99 accuracy
+   where an equal number of random frequencies costs ~0.000; keeping only them costs ~0.000 where
+   keeping an equal number of random ones costs ~0.99. For the MLP, replacing every neuron's curves
+   with its *fitted sinusoid* or its *fitted square wave* leaves test accuracy at **1.0000** — the
+   fitted waveform is sufficient to carry the function.
+3. **Which transformer ablation G4's second condition refers to was never specified, and it decides
+   that condition.** `remove_key_subspace_from_residual` gives 0/10;
+   `remove_key_freqs_from_embedding` gives 10/10. The AI wired the former before any number was seen
+   and **did not change it afterwards**; the choice is escalated as **D5**. It does not change the gate
+   outcome — G4 still fails through `remove_structured` in both architectures — but it changes what
+   may be said about the transformer's key frequencies.
+
+**Alternative explanation.** For the head ablations, the median drop of 0.44–0.49 sits just below the
+0.5 necessity threshold, so "3–4 of 10 necessary" reflects a threshold boundary rather than a clean
+negative: each head is separated from its control by z ≈ 19–27, and no single head is sufficient.
+Fixing attention to its mean costs 0.336 accuracy, so the attention pattern is **not** merely a
+constant 50/50 sum — the input-dependent part carries something.
+
+**Limitation.** Cross-architecture comparison of the individual ablation magnitudes is **not permitted**
+(master prompt §17): the ablations modify different objects. For transformer seed 5 the structured set
+is all 512 neurons, so no size-matched control set exists and the value is `null`, not a failure.
+
+**Permissible conclusion.** Under the pre-registered structured-neuron definition, the ablation cannot
+distinguish the structured set from a size-matched random set, so **causal necessity is not established
+for either architecture**. In both architectures, removing the key-frequency components damages the
+model far more than removing an equal number of random frequencies; the ablation supports the
+interpretation that the key frequencies are load-bearing, while the *neuron set* the study used to name
+them is not.
+
+---
+
+## 7. H3 — the study's proposed primary contribution — is refuted by its own criterion
+
+**H3 as pre-registered.** The MLP's lower structured-neuron fraction is an artifact of top-*k*
+concentration: because the MLP's neurons are more square-wave-like, their power spreads over aliased
+odd harmonics that a top-*k* metric cannot see. Under a harmonic-family-aware definition the
+architecture gap should close.
+
+**Quantitative evidence** (`training/results/h3_report.json`, 10 paired seeds):
+
+| | median | bootstrap CI95 |
+|---|---|---|
+| architecture gap under the **top-1** definition | **+0.0898** | — |
+| architecture gap under the **family** definition | **+0.0850** | [+0.0600, +0.1004] |
+| how much the family definition closes | **+0.0049** | [+0.0012, +0.0076] |
+
+The family definition closes **5.4 %** of the gap. Refutation criterion 2 — *is the MLP still lower
+under the family definition, with an interval excluding zero?* — is met: yes, unanimously across all
+10 seeds (sign test *p* = 0.002, *d_z* = 2.36). **H3 as pre-registered is refuted.**
+
+**The hypothesised artifact is real; it is simply far too small.** Two synthetic populations built from
+each checkpoint's own `(k, phase, amplitude)` and differing **only** in waveform separate by **+0.1893**
+at top-1, **+0.0501** at top-4 and **+0.0248** at top-8 — identical for both architectures, as it must
+be, since it is a property of the metric and not of the models. So top-*k* concentration does score a
+square-wave population ≈ 0.19 lower at top-1. That artifact accounts for 5.4 % of the observed gap.
+
+**Alternative explanation.** This particular family definition (own dominant frequency plus aliased odd
+harmonics ≤ 7) may be the wrong harmonic-aware measure, or the effect may be real but smaller than
+n = 10 can resolve.
+
+**Limitation.** At *p* = 113 the odd-harmonic families of different fundamentals alias onto one another
+— those of `k = 6, 19, 51` all contain 18 — which bounds what any family-based measure can identify. An
+audit stored with the report confirms that the criterion "the family beats the matched top-*m*" is
+**unsatisfiable by construction** (maximum observed excess 1.1e-16 across all runs); it was never used
+as a pass rule.
+
+**Permissible conclusion.** By the criterion fixed before the experiments, the MLP's lower
+structured-neuron fraction is a **real difference in the measured structure, not an artifact of top-*k*
+concentration**.
+
+---
+
+## 8. H4 — structure appears before generalization, in every seed
+
+**Observation.** Structure metrics rise during the memorization plateau, well before the test-accuracy
+jump.
+
+**Quantitative evidence** (onset = first step at which the metric exceeds its own baseline; medians
+over 10 seeds):
+
+| metric | transformer onset | MLP onset | onset before generalization |
+|---|---|---|---|
+| logit key-subspace share | **500** (500–1,000) | **500** (500 in all 10) | 10/10 both |
+| structured fraction of live | 1,000 (500–5,000) | 1,000 (1,000 in all 10) | 10/10 both |
+| embedding top-8 concentration | 1,000 (1,000–2,000) | 1,000 (500–2,000) | 10/10 both |
+| median family fraction | 2,000 (1,000–4,000) | 500 (500–1,000) | 10/10 both |
+| median odd-minus-even, `u_a` | 4,500 | 3,500 | 2/2 (txf), 8/8 (MLP) — **undefined on the rest** |
+| phase relation `R` | **undefined on all 10** | **undefined on all 10** | — |
+| fraction best fit by a square wave | **undefined on all 10** | **undefined on all 10** | — |
+
+For comparison, generalization is at median 7,588 (transformer) and 9,250 (MLP); memorization at 140
+and 160.
+
+**This is correlational, and is labelled as such in the artifact itself.** Structure preceding
+generalization is consistent with H4; it cannot show that the structure *caused* the jump, nor that it
+had to form. Causal statements come from §6 alone.
+
+**Limitation.** The onset indicator's baseline standard deviation is taken over two checkpoints, so the
+step is sensitive to the checkpoint grid: it is an **indicator, not a measured transition**. Two of the
+seven metrics never produce a defined onset at all, and one produces it on only 2 of 10 transformer
+seeds — reported here rather than dropped.
+
+**Permissible conclusion.** Under the conditions examined, four of seven structure metrics reach their
+onset before the generalization crossing in 10 of 10 seeds in both architectures, at roughly 5–15 % of
+the way to that crossing.
+
+---
+
+## 9. Bounded alternative-mechanism analysis
+
+`neither_passes` triggers this analysis for both architectures (`PREREGISTRATION.md` §6.3). It asks
+what *else* the representations could be, without proposing a new mechanism.
+
+| | transformer | MLP |
+|---|---|---|
+| linear probe for the target from the hidden layer | **1.0000** | **0.9999** |
+| same probe on a size-matched random control | 0.0079 | 0.0091 |
+| chance level | 0.0088 | 0.0088 |
+| effective rank of the hidden representation | **12.70** (8.6–18.5) | **66.64** (59.1–79.0) |
+| directions carrying 90 % of the variance | 11.5 | 56.5 |
+| top-1 singular share | 0.239 | 0.034 |
+| effective rank of the logits | 5.04 | 17.37 |
+
+**Singular-direction ablation** (removing the top-*r* singular directions of the hidden representation,
+against a size-matched random-direction control):
+
+| removed | transformer drop | exceeds all controls | MLP drop | exceeds all controls |
+|---|---|---|---|---|
+| top-1 | 0.0000 | 3/10 | 0.0000 | 0/10 |
+| top-4 | 0.0002 | 5/10 | 0.0000 | 0/10 |
+| top-8 | **0.4616** | **10/10** | 0.0000 | 0/10 |
+| top-16 | **0.9644** | **10/10** | **0.0000** | **0/10** |
+
+We observe that the transformer's function is destroyed by removing its 16 leading directions, while
+the MLP's is completely unaffected by the same operation. This is consistent with the two architectures
+spreading a comparable computation over very different numbers of directions.
+
+**Cross-seed linear CKA — and this is the caveat that governs the whole section.** Between two seeds of
+the **same** architecture, CKA is median **0.0017** (transformer) and **0.0973** (MLP). Two runs that
+differ only in seed, that agree on 99.98 % of all inputs, and that are by construction the same
+mechanism, score as *dissimilar*. **A low cross-architecture representation similarity therefore cannot
+be read as evidence of different mechanisms** — the measure does not identify sameness even where
+sameness is guaranteed.
+
+---
+
+## 10. Controls — what the differences are *not* explained by
+
+Master prompt §14: no change is attributed to one factor while two are unseparated. All three control
+blocks are analysed separately from the primary comparison and are never merged into it.
+
+**Grokfast × `train_frac`, as a 2 × 2** (3 paired seeds per cell; with 3 seeds the intervals are wide,
+and no bootstrap interval is reported). Effect on the generalization step:
+
+| | main effect of `train_frac` (0.3 → 0.5) | main effect of Grokfast | interaction |
+|---|---|---|---|
+| transformer | **−6,367 steps** | −350 steps | +883 |
+| MLP | **−8,217 steps** | +892 steps | −933 |
+
+The training fraction dominates by an order of magnitude; the Grokfast main effect is the same size as
+the interaction and, for the transformer, indistinguishable from zero at this resolution. The earlier
+version of this page reported a cross-architecture speed ratio moving from ~2.9× to ~1.3× between two
+settings that differed in **both** knobs, and read the change partly as a statement about Grokfast.
+This decomposition is what §14 exists to require, and it does not support that reading.
+
+**Parameter-matched** (MLP at `d_mlp = 572`: 226,217 vs 226,176 parameters, a 0.02 % difference,
+against the same 10 transformer seeds):
+
+| quantity | median difference (transformer − MLP) | CI95 |
+|---|---|---|
+| generalization step | −2,212 steps | [−2,945, −1,133] |
+| structured fraction of live | **+0.0969** | [+0.0863, +0.1240] |
+| phase `R` | −0.0076 | [−0.0095, −0.0054] |
+| square/odd-harmonic fraction | −0.2230 | [−0.4348, −0.1082] |
+
+**Every structure difference survives equalizing the parameter count**, with intervals excluding zero
+and the same signs as in the primary block. This control does **not** equalize the *shape* of the
+budget, so capacity-allocation effects remain.
+
+**Two-hot input** (3 paired seeds, two-hot MLP against the shared-embedding MLP). This one changes what
+may be said:
+
+| quantity | median difference (two-hot − shared-embedding MLP) | CI95 |
+|---|---|---|
+| square/odd-harmonic fraction | **+0.1836** | [+0.1133, +0.2109] |
+| structured fraction of live | −0.1953 | [−0.1992, −0.1699] |
+| generalization step | +3,325 steps | [+3,225, +3,650] |
+| phase `R` | −0.0002 | [−0.00020, +0.00009] — **spans zero** |
+
+The two-hot MLP is **more** square-wave-like than the shared-embedding MLP, by roughly half the size of
+the transformer-vs-MLP waveform difference itself. The waveform result of §5 is therefore **at least
+partly a property of the input parametrization rather than of the architecture**. With 3 seeds this
+block can only detect a large effect, and a null here would be weak evidence — but this is not a null.
+
+---
+
+## 11. Negative results, and claims withdrawn
+
+Master prompt §23 item 16 requires that these be documented. They are the substance of this study, not
+its residue.
+
+**Negative results.**
+
+1. **The evidence gate fails in both architectures** (`neither_passes`, §3). The mechanism reading the
+   study was designed to test is not licensed.
+2. **H3, the proposed primary contribution, is refuted by its own pre-registered criterion** (§7). The
+   artifact it postulated is real and quantified at +0.19 on synthetic populations, and explains 5.4 %
+   of the gap it was meant to explain.
+3. **Causal necessity of the structured-neuron set is not established in either architecture** (§6),
+   because the size-matched control does 87–92 % of the same damage.
+4. **Two of seven H4 structure metrics never produce a defined onset**, and one produces it on 2 of 10
+   transformer seeds (§8).
+5. **G3's random-frequency control degenerates on some runs** (it can draw all 56 available frequencies
+   at *p* = 113), so that condition is not always testable as specified; at the memorization crossing
+   it is untestable on all 10 MLP seeds, which is why that gate point is `undetermined` rather than a
+   verdict.
+6. **Cross-seed CKA does not identify same-architecture seeds as similar** (§9), which removes
+   representation similarity from the set of measures this study can use to compare architectures.
+7. **The paired family-minus-top-1 gap does not differ between architectures**: median −0.0025, CI
+   [−0.0060, **+0.0035**] — the one comparison of the eight pre-specified whose interval spans zero.
+8. **The MLP's structured fraction has not converged at the step budget** in 8 of 10 seeds (§5.1), so
+   the headline structure gap is a budget-fixed comparison and its bias has a known direction.
+
+**Claims withdrawn from the 2026-09-03 version of this page.**
+
+| withdrawn claim | why |
 |---|---|
-| train acc crosses 0.99 (memorization) | **step 145** (reaches exactly 1.000 by step 156) |
-| test acc crosses 0.95 (generalization) | **step 8367** |
-| grokking gap | **8,222 steps** (both crossings per `train.py`'s 0.99/0.95 thresholds) |
-| final test acc (early-stop) | **0.981** |
-| test loss | **4.7 → 0.06** (climbs to ~26 during the plateau, then collapses) |
+| "the eight key frequencies alone solve the task while removing them destroys it", *as a reproduction of Nanda et al.* | it used `legacy_broad_mask`, which keeps 101 components where the released operator keeps 10. The statement is now made under named protocols in §5.2, where it holds for **both** architectures. |
+| "attention ~50/50 directly links the learned structure to the computation" | it was a mean without a variance. Fixing attention to its mean costs 0.336 accuracy (§6), so the input-dependent part is not negligible. |
+| "the transformer learns a markedly sparser Fourier circuit" (as a discovery) | the direction is a **replication** of Manir & Rupa 2026, and §6 gives no causal warrant for the word "circuit". |
+| "transformer groks ~3× faster" | the ratio moved between settings that differed in two knobs at once; §10 separates them. |
 
-Train accuracy crosses 0.99 by step 145 (exactly 1.0 from step 156); test accuracy then sits at chance through an **~8,000-step memorization plateau** before suddenly generalizing — the defining grokking signature, with no acceleration. This is the explorer's default view. Figure: `training/figures/txf_add_p113_wd1.0_frac0.3_seed0_curves.png`.
-
-**Determinism.** The reproducibility test passes: two seeded builds in the same environment produce a bit-identical first-batch logit sum (currently `2449.9951895352006` on the pinned torch 2.12.1+cpu). The exact scalar is *environment-dependent* — CPU thread count and BLAS kernel dispatch shift the last digits (an earlier snapshot of this environment produced `2449.995445…`), which is why run metadata records `torch_num_threads`. Same config + seed + environment ⇒ same curve; the transition *step indices* are far more robust: the canonical run's deterministic re-train (for the progress measures below) recovered memorize/generalize at exactly 145/8367.
-
-**Seed-robust corroboration (Grokfast-accelerated).** To iterate quickly and check seed-robustness in-session, we also ran **Grokfast** (Lee et al. 2024, arXiv:2405.20233 — the runtime tool PROMPT.md §7 explicitly permits) at `frac=0.5` across seeds 0–2: grokking repeats every time (generalize at **750 ± 97** steps, final test acc **0.986 ± 0.004**; mean ± sample std, n=3). Grokfast compresses the *timing* of the same phase transition — perfect memorization, a long plateau, then a sharp jump — it does not manufacture it; the un-accelerated run above is the faithful reference.
+**Claims that may not be made from this evidence at all:** "the two architectures use the same
+circuit"; "the same Fourier principle in different representations" (conditional on a gate that did not
+pass); "both learn the same function" (99.98 % agreement, but not identical in 6 of 10 seeds);
+"transformers grok faster"; "the MLP's structure is a measurement artifact" (refuted, §7).
 
 ---
 
-## 2. Mechanistic analysis (Phase 3)
+## 12. Where this sits in the literature
 
-**Embedding Fourier spectrum.** Projecting the final token-embedding matrix `W_E[:113]` onto the orthonormal real Fourier basis over ℤ₁₁₃, a sparse set of frequencies dominates. For the **canonical un-accelerated run** the top 8 (`k = 18, 15, 1, 11, 13, 22, 56, 36`) hold **~76%** of the total frequency power — versus **~32%** for a matched *non-grokked* run (and 0.52–0.64 across the three Grokfast seeds). Grokking measurably concentrates the embedding into a sparse periodic ("trig-identity") circuit. Figure: `..._fourier.png`.
+Full treatment in [`docs/NOVELTY_AND_RELATED_WORK.md`](docs/NOVELTY_AND_RELATED_WORK.md) and
+[`docs/METHODS.md`](docs/METHODS.md), which maps every method to its source and to our implementation.
+In short:
 
-**Convergence.** Sparsity tracks convergence: the longer un-accelerated run (0.76) is markedly sparser than the early-stopped Grokfast runs (0.52–0.64), exactly as expected — more training concentrates the circuit further. The *specific* dominant frequencies differ by seed (the sparse structure is robust; the exact frequencies are the network's free choice).
-
-**PCA geometry.** A PCA projection of the final embeddings shows the tokens arranged on a **periodic ring** (the geometric face of the Fourier structure). Figure: `..._pca_ring.png`. The same offline PCA projection drives the 3D explorer, where the points visibly migrate from a blob into the ring as the user scrubs through training.
-
-**Progress measure (embedding).** The fraction of embedding power in the key frequencies (`frequency_concentration_over_time`) rises across the transition — a held-out-independent progress signal tracking circuit formation (third panel of the curves figure).
-
-**Progress measures (restricted & excluded loss) — NOT a reproduction of Nanda et al. [AUDIT].** The mask used here is the `legacy_broad_mask` variant: built as the outer product of a 1D key-frequency mask, it keeps every *pair* of key rows including cross-frequency blocks such as `cos(w_18 a)cos(w_15 b)`, which the trig-identity circuit never uses. For p=113 and 8 key frequencies it keeps 289 components where the released Nanda operator keeps 17, and its excluded mask deletes 3,360 (26.3% of the logit tensor) where the published one deletes 16. Both biases push toward the reported conclusion. The numbers below are therefore **not directly comparable to Nanda et al.** and are not evidence for the trig-identity circuit; see `docs/sources/nanda2023_progress_measures.md` and `docs/MASK_PROTOCOL_AUDIT.md`. The description that follows is of what was computed: We implement the Nanda et al. 2023 *restricted* and *excluded* loss (`analysis/progress_measures.py`): the model's logits over the full `(a, b)` grid are 2D-Fourier-transformed over the two input axes in the orthonormal basis over ℤ₁₁₃; **restricted loss** keeps only the key-frequency components (plus the constant) and rebuilds the logits, **excluded loss** removes the key frequencies. (Protocol note: Nanda et al. evaluate these on the train/test splits; we measure over the full grid — the divergence signature is the same.) The transform is self-checked (inverse∘forward reconstructs the logits to **~1e-12**; keeping all modes is the identity), and the deterministic re-train that captures the per-step model states recovers the recorded run's transition **exactly** (a built-in honesty check, stored as `matches_recorded_run`).
-
-- **Canonical un-accelerated run** (`txf_add_p113_wd1.0_frac0.3_seed0`, key freqs k = {18, 15, 11, 1, 13, 56, 22, 36} — the same set as the spectrum above, ranked by the re-trained embedding's power; transition recovered at exactly 145/8367): at convergence **full loss 0.031, restricted loss 0.0020, excluded loss 10.42**. The restricted loss separates from the full loss already around the memorization step and stays *below* it through the entire ~8,000-step plateau — the Fourier circuit is forming quietly beneath the memorized solution — then everything collapses at step 8367 while the excluded loss stays ruined (≫ ln 113 ≈ 4.73). Figure: `..._frac0.3_seed0_progress.png`.
-- **Grokfast run** (`txf_..._frac0.5_gf2.0_seed0`, key freqs k = 16, 39, 17, 35, 8, 44, 21, 53; transition recovered at exactly 179/675): **full 0.017, restricted 0.0002, excluded 12.62** — same signature, compressed timing. Figure: `..._gf2.0_seed0_progress.png`.
-
-**[AUDIT]** The sentence that stood here — that the eight key frequencies alone solve the task while removing them destroys it — does not follow from these numbers, because the mask is ~17x wider than the hypothesis it is supposed to test and the excluded mask removes ~200x more of the logit tensor. The re-measurement under the named protocols (`nanda_exact`, `same_frequency_block`, `sum_directions_only`) is part of the architecture study. These curves are also live in the explorer (a dedicated panel appears for exactly the runs where the measure was computed).
-
-**Attention.** Averaged over all 12,769 inputs, the read-out (`=`) position splits its attention almost exactly **50/50 between the two operand positions**. On the **canonical un-accelerated run**: mean over heads (to `a` / to `b` / to `=`) `0.501/0.499/0.001`, per-head operand shares all within 0.47–0.53 and self-attention ≤ 0.001. The Grokfast `frac=0.5` run shows the same split even more tightly (per head: h0 `0.502/0.498/0.001`, h1 `0.499/0.500/0.001`, h2 `0.495/0.504/0.001`, h3 `0.500/0.499/0.001`). Every head pulls in both `a` and `b` and essentially ignores itself. **[AUDIT]** This is a *mean without a variance* and is therefore descriptive only: a 50/50 mean is equally consistent with a constant 50/50 split (attention is a fixed sum, making the transformer additive-then-ReLU like the MLP) and with input-dependent attention that averages to 50/50 (a multiplicative path the MLP does not have). Those are different circuits. The claim that this "directly links the learned structure to the computation" is withdrawn pending the per-input variance and the causal head ablations of the architecture study. Figure: `..._attention.png`.
-
----
-
-## 3. Original experiment — cross-architecture grokking (Phase 4)
-
-**Question.** Do different architectures grok modular addition the same way? We compare a 1-layer **transformer** against a 2-layer **MLP** (given a shared embedding table `W_E [p, d]` so the *same* Fourier analysis applies), across **3 seeds each** in **two settings**: the fast Grokfast setting (`frac=0.5`, iteration/robustness) and the **canonical un-accelerated** setting (`frac=0.3`, `steps=40000`, no acceleration — the same protocol as §1).
-
-**Results (mean ± sample std over 3 seeds; all 12 runs grokked):**
-
-| Grokfast, frac=0.5 | generalization step | grok gap | embedding top-8 freq power | final test acc |
-|---|---|---|---|---|
-| **transformer** | **750 ± 97** | 559 ± 86 | **0.59 ± 0.06** | 0.986 ± 0.004 |
-| **MLP** | **2163 ± 72** | 1959 ± 72 | **0.35 ± 0.003** | 0.989 ± 0.005 |
-
-| un-accelerated, frac=0.3 | generalization step | grok gap | embedding top-8 freq power | final test acc |
-|---|---|---|---|---|
-| **transformer** | **7676 ± 1196** | 7531 ± 1196 | **0.73 ± 0.07** | 0.980 ± 0.014 |
-| **MLP** | **9883 ± 410** | 9723 ± 414 | **0.44 ± 0.01** | 0.984 ± 0.010 |
-
-**Finding.** Both architectures grok to ≥98% test accuracy in both settings — and the two effects fare differently under the honest un-accelerated re-test:
-
-1. **Sparsity difference — robust across settings.** The transformer converges to a markedly sparser, more periodic embedding in *both* settings (0.59 vs 0.35 accelerated; 0.73 vs 0.44 un-accelerated; per-seed gaps never overlap). **[AUDIT]** Two corrections. (i) The direction of this gap is already published — Manir & Rupa 2026 (arXiv:2603.25009, Table 8) report 98.5% vs ~75% top-5 concentration for a transformer vs an MLP at p=97 — so it is a replication, not a discovery. (ii) "The MLP solves the same task with a more distributed frequency representation" is unsupported: the number is measured on the shared `W_E` alone, which is the wrong object for an MLP that reads it through two halves of `W_in`, and a square-wave-like circuit necessarily spreads its power over aliased odd harmonics that a top-8 metric cannot see. Both are tested in the architecture study.
-2. **Speed difference — direction robust, magnitude setting-dependent.** The MLP generalizes later than the transformer in *every* seed of both settings (un-accelerated: slowest transformer 8367 < fastest MLP 9646 — zero overlap). But the size of the gap shrinks from **~2.9×** (Grokfast, frac=0.5) to **~1.3×** (un-accelerated, frac=0.3, where the transformer's own seed spread is large, ±1196). The headline "transformer groks ~3× faster" is therefore partly a property of the accelerated/frac=0.5 setting, not a setting-independent constant — reported as such.
-
-Figures: `training/figures/crossarch_comparison.png` (Grokfast), `training/figures/crossarch_comparison_unaccelerated.png`.
-
-**Honest limits.** Two hyperparameter points, not a sweep; with n=3 the un-accelerated timing means carry wide intervals (sample std 1196 vs 410), so ~1.3× is an estimate of a consistently-positive but modest effect, not a precise constant; the MLP's lower sparsity is partly architectural (concatenated operand embeddings vs. attention-combined). The un-accelerated setting also differs from the Grokfast one in `train_frac` (0.3 vs 0.5), so the two settings differ in two knobs at once — the within-setting comparisons are controlled, the between-setting change of ratio is not attributed to a single cause.
-
-## 4. Where this sits in the literature
-
-- **Power et al. 2022** (arXiv:2201.02177) — first reported grokking: generalization long after memorization on small algorithmic datasets. We reproduce exactly this gap.
-- **Nanda et al. 2023** (arXiv:2301.05217) — our primary recipe and analysis target: the 1-layer transformer on modular addition, the Fourier/trig-identity circuit, and progress measures.
-- **Liu et al. 2022, Omnigrok** (arXiv:2210.01117) — grokking is controlled by weight norm; motivates the weight-decay/init-scale fallback experiment (Phase 4).
-- **Lee et al. 2024, Grokfast** (arXiv:2405.20233) — slow-gradient amplification; used here for runtime, with the un-accelerated phenomenon reproduced first.
+- **Power et al. 2022** (arXiv:2201.02177) — the phenomenon. §2 reproduces it un-accelerated.
+- **Nanda et al. 2023** (arXiv:2301.05217) — the recipe, the Fourier analysis and restricted/excluded
+  loss. §5.2 follows the released operator under a named protocol.
+- **Liu et al. 2022, Omnigrok** (arXiv:2210.01117) — grokking controlled by weight norm.
+- **Lee et al. 2024, Grokfast** (arXiv:2405.20233) — used only in the confound block, never in the
+  primary block.
+- **Manir & Rupa 2026** (arXiv:2603.25009) — reports the transformer-vs-MLP concentration difference.
+  **H1 and H2 of this study are explicitly framed as replication of that direction, not discovery.**
+- **Swaroop**, **Doshi** (IPR-ranked pruning) and **Khanh 2026** (arXiv:2607.06639, on metrics read at
+  the transition rather than after convergence) — their definitions are implemented alongside ours as
+  alternative structured-neuron criteria (§5), so the results can be read under each. Khanh's concern
+  is answered here by construction: every primary-block number is read at step 25,000, after
+  convergence, with no early stopping.
 
 ---
 
-## 5. Self-critical evaluation (Ausblick)
+## 13. Self-critical evaluation
 
-**Solid.** Deterministic, reproducible pipeline (23/23 core correctness checks pass, incl. injected-frequency recovery and the 2D-Fourier round-trip); an unambiguous grokking transition with exact step indices — a faithful **un-accelerated ~8,200-step gap** plus seed-robust accelerated runs; a measurable embedding sparsification after grokking (**76%** top-8 power, up from 32% non-grokked); a **cross-architecture finding re-tested in the honest un-accelerated setting** — the sparsity gap is robust across both settings, and the speed gap holds in direction for every seed (§3); a working, browser-verified end-to-end Python→web pipeline feeding a real 3D explorer (LiveLab groks in-browser with a genuine measured delay); the Nanda **restricted/excluded-loss** progress measures reproduced and self-checked **on the canonical un-accelerated run** — the eight key frequencies alone solve the task while removing them destroys it, with the re-train recovering the recorded transition exactly (§2).
+**What is solid.** 51 runs, all completed; 10 paired seeds sharing a split hash; every threshold fixed
+before the runs and frozen at a named commit; 24 test files and 1,913 automated checks covering every
+scientifically load-bearing function; every figure drawn from the stored aggregate tables only; a gate
+that was allowed to fail; a primary hypothesis that was allowed to be refuted by its own criterion; and
+three separate control blocks, one of which (§10, two-hot) *changed* what may be claimed.
 
-**Fragile / limited (reported honestly).**
-- The cross-architecture **speed ratio is setting-dependent** (~2.9× Grokfast/frac=0.5 vs ~1.3× un-accelerated/frac=0.3, §3): the direction survived the honest re-test, the headline magnitude did not. Two settings ≠ a sweep, and the settings differ in two knobs at once (acceleration and train fraction).
-- Bit-exact determinism holds per environment, not across environments: the CPU thread count shifts the last float digits, which over thousands of steps wobbles final accuracies by ~0.5% (the transition step indices reproduced exactly in every re-train we ran; `torch_num_threads` is now logged in run metadata).
-- The restricted/excluded losses use a mask far wider than the published operator **and** are measured over the full `(a,b)` grid rather than Nanda's per-split protocol (excluded on train). They are not a reproduction (§2 **[AUDIT]**).
-- **[AUDIT]** Every structure number on this page is measured *at* each run's generalization crossing, because the un-accelerated runs were launched with `--early-stop-acc 0.95`. Khanh 2026 (arXiv:2607.06639) measures 3–5x (MLP) and 1.3–1.5x (transformer) overstatement for metrics read at the transition rather than after convergence, so an architecture difference here may be a difference in how much cleanup each had done by its own crossing.
-- **[AUDIT]** "Top-8 concentration" is a fixed k, not a measured one: the count is capped at 8 and the cap binds on all 16 runs, so the 90% threshold never fires.
-- The MLP's lower sparsity is partly architectural (concatenated operand embeddings vs. attention-combined), not purely a grokking-quality difference.
+**What is fragile.**
 
-**Next.** A weight-decay/train-frac sweep to locate where the cross-architecture speed gap grows; an add-vs-multiply variant; a static deploy of the explorer; per-split restricted/excluded losses.
+- **n = 10, one hyperparameter point.** Every "under the conditions examined" is load-bearing.
+- **The MLP's structured fraction has not converged at the 25,000-step budget** (§5.1), and it is
+  still rising. The direction of that bias is known: a longer budget would shrink the reported gap.
+- **The structured-neuron threshold is doing more work than any measurement.** It selects 88–98 % of
+  neurons, which is what makes G4 untestable (§6). A different threshold would produce a different gate
+  outcome, and that is a decision reserved for the human authors (**D6**), not a result.
+- **One un-named identifier decides a gate condition** (**D5**, §6).
+- **The transformer's structure metrics are approximations.** `additivity_r2` is 0.922, not 1.
+- **Three control blocks have 3 seeds, not 10.** The 2 × 2 decomposition carries no interval at all.
+- **Several metrics were quietly empty until they were checked by hand.** Four aggregation defects were
+  found this way, three of them producing well-formed tables of `null` rather than errors (labbook
+  entries 58 and 99). A regression test was added for each; the class of defect is documented because
+  it is likelier than not that others of the same kind remain.
+
+**What we would do next.** Sweep the structured-neuron threshold as a pre-registered sensitivity axis
+rather than a fixed choice; add seeds to the control blocks; measure the two-hot block at 10 seeds,
+since it is currently the finding most likely to change a conclusion; test `p` other than 113, where
+odd-harmonic aliasing does not confound family definitions; and run the multiplication task
+(`txf_mul_*`), which is reserved for the human authors (**E6**).
+
+---
+
+## 14. What only the human authors can decide
+
+This page is an AI-drafted report of measurements. The following are **not** filled in, and must not be
+filled in from conjecture (master prompt §22):
+
+- **The final scientific interpretation, in the authors' own words** (§23 item 19). Template:
+  [`docs/HUMAN_INTERPRETATION_TEMPLATE.md`](docs/HUMAN_INTERPRETATION_TEMPLATE.md).
+- **Decisions A–E, the status line, section F and the sign-off** in
+  [`docs/HUMAN_DECISIONS.md`](docs/HUMAN_DECISIONS.md).
+- **D5** — which transformer ablation G4's `remove_key_freqs` refers to (§6).
+- **D6** — whether the structured-neuron threshold that makes G4 untestable stands as pre-registered
+  (§6). Changing it requires a full re-run and must not be motivated by the outcome.
+- **The 11 `[HUMAN AUTHORS MUST COMPLETE]` placeholders** in [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
+- **The `txf_mul_*` runs** (**E6**) and the explorer update (**E3**), both reserved.
+
+---
+
+## 15. Reproducing every number on this page
+
+```bash
+# from training/  (Python 3.12, CPU-only)
+python tests/run_all.py                    # 24 test files, 1,913 checks
+
+# the matrix (51 runs; hours, not minutes)
+pwsh ./run_matrix_chain.ps1
+
+# analysis over the completed runs
+python -m grokverse.analysis.driver --runs "*_arch25k"
+python -m grokverse.analysis.aggregate --runs "txf_add_p113_wd1.0_frac0.3_seed?_arch25k" \
+                                               "mlp_add_p113_wd1.0_frac0.3_seed?_arch25k" \
+                                        --out results/aggregate
+python -m grokverse.analysis.decision_tree     --aggregate-dir results/aggregate --point final
+python -m grokverse.analysis.statistics_report --aggregate-dir results/aggregate
+python -m grokverse.analysis.h3_report         --aggregate-dir results/aggregate
+python -m grokverse.analysis.h4_report         --aggregate-dir results/aggregate
+python -m grokverse.analysis.controls_report   --aggregate-dir results/aggregate_all
+python -m grokverse.analysis.figures_study     --aggregate-dir results/aggregate
+```
+
+Every figure in `training/results/figures/` is drawn from the aggregate tables alone and carries a
+caption naming its source file, so no figure can drift from the numbers above.
+
+**The explorer (`web/`) still shows the pre-study runs** and is deliberately untouched; the required
+changes are specified in [`docs/dev/EXPLORER_UPDATE_PLAN.md`](docs/dev/EXPLORER_UPDATE_PLAN.md) and are
+blocked on human review (**E3**).
