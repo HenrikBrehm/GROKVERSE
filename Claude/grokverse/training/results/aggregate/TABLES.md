@@ -1,6 +1,6 @@
 # Aggregated analysis tables
 
-Generated 2026-09-04T04:34:54.223702+00:00 at commit `75d92ce2e5c691de089406ac2a927bd5cdfc7bed` over 20 runs matching `['txf_add_p113_wd1.0_frac0.3_seed?_arch25k', 'mlp_add_p113_wd1.0_frac0.3_seed?_arch25k']`.
+Generated 2026-09-04T06:16:02.766217+00:00 at commit `b99035067912459b5b3cd7f0f98af3a63678ccfc` over 20 runs matching `['txf_add_p113_wd1.0_frac0.3_seed?_arch25k', 'mlp_add_p113_wd1.0_frac0.3_seed?_arch25k']`.
 
 Every row is one run at one measurement point. **All seeds are shown** — no row is averaged away (master prompt §16). Numbers are copied from the per-run files named in `source_file`; nothing here is recomputed.
 

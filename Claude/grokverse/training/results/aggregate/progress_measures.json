@@ -28,7 +28,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\mlp_add_p113_wd1.0_frac0.3_seed0_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -140,7 +140,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\mlp_add_p113_wd1.0_frac0.3_seed1_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -250,7 +250,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\mlp_add_p113_wd1.0_frac0.3_seed2_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -360,7 +360,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\mlp_add_p113_wd1.0_frac0.3_seed3_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -469,7 +469,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\mlp_add_p113_wd1.0_frac0.3_seed4_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -582,7 +582,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\mlp_add_p113_wd1.0_frac0.3_seed5_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -693,7 +693,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\mlp_add_p113_wd1.0_frac0.3_seed6_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -804,7 +804,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\mlp_add_p113_wd1.0_frac0.3_seed7_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -916,7 +916,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\mlp_add_p113_wd1.0_frac0.3_seed8_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -1028,7 +1028,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\mlp_add_p113_wd1.0_frac0.3_seed9_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -1136,7 +1136,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\txf_add_p113_wd1.0_frac0.3_seed0_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -1243,7 +1243,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\txf_add_p113_wd1.0_frac0.3_seed1_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -1346,7 +1346,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\txf_add_p113_wd1.0_frac0.3_seed2_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -1451,7 +1451,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\txf_add_p113_wd1.0_frac0.3_seed3_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -1555,7 +1555,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\txf_add_p113_wd1.0_frac0.3_seed4_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -1659,7 +1659,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\txf_add_p113_wd1.0_frac0.3_seed5_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -1761,7 +1761,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\txf_add_p113_wd1.0_frac0.3_seed6_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -1864,7 +1864,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\txf_add_p113_wd1.0_frac0.3_seed7_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -1967,7 +1967,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\txf_add_p113_wd1.0_frac0.3_seed8_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [
@@ -2070,7 +2070,7 @@
       "tag": "all_checkpoints",
       "step": "all_checkpoints",
       "module_version": "2.0",
-      "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+      "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
       "checkpoint_sha256": null,
       "source_file": "runs\\txf_add_p113_wd1.0_frac0.3_seed9_arch25k\\analysis\\progress_measures\\all_checkpoints.json",
       "key_frequencies_used": [

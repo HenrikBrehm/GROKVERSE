@@ -1,8 +1,8 @@
 {
   "module": "aggregate",
   "module_version": "1.0",
-  "created_utc": "2026-09-04T04:34:54.223702+00:00",
-  "analysis_git_commit": "75d92ce2e5c691de089406ac2a927bd5cdfc7bed",
+  "created_utc": "2026-09-04T06:16:02.766217+00:00",
+  "analysis_git_commit": "b99035067912459b5b3cd7f0f98af3a63678ccfc",
   "runs_pattern": [
     "txf_add_p113_wd1.0_frac0.3_seed?_arch25k",
     "mlp_add_p113_wd1.0_frac0.3_seed?_arch25k"

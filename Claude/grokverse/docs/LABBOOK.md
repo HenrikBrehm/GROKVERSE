@@ -985,3 +985,43 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
      A verification script that reports a failure it cannot substantiate is worse than no script, so
      the lesson is the same one as entries 99 and 101 — check the checker against a case whose answer
      you already know before believing its verdict.
+
+105. **What the fixed metric actually showed: the waveform difference forms during the plateau.**
+     `structure_over_time` re-run over all 51 runs at the corrected code (**51 ok, 0 failed**), both
+     aggregates and `h4_report` regenerated. The other five reports — `decision_tree` at both points,
+     `statistics`, `h3_report`, `controls_report` — were re-run into a scratch directory and are
+     **byte-identical** apart from the timestamp and the recorded analysis commit, confirming that
+     nothing outside H4 consumed the broken metric.
+
+     `h4_report`'s headline summary is unchanged: `fraction_best_aic_square` still reads 0/0. But the
+     reason is now known, and it is not "the metric never moved". The onset rule of INTERFACES §12 is
+     `first checkpoint above init + 3σ` — **rise-only**. A metric that falls can never register an
+     onset, so "undefined" silently conflates *never moved* with *moved downward*. The square share
+     moves downward, hard. The pre-registered `change` statistic captures it:
+
+     | share of curves best fit by | transformer init → pre-gen | MLP init → pre-gen |
+     |---|---|---|
+     | square wave | 0.787 → **0.116** (−0.656) | 0.789 → **0.421** (−0.366) |
+     | sinusoid | 0.149 → **0.646** (+0.495) | 0.148 → **0.333** (+0.186) |
+     | odd harmonics | 0.021 → 0.173 (+0.149) | 0.021 → 0.218 (+0.194) |
+
+     Both change directions are **unanimous across all 10 seeds in both architectures**.
+
+     Two readings, and one non-reading. (i) The architectures **start indistinguishable** — 0.787 vs
+     0.789 square, 0.149 vs 0.148 sinusoid — and separate only during the memorization plateau. (ii)
+     They separate in *different directions*: the transformer ends up almost purely sinusoidal (0.646,
+     with only 0.116 square left) while the MLP splits between sinusoid (0.333) and odd harmonics
+     (0.218) and keeps nearly four times as much square. The waveform difference §5 reports at the
+     final checkpoint is therefore **already present before either architecture generalizes**.
+
+     The non-reading: **the init level is not a finding.** At initialization the curves are noise, and
+     the square model carries the same three parameters as the sinusoid, so which wins by AIC on noise
+     is a property of the model set, not of the network. The evidence for reading it that way is
+     precisely that the two architectures agree to within 0.002 at init. Only the *change* is a
+     measurement.
+
+     Two further onsets are recovered: the sinusoid share crosses at a median step of 2,000
+     (transformer) and 750 (MLP), and the odd-harmonic share at 3,000 and 1,000 — both 10/10 seeds.
+     That takes H4 from four metrics onsetting before generalization in 10/10 to **six**, spanning
+     5.4 % to 39.5 % of the way to the crossing. `RESULTS.md` §8.1 carries the table and the rise-only
+     limitation; the onset rule itself is **not** changed, since it is pre-registered.

@@ -1,0 +1,532 @@
+{
+  "runs": [
+    "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+    "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+    "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed9_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_seed2_arch25k"
+  ],
+  "points": [
+    "crossing",
+    "final"
+  ],
+  "key_rule": "nanda",
+  "seed": 0,
+  "n_calls": 51,
+  "analysis_git_commit": "9927c60fd20cceb25ce927148d00535ba7dab330",
+  "started_utc": "2026-09-04T06:15:41.358149+00:00",
+  "outcomes": [
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 894.6
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 906.3
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 903.49
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 643.81
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 622.56
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 615.24
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 469.72
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 441.54
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 488.98
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 567.01
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 587.26
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 573.98
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 553.81
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 586.79
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 528.45
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 511.6
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 506.37
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 510.14
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 484.43
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 484.29
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 504.4
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 539.95
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 550.15
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 547.22
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 532.39
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 485.82
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 474.4
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 444.93
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 489.57
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.5_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 535.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.5_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 515.69
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.5_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 517.39
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 482.49
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 434.15
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 442.53
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 479.99
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 466.76
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 482.17
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 476.63
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 426.62
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 431.55
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 467.44
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 466.79
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 467.1
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 479.94
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 405.94
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 402.89
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 367.68
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.5_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 346.92
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.5_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 332.9
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.5_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 322.17
+    }
+  ],
+  "summary": {
+    "counts": {
+      "ok": 51
+    },
+    "failed": [],
+    "missing_modules": []
+  }
+}

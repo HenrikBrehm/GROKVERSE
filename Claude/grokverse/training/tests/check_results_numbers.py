@@ -151,6 +151,59 @@ def check_h3() -> None:
         FAILURES.append("h3_report says H3 is NOT refuted, RESULTS.md says it is")
 
 
+def check_h4() -> None:
+    """Section 8 / 8.1 — the trajectory numbers, including the two the index-vs-name defect hid."""
+    print("\n-- section 8: H4 --")
+    rs = rows("structure_over_time")
+    # the six metrics that reach an onset before generalization in 10/10 seeds, both architectures
+    for arch, onsets in (("transformer", {"logit_key_subspace_share": 500,
+                                          "structured_fraction_of_live": 1000,
+                                          "embedding_top8_concentration": 1000,
+                                          "median_family_fraction": 2000,
+                                          "fraction_best_aic_sinusoid": 2000,
+                                          "fraction_best_aic_odd_harmonics": 3000}),
+                         ("mlp", {"logit_key_subspace_share": 500,
+                                  "structured_fraction_of_live": 1000,
+                                  "embedding_top8_concentration": 1000,
+                                  "median_family_fraction": 500,
+                                  "fraction_best_aic_sinusoid": 750,
+                                  "fraction_best_aic_odd_harmonics": 1000})):
+        arch_rows = [r for r in rs if r["arch"] == arch]
+        for metric, want in onsets.items():
+            v = [r.get(f"h4__{metric}__onset_step") for r in arch_rows]
+            defined = [x for x in v if x is not None]
+            check(f"{arch} {metric} onset (median)", want, st.median(defined), 0.5)
+            check(f"{arch} {metric} onset defined on all 10", 10, len(defined), 0)
+    # section 8.1: the waveform composition table
+    for arch, table in (("transformer", {"square": (0.787, 0.116, -0.6558),
+                                         "sinusoid": (0.149, 0.646, +0.4946),
+                                         "odd_harmonics": (0.021, 0.173, +0.1494)}),
+                        ("mlp", {"square": (0.789, 0.421, -0.3662),
+                                 "sinusoid": (0.148, 0.333, +0.1860),
+                                 "odd_harmonics": (0.021, 0.218, +0.1938)})):
+        arch_rows = [r for r in rs if r["arch"] == arch]
+        for shape, (init, pre, change) in table.items():
+            key = f"h4__fraction_best_aic_{shape}"
+            check(f"{arch} {shape} init", init, med(arch_rows, f"{key}__init"), 0.001)
+            check(f"{arch} {shape} pre-generalization", pre, med(arch_rows, f"{key}__pre_gen"), 0.001)
+            check(f"{arch} {shape} change", change, med(arch_rows, f"{key}__change"), 0.0001)
+        # the sign of the change must be unanimous for square (down) and sinusoid (up)
+        for shape, want_sign in (("square", -1), ("sinusoid", +1)):
+            v = [r[f"h4__fraction_best_aic_{shape}__change"] for r in arch_rows]
+            unanimous = all((x < 0) if want_sign < 0 else (x > 0) for x in v)
+            print(f"[{'PASS' if unanimous else 'FAIL'}] {arch} {shape} change is unanimous "
+                  f"({'down' if want_sign < 0 else 'up'}) across 10 seeds")
+            if not unanimous:
+                FAILURES.append(f"{arch} {shape} change is not unanimous: {v}")
+    # the square share must have NO onset -- the detector is rise-only and this metric falls
+    for arch in ("transformer", "mlp"):
+        arch_rows = [r for r in rs if r["arch"] == arch]
+        v = [r.get("h4__fraction_best_aic_square__onset_step") for r in arch_rows]
+        check(f"{arch} square-share onset is undefined on all 10 (it falls)",
+              0, len([x for x in v if x is not None]), 0)
+    check_in_doc("the rise-only limitation is stated", "detects only an *upward* crossing")
+
+
 def check_bounded() -> None:
     print("\n-- section 9: bounded alternative --")
     ba = rows("bounded_alternative")
@@ -227,6 +280,7 @@ def main() -> None:
     check_structure()
     check_ablations()
     check_h3()
+    check_h4()
     check_bounded()
     check_statistics()
     check_controls()

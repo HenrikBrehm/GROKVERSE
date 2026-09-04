@@ -370,24 +370,61 @@ over 10 seeds):
 | embedding top-8 concentration | 1,000 (1,000–2,000) | 1,000 (500–2,000) | 10/10 both |
 | median family fraction | 2,000 (1,000–4,000) | 500 (500–1,000) | 10/10 both |
 | median odd-minus-even, `u_a` | 4,500 | 3,500 | 2/2 (txf), 8/8 (MLP) — **undefined on the rest** |
+| fraction best fit by a **sinusoid** | 2,000 | 750 | 10/10 both |
+| fraction best fit by **odd harmonics** | 3,000 | 1,000 | 10/10 both |
 | phase relation `R` | **undefined on all 10** | **undefined on all 10** | — |
-| fraction best fit by a square wave | **undefined on all 10** | **undefined on all 10** | — |
+| fraction best fit by a **square wave** | **undefined on all 10** | **undefined on all 10** | see §8.1 — it *falls* |
 
 For comparison, generalization is at median 7,588 (transformer) and 9,250 (MLP); memorization at 140
 and 160.
+
+### 8.1 The waveform composition shifts during the plateau — and the two architectures diverge there
+
+The onset rule of INTERFACES §12 detects only an *upward* crossing of `init + 3 σ`. A metric that
+**decreases** can therefore never register an onset, and "undefined" conflates *never moved* with
+*moved downward*. For the square-wave share the truth is the second, and the pre-registered
+`change` statistic — init to the last checkpoint before generalization — records it:
+
+| share of neuron curves best fit by | transformer: init → pre-gen | MLP: init → pre-gen |
+|---|---|---|
+| a **square wave** | 0.787 → **0.116** (**−0.656**) | 0.789 → **0.421** (**−0.366**) |
+| a **sinusoid** | 0.149 → **0.646** (+0.495) | 0.148 → **0.333** (+0.186) |
+| **odd harmonics** | 0.021 → 0.173 (+0.149) | 0.021 → 0.218 (+0.194) |
+| odd harmonics with 1/j decay | 0.042 → 0.019 (−0.023) | 0.035 → 0.024 (−0.008) |
+
+Two things are visible. First, the two architectures **start indistinguishable** (0.787 vs 0.789
+square; 0.149 vs 0.148 sinusoid) and separate only during the plateau. Second, they separate in
+*different directions*: the transformer moves decisively to sinusoid (0.646) and retains almost no
+square-like curves (0.116), while the MLP splits between sinusoid (0.333) and odd harmonics (0.218)
+and keeps nearly four times as much square (0.421). The waveform difference reported at the final
+checkpoint in §5 is therefore already present **before either architecture generalizes**.
+
+**The init level is not a finding.** At initialization the curves are noise, and the square model has
+the same parameter count as the sinusoid, so which one wins by AIC on noise is a property of the model
+set. That the two architectures agree to within 0.002 at init is the evidence for reading it that way.
+What is a finding is the *change*, which is unanimous in sign across all 10 seeds in both architectures
+for the square and sinusoid shares.
+
+These two trajectories were **flat zero for the entire study** until a defect was fixed on 2026-09-04
+(`docs/LABBOOK.md` 101): the metric compared an integer model index to a model name and silently
+returned 0.0. Nothing else consumed them, so no other number on this page moves.
 
 **This is correlational, and is labelled as such in the artifact itself.** Structure preceding
 generalization is consistent with H4; it cannot show that the structure *caused* the jump, nor that it
 had to form. Causal statements come from §6 alone.
 
 **Limitation.** The onset indicator's baseline standard deviation is taken over two checkpoints, so the
-step is sensitive to the checkpoint grid: it is an **indicator, not a measured transition**. Two of the
-seven metrics never produce a defined onset at all, and one produces it on only 2 of 10 transformer
-seeds — reported here rather than dropped.
+step is sensitive to the checkpoint grid: it is an **indicator, not a measured transition**. It is also
+**rise-only** (§8.1), so it is silent about any metric that falls. `phase_relation_R` produces no onset
+in either architecture for a different reason: it is `null` at the first checkpoints, where the
+structured set is too small for the statistic to exist, so no baseline can be formed. And
+`median_odd_minus_even_u_a` yields an onset on only 2 of 10 transformer seeds. All three are reported
+here rather than dropped.
 
-**Permissible conclusion.** Under the conditions examined, four of seven structure metrics reach their
-onset before the generalization crossing in 10 of 10 seeds in both architectures, at roughly 5–15 % of
-the way to that crossing.
+**Permissible conclusion.** Under the conditions examined, six structure metrics reach their onset
+before the generalization crossing in 10 of 10 seeds in both architectures, at between 5 % and 40 % of the
+way to that crossing (earliest 500 of 9,250 in the MLP; latest 3,000 of 7,588 in the transformer), and the waveform composition shifts substantially over the same interval. This is
+consistent with H4. It remains correlational.
 
 ---
 
