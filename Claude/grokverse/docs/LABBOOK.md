@@ -1025,3 +1025,47 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
      That takes H4 from four metrics onsetting before generalization in 10/10 to **six**, spanning
      5.4 % to 39.5 % of the way to the crossing. `RESULTS.md` §8.1 carries the table and the rise-only
      limitation; the onset rule itself is **not** changed, since it is pre-registered.
+
+106. **The run manifest was stale, and `RESULTS.md` asserted otherwise.** Auditing master prompt §20
+     after being asked whether everything in the master prompt was actually done. `results/run_manifest.{csv,json}`
+     were last written 2026-09-03 08:55 — **before** the confound, parameter-matched and two-hot blocks
+     finished. The aggregate held 44 entries: 16 legacy pre-study runs and only **28 of the 51**
+     arch25k runs. Every m2h, every dm572 and several others were absent.
+
+     `RESULTS.md` §1 said "`training/results/run_manifest.csv` lists all 51 with their config hashes and
+     git commits". That was false when I wrote it. I had checked that the file *existed*, not that it
+     was current — the same mistake in kind as trusting an extractor because it returned a table.
+
+     Regenerated with `python -m grokverse.manifest`: **67 entries — all 51 arch25k runs plus the 16
+     legacy ones**, none missing, none phantom (every legacy id still resolves to a directory on disk).
+     All 51 carry `status: completed`. Audited against §20's required field list: run id, architecture,
+     seed, split hash, git commit, Python version, Torch version, platform, processor, CPU count, thread
+     count, full configuration, start time, end time, status, abort reason, checkpoint paths, result
+     files — **18 of 18 present on 51 of 51 runs**. The per-run `manifest.json` files were always
+     complete; only the aggregate was stale.
+
+     The lesson is narrow and worth stating: a derived artifact is only as current as the last time it
+     was derived, and existence is not currency. Anything regenerated from a directory should either be
+     regenerated as part of the analysis chain or carry the timestamp of its inputs. This one carried
+     neither, and nothing in the pipeline noticed for a day.
+
+107. **Master prompt §18/§19/§20 audited item by item.** Asked whether "everything from the master
+     prompt" was done, I checked rather than answered from memory.
+
+     - **§18 documentation, 13 of 13 present**: `CURRENT_EVIDENCE_AUDIT`, `PREREGISTRATION`, `METHODS`,
+       `MASK_PROTOCOL_AUDIT`, `MLP_MECHANISM_DERIVATION`, `TRANSFORMER_MECHANISM_DERIVATION`,
+       `STATISTICAL_ANALYSIS_PLAN`, `CAUSAL_ABLATION_PLAN`, `NOVELTY_AND_RELATED_WORK`, `LIMITATIONS`,
+       `CLAIM_EVIDENCE_TABLE`, `HUMAN_INTERPRETATION_TEMPLATE`, `LABBOOK_TEMPLATE`.
+     - **§18 analysis code, 8 of 8 present** at the exact names the prompt lists, including
+       `analysis/statistics.py` and `analysis/function_agreement.py`.
+     - **§19 tests, 12 of 12 topics covered** — mask cardinality, no impermissible cross-frequency
+       components, a synthetic ideal Fourier circuit, a synthetic square wave, phase recovery,
+       neuron-specific effective MLP weights, causal ablation of an artificial model, the end-to-end
+       logit fit on a synthetic model with a known formula, full-domain agreement on identical and
+       different models, parameter counting, paired seed assignment, run-manifest validation.
+     - **§20**: fixed, see entry 106.
+
+     The one honest remainder in §23 that is *not* human-only is **item 1**: the mask methodology is
+     audited and the four protocols are separated, but the Nanda and Doshi source notes are only partly
+     verified against the papers themselves (labbook 30). It is recorded as partial in the checklist
+     rather than ticked.
