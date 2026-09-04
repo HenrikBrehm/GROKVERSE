@@ -1,11 +1,27 @@
 {
   "module": "aggregate",
   "module_version": "1.0",
-  "created_utc": "2026-09-04T02:20:05.902264+00:00",
-  "analysis_git_commit": "e386f59fd9b85e5db66361e9084d8e674137a24f",
-  "runs_pattern": "*_frac0.3_seed*_arch25k",
-  "n_runs": 20,
+  "created_utc": "2026-09-04T02:59:15.806983+00:00",
+  "analysis_git_commit": "8b312a2db2a070d4fc3a33de5ac898c3f55ddbba",
+  "runs_pattern": "*_arch25k",
+  "n_runs": 51,
   "runs": [
+    "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+    "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+    "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k",
     "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
     "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
     "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
@@ -16,6 +32,15 @@
     "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
     "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
     "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k",
     "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
     "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
     "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
@@ -25,14 +50,83 @@
     "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
     "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
     "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
-    "txf_add_p113_wd1.0_frac0.3_seed9_arch25k"
+    "txf_add_p113_wd1.0_frac0.3_seed9_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_seed2_arch25k"
   ],
   "modules": {
+    "key_frequencies": {
+      "n_rows": 80,
+      "n_missing": 11,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 51,
+      "file": "aggregate/key_frequencies.json"
+    },
+    "mlp_mechanism": {
+      "n_rows": 41,
+      "n_missing": 11,
+      "n_not_applicable": 19,
+      "n_runs_applicable": 32,
+      "file": "aggregate/mlp_mechanism.json"
+    },
+    "transformer_mechanism": {
+      "n_rows": 38,
+      "n_missing": 0,
+      "n_not_applicable": 32,
+      "n_runs_applicable": 19,
+      "file": "aggregate/transformer_mechanism.json"
+    },
+    "wave_fitting": {
+      "n_rows": 40,
+      "n_missing": 12,
+      "n_not_applicable": 19,
+      "n_runs_applicable": 32,
+      "file": "aggregate/wave_fitting.json"
+    },
+    "logit_formula_fit": {
+      "n_rows": 77,
+      "n_missing": 12,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 51,
+      "file": "aggregate/logit_formula_fit.json"
+    },
+    "h3_validity": {
+      "n_rows": 78,
+      "n_missing": 12,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 51,
+      "file": "aggregate/h3_validity.json"
+    },
+    "causal_ablation": {
+      "n_rows": 76,
+      "n_missing": 13,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 51,
+      "file": "aggregate/causal_ablation.json"
+    },
+    "structure_over_time": {
+      "n_rows": 38,
+      "n_missing": 13,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 51,
+      "file": "aggregate/structure_over_time.json"
+    },
+    "progress_measures": {
+      "n_rows": 38,
+      "n_missing": 13,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 51,
+      "file": "aggregate/progress_measures.json"
+    },
     "bounded_alternative": {
       "n_rows": 20,
-      "n_missing": 0,
+      "n_missing": 31,
       "n_not_applicable": 0,
-      "n_runs_applicable": 20,
+      "n_runs_applicable": 51,
       "file": "aggregate/bounded_alternative.json"
     }
   }

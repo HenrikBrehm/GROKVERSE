@@ -718,3 +718,31 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
 89. **Confound block analysed: 234 ok, 0 failed, 27 skipped** (the skips are the architecture-specific
     modules on the other architecture, as designed). The analysis of the parameter-matched and two-hot
     blocks was launched immediately afterwards at 8 workers, the CPU now being free of training.
+90. **The Grokfast × `train_frac` confound is separated (`results/controls_report.json`,
+    `analysis/controls_report.py`, 22 checks).** Master prompt §14 forbids attributing a change to
+    either knob while the two are confounded — the project's own history contains that mistake, a
+    speed ratio moving from ~2.9× to ~1.3× between two settings that differed in **both**. The 2 × 2
+    decomposition on 3 paired seeds per cell, generalization step:
+
+    | | Grokfast main effect | `train_frac` main effect | interaction |
+    |---|---|---|---|
+    | transformer | **−350** [−888, +188] — spans 0 | **−6,367** [−6,950, −5,638] | +883 — spans 0 |
+    | MLP | **+892** [+713, +1,063] | **−8,217** [−8,850, −7,713] | −933 |
+
+    The training fraction moves the crossing by roughly 6,400 (transformer) and 8,200 (MLP) steps.
+    **Grokfast's effect on the transformer is not distinguishable from zero**, and on the MLP it goes
+    the *other* way — Grokfast makes the MLP cross ~890 steps **later**. So the historical shift is
+    attributable to the training fraction, not to acceleration, and the legacy speed ratio must not be
+    read as a statement about Grokfast.
+91. **The caveat that governs those numbers.** Three paired seeds per cell. A percentile bootstrap
+    over three values is a weak interval however tidy it looks, and "CI excludes zero" at n = 3 is not
+    strong evidence. What the decomposition does establish is the *ordering of magnitudes* — a
+    `train_frac` effect an order of magnitude larger than the Grokfast effect, consistently in both
+    architectures — and that is what licenses the negative statement about Grokfast rather than any
+    positive one. The module carries this caveat in its own `reading` field.
+92. **The parameter-matched and two-hot comparisons are computed but not yet populated.** Their
+    analysis was still running when this was written: `param_matched` is 10 MLP runs at `d_mlp = 572`
+    to be paired against the primary transformer, `twohot` is 3 `m2h_*` runs against the
+    shared-embedding MLP. `controls_report` reports them as `NOT COMPUTED — no seed has both sides`
+    rather than as an empty or zero result, and re-running it after the analysis completes is all
+    that is needed.
