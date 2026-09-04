@@ -66,7 +66,7 @@ Stated explicitly, because the earlier version of `RESULTS.md` did claim some of
 
 ## Status
 
-The architecture study on branch `arch-study` is complete: **51 runs, all completed, none failed**; 24
+The architecture study on branch `GROKVERSE-MP` (local name until 2026-09-04: `arch-study`) is complete: **51 runs, all completed, none failed**; 24
 test files and 1,913 automated checks; every threshold frozen before the runs at commit `0b55e1d`.
 
 Open, and reserved for the human authors: the final interpretation, the decisions in
