@@ -604,3 +604,26 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
 74. **The forbidden criterion audited across all 40 rows.** `family − matched_top_m` never exceeds
     **1.11e-16**, i.e. zero to floating point, exactly as the construction requires. Reported as an
     implementation audit; never as support.
+75. **Definition-of-Done item 8 was genuinely undone, and is now measured.** The full-domain function
+    comparison had exactly one artifact on disk, and it was for the *pre-study* runs (ids without
+    `_arch25k`). `function_agreement` is not in `analysis/driver.py`'s module list — it compares two
+    runs and does not fit the per-run pattern — so the driver never covered it. Run over the 10
+    paired seeds at the final checkpoint: median agreement over all **12,769** inputs **0.99977**;
+    the **MLP is correct on every cell in all 10 seeds**; the transformer has 0–26 errors (median 3);
+    **4 of 10 seed pairs agree on every single input**. `error_jaccard` is 0.000 where defined and
+    **undefined in 4 seeds** because neither model errs — the module returns `None` for an empty
+    union rather than a fabricated constant, which is what makes that visible.
+76. **Master prompt §10's restriction is now discharged by measurement, and it does not license the
+    stronger phrase.** §10 permits only "both architectures generalize on the same task" until the
+    full-domain comparison exists. It now exists, and it says the two agree on 99.98 % of inputs but
+    are **not** identical in 6 of 10 seeds. So "both learn the same function" stays unsupported; what
+    is supported is the agreement rate with its seed range.
+77. **`docs/CLAIM_EVIDENCE_TABLE.md` written** — the last of the thirteen documents master prompt §18
+    requires. Eight claims (C1–C8), each in the §21 six-part structure, plus a table of claims that
+    may **not** be made from this evidence and why, and a list of what is still pending with what each
+    pending item would settle. Every number traces to a file under `results/`. The table opens with
+    the precondition that governs all of it: the gate reports `neither_passes`, so no mechanism
+    reading is licensed for either architecture.
+78. **Confound block complete and under analysis.** The training chain finished the 18 confound runs
+    at 00:40:48 UTC (exit 0) and moved to `param_matched`. The analysis driver was launched over the
+    confound runs at 01:0x UTC; `param_matched` trains concurrently.
