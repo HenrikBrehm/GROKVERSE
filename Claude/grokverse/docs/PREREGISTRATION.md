@@ -451,7 +451,7 @@ must be reported as computed under AI-proposed settings.
 |---|---|
 | brief committed (values fixed) | `d53cf52` |
 | primary runs executed at | `d53cf52` |
-| analysis code freeze commit | **`0b55e1d`** (2026-09-03, 20:5x UTC) — the commit at which every module `analysis/driver.py` lists exists and the suite is green (16 files, 1,657 checks) |
+| analysis code freeze commit | **`0b55e1d`** (2026-09-03, 20:5x UTC) — the commit at which every module `analysis/driver.py` lists exists and the suite is green (16 files, 1,657 checks at the freeze; the suite has since grown to 24 files and 1,913 checks, all additions being tests of the aggregation layer and regression tests for the post-freeze fixes below) |
 | human approval | **[pending — `docs/HUMAN_DECISIONS.md`]** |
 
 **What the freeze covers.** Every module the driver invokes: `key_frequencies`, `mlp_mechanism`,
@@ -466,6 +466,10 @@ change any measured number. Its own freeze is recorded when it lands.
 | commit | what | why it is not a threshold change |
 |---|---|---|
 | 2026-09-03 | `key_frequencies.analyse` and `progress_measures.compute_from_checkpoints` now accept `seed` | both forwarded `**kw` into a helper that rejects it, so all 60 driver calls raised `TypeError`; the seed is **recorded and unused** — neither draws a random number. Both modules must be re-run over every seed (labbook 56–57). |
+| 2026-09-03 | `wave_fitting` routed through the per-`k` split, and its architecture registry corrected to MLP-only | an `IndexError` on 4 MLP runs and 20 doomed transformer calls; no fitted number changes — the split is numerically identical (labbook 58, 60). |
+| 2026-09-04 | `aggregate._wave_fitting` reads `fraction_best_by_aic` instead of guessed flat keys | **silent**: it produced the right column names with `None` in all of them, so the H2 figure would have been blank. Aggregation only; no measured number changes (labbook 58). |
+| 2026-09-04 | `aggregate._progress_measures` reads the split level of `protocols[p][which][split]["loss"]` | **silent**: same shape — every restricted/excluded column was `None`. Aggregation only; every downstream report re-run and byte-identical apart from timestamps (labbook 99). |
+| 2026-09-04 | `structure_over_time._fraction_best` resolves the model index through `MODEL_NAMES` | **silent, and it returned `0.0` rather than `None`**: `best_by_aic` is an integer index and was compared to the string `"square"`, so both waveform trajectories were flat zero for every run. The two metrics fed only H4's onset detector, which reported "undefined"; no gate criterion, statistic, figure or claim consumed them. `structure_over_time` re-run over all 51 runs and H4 regenerated (labbook 101). |
 
 **What may still change after this commit** (PREREGISTRATION §9): performance, logging, figure styling
 and genuine bug fixes, each logged in `docs/LABBOOK.md` with its reason and forcing a re-run of every

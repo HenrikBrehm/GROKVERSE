@@ -25,9 +25,9 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] G4 — `analysis/h3_report.py` + tests; both refutation criteria applied literally. **H3 is REFUTED** by criterion 2 (family gap +0.0850, CI [+0.0600, +0.1004]); the family definition closes only 5.4 % of the gap — `results/h3_report.json`, labbook 70–74
 - [x] G5 — all 11 figures drawn from the aggregate tables only, captions naming sources — `results/figures/index.json`
 - [x] G6 — `docs/CLAIM_EVIDENCE_TABLE.md`: 8 claims in the §21 six-part structure, a forbidden-claims table, and what each pending item would settle
-- [ ] G7 — `RESULTS.md`, `README.md`, `docs/LIMITATIONS.md`, `PROGRESS.md` —
-- [ ] G8 — `AI_DISCLOSURE.md` per master prompt §22, human parts as placeholders —
-- [ ] G9 — `docs/HUMAN_DECISIONS.md` sensitivity notes added, status untouched —
+- [x] G7 — `RESULTS.md` rewritten under §21 (gate reported exactly, 4 claims withdrawn), `README.md` with a "what this does not claim" section, `docs/LIMITATIONS.md` §B written from measurement (B3: the MLP's structured fraction is settled in only 2/10 seeds at the budget), `PROGRESS.md` dated entry, `CLAIM_EVIDENCE_TABLE` pending section replaced — commit `d54792b`; found and fixed a 5th defect on the way (labbook 101)
+- [x] G8 — `AI_DISCLOSURE.md` §6 rewritten for the completed documents (RESULTS/README no longer described as pre-study), `LIMITATIONS` §A/§B split recorded, 2026-09-04 changelog entry naming the gate outcome, the refutation and the five defects; **11 `[HUMAN AUTHORS MUST COMPLETE]` placeholders intact**
+- [x] G9 — D5 (which transformer ablation G4 means: 0/10 vs 10/10) and D6 (six-definition table showing no available definition makes G4 testable, plus the new budget-convergence caveat) carry their measured sensitivity; `STATUS: NOT YET APPROVED BY HUMAN AUTHORS` untouched
 - [~] H — `docs/dev/EXPLORER_UPDATE_PLAN.md` written (web/ untouched; approval box open); labbook, Obsidian, §25 block still to come
 
 ## Master prompt §23 — Definition of Done (19 items)
