@@ -1,0 +1,181 @@
+{
+  "block": "confound",
+  "workers": 8,
+  "start_utc": "2026-09-03T17:17:15.376113+00:00",
+  "planned": 18,
+  "skipped_completed": [],
+  "seed_pairing": {
+    "transformer": [
+      0,
+      0,
+      1,
+      1,
+      2,
+      2,
+      0,
+      1,
+      2
+    ],
+    "mlp": [
+      0,
+      0,
+      1,
+      1,
+      2,
+      2,
+      0,
+      1,
+      2
+    ]
+  },
+  "commands": [
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch transformer --seed 0 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch transformer --seed 0 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch transformer --seed 1 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch transformer --seed 1 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch transformer --seed 2 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch transformer --seed 2 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch transformer --seed 0 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch transformer --seed 1 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch transformer --seed 2 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch mlp --seed 0 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch mlp --seed 0 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch mlp --seed 1 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch mlp --seed 1 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch mlp --seed 2 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch mlp --seed 2 --steps 25000 --train-frac 0.5 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch mlp --seed 0 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch mlp --seed 1 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k --arch mlp --seed 2 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25 --grokfast --grokfast-lambda 2.0 --grokfast-alpha 0.98"
+  ],
+  "runs": [
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.5_seed0_arch25k",
+      "arch": "transformer",
+      "seed": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 22316.5
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k",
+      "arch": "transformer",
+      "seed": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 22162.9
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.5_seed1_arch25k",
+      "arch": "transformer",
+      "seed": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22369.5
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k",
+      "arch": "transformer",
+      "seed": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22196.9
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.5_seed2_arch25k",
+      "arch": "transformer",
+      "seed": 2,
+      "exit_code": 0,
+      "elapsed_seconds": 22303.0
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k",
+      "arch": "transformer",
+      "seed": 2,
+      "exit_code": 0,
+      "elapsed_seconds": 22158.1
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k",
+      "arch": "transformer",
+      "seed": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 13424.7
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k",
+      "arch": "transformer",
+      "seed": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 13360.4
+    },
+    {
+      "run_id": "txf_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k",
+      "arch": "transformer",
+      "seed": 2,
+      "exit_code": 0,
+      "elapsed_seconds": 12738.3
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.5_seed0_arch25k",
+      "arch": "mlp",
+      "seed": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 6336.3
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k",
+      "arch": "mlp",
+      "seed": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 4771.8
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.5_seed1_arch25k",
+      "arch": "mlp",
+      "seed": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 4161.6
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k",
+      "arch": "mlp",
+      "seed": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 4122.8
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.5_seed2_arch25k",
+      "arch": "mlp",
+      "seed": 2,
+      "exit_code": 0,
+      "elapsed_seconds": 4138.4
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k",
+      "arch": "mlp",
+      "seed": 2,
+      "exit_code": 0,
+      "elapsed_seconds": 4048.0
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k",
+      "arch": "mlp",
+      "seed": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 2907.3
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k",
+      "arch": "mlp",
+      "seed": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 2897.6
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k",
+      "arch": "mlp",
+      "seed": 2,
+      "exit_code": 0,
+      "elapsed_seconds": 2080.3
+    }
+  ],
+  "end_utc": "2026-09-04T00:40:48.356837+00:00",
+  "n_failed": 0
+}

@@ -1,8 +1,8 @@
 {
   "module": "aggregate",
   "module_version": "1.0",
-  "created_utc": "2026-09-04T00:12:42.389953+00:00",
-  "analysis_git_commit": "1076deea356bf979380959d7ecb9e7de5f57e79a",
+  "created_utc": "2026-09-04T00:39:58.797204+00:00",
+  "analysis_git_commit": "40cc8b0e560e457b5c7242cb6694141cb6676826",
   "runs_pattern": "*_frac0.3_seed*_arch25k",
   "n_runs": 20,
   "runs": [
@@ -28,68 +28,12 @@
     "txf_add_p113_wd1.0_frac0.3_seed9_arch25k"
   ],
   "modules": {
-    "key_frequencies": {
-      "n_rows": 40,
-      "n_missing": 0,
-      "n_not_applicable": 0,
-      "n_runs_applicable": 20,
-      "file": "aggregate/key_frequencies.json"
-    },
-    "mlp_mechanism": {
-      "n_rows": 20,
-      "n_missing": 0,
-      "n_not_applicable": 10,
-      "n_runs_applicable": 10,
-      "file": "aggregate/mlp_mechanism.json"
-    },
-    "transformer_mechanism": {
-      "n_rows": 20,
-      "n_missing": 0,
-      "n_not_applicable": 10,
-      "n_runs_applicable": 10,
-      "file": "aggregate/transformer_mechanism.json"
-    },
-    "wave_fitting": {
-      "n_rows": 20,
-      "n_missing": 0,
-      "n_not_applicable": 10,
-      "n_runs_applicable": 10,
-      "file": "aggregate/wave_fitting.json"
-    },
-    "logit_formula_fit": {
-      "n_rows": 40,
-      "n_missing": 0,
-      "n_not_applicable": 0,
-      "n_runs_applicable": 20,
-      "file": "aggregate/logit_formula_fit.json"
-    },
     "h3_validity": {
       "n_rows": 40,
       "n_missing": 0,
       "n_not_applicable": 0,
       "n_runs_applicable": 20,
       "file": "aggregate/h3_validity.json"
-    },
-    "causal_ablation": {
-      "n_rows": 40,
-      "n_missing": 0,
-      "n_not_applicable": 0,
-      "n_runs_applicable": 20,
-      "file": "aggregate/causal_ablation.json"
-    },
-    "structure_over_time": {
-      "n_rows": 20,
-      "n_missing": 0,
-      "n_not_applicable": 0,
-      "n_runs_applicable": 20,
-      "file": "aggregate/structure_over_time.json"
-    },
-    "progress_measures": {
-      "n_rows": 20,
-      "n_missing": 0,
-      "n_not_applicable": 0,
-      "n_runs_applicable": 20,
-      "file": "aggregate/progress_measures.json"
     }
   }
 }

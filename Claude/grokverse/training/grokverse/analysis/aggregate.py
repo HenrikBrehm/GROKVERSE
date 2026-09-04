@@ -152,6 +152,17 @@ def _h3_validity(res: dict) -> dict:
         out[f"h3b__{curve}__matched_top_m_median"] = _q(block, "matched_top_m_fraction", "median")
         out[f"h3b__{curve}__random_null_median"] = _q(block, "random_m_null", "mean", "median")
         out[f"h3b__{curve}__family_minus_matched_max"] = block.get("max_family_minus_matched_top_m")
+    legacy = _q(res, "h3c_legacy_embedding", default={}) or {}
+    out["h3c__object"] = legacy.get("object")
+    out["h3c__top8_concentration"] = legacy.get("top8_concentration_of_the_object")
+    for n_f, block in (legacy.get("by_n_fundamentals") or {}).items():
+        if not isinstance(block, dict) or "error" in block:
+            continue
+        out[f"h3c__nf{n_f}__family_fraction"] = block.get("family_fraction")
+        out[f"h3c__nf{n_f}__matched_top_m_fraction"] = block.get("matched_top_m_fraction")
+        out[f"h3c__nf{n_f}__family_minus_matched"] = block.get("family_minus_matched_top_m")
+        out[f"h3c__nf{n_f}__null_mean"] = block.get("null_mean")
+        out[f"h3c__nf{n_f}__odd_minus_even"] = _q(block, "shape", "odd_minus_even")
     for name, entry in (_q(res, "h3b_structured_fractions", "definitions", default={}) or {}).items():
         out[f"h3b__structured_fraction__{name}"] = (entry or {}).get("fraction_of_live_neurons")
     return out

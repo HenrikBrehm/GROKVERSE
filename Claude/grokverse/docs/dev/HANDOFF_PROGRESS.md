@@ -20,7 +20,7 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] G1 — aggregate (0 missing) + gate at both points; **branch: `neither_passes` at final** (G1/G2/G3 10/10 both, G4 0/10 both), `undetermined` at crossing — labbook 62–65, `results/decision_tree_{final,crossing}.json`
 - [x] G2 — `analysis/statistics_report.py` + tests; the 8 pre-specified comparisons (10 rows) with per-seed differences, bootstrap CIs, exact tests, effect sizes, Holm aid and the §6 timing bounds — `results/statistics.json`, suite 21/21
 - [ ] G3 — control-block comparisons (factorial, parameter-matched, two-hot) —
-- [ ] G4 — H3a/H3b/H3c with both controls, refutation criteria applied —
+- [x] G4 — `analysis/h3_report.py` + tests; both refutation criteria applied literally. **H3 is REFUTED** by criterion 2 (family gap +0.0850, CI [+0.0600, +0.1004]); the family definition closes only 5.4 % of the gap — `results/h3_report.json`, labbook 70–74
 - [x] G5 — all 11 figures drawn from the aggregate tables only, captions naming sources — `results/figures/index.json`
 - [ ] G6 — `docs/CLAIM_EVIDENCE_TABLE.md` —
 - [ ] G7 — `RESULTS.md`, `README.md`, `docs/LIMITATIONS.md`, `PROGRESS.md` —
@@ -47,7 +47,7 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 | 13 | grokking times with measurement interval | in manifests, not reported (stage G2) | |
 | 14 | delineation vs Manir/Rupa, Swaroop, Doshi, Khanh; H1/H2 as replication | done | `docs/NOVELTY_AND_RELATED_WORK.md` |
 | 15 | every figure reproducible from stored raw data | **missing** (stage G5) | |
-| 16 | negative results documented | no results yet (stage G7) | |
+| 16 | negative results documented | **two so far**: gate `neither_passes` and H3 refuted by its own criterion | labbook 62–63, 70 |
 | 17 | README claims match the evidence | old numbers `[AUDIT]`-marked; rewrite in stage G7 | |
 | 18 | `AI_DISCLOSURE.md` describes the actual process | done for now; update in stage G8 | |
 | 19 | final conclusions checked and written by the human authors | `[!]` **human only** | `docs/HUMAN_DECISIONS.md` F + sign-off; `AI_DISCLOSURE.md` placeholders |

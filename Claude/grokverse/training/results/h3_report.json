@@ -1,0 +1,889 @@
+{
+  "module": "h3_report",
+  "module_version": "1.0",
+  "created_utc": "2026-09-04T00:46:49.922417+00:00",
+  "analysis_git_commit": "40cc8b0e560e457b5c7242cb6694141cb6676826",
+  "measurement_point": "final",
+  "difference_definition": "d_s = x_transformer(s) - x_mlp(s)",
+  "gate": {
+    "available": true,
+    "source": "decision_tree_final.json",
+    "measurement_point": "final",
+    "passes_gate": {
+      "mlp": false,
+      "transformer": false
+    },
+    "architectures_passing": [],
+    "branch": "neither_passes",
+    "interpretation_rule": "master prompt \u00a712: harmonic-family concentration may be interpreted as the same Fourier principle in a different form ONLY for an architecture that passes the gate",
+    "consequence": "architectures cleared to carry an H3 mechanism reading: NONE. Every H3 number below is therefore a measurement about the METRIC, not evidence about a mechanism."
+  },
+  "h3a_metric_waveform_sensitivity": {
+    "definition": "two populations built from each checkpoint's own dominant (k, phase, amplitude), differing ONLY in waveform; sensitivity = median top-k(sinusoid) - median top-k(square). A positive value means the concentration metric scores the square population as less concentrated although both carry the same fundamentals \u2014 a property of the METRIC.",
+    "u_a__top1": {
+      "mlp": {
+        "median": 0.1893148305244331,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 8.326672684688674e-17,
+        "q25": 0.18931483052443301,
+        "q75": 0.1893148305244331,
+        "min": 0.189314830524433,
+        "max": 0.1893148305244332,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.1893148305244331,
+        "mad": 8.230083281546285e-17,
+        "mad_raw": 5.551115123125783e-17,
+        "mad_scale": 1.4826,
+        "iqr": 8.326672684688674e-17,
+        "q25": 0.1893148305244331,
+        "q75": 0.18931483052443318,
+        "min": 0.18931483052443288,
+        "max": 0.18931483052443332,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_a__top4": {
+      "mlp": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.05011884525724719,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724719,
+        "max": 0.05011884525724719,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.05011884525724719,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724708,
+        "max": 0.05011884525724719,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_a__top8": {
+      "mlp": {
+        "median": 0.02480206291274134,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 8.326672684688674e-17,
+        "q25": 0.024802062912741257,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.02480206291274134,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.02480206291274134,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_a__shape_separation": {
+      "mlp": {
+        "median": 0.13872435928690682,
+        "mad": 4.1150416407731425e-17,
+        "mad_raw": 2.7755575615628914e-17,
+        "mad_scale": 1.4826,
+        "iqr": 5.551115123125783e-17,
+        "q25": 0.1387243592869068,
+        "q75": 0.13872435928690685,
+        "min": 0.1387243592869067,
+        "max": 0.1387243592869069,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.13872435928690685,
+        "mad": 6.172562461159714e-17,
+        "mad_raw": 4.163336342344337e-17,
+        "mad_scale": 1.4826,
+        "iqr": 1.1102230246251565e-16,
+        "q25": 0.13872435928690682,
+        "q75": 0.13872435928690693,
+        "min": 0.1387243592869067,
+        "max": 0.13872435928690707,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_b__top1": {
+      "mlp": {
+        "median": 0.1893148305244331,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.1893148305244331,
+        "q75": 0.1893148305244331,
+        "min": 0.1893148305244331,
+        "max": 0.1893148305244332,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.1893148305244331,
+        "mad": 8.230083281546285e-17,
+        "mad_raw": 5.551115123125783e-17,
+        "mad_scale": 1.4826,
+        "iqr": 8.326672684688674e-17,
+        "q25": 0.1893148305244331,
+        "q75": 0.18931483052443318,
+        "min": 0.18931483052443288,
+        "max": 0.18931483052443332,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_b__top4": {
+      "mlp": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.05011884525724719,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724719,
+        "max": 0.05011884525724719,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.05011884525724719,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724719,
+        "max": 0.05011884525724719,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_b__top8": {
+      "mlp": {
+        "median": 0.02480206291274134,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.02480206291274134,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.02480206291274134,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.02480206291274134,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_b__shape_separation": {
+      "mlp": {
+        "median": 0.13872435928690682,
+        "mad": 4.1150416407731425e-17,
+        "mad_raw": 2.7755575615628914e-17,
+        "mad_scale": 1.4826,
+        "iqr": 5.551115123125783e-17,
+        "q25": 0.1387243592869068,
+        "q75": 0.13872435928690685,
+        "min": 0.13872435928690677,
+        "max": 0.13872435928690688,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.13872435928690685,
+        "mad": 6.172562461159714e-17,
+        "mad_raw": 4.163336342344337e-17,
+        "mad_scale": 1.4826,
+        "iqr": 5.551115123125783e-17,
+        "q25": 0.13872435928690685,
+        "q75": 0.1387243592869069,
+        "min": 0.1387243592869067,
+        "max": 0.13872435928690707,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "out__top1": {
+      "mlp": {
+        "median": 0.1893148305244331,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.1893148305244331,
+        "q75": 0.1893148305244331,
+        "min": 0.1893148305244331,
+        "max": 0.1893148305244332,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.1893148305244331,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.1893148305244331,
+        "q75": 0.1893148305244331,
+        "min": 0.189314830524433,
+        "max": 0.18931483052443343,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "out__top4": {
+      "mlp": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.05011884525724719,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724719,
+        "max": 0.05011884525724719,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.05011884525724719,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724708,
+        "max": 0.0501188452572473,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "out__top8": {
+      "mlp": {
+        "median": 0.02480206291274134,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.02480206291274134,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.02480206291274134,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 8.326672684688674e-17,
+        "q25": 0.024802062912741257,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "out__shape_separation": {
+      "mlp": {
+        "median": 0.13872435928690685,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.13872435928690685,
+        "q75": 0.13872435928690685,
+        "min": 0.13872435928690677,
+        "max": 0.1387243592869069,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.13872435928690685,
+        "mad": 8.230083281546285e-17,
+        "mad_raw": 5.551115123125783e-17,
+        "mad_scale": 1.4826,
+        "iqr": 1.1102230246251565e-16,
+        "q25": 0.1387243592869068,
+        "q75": 0.1387243592869069,
+        "min": 0.13872435928690674,
+        "max": 0.13872435928690716,
+        "n": 10,
+        "n_missing": 0
+      }
+    }
+  },
+  "h3b_criterion_1_gap_difference": {
+    "quantity": "(architecture gap under top-1) minus (architecture gap under the family)",
+    "per_seed": [
+      0.001953125,
+      -0.0078125,
+      0.009765625,
+      0.00390625,
+      0.00390625,
+      0.01171875,
+      0.005859375,
+      0.0078125,
+      0.0078125,
+      0.001953125
+    ],
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "mean": 0.0046875,
+    "median": 0.0048828125,
+    "bootstrap_ci95": [
+      0.001171875,
+      0.0076171875
+    ],
+    "ci95_contains_zero": false,
+    "n_boot": 10000,
+    "refutes_H3": false,
+    "reading": "the CI excludes zero, so the gap differs between the two definitions"
+  },
+  "h3b_criterion_2_family_gap": {
+    "n_pairs": 10,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "values_a": [
+      0.96484375,
+      0.990234375,
+      0.966796875,
+      0.994140625,
+      0.98046875,
+      1.0,
+      0.986328125,
+      0.974609375,
+      0.982421875,
+      0.982421875
+    ],
+    "values_b": [
+      0.880859375,
+      0.869140625,
+      0.8671875,
+      0.982421875,
+      0.935546875,
+      0.880859375,
+      0.875,
+      0.888671875,
+      0.91796875,
+      0.908203125
+    ],
+    "differences": [
+      0.083984375,
+      0.12109375,
+      0.099609375,
+      0.01171875,
+      0.044921875,
+      0.119140625,
+      0.111328125,
+      0.0859375,
+      0.064453125,
+      0.07421875
+    ],
+    "mean_diff": 0.081640625,
+    "median_diff": 0.0849609375,
+    "bootstrap_ci95": [
+      0.0599609375,
+      0.100390625
+    ],
+    "direction": "a>b",
+    "all_positive": true,
+    "all_negative": false,
+    "sign_test_p": 0.001953125,
+    "wilcoxon_signed_rank_p": 0.001953125,
+    "cohens_dz": 2.3590774297097155,
+    "cliffs_delta": 0.9,
+    "ci95_contains_zero": false,
+    "a_is": "transformer",
+    "b_is": "mlp",
+    "quantity": "structured-neuron fraction under the FAMILY definition",
+    "mlp_still_lower_with_ci_excluding_zero": true,
+    "refutes_H3": true,
+    "reading": "the MLP's family-based structured fraction is still lower than the transformer's with a CI excluding zero, so by the pre-registered criterion the deficit is a real loss of structure, not a measurement artifact"
+  },
+  "h3b_gap_under_top1": {
+    "n_pairs": 10,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "values_a": [
+      0.96484375,
+      0.98046875,
+      0.966796875,
+      0.994140625,
+      0.978515625,
+      1.0,
+      0.986328125,
+      0.974609375,
+      0.982421875,
+      0.982421875
+    ],
+    "values_b": [
+      0.87890625,
+      0.8671875,
+      0.857421875,
+      0.978515625,
+      0.9296875,
+      0.869140625,
+      0.869140625,
+      0.880859375,
+      0.91015625,
+      0.90625
+    ],
+    "differences": [
+      0.0859375,
+      0.11328125,
+      0.109375,
+      0.015625,
+      0.048828125,
+      0.130859375,
+      0.1171875,
+      0.09375,
+      0.072265625,
+      0.076171875
+    ],
+    "mean_diff": 0.086328125,
+    "median_diff": 0.08984375,
+    "bootstrap_ci95": [
+      0.0642578125,
+      0.1056640625
+    ],
+    "direction": "a>b",
+    "all_positive": true,
+    "all_negative": false,
+    "sign_test_p": 0.001953125,
+    "wilcoxon_signed_rank_p": 0.001953125,
+    "cohens_dz": 2.474466347006062,
+    "cliffs_delta": 0.93,
+    "ci95_contains_zero": false,
+    "a_is": "transformer",
+    "b_is": "mlp",
+    "quantity": "structured-neuron fraction under the TOP-1 definition"
+  },
+  "h3_verdict": {
+    "h3_refuted": true,
+    "refuting_criteria": [
+      "criterion_2_family_gap"
+    ],
+    "criteria_verbatim": "H3 is refuted if the paired difference (gap under top-1 minus gap under family) has a 95 % CI containing 0, OR if the MLP's family-based structured fraction is still lower than the transformer's with a CI excluding 0 \u2014 in which case the deficit is a real loss of structure, not a measurement artifact.",
+    "h3_prediction": "the architecture gap in the structured-neuron fraction closes under the family-based definition but not under the top-1 definition",
+    "h3_0_is": "the null that the gap is the SAME under both definitions",
+    "gate_precondition": "architectures cleared to carry an H3 mechanism reading: NONE. Every H3 number below is therefore a measurement about the METRIC, not evidence about a mechanism.",
+    "how_much_of_the_gap_the_family_closes": {
+      "gap_under_top1_median": 0.08984375,
+      "gap_under_family_median": 0.0849609375,
+      "closed_median": 0.0048828125,
+      "closed_fraction_of_the_top1_gap": 0.05434782608695652,
+      "reading": "this is the substantive quantity behind H3: how much of the architecture gap the harmonic-aware definition removes"
+    }
+  },
+  "h3c_legacy_embedding": {
+    "object": "W_E",
+    "caveat": "W_E alone decides nothing for the MLP, which reads it through two halves of W_in; reported descriptively (PREREGISTRATION \u00a73, H3c)",
+    "top8_concentration": {
+      "mlp": {
+        "median": 0.8911346296299081,
+        "mad": 0.0685528703024598,
+        "mad_raw": 0.04623827755460663,
+        "mad_scale": 1.4826,
+        "iqr": 0.07274317571630717,
+        "q25": 0.8308419393648916,
+        "q75": 0.9035851150811988,
+        "min": 0.7715449787037323,
+        "max": 0.9603251733771713,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.9608510173452719,
+        "mad": 0.011911550252174712,
+        "mad_raw": 0.00803423057613295,
+        "mad_scale": 1.4826,
+        "iqr": 0.013542604319713103,
+        "q25": 0.953620914654272,
+        "q75": 0.9671635189739851,
+        "min": 0.9495627182034814,
+        "max": 0.9706569577414913,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "top8_paired": {
+      "n_pairs": 10,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "values_a": [
+        0.9616270073381428,
+        0.9688599953506938,
+        0.9706569577414913,
+        0.9561090560218043,
+        0.960075027352401,
+        0.9703019714047434,
+        0.9620740898438589,
+        0.9495627182034814,
+        0.9505195250502504,
+        0.9527915341984279
+      ],
+      "values_b": [
+        0.8298196726391674,
+        0.9038135281789199,
+        0.9263852946512771,
+        0.9603251733771713,
+        0.9028998757880352,
+        0.8339087395420638,
+        0.7715449787037323,
+        0.8077426131809791,
+        0.8906659757031847,
+        0.8916032835566314
+      ],
+      "differences": [
+        0.13180733469897532,
+        0.06504646717177387,
+        0.04427166309021424,
+        -0.004216117355366977,
+        0.05717515156436581,
+        0.1363932318626796,
+        0.1905291111401266,
+        0.1418201050225023,
+        0.05985354934706566,
+        0.06118825064179645
+      ],
+      "mean_diff": 0.08838687471841329,
+      "median_diff": 0.06311735890678516,
+      "bootstrap_ci95": [
+        0.05415655973040662,
+        0.12325003113789822
+      ],
+      "direction": "mixed",
+      "all_positive": false,
+      "all_negative": false,
+      "sign_test_p": 0.021484375,
+      "wilcoxon_signed_rank_p": 0.00390625,
+      "cohens_dz": 1.50425506956022,
+      "cliffs_delta": 0.9,
+      "ci95_contains_zero": false,
+      "a_is": "transformer",
+      "b_is": "mlp"
+    },
+    "n_fundamentals_1": {
+      "family_fraction": {
+        "mlp": {
+          "median": 0.30183149179586544,
+          "mad": 0.0532800287059064,
+          "mad_raw": 0.035936887026781605,
+          "mad_scale": 1.4826,
+          "iqr": 0.06793930431599216,
+          "q25": 0.2650306417307552,
+          "q75": 0.33296994604674734,
+          "min": 0.2232904989878511,
+          "max": 0.3810204142862898,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.47402502907564265,
+          "mad": 0.08586057273331694,
+          "mad_raw": 0.05791216291199039,
+          "mad_scale": 1.4826,
+          "iqr": 0.07769489589611933,
+          "q25": 0.41372302296462493,
+          "q75": 0.49141791886074426,
+          "min": 0.4068704829166374,
+          "max": 0.7326568829953466,
+          "n": 10,
+          "n_missing": 0
+        }
+      },
+      "random_null": {
+        "mlp": {
+          "median": 0.06544049758922321,
+          "mad": 0.01707239302533427,
+          "mad_raw": 0.011515171337740639,
+          "mad_scale": 1.4826,
+          "iqr": 0.019597741583166357,
+          "q25": 0.057766218707406676,
+          "q75": 0.07736396029057303,
+          "min": 0.04672047675718528,
+          "max": 0.0923690940067907,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.0612872304012925,
+          "mad": 0.013591490519757254,
+          "mad_raw": 0.009167334763090014,
+          "mad_scale": 1.4826,
+          "iqr": 0.016635515509640465,
+          "q25": 0.05594391589337138,
+          "q75": 0.07257943140301185,
+          "min": 0.04252606580666744,
+          "max": 0.08647611489157322,
+          "n": 10,
+          "n_missing": 0
+        }
+      }
+    },
+    "n_fundamentals_2": {
+      "family_fraction": {
+        "mlp": {
+          "median": 0.5184042993265442,
+          "mad": 0.07493197465518112,
+          "mad_raw": 0.0505409244942541,
+          "mad_scale": 1.4826,
+          "iqr": 0.08839756514811775,
+          "q25": 0.4888571193435221,
+          "q75": 0.5772546844916399,
+          "min": 0.40101571079315257,
+          "max": 0.730606517704862,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.7773147326727221,
+          "mad": 0.10490615324248936,
+          "mad_raw": 0.07075823097429473,
+          "mad_scale": 1.4826,
+          "iqr": 0.1437720687295191,
+          "q25": 0.7236667502840092,
+          "q75": 0.8674388190135283,
+          "min": 0.5960368340730796,
+          "max": 0.9628620184698637,
+          "n": 10,
+          "n_missing": 0
+        }
+      },
+      "random_null": {
+        "mlp": {
+          "median": 0.13993382704595506,
+          "mad": 0.03083543844837485,
+          "mad_raw": 0.020798218297838157,
+          "mad_scale": 1.4826,
+          "iqr": 0.035660804354754314,
+          "q25": 0.11722558178804841,
+          "q75": 0.15288638614280273,
+          "min": 0.09904524137783006,
+          "max": 0.18234061913319913,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.13170790919321057,
+          "mad": 0.0178595097796575,
+          "mad_raw": 0.012046074315160867,
+          "mad_scale": 1.4826,
+          "iqr": 0.02137763320254979,
+          "q25": 0.12268992010642624,
+          "q75": 0.14406755330897603,
+          "min": 0.11639901205760125,
+          "max": 0.19259839353664676,
+          "n": 10,
+          "n_missing": 0
+        }
+      }
+    },
+    "n_fundamentals_4": {
+      "family_fraction": {
+        "mlp": {
+          "median": 0.8567857345462164,
+          "mad": 0.08932795861794485,
+          "mad_raw": 0.06025088265071149,
+          "mad_scale": 1.4826,
+          "iqr": 0.10985976348154614,
+          "q25": 0.7927946612734387,
+          "q75": 0.9026544247549848,
+          "min": 0.7005543614325628,
+          "max": 0.9805113360231638,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.9668375954962891,
+          "mad": 0.010072967576042025,
+          "mad_raw": 0.006794123550547704,
+          "mad_scale": 1.4826,
+          "iqr": 0.011171503292285556,
+          "q25": 0.9603788844952608,
+          "q75": 0.9715503877875463,
+          "min": 0.9332984659739496,
+          "max": 0.9756648439253045,
+          "n": 10,
+          "n_missing": 0
+        }
+      },
+      "random_null": {
+        "mlp": {
+          "median": 0.2623284410257646,
+          "mad": 0.019593877027909386,
+          "mad_raw": 0.013215888997645614,
+          "mad_scale": 1.4826,
+          "iqr": 0.022593712983882075,
+          "q25": 0.2530629420601963,
+          "q75": 0.2756566550440784,
+          "min": 0.2285224167081023,
+          "max": 0.31145783832873625,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.27923938802059356,
+          "mad": 0.017865480061598656,
+          "mad_raw": 0.012050101215161646,
+          "mad_scale": 1.4826,
+          "iqr": 0.01896540850454209,
+          "q25": 0.26350390778153265,
+          "q75": 0.28246931628607475,
+          "min": 0.21701865830218373,
+          "max": 0.3163500853946656,
+          "n": 10,
+          "n_missing": 0
+        }
+      }
+    },
+    "n_fundamentals_8": {
+      "family_fraction": {
+        "mlp": {
+          "median": 0.9885867937710435,
+          "mad": 0.0010452455626141072,
+          "mad_raw": 0.0007050084733671302,
+          "mad_scale": 1.4826,
+          "iqr": 0.0012237641453743953,
+          "q25": 0.9878334314041307,
+          "q75": 0.9890571955495051,
+          "min": 0.9850619485148209,
+          "max": 0.9901609050970742,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.9826813479894281,
+          "mad": 0.005021640213185164,
+          "mad_raw": 0.003387049921209473,
+          "mad_scale": 1.4826,
+          "iqr": 0.005302392739099049,
+          "q25": 0.9800171312780402,
+          "q75": 0.9853195240171393,
+          "min": 0.9781645806486333,
+          "max": 0.9874921202481546,
+          "n": 10,
+          "n_missing": 0
+        }
+      },
+      "random_null": {
+        "mlp": {
+          "median": 0.5374724865566656,
+          "mad": 0.029979043289430626,
+          "mad_raw": 0.020220587676669788,
+          "mad_scale": 1.4826,
+          "iqr": 0.035694196958259594,
+          "q25": 0.5250694066617461,
+          "q75": 0.5607636036200057,
+          "min": 0.508660173151878,
+          "max": 0.5858684313859837,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.5678024193873232,
+          "mad": 0.03212896483730809,
+          "mad_raw": 0.021670689894312756,
+          "mad_scale": 1.4826,
+          "iqr": 0.04150814491123145,
+          "q25": 0.5389771278128832,
+          "q75": 0.5804852727241147,
+          "min": 0.43376772863868246,
+          "max": 0.5972590013956353,
+          "n": 10,
+          "n_missing": 0
+        }
+      }
+    }
+  },
+  "forbidden_criterion_audit": {
+    "max_family_minus_matched_top_m_over_all_runs": 1.1102230246251565e-16,
+    "holds": true,
+    "statement": "'the family beats the matched top-m' is unsatisfiable by construction; this is an implementation audit, never support for H3"
+  }
+}

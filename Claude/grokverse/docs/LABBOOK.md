@@ -568,3 +568,39 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     gate reports `neither_passes` (entry 62), and master prompt §12 makes harmonic-family
     interpretation conditional on passing it. Comparison 7 has nine pairs because transformer seed 5
     has no size-matched control at all — every one of its 512 neurons is "structured" (entry 63).
+70. **H3 evaluated at study level (`results/h3_report.json`, `analysis/h3_report.py`, 26 checks) —
+    and it is REFUTED by its own pre-registered criterion.** `PREREGISTRATION.md` §3 fixes two
+    refutation conditions; both were applied literally, in both directions:
+
+    * **Criterion 1** — (architecture gap under top-1) minus (gap under the family definition):
+      median **+0.0049**, CI95 **[+0.0012, +0.0076]**, which *excludes* zero. This branch does **not**
+      refute H3: the two definitions do give different gaps.
+    * **Criterion 2** — is the MLP's family-based structured fraction still lower than the
+      transformer's with a CI excluding zero? Median **+0.0850**, CI95 **[+0.0600, +0.1004]**. Yes.
+      **This refutes H3**: by the criterion fixed before the experiments, the deficit is "a real loss
+      of structure, not a measurement artifact".
+
+    The substantive number behind that verdict: the architecture gap is **+0.0898** under the top-1
+    definition and **+0.0850** under the harmonic-aware family definition. The harmonic-aware
+    definition closes **5.4 %** of the gap. H3 predicted it would close.
+71. **The metric's waveform sensitivity is real, and it is not enough.** H3a measures exactly what H3
+    proposed: two populations built from each checkpoint's own `(k, phase, amplitude)`, differing only
+    in waveform, give a top-1 concentration difference of **+0.1893** — identical for both
+    architectures, as it must be, since it is a property of the *metric* and not of the model. So the
+    mechanism H3 hypothesised is genuinely present in the measuring instrument; it simply does not
+    account for the architecture gap that the study set out to explain.
+72. **None of this may be read as mechanism evidence, and the report says so itself.** The evidence
+    gate reports `neither_passes` (entry 62), so under master prompt §12 no architecture is cleared
+    for a harmonic-family mechanism reading. `h3_report` reads `decision_tree_final.json` and states
+    at the top of its own output that the architectures cleared are **NONE** and that every number
+    below is a measurement about the metric. A missing gate file is treated as the most restrictive
+    case, not a neutral one.
+73. **A labelling error caught before it reached a report.** The first version of `h3_report` named
+    its verdict block `h3_0_verdict` and attached a note claiming that refuting H3₀ is what H3 needs.
+    The pre-registration lists those criteria as conditions under which **H3** is refuted; H3₀ is the
+    null. Naming it that way would have inverted the study's headline. The block is now `h3_verdict`,
+    it states H3's prediction and what H3₀ is, and `tests/test_h3_report.py` pins the direction of
+    both criteria against inputs whose answer is known by construction.
+74. **The forbidden criterion audited across all 40 rows.** `family − matched_top_m` never exceeds
+    **1.11e-16**, i.e. zero to floating point, exactly as the construction requires. Reported as an
+    implementation audit; never as support.
