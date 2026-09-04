@@ -12,8 +12,8 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] D — `tests/test_driver.py` 89–92 made durable (asserts the mechanism, not module names); suite green — done with A
 - [x] E1 — analysis code frozen at `0b55e1d`; recorded in `PREREGISTRATION.md` §12 (commit `1e3f646`)
 - [x] E2 — finished 2026-09-03T23:00:43Z, exit 1: **196 ok, 84 failed, 20 skipped** (`results/analysis_driver.json`). Failures were 3 module bugs, all now fixed (labbook 56–57, 60): key_frequencies 40 + progress_measures 20 (seed arg), wave_fitting 24 (IndexError ×4, wrong arch declaration ×20)
-- [ ] E3 — training chain finished (`matrix_launch.log`: `matrix chain finished`); `training/results/` committed —
-- [ ] E4 — full analysis chain launched over every block; finished —
+- [x] E3 — training chain finished 2026-09-04T02:46:36Z; **51 runs, all completed, none failed** (primary 20, confound 18, param_matched 10, two-hot 3); `training/results/` committed
+- [~] E4 — primary ✓ and confound ✓ (234 ok, 0 failed) analysed; param_matched + two-hot launched at 8 workers
 - [ ] E5 — seed-0 pilot outputs re-run under the freeze commit —
 - [x] E6 — re-run at commit `eeeef82`: **80 ok, 0 failed**; primary block now complete, 0 missing rows in every module
 - [x] F — `aggregate`, `decision_tree`, `figures_study`, `bounded_alternative` + tests — suite 20/20, 1,794 checks

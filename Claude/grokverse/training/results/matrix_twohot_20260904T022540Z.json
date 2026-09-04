@@ -1,0 +1,44 @@
+{
+  "block": "twohot",
+  "workers": 8,
+  "start_utc": "2026-09-04T02:25:40.454737+00:00",
+  "planned": 3,
+  "skipped_completed": [],
+  "seed_pairing": {
+    "mlp_twohot": [
+      0,
+      1,
+      2
+    ]
+  },
+  "commands": [
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_twohot --arch mlp_twohot --seed 0 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_twohot --arch mlp_twohot --seed 1 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_twohot --arch mlp_twohot --seed 2 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 512 --eval-every-train 10 --eval-every-test 25"
+  ],
+  "runs": [
+    {
+      "run_id": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "arch": "mlp_twohot",
+      "seed": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 1255.4
+    },
+    {
+      "run_id": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "arch": "mlp_twohot",
+      "seed": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 1250.1
+    },
+    {
+      "run_id": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "arch": "mlp_twohot",
+      "seed": 2,
+      "exit_code": 0,
+      "elapsed_seconds": 1255.0
+    }
+  ],
+  "end_utc": "2026-09-04T02:46:35.883474+00:00",
+  "n_failed": 0
+}

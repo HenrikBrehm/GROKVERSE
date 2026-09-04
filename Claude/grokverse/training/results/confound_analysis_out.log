@@ -556,3 +556,276 @@
 [from-checkpoints] step   2000  full(all)=0.00005
 [from-checkpoints] step   3000  full(all)=0.00018
 [from-checkpoints] step   4000  full(all)=0.00090
+[from-checkpoints] step   5000  full(all)=0.00000
+[from-checkpoints] step   6000  full(all)=0.00000
+[from-checkpoints] step   7000  full(all)=0.00000
+[from-checkpoints] step   8000  full(all)=0.00004
+[from-checkpoints] step   9000  full(all)=0.00122
+[from-checkpoints] step  10000  full(all)=0.00000
+[from-checkpoints] step  12000  full(all)=0.00001
+[from-checkpoints] step  14000  full(all)=0.00353
+[from-checkpoints] step  16000  full(all)=0.00002
+[from-checkpoints] step  18000  full(all)=0.00292
+[from-checkpoints] step  20000  full(all)=0.00000
+[from-checkpoints] step  22500  full(all)=0.00001
+[from-checkpoints] step  25000  full(all)=0.00005
+[saved] C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training\runs\txf_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k\analysis\progress_measures\all_checkpoints.json
+[from-checkpoints] step      0  full(all)=4.74051
+[from-checkpoints] step    200  full(all)=1.66443
+[from-checkpoints] step    500  full(all)=0.97033
+[from-checkpoints] step    800  full(all)=0.06322
+[from-checkpoints] step   1000  full(all)=0.00029
+[from-checkpoints] step   2000  full(all)=0.00002
+[from-checkpoints] step   3000  full(all)=0.00004
+[from-checkpoints] step   4000  full(all)=0.00014
+[from-checkpoints] step   5000  full(all)=0.00079
+[from-checkpoints] step   6000  full(all)=0.03164
+[from-checkpoints] step   7000  full(all)=0.00000
+[from-checkpoints] step   8000  full(all)=0.00001
+[from-checkpoints] step   9000  full(all)=0.00093
+[from-checkpoints] step  10000  full(all)=0.04498
+[from-checkpoints] step  12000  full(all)=0.00013
+[from-checkpoints] step  14000  full(all)=0.05249
+[from-checkpoints] step  16000  full(all)=0.00028
+[from-checkpoints] step  18000  full(all)=0.05201
+[from-checkpoints] step  20000  full(all)=0.00066
+[from-checkpoints] step  22500  full(all)=0.00670
+[from-checkpoints] step  25000  full(all)=0.01316
+[saved] C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training\runs\txf_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k\analysis\progress_measures\all_checkpoints.json
+[from-checkpoints] step      0  full(all)=4.74051
+[from-checkpoints] step    200  full(all)=1.66443
+[from-checkpoints] step    500  full(all)=0.97033
+[from-checkpoints] step    800  full(all)=0.06322
+[from-checkpoints] step   1000  full(all)=0.00029
+[from-checkpoints] step   2000  full(all)=0.00002
+[from-checkpoints] step   3000  full(all)=0.00004
+[from-checkpoints] step   4000  full(all)=0.00014
+[from-checkpoints] step   5000  full(all)=0.00079
+[from-checkpoints] step   6000  full(all)=0.03164
+[from-checkpoints] step   7000  full(all)=0.00000
+[from-checkpoints] step   8000  full(all)=0.00001
+[from-checkpoints] step   9000  full(all)=0.00093
+[from-checkpoints] step  10000  full(all)=0.04498
+[from-checkpoints] step  12000  full(all)=0.00013
+[from-checkpoints] step  14000  full(all)=0.05249
+[from-checkpoints] step  16000  full(all)=0.00028
+[from-checkpoints] step  18000  full(all)=0.05201
+[from-checkpoints] step  20000  full(all)=0.00066
+[from-checkpoints] step  22500  full(all)=0.00670
+[from-checkpoints] step  25000  full(all)=0.01316
+[saved] C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training\runs\txf_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k\analysis\progress_measures\all_checkpoints.json
+[from-checkpoints] step      0  full(all)=4.74430
+[from-checkpoints] step    200  full(all)=1.16813
+[from-checkpoints] step    500  full(all)=0.22640
+[from-checkpoints] step    725  full(all)=0.07904
+[from-checkpoints] step   1000  full(all)=0.02518
+[from-checkpoints] step   2000  full(all)=0.00003
+[from-checkpoints] step   3000  full(all)=0.00014
+[from-checkpoints] step   4000  full(all)=0.00253
+[from-checkpoints] step   5000  full(all)=0.00000
+[from-checkpoints] step   6000  full(all)=0.00000
+[from-checkpoints] step   7000  full(all)=0.00001
+[from-checkpoints] step   8000  full(all)=0.00026
+[from-checkpoints] step   9000  full(all)=0.00805
+[from-checkpoints] step  10000  full(all)=0.00000
+[from-checkpoints] step  12000  full(all)=0.00030
+[from-checkpoints] step  14000  full(all)=0.00000
+[from-checkpoints] step  16000  full(all)=0.00040
+[from-checkpoints] step  18000  full(all)=0.00000
+[from-checkpoints] step  20000  full(all)=0.00093
+[from-checkpoints] step  22500  full(all)=0.03256
+[from-checkpoints] step  25000  full(all)=0.00000
+[saved] C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training\runs\txf_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k\analysis\progress_measures\all_checkpoints.json
+[from-checkpoints] step      0  full(all)=4.74430
+[from-checkpoints] step    200  full(all)=1.16813
+[from-checkpoints] step    500  full(all)=0.22640
+[from-checkpoints] step    725  full(all)=0.07904
+[from-checkpoints] step   1000  full(all)=0.02518
+[from-checkpoints] step   2000  full(all)=0.00003
+[from-checkpoints] step   3000  full(all)=0.00014
+[from-checkpoints] step   4000  full(all)=0.00253
+[from-checkpoints] step   5000  full(all)=0.00000
+[from-checkpoints] step   6000  full(all)=0.00000
+[from-checkpoints] step   7000  full(all)=0.00001
+[from-checkpoints] step   8000  full(all)=0.00026
+[from-checkpoints] step   9000  full(all)=0.00805
+[from-checkpoints] step  10000  full(all)=0.00000
+[from-checkpoints] step  12000  full(all)=0.00030
+[from-checkpoints] step  14000  full(all)=0.00000
+[from-checkpoints] step  16000  full(all)=0.00040
+[from-checkpoints] step  18000  full(all)=0.00000
+[from-checkpoints] step  20000  full(all)=0.00093
+[from-checkpoints] step  22500  full(all)=0.03256
+[from-checkpoints] step  25000  full(all)=0.00000
+[saved] C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training\runs\txf_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k\analysis\progress_measures\all_checkpoints.json
+[from-checkpoints] step      0  full(all)=4.74469
+[from-checkpoints] step    140  full(all)=1.53332
+[from-checkpoints] step    375  full(all)=0.05171
+[from-checkpoints] step    500  full(all)=0.00204
+[from-checkpoints] step   1000  full(all)=0.00000
+[from-checkpoints] step   2000  full(all)=0.00073
+[from-checkpoints] step   3000  full(all)=0.50183
+[from-checkpoints] step   4000  full(all)=0.00001
+[from-checkpoints] step   5000  full(all)=0.00019
+[from-checkpoints] step   6000  full(all)=0.00273
+[from-checkpoints] step   7000  full(all)=0.00000
+[from-checkpoints] step   8000  full(all)=0.00001
+[from-checkpoints] step   9000  full(all)=0.00007
+[from-checkpoints] step  10000  full(all)=0.00074
+[from-checkpoints] step  12000  full(all)=0.00002
+[from-checkpoints] step  14000  full(all)=0.00004
+[from-checkpoints] step  16000  full(all)=0.00010
+[from-checkpoints] step  18000  full(all)=0.00000
+[from-checkpoints] step  20000  full(all)=0.00174
+[from-checkpoints] step  22500  full(all)=0.00107
+[from-checkpoints] step  25000  full(all)=0.00155
+[saved] C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training\runs\txf_add_p113_wd1.0_frac0.5_seed0_arch25k\analysis\progress_measures\all_checkpoints.json
+[from-checkpoints] step      0  full(all)=4.74469
+[from-checkpoints] step    140  full(all)=1.53332
+[from-checkpoints] step    375  full(all)=0.05171
+[from-checkpoints] step    500  full(all)=0.00204
+[from-checkpoints] step   1000  full(all)=0.00000
+[from-checkpoints] step   2000  full(all)=0.00073
+[from-checkpoints] step   3000  full(all)=0.50183
+[from-checkpoints] step   4000  full(all)=0.00001
+[from-checkpoints] step   5000  full(all)=0.00019
+[from-checkpoints] step   6000  full(all)=0.00273
+[from-checkpoints] step   7000  full(all)=0.00000
+[from-checkpoints] step   8000  full(all)=0.00001
+[from-checkpoints] step   9000  full(all)=0.00007
+[from-checkpoints] step  10000  full(all)=0.00074
+[from-checkpoints] step  12000  full(all)=0.00002
+[from-checkpoints] step  14000  full(all)=0.00004
+[from-checkpoints] step  16000  full(all)=0.00010
+[from-checkpoints] step  18000  full(all)=0.00000
+[from-checkpoints] step  20000  full(all)=0.00174
+[from-checkpoints] step  22500  full(all)=0.00107
+[from-checkpoints] step  25000  full(all)=0.00155
+[saved] C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training\runs\txf_add_p113_wd1.0_frac0.5_seed0_arch25k\analysis\progress_measures\all_checkpoints.json
+[from-checkpoints] step      0  full(all)=4.74051
+[from-checkpoints] step    150  full(all)=2.09533
+[from-checkpoints] step    500  full(all)=0.52219
+[from-checkpoints] step    675  full(all)=0.07700
+[from-checkpoints] step   1000  full(all)=0.00021
+[from-checkpoints] step   2000  full(all)=0.00002
+[from-checkpoints] step   3000  full(all)=0.00182
+[from-checkpoints] step   4000  full(all)=0.00000
+[from-checkpoints] step   5000  full(all)=0.00000
+[from-checkpoints] step   6000  full(all)=0.00000
+[from-checkpoints] step   7000  full(all)=0.00011
+[from-checkpoints] step   8000  full(all)=0.00030
+[from-checkpoints] step   9000  full(all)=0.00010
+[from-checkpoints] step  10000  full(all)=0.00000
+[from-checkpoints] step  12000  full(all)=0.00006
+[from-checkpoints] step  14000  full(all)=0.00007
+[from-checkpoints] step  16000  full(all)=0.00000
+[from-checkpoints] step  18000  full(all)=0.00001
+[from-checkpoints] step  20000  full(all)=0.00071
+[from-checkpoints] step  22500  full(all)=0.00035
+[from-checkpoints] step  25000  full(all)=0.00373
+[saved] C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training\runs\txf_add_p113_wd1.0_frac0.5_seed1_arch25k\analysis\progress_measures\all_checkpoints.json
+[from-checkpoints] step      0  full(all)=4.74051
+[from-checkpoints] step    150  full(all)=2.09533
+[from-checkpoints] step    500  full(all)=0.52219
+[from-checkpoints] step    675  full(all)=0.07700
+[from-checkpoints] step   1000  full(all)=0.00021
+[from-checkpoints] step   2000  full(all)=0.00002
+[from-checkpoints] step   3000  full(all)=0.00182
+[from-checkpoints] step   4000  full(all)=0.00000
+[from-checkpoints] step   5000  full(all)=0.00000
+[from-checkpoints] step   6000  full(all)=0.00000
+[from-checkpoints] step   7000  full(all)=0.00011
+[from-checkpoints] step   8000  full(all)=0.00030
+[from-checkpoints] step   9000  full(all)=0.00010
+[from-checkpoints] step  10000  full(all)=0.00000
+[from-checkpoints] step  12000  full(all)=0.00006
+[from-checkpoints] step  14000  full(all)=0.00007
+[from-checkpoints] step  16000  full(all)=0.00000
+[from-checkpoints] step  18000  full(all)=0.00001
+[from-checkpoints] step  20000  full(all)=0.00071
+[from-checkpoints] step  22500  full(all)=0.00035
+[from-checkpoints] step  25000  full(all)=0.00373
+[saved] C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training\runs\txf_add_p113_wd1.0_frac0.5_seed1_arch25k\analysis\progress_measures\all_checkpoints.json
+[from-checkpoints] step      0  full(all)=4.74430
+[from-checkpoints] step    140  full(all)=1.94462
+[from-checkpoints] step    500  full(all)=0.96240
+[from-checkpoints] step    875  full(all)=0.07925
+[from-checkpoints] step   1000  full(all)=0.01404
+[from-checkpoints] step   2000  full(all)=0.00204
+[from-checkpoints] step   3000  full(all)=0.00000
+[from-checkpoints] step   4000  full(all)=0.00001
+[from-checkpoints] step   5000  full(all)=0.00160
+[from-checkpoints] step   6000  full(all)=0.00000
+[from-checkpoints] step   7000  full(all)=0.00000
+[from-checkpoints] step   8000  full(all)=0.00001
+[from-checkpoints] step   9000  full(all)=0.00078
+[from-checkpoints] step  10000  full(all)=0.00330
+[from-checkpoints] step  12000  full(all)=0.00000
+[from-checkpoints] step  14000  full(all)=0.00095
+[from-checkpoints] step  16000  full(all)=0.00000
+[from-checkpoints] step  18000  full(all)=0.00038
+[from-checkpoints] step  20000  full(all)=0.00000
+[from-checkpoints] step  22500  full(all)=0.00000
+[from-checkpoints] step  25000  full(all)=0.00001
+[saved] C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training\runs\txf_add_p113_wd1.0_frac0.5_seed2_arch25k\analysis\progress_measures\all_checkpoints.json
+[from-checkpoints] step      0  full(all)=4.74430
+[from-checkpoints] step    140  full(all)=1.94462
+[from-checkpoints] step    500  full(all)=0.96240
+[from-checkpoints] step    875  full(all)=0.07925
+[from-checkpoints] step   1000  full(all)=0.01404
+[from-checkpoints] step   2000  full(all)=0.00204
+[from-checkpoints] step   3000  full(all)=0.00000
+[from-checkpoints] step   4000  full(all)=0.00001
+[from-checkpoints] step   5000  full(all)=0.00160
+[from-checkpoints] step   6000  full(all)=0.00000
+[from-checkpoints] step   7000  full(all)=0.00000
+[from-checkpoints] step   8000  full(all)=0.00001
+[from-checkpoints] step   9000  full(all)=0.00078
+[from-checkpoints] step  10000  full(all)=0.00330
+[from-checkpoints] step  12000  full(all)=0.00000
+[from-checkpoints] step  14000  full(all)=0.00095
+[from-checkpoints] step  16000  full(all)=0.00000
+[from-checkpoints] step  18000  full(all)=0.00038
+[from-checkpoints] step  20000  full(all)=0.00000
+[from-checkpoints] step  22500  full(all)=0.00000
+[from-checkpoints] step  25000  full(all)=0.00001
+[saved] C:\Users\henri\Documents\Brain\bwki\Claude\grokverse\training\runs\txf_add_p113_wd1.0_frac0.5_seed2_arch25k\analysis\progress_measures\all_checkpoints.json
+{
+  "runs": [
+    "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.5_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.5_seed2_arch25k"
+  ],
+  "points": [
+    "crossing",
+    "final"
+  ],
+  "key_rule": "nanda",
+  "seed": 0,
+  "n_calls": 234,
+  "analysis_git_commit": "60bae721ad17b35eb2cf6263feee74775bdbbc8f",
+  "summary": {
+    "counts": {
+      "skipped": 27,
+      "ok": 234
+    },
+    "failed": [],
+    "missing_modules": []
+  },
+  "manifest": "results\\analysis_driver_confound.json"
+}

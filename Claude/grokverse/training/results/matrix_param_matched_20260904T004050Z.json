@@ -1,0 +1,107 @@
+{
+  "block": "param_matched",
+  "workers": 8,
+  "start_utc": "2026-09-04T00:40:50.130838+00:00",
+  "planned": 10,
+  "skipped_completed": [],
+  "seed_pairing": {
+    "mlp": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "commands": [
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_param_matched --arch mlp --seed 0 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 572 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_param_matched --arch mlp --seed 1 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 572 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_param_matched --arch mlp --seed 2 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 572 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_param_matched --arch mlp --seed 3 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 572 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_param_matched --arch mlp --seed 4 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 572 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_param_matched --arch mlp --seed 5 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 572 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_param_matched --arch mlp --seed 6 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 572 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_param_matched --arch mlp --seed 7 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 572 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_param_matched --arch mlp --seed 8 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 572 --eval-every-train 10 --eval-every-test 25",
+    "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\.venv\\Scripts\\python.exe -m grokverse.train --config arch25k_param_matched --arch mlp --seed 9 --steps 25000 --train-frac 0.3 --weight-decay 1.0 --threads 1 --study arch25k --d-mlp 572 --eval-every-train 10 --eval-every-test 25"
+  ],
+  "runs": [
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "arch": "mlp",
+      "seed": 0,
+      "exit_code": 0,
+      "elapsed_seconds": 3869.1
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "arch": "mlp",
+      "seed": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 3893.4
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "arch": "mlp",
+      "seed": 2,
+      "exit_code": 0,
+      "elapsed_seconds": 3875.9
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "arch": "mlp",
+      "seed": 3,
+      "exit_code": 0,
+      "elapsed_seconds": 3869.2
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "arch": "mlp",
+      "seed": 4,
+      "exit_code": 0,
+      "elapsed_seconds": 3868.9
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "arch": "mlp",
+      "seed": 5,
+      "exit_code": 0,
+      "elapsed_seconds": 3861.9
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "arch": "mlp",
+      "seed": 6,
+      "exit_code": 0,
+      "elapsed_seconds": 3875.7
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "arch": "mlp",
+      "seed": 7,
+      "exit_code": 0,
+      "elapsed_seconds": 3882.6
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "arch": "mlp",
+      "seed": 8,
+      "exit_code": 0,
+      "elapsed_seconds": 2426.6
+    },
+    {
+      "run_id": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "arch": "mlp",
+      "seed": 9,
+      "exit_code": 0,
+      "elapsed_seconds": 2416.4
+    }
+  ],
+  "end_utc": "2026-09-04T02:25:38.660660+00:00",
+  "n_failed": 0
+}

@@ -704,3 +704,17 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     differ by seed (PROGRESS.md, Phase 3) — and it means the low-rank subspace the transformer uses is
     seed-specific, not a shared basis. Low CKA here says "not the same subspace", not "no structure";
     both readings are recorded so the number is not over-read in either direction.
+
+## 2026-09-04 — the run matrix is complete
+
+87. **The training chain finished at 02:46:36 UTC.** All four blocks, **51 runs, every one
+    `completed`, none failed**: primary 20, confound 18, parameter-matched 10, two-hot 3.
+    `results/matrix_launch.log` ends with `matrix chain finished`.
+88. **A naming assumption of mine was wrong, and the check that caught it was looking at the wrong
+    thing.** I reported "twohot: 0 directories" from a glob on `*twohot*`; the two-hot runs are named
+    `m2h_add_p113_wd1.0_frac0.3_seed{0,1,2}_arch25k`. All three had completed in ~1,255 s each with
+    exit code 0. The block summary in `matrix_launch.log` was right and my glob was wrong — recorded
+    because "0 directories" would have looked like a failed block to anyone reading only my summary.
+89. **Confound block analysed: 234 ok, 0 failed, 27 skipped** (the skips are the architecture-specific
+    modules on the other architecture, as designed). The analysis of the parameter-matched and two-hot
+    blocks was launched immediately afterwards at 8 workers, the CPU now being free of training.
