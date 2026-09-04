@@ -746,3 +746,23 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     shared-embedding MLP. `controls_report` reports them as `NOT COMPUTED — no seed has both sides`
     rather than as an empty or zero result, and re-running it after the analysis completes is all
     that is needed.
+93. **The G4 failure is not an artifact of the chosen threshold — no available definition fixes it.**
+    Measured across all six structured-neuron definitions the pre-registration provides, median over
+    the 10 primary seeds at the final checkpoint: the transformer's structured fraction is
+    **0.979–0.998** and the MLP's **0.863–0.920**, whichever definition is used. Tightening the family
+    threshold from 0.50 to 0.70 moves the MLP from ~453 to ~442 of 512 neurons; Doshi's rank-matched
+    IPR and Swaroop's periodicity score land in the same band. So at `p = 113` with `d_mlp = 512`
+    **no definition available to this study yields a set small enough for a size-matched ablation to
+    discriminate**, and a decision to change B1 would not rescue G4. What would is a different *kind*
+    of definition — a fixed small cardinality, or selection by causal contribution rather than by
+    spectral shape — which is a new pre-registration, not a threshold tweak. Recorded as a
+    sensitivity note under `HUMAN_DECISIONS` D6 so the human authors can see what changing the value
+    would and would not buy.
+94. **`AI_DISCLOSURE.md` updated for the completed measurements (§22).** The status line now says the
+    measurements are complete and that **no scientific conclusion has been written or reviewed by a
+    human**; §5 records that the AI executed the analyses over all 51 runs and that the two AI
+    decisions materially affecting a gate criterion are escalated as D5 and D6; §6 adds the
+    claim–evidence table as AI-drafted and marks the `RESULTS.md` rewrite as now due. A changelog
+    entry for 2026-09-04 states plainly that the session produced **two negative results the AI
+    reported rather than avoided** — the gate's `neither_passes` and H3's refutation by its own
+    criterion. All eleven `[HUMAN AUTHORS MUST COMPLETE]` placeholders remain untouched.

@@ -65,7 +65,18 @@ exists to prevent.
 | D3 | Statistics | paired by seed; percentile bootstrap CI with 10 000 resamples, seed 0; exact sign test and exact Wilcoxon; Cohen's d_z and Cliff's delta; all seeds plotted; p-values never alone | |
 | D4 | Failed runs | never silently dropped; n started and n completed always reported, with a sensitivity analysis | |
 | D5 | **Which transformer ablation is G4's "remove_key_freqs"** | `PREREGISTRATION.md` §5 names the criterion but not the transformer's id, and the transformer has three candidates. The AI wired `remove_key_subspace_from_residual`. **This choice decides the criterion:** at the final checkpoint, over 10 seeds, `remove_key_subspace_from_residual` gives a median drop of 0.235 (control 0.000) → necessary **0/10**, while `remove_key_freqs_from_embedding` gives 0.984 (control 0.0005) → necessary **10/10**. The overall gate verdict is unchanged either way (both architectures fail on `remove_structured`), but the reported reason is not. Deliberately **not** switched after seeing the numbers (§3.9). | |
-| D6 | **The structured-neuron threshold makes G4 untestable** | Under the primary definition (B1, family fraction ≥ 0.50) the structured set is 442/512 neurons in the MLP and 501/512 in the transformer — all 512 for transformer seed 5. At that size the size-matched control does comparable damage by construction, so neither necessity nor sufficiency can discriminate, and G4 reads 0/10 for both architectures. This is a property of the threshold, not a measurement of the models. Changing B1 would force a re-run of every ablation and a labbook entry; it must not be changed *because* this result is inconvenient. | |
+| D6 | **The structured-neuron threshold makes G4 untestable — and no available definition fixes it** | Under the primary definition (B1, family fraction ≥ 0.50) the structured set is 442/512 neurons in the MLP and 501/512 in the transformer — all 512 for transformer seed 5. At that size the size-matched control does comparable damage by construction, so neither necessity nor sufficiency can discriminate, and G4 reads 0/10 for both architectures. This is a property of the threshold, not a measurement of the models. Changing B1 would force a re-run of every ablation and a labbook entry; it must not be changed *because* this result is inconvenient. **Measured 2026-09-04: tightening the threshold does not help.** Median structured fraction of live neurons at the final checkpoint, all 10 primary seeds:
+
+| definition | transformer | MLP |
+|---|---|---|
+| family ≥ 0.30 (sensitivity) | 0.984 (~504/512) | 0.920 (~471/512) |
+| **family ≥ 0.50 (primary)** | **0.982 (~503)** | **0.885 (~453)** |
+| family ≥ 0.70 (sensitivity) | 0.979 (~501) | 0.863 (~442) |
+| top-1 ≥ 0.50 | 0.981 (~502) | 0.880 (~450) |
+| Doshi IPR, rank-matched | 0.982 (~503) | 0.885 (~453) |
+| Swaroop periodicity > 12 | 0.998 (~511) | 0.888 (~454) |
+
+**Every** definition the pre-registration offers — including both sensitivity variants and both published alternatives — selects 86–100 % of the live neurons. Moving from 0.50 to 0.70 shifts the MLP from ~453 to ~442 of 512. So G4's failure is not an artifact of *this* threshold: at `p = 113` with `d_mlp = 512`, no available structured-neuron definition yields a set small enough for a size-matched ablation to discriminate. A decision to change B1 would therefore not rescue G4; what would is a different *kind* of definition (for example a fixed small cardinality, or selection by causal contribution rather than by spectral shape), which is a new pre-registration, not a threshold tweak. | |
 
 ## E. Process
 
