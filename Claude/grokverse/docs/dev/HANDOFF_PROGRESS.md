@@ -18,7 +18,7 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] E6 — re-run at commit `eeeef82`: **80 ok, 0 failed**; primary block now complete, 0 missing rows in every module
 - [x] F — `aggregate`, `decision_tree`, `figures_study`, `bounded_alternative` + tests — suite 20/20, 1,794 checks
 - [x] G1 — aggregate (0 missing) + gate at both points; **branch: `neither_passes` at final** (G1/G2/G3 10/10 both, G4 0/10 both), `undetermined` at crossing — labbook 62–65, `results/decision_tree_{final,crossing}.json`
-- [ ] G2 — statistics per `STATISTICAL_ANALYSIS_PLAN.md` computed and stored —
+- [x] G2 — `analysis/statistics_report.py` + tests; the 8 pre-specified comparisons (10 rows) with per-seed differences, bootstrap CIs, exact tests, effect sizes, Holm aid and the §6 timing bounds — `results/statistics.json`, suite 21/21
 - [ ] G3 — control-block comparisons (factorial, parameter-matched, two-hot) —
 - [ ] G4 — H3a/H3b/H3c with both controls, refutation criteria applied —
 - [x] G5 — all 11 figures drawn from the aggregate tables only, captions naming sources — `results/figures/index.json`

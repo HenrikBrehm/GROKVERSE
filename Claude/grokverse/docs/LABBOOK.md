@@ -530,3 +530,41 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     fits live in `transformer_mechanism.wave_fits`, not in `wave_fitting`), and the H5 figure read
     only the MLP's ablation id. Both had produced "no seed has both architectures", which reads like
     absent data rather than a naming difference.
+67. **Statistics computed (`results/statistics.json`, `analysis/statistics_report.py`, 47 checks).**
+    Exactly the eight pre-specified comparisons of `STATISTICAL_ANALYSIS_PLAN.md` §3 — ten rows,
+    because two are reported at both measurement points — each with all ten per-seed differences
+    listed, a 10,000-draw percentile bootstrap CI, exact sign and Wilcoxon tests, Cohen's `d_z`,
+    Cliff's delta and the robust spread. The module reuses `figures_study`'s specifications and
+    extractors, so a number in the statistics file and the number on the matching figure cannot
+    disagree. Holm-adjusted p-values are reported and explicitly labelled a descriptive aid; §4 makes
+    p-values companions, never evidence.
+68. **The timing comparison separates two things that an earlier version of my own code conflated.**
+    §6 asks for the bounds implied by test accuracy being evaluated only every 25 steps. That is a
+    different question from whether the seeds agree. On the real data the answers differ, and the
+    difference is the finding: **all 10 seed intervals exclude zero** — the evaluation grid never
+    flips a seed's sign — but the direction is **not unanimous**. Nine seeds have the transformer
+    crossing earlier (median −1,562 steps), and **seed 4 reverses it** (transformer 10,275 vs MLP
+    8,650, +1,625). The first version reported per-seed unanimity under the name "survives interval
+    bounds", which would have described a seed-spread limitation as a grid limitation. The two are
+    now reported separately, and the output says in words that the claim is about the typical
+    difference under the conditions examined, not a universal one.
+69. **The eight comparisons, as measured** (transformer minus MLP, final checkpoint unless noted;
+    medians with 95 % bootstrap CIs, all ten seeds behind each):
+
+    | # | quantity | median difference | CI 95 % | note |
+    |---|---|---|---|---|
+    | 1 | generalization step | −1,562 | [−2,895, −822] | excludes 0; **not** unanimous (seed 4 reverses) |
+    | 2 | grokking gap | −1,542 | [−2,875, −806] | excludes 0 |
+    | 3 | structured fraction (crossing) | +0.303 | [+0.257, +0.337] | excludes 0, unanimous |
+    | 3 | structured fraction (final) | +0.085 | [+0.060, +0.100] | excludes 0, unanimous |
+    | 4 | phase-relation `R` (crossing) | −0.0113 | [−0.0132, −0.0092] | excludes 0, unanimous |
+    | 4 | phase-relation `R` (final) | −0.0074 | [−0.0098, −0.0056] | excludes 0, unanimous |
+    | 5 | square/odd-harmonic best-fit fraction | −0.324 | [−0.397, −0.120] | excludes 0 |
+    | 6 | family minus top-1 fraction (H3b) | −0.0025 | [−0.0060, +0.0035] | **spans 0** |
+    | 7 | ablation damage above control (H5) | −0.079 | [−0.093, −0.039] | excludes 0; n = 9 |
+    | 8 | best Fourier-formula R² | −0.426 | [−0.459, −0.336] | excludes 0, unanimous |
+
+    These are measurements, not conclusions. Nothing here may be read as H3 evidence: the evidence
+    gate reports `neither_passes` (entry 62), and master prompt §12 makes harmonic-family
+    interpretation conditional on passing it. Comparison 7 has nine pairs because transformer seed 5
+    has no size-matched control at all — every one of its 512 neurons is "structured" (entry 63).

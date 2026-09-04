@@ -1,8 +1,8 @@
 {
   "module": "aggregate",
   "module_version": "1.0",
-  "created_utc": "2026-09-03T23:42:26.060711+00:00",
-  "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+  "created_utc": "2026-09-04T00:12:42.389953+00:00",
+  "analysis_git_commit": "1076deea356bf979380959d7ecb9e7de5f57e79a",
   "runs_pattern": "*_frac0.3_seed*_arch25k",
   "n_runs": 20,
   "runs": [

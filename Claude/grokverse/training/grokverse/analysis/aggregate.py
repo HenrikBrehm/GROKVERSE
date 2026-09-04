@@ -239,7 +239,11 @@ def run_metadata(run_dir: Path) -> dict:
     meta = {"run_id": run_dir.name, "arch": cfg.get("arch"), "seed": cfg.get("seed"),
             "p": cfg.get("p"), "train_frac": cfg.get("train_frac"),
             "weight_decay": cfg.get("weight_decay"), "grokfast": cfg.get("grokfast"),
-            "d_mlp": cfg.get("d_mlp"), "steps": cfg.get("steps")}
+            "d_mlp": cfg.get("d_mlp"), "steps": cfg.get("steps"),
+            # carried so the timing bounds use each run's OWN evaluation interval rather than a
+            # module-level default (STATISTICAL_ANALYSIS_PLAN §6)
+            "eval_every_test": cfg.get("eval_every_test"),
+            "eval_every_train": cfg.get("eval_every_train")}
     man = run_dir / "manifest.json"
     if man.exists():
         m = json.loads(man.read_text(encoding="utf-8"))

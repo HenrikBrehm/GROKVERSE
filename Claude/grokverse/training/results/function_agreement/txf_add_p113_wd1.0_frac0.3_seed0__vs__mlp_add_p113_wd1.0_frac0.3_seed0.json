@@ -1,0 +1,292 @@
+{
+  "module": "function_agreement",
+  "module_version": "1.0",
+  "run_id": "txf_add_p113_wd1.0_frac0.3_seed0",
+  "arch": "transformer",
+  "p": 113,
+  "step": "final",
+  "checkpoint_file": "model_final.pt",
+  "checkpoint_sha256": "387ccef824449acab810b5ab727805a4828e1e8386e343fc3854fb096d511274",
+  "analysis_git_commit": "d53cf5223a30a55da39a482b9faf9e620c98d5ea",
+  "created_utc": "2026-09-02T16:46:14.921178+00:00",
+  "params": {
+    "run_dir_a": "runs\\txf_add_p113_wd1.0_frac0.3_seed0",
+    "run_dir_b": "runs\\mlp_add_p113_wd1.0_frac0.3_seed0",
+    "step_a": "final",
+    "step_b": "final",
+    "task": "add",
+    "n_control": 50,
+    "seed": 0,
+    "error_jaccard_empty_union_value": 1.0
+  },
+  "results": {
+    "full_grid": {
+      "n_cells": 12769,
+      "agreement_rate": 0.9826141436291017,
+      "n_disagreements": 222,
+      "accuracy_a": 0.9865298770459707,
+      "accuracy_b": 0.9959276372464563,
+      "both_correct": 0.9826141436291017,
+      "only_a_correct": 0.00391573341686898,
+      "only_b_correct": 0.013313493617354531,
+      "both_wrong": 0.00015662933667475918,
+      "n_errors_a": 172,
+      "n_errors_b": 52,
+      "n_errors_intersection": 2,
+      "n_errors_union": 222,
+      "error_jaccard": 0.009009009009009009
+    },
+    "model_a_split": {
+      "train": {
+        "n_cells": 3831,
+        "agreement_rate": 1.0,
+        "n_disagreements": 0,
+        "accuracy_a": 1.0,
+        "accuracy_b": 1.0,
+        "both_correct": 1.0,
+        "only_a_correct": 0.0,
+        "only_b_correct": 0.0,
+        "both_wrong": 0.0,
+        "n_errors_a": 0,
+        "n_errors_b": 0,
+        "n_errors_intersection": 0,
+        "n_errors_union": 0,
+        "error_jaccard": 1.0
+      },
+      "test": {
+        "n_cells": 8938,
+        "agreement_rate": 0.975162228686507,
+        "n_disagreements": 222,
+        "accuracy_a": 0.9807563213246812,
+        "accuracy_b": 0.994182143656299,
+        "both_correct": 0.975162228686507,
+        "only_a_correct": 0.005594092638174088,
+        "only_b_correct": 0.0190199149697919,
+        "both_wrong": 0.00022376370552696352,
+        "n_errors_a": 172,
+        "n_errors_b": 52,
+        "n_errors_intersection": 2,
+        "n_errors_union": 222,
+        "error_jaccard": 0.009009009009009009
+      }
+    },
+    "model_b_split": {
+      "train": {
+        "n_cells": 3831,
+        "agreement_rate": 1.0,
+        "n_disagreements": 0,
+        "accuracy_a": 1.0,
+        "accuracy_b": 1.0,
+        "both_correct": 1.0,
+        "only_a_correct": 0.0,
+        "only_b_correct": 0.0,
+        "both_wrong": 0.0,
+        "n_errors_a": 0,
+        "n_errors_b": 0,
+        "n_errors_intersection": 0,
+        "n_errors_union": 0,
+        "error_jaccard": 1.0
+      },
+      "test": {
+        "n_cells": 8938,
+        "agreement_rate": 0.975162228686507,
+        "n_disagreements": 222,
+        "accuracy_a": 0.9807563213246812,
+        "accuracy_b": 0.994182143656299,
+        "both_correct": 0.975162228686507,
+        "only_a_correct": 0.005594092638174088,
+        "only_b_correct": 0.0190199149697919,
+        "both_wrong": 0.00022376370552696352,
+        "n_errors_a": 172,
+        "n_errors_b": 52,
+        "n_errors_intersection": 2,
+        "n_errors_union": 222,
+        "error_jaccard": 0.009009009009009009
+      }
+    },
+    "logits": {
+      "logit_pearson": 0.10134184365872896,
+      "margin_pearson": 0.330517973609779,
+      "top2_agreement": 0.03743441146526744,
+      "top2_ordered_agreement": 0.03696452345524317
+    },
+    "error_structure": {
+      "model_a": {
+        "n_errors": 172,
+        "histograms": {
+          "by_residue_sum": {
+            "n_bins": 113,
+            "total": 172,
+            "max_count": 15,
+            "argmax_bin": 38,
+            "n_nonzero_bins": 59,
+            "normalized_entropy": 0.8180599802547867
+          },
+          "by_a": {
+            "n_bins": 113,
+            "total": 172,
+            "max_count": 6,
+            "argmax_bin": 38,
+            "n_nonzero_bins": 84,
+            "normalized_entropy": 0.9047969509162478
+          },
+          "by_b": {
+            "n_bins": 113,
+            "total": 172,
+            "max_count": 7,
+            "argmax_bin": 38,
+            "n_nonzero_bins": 90,
+            "normalized_entropy": 0.9168993638320131
+          },
+          "by_abs_diff": {
+            "n_bins": 113,
+            "total": 172,
+            "max_count": 19,
+            "argmax_bin": 41,
+            "n_nonzero_bins": 29,
+            "normalized_entropy": 0.6520245766778321
+          }
+        },
+        "n_symmetric": 138,
+        "symmetric_error_share": 0.8023255813953488,
+        "n_errors_offdiag": 172,
+        "n_symmetric_offdiag": 138,
+        "symmetric_error_share_offdiag": 0.8023255813953488,
+        "symmetric_offdiag_control": {
+          "n_control": 50,
+          "seed": 0,
+          "n_control_defined": 50,
+          "control_mean": 0.011027846765299896,
+          "control_std": 0.011239333608564621,
+          "control_q05": 0.0,
+          "control_q95": 0.03014161910801096,
+          "expected_share_offdiag_random_placement": 0.013392857142857142,
+          "z": 70.4043284227334
+        }
+      },
+      "model_b": {
+        "n_errors": 52,
+        "histograms": {
+          "by_residue_sum": {
+            "n_bins": 113,
+            "total": 52,
+            "max_count": 6,
+            "argmax_bin": 38,
+            "n_nonzero_bins": 36,
+            "normalized_entropy": 0.7236682081637222
+          },
+          "by_a": {
+            "n_bins": 113,
+            "total": 52,
+            "max_count": 7,
+            "argmax_bin": 66,
+            "n_nonzero_bins": 29,
+            "normalized_entropy": 0.6510574642949528
+          },
+          "by_b": {
+            "n_bins": 113,
+            "total": 52,
+            "max_count": 3,
+            "argmax_bin": 0,
+            "n_nonzero_bins": 35,
+            "normalized_entropy": 0.7314361283462851
+          },
+          "by_abs_diff": {
+            "n_bins": 113,
+            "total": 52,
+            "max_count": 3,
+            "argmax_bin": 11,
+            "n_nonzero_bins": 38,
+            "normalized_entropy": 0.7504827961023336
+          }
+        },
+        "n_symmetric": 1,
+        "symmetric_error_share": 0.019230769230769232,
+        "n_errors_offdiag": 51,
+        "n_symmetric_offdiag": 0,
+        "symmetric_error_share_offdiag": 0.0,
+        "symmetric_offdiag_control": {
+          "n_control": 50,
+          "seed": 0,
+          "n_control_defined": 50,
+          "control_mean": 0.005415384615384615,
+          "control_std": 0.015628336378488393,
+          "control_q05": 0.0,
+          "control_q95": 0.038461538461538464,
+          "expected_share_offdiag_random_placement": 0.003994360902255639,
+          "z": -0.34651062558639417
+        }
+      },
+      "disagreement": {
+        "n_errors": 222,
+        "histograms": {
+          "by_residue_sum": {
+            "n_bins": 113,
+            "total": 222,
+            "max_count": 20,
+            "argmax_bin": 38,
+            "n_nonzero_bins": 72,
+            "normalized_entropy": 0.849592431937787
+          },
+          "by_a": {
+            "n_bins": 113,
+            "total": 222,
+            "max_count": 8,
+            "argmax_bin": 66,
+            "n_nonzero_bins": 94,
+            "normalized_entropy": 0.9243224953625162
+          },
+          "by_b": {
+            "n_bins": 113,
+            "total": 222,
+            "max_count": 7,
+            "argmax_bin": 38,
+            "n_nonzero_bins": 95,
+            "normalized_entropy": 0.9317495233304489
+          },
+          "by_abs_diff": {
+            "n_bins": 113,
+            "total": 222,
+            "max_count": 19,
+            "argmax_bin": 41,
+            "n_nonzero_bins": 55,
+            "normalized_entropy": 0.7540884433463905
+          }
+        },
+        "n_symmetric": 143,
+        "symmetric_error_share": 0.6441441441441441,
+        "n_errors_offdiag": 221,
+        "n_symmetric_offdiag": 142,
+        "symmetric_error_share_offdiag": 0.6425339366515838,
+        "symmetric_offdiag_control": {
+          "n_control": 50,
+          "seed": 0,
+          "n_control_defined": 50,
+          "control_mean": 0.01670383356382366,
+          "control_std": 0.011925418895053878,
+          "control_q05": 0.0,
+          "control_q95": 0.041064367534955744,
+          "expected_share_offdiag_random_placement": 0.01730889724310777,
+          "z": 52.47866834659585
+        }
+      }
+    },
+    "split": {
+      "split_hash_a": "20f61036dba17f0c73d190f80f8c3f5cc71bfef9f45c667a0664cdbb69114964",
+      "split_hash_b": "20f61036dba17f0c73d190f80f8c3f5cc71bfef9f45c667a0664cdbb69114964",
+      "split_hash_equal": true,
+      "n_train_a": 3831,
+      "n_test_a": 8938,
+      "n_train_b": 3831,
+      "n_test_b": 8938
+    }
+  },
+  "run_id_b": "mlp_add_p113_wd1.0_frac0.3_seed0",
+  "arch_b": "mlp",
+  "p_b": 113,
+  "step_b": "final",
+  "checkpoint_file_b": "model_final.pt",
+  "checkpoint_sha256_b": "1273645cbe3d24581f0a7f8a9ea836a22a19f00923a67ce87af914fbac481681",
+  "arrays_file": "txf_add_p113_wd1.0_frac0.3_seed0__vs__mlp_add_p113_wd1.0_frac0.3_seed0.npz",
+  "output_npz": "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\results\\function_agreement\\txf_add_p113_wd1.0_frac0.3_seed0__vs__mlp_add_p113_wd1.0_frac0.3_seed0.npz"
+}
