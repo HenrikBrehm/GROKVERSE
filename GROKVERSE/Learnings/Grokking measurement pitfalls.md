@@ -81,3 +81,64 @@ contribution.
 
 [[ReLU as the multiplier in modular addition]] · [[Fourier circuit for modular addition]] ·
 [[Transformer vs MLP mechanism comparison]]
+
+
+---
+
+## Measured outcomes for pitfalls 1 and 2 (added 2026-09-04, after the study ran)
+
+Both were predictions when written. Both are now measured on our own 51-run matrix, at a fixed
+25,000-step budget with no early stopping.
+
+**Pitfall 1 — reading at the transition.** The legacy headline was 0.73 (transformer) vs 0.44 (MLP)
+top-8 embedding concentration, read at each run's generalization crossing. The same quantity measured
+after convergence, over 10 seeds each: **0.961** (transformer, 0.950–0.971) vs **0.891** (MLP,
+0.772–0.960). Same direction, **gap 0.07 instead of 0.29**. Khanh's overstatement effect, confirmed on
+our data rather than cited from theirs.
+
+**Pitfall 2 — a cap that always binds.** At convergence the top-8 cap binds on **0 of 10 transformer
+runs and 6 of 10 MLP runs**, where in the legacy runs it bound on all 16. So the metric is no longer a
+constant-k count for the transformer, and still partly one for the MLP.
+
+**A new one, harder to see than either.** The convergence check that pitfall 1's fix promised was not
+actually run until 2026-09-04. When it was, it found the MLP's `structured_fraction_of_live` — the
+metric behind the study's headline structure gap — settled at the budget in only **2 of 10 seeds** and
+still rising, while the transformer's had flattened. A fixed budget removes the *at-transition* bias and
+replaces it with a *censoring* bias whose direction has to be measured, not assumed. Writing the fix
+into the protocol is not the same as executing it.
+
+## 9. An extractor that returns a plausible number instead of an error
+
+Five defects in this study shared one shape: **well-formed output containing no information**. None
+crashed; none failed a test; each was found only because someone went looking for a specific number and
+it was not there.
+
+- `aggregate._wave_fitting` guessed flat key names → every waveform column `null`; the H2 figure would
+  have been blank.
+- `aggregate._progress_measures` read one nesting level too shallow → every restricted/excluded-loss
+  column `null`.
+- `structure_over_time` compared an **integer model index** to a **model name** (`best_by_aic` has two
+  conventions in the same module) → both waveform trajectories were constant **0.0** for the entire
+  study.
+
+The third is the dangerous one, and the lesson. A defect that returns `null` announces itself as an
+absence. A defect that returns `0.0` looks like a measurement — and downstream, an onset detector
+reporting "no onset" for a flat-zero series looks like a finding. In a codebase where `null` legitimately
+means "not evaluable", a silent `null` is invisible; a silent `0.0` is worse than invisible, because it
+is quietly *persuasive*.
+
+**What actually catches this class**, as opposed to more unit tests of the extractor:
+
+1. **An invariant the empty case cannot satisfy.** The four waveform shares must sum to exactly 1. No
+   table of zeros can pass that. The old test asserted only `square + sinusoid <= 1`, which zeros pass.
+2. **Cross-module agreement at a shared checkpoint.** Two modules computing the same quantity at step
+   25,000 must agree. That is what exposed 0.0 against 0.4023.
+3. **Suspicion of exact zeros across independent seeds.** The trigger here was a convergence table
+   showing *exactly* 0.0000 % change on all 20 runs. Independent seeds do not agree exactly.
+4. **Cross-checking the prose against the artifacts.** `tests/check_results_numbers.py` re-derives every
+   number quoted in `RESULTS.md` from `results/`. The document gets the same treatment as the code.
+
+Corollary learned the hard way: **check the checker on a case whose answer you already know.** The first
+version of the figure-provenance audit reported 11 spurious failures because it resolved recorded paths
+against the wrong base directory. A verification script that reports a failure it cannot substantiate is
+worse than no script.

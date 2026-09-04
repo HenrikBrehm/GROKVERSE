@@ -28,7 +28,7 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] G7 — `RESULTS.md` rewritten under §21 (gate reported exactly, 4 claims withdrawn), `README.md` with a "what this does not claim" section, `docs/LIMITATIONS.md` §B written from measurement (B3: the MLP's structured fraction is settled in only 2/10 seeds at the budget), `PROGRESS.md` dated entry, `CLAIM_EVIDENCE_TABLE` pending section replaced — commit `d54792b`; found and fixed a 5th defect on the way (labbook 101)
 - [x] G8 — `AI_DISCLOSURE.md` §6 rewritten for the completed documents (RESULTS/README no longer described as pre-study), `LIMITATIONS` §A/§B split recorded, 2026-09-04 changelog entry naming the gate outcome, the refutation and the five defects; **11 `[HUMAN AUTHORS MUST COMPLETE]` placeholders intact**
 - [x] G9 — D5 (which transformer ablation G4 means: 0/10 vs 10/10) and D6 (six-definition table showing no available definition makes G4 testable, plus the new budget-convergence caveat) carry their measured sensitivity; `STATUS: NOT YET APPROVED BY HUMAN AUTHORS` untouched
-- [~] H — `docs/dev/EXPLORER_UPDATE_PLAN.md` written (web/ untouched; approval box open); labbook, Obsidian, §25 block still to come
+- [x] H — `docs/dev/EXPLORER_UPDATE_PLAN.md` written (web/ untouched; approval box open); labbook entries 99–105; Obsidian session note `2026-09-04 - GROKVERSE`, project-log entry, `Bugs/Silent extractors that return a plausible number`, pitfalls #9 and the measured outcomes for #1/#2; master prompt §25 block delivered. **Every non-human item of §23 is done.**
 
 ## Master prompt §23 — Definition of Done (19 items)
 

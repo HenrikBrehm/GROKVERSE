@@ -77,21 +77,42 @@ Artifacts: `Claude/grokverse/training/runs/txf_add_p113_wd1.0_frac0.3_seed*_arch
 
 ## Interpretation
 
-**None yet, deliberately.** The paired timing comparison, every structure metric, the evidence gate and
-the decision tree are computed only after the analysis code is frozen, and are reported with confidence
-intervals and all individual seeds. Note in advance that a timing gap alone is not a contribution —
-Manir & Rupa 2026 already report that this gap is protocol-dependent, with the opposite direction under
-their protocol.
+**Written before the analyses (2026-09-02):** none yet, deliberately. The paired timing comparison, every
+structure metric, the evidence gate and the decision tree are computed only after the analysis code is
+frozen, and are reported with confidence intervals and all individual seeds. Note in advance that a
+timing gap alone is not a contribution — Manir & Rupa 2026 already report that this gap is
+protocol-dependent, with the opposite direction under their protocol.
+
+**Update 2026-09-04 — the analyses are complete.** The measured outcomes live in
+`Claude/grokverse/RESULTS.md`; only the headline is repeated here, and it is an *observation*, not an
+interpretation:
+
+- The pre-registered evidence gate returns **`neither_passes`**. G1, G2 and G3 hold on 10/10 seeds for
+  both architectures; **G4 fails 0/10 for both**, because the structured-neuron definition selects
+  88–98 % of the network and a size-matched random control therefore does comparable damage.
+- **H3, the study's own primary hypothesis, is refuted by its own criterion** — the harmonic-family
+  definition closes 5.4 % of the architecture gap it was supposed to explain.
+- The timing comparison from the table above: median paired difference **−1,562 steps**, CI95
+  [−2,895, −822], with **seed 4 reversing the direction**. As anticipated above, this is not a
+  contribution on its own.
+
+**The final scientific interpretation is reserved for the human authors** and has not been written —
+see `docs/HUMAN_INTERPRETATION_TEMPLATE.md` and [[2026-09-04 - GROKVERSE]].
 
 ## Limitations
 
 - One hyperparameter point (p=113, train fraction 0.3, weight decay 1.0), not a sweep.
 - Crossings sit on a discrete evaluation grid and are reported as intervals.
 - "Final" means the 25,000-step budget; whether a metric has converged there is tested per metric and per
-  seed, not assumed.
-- The confound, parameter-matched and two-hot blocks were still queued when this note was written.
+  seed, not assumed. **That test was run on 2026-09-04 and it matters:** the MLP's
+  `structured_fraction_of_live` is settled at the budget in only **2 of 10 seeds** and is still rising,
+  while the transformer's has flattened. The headline structure gap is a budget-fixed comparison whose
+  bias has a known direction.
+- The confound, parameter-matched and two-hot blocks were still queued when this note was written; all
+  three completed (18 + 10 + 3 runs, none failed) and are reported in `RESULTS.md` §10.
 
 ## Related
 
 [[2026-09-02 Architecture study design decisions]] · [[Grokking measurement pitfalls]] ·
-[[ReLU as the multiplier in modular addition]] · [[2026-09-03 - GROKVERSE]]
+[[ReLU as the multiplier in modular addition]] · [[2026-09-03 - GROKVERSE]] ·
+[[2026-09-04 - GROKVERSE]]

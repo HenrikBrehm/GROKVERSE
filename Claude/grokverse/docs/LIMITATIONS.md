@@ -147,6 +147,12 @@ computed from the stored trajectories; "settled" means below 5 %.
 | `median_family_fraction` | 10/10 (0.15 %) | 10/10 (0.09 %) | |
 | `logit_key_subspace_share` | 9/10 (1.25 %) | 10/10 (0.40 %) | |
 | `median_odd_minus_even_u_a` | 0/10 | 0/10 | the relative test is meaningless here: the value sits at ~1e-3, so **maximum absolute change is 0.003**. Reported as unsettled *in relative terms only*. |
+| `fraction_best_aic_sinusoid` | **0/10** (median 17.1 %) | 2/10 (15.3 %) | **largest absolute movement of any metric here: 0.255** in the transformer. Genuinely unsettled. |
+| `fraction_best_aic_odd_harmonics` | 1/10 (27.6 %) | 3/10 (8.2 %) | max absolute change 0.255 (txf), 0.103 (MLP). Genuinely unsettled. |
+| `fraction_best_aic_square` | 9/10 (0.0 %) | 1/10 (41.1 %) | asymmetric for a reason: the transformer's share has decayed to ≈0 and stays there (max absolute change 0.005), while the MLP's is small but still moving — the 41 % is relative to a small value, and the **absolute** change is only 0.022. |
+
+The waveform rows were added on 2026-09-04 after the defect of labbook 101 was fixed; before that
+these three series were constant zero and no convergence statement about them was possible.
 
 **This is the most consequential entry in this document.** `structured_fraction_of_live` is the metric
 behind G1 and behind the headline architecture gap (+0.085), and for the MLP it is **still rising at
@@ -156,6 +162,12 @@ therefore be expected to **shrink** the gap this study reports, and possibly to 
 the MLP. This is precisely the censoring Khanh 2026 warns about (A6), now measured rather than
 anticipated. No claim in `RESULTS.md` may be read as a converged-state comparison; every one of them is
 a comparison **at a fixed 25,000-step budget**.
+
+The waveform shares are unsettled too, and by more: the transformer's sinusoid share moves **0.255 in
+absolute terms** between steps 20,000 and 25,000. The §8.1 trajectory result (the waveform composition
+shifting during the plateau) is unaffected, because it is measured from initialization to the last
+checkpoint *before* generalization — an interval that ends long before the budget. What is affected is
+any reading of the *final* waveform split as an endpoint: it is not one.
 
 ### B4. The measured `additivity_r2` distribution for the transformer
 

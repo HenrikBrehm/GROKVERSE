@@ -209,3 +209,93 @@ Stage A of the handoff: `analysis/causal_ablation.py` with its tests, then commi
 
 `Claude/grokverse/docs/LABBOOK.md` entries 31–44 · `Claude/grokverse/docs/dev/HANDOFF_2026-09-04.md` ·
 `training/tests/run_all.py` · `training/results/matrix_launch.log` · `training/runs/*_arch25k/manifest.json`
+
+---
+
+## 2026-09-04
+
+### What was done
+
+- Completed every remaining item of the master prompt's §23 Definition of Done that does not require
+  the human authors: stages A–H of the handoff.
+- Aggregation and reporting layer written test-first and run: `aggregate`, `decision_tree`,
+  `figures_study`, `statistics_report`, `h3_report`, `h4_report`, `controls_report`,
+  `bounded_alternative`.
+- Analysed all 51 runs; evaluated the pre-registered evidence gate at both measurement points; applied
+  H3's refutation criteria literally; ran the bounded alternative-mechanism analysis and all three
+  control blocks.
+- Rewrote `RESULTS.md`, `README.md`, `docs/LIMITATIONS.md` §B and `PROGRESS.md` against the
+  measurements, under master prompt §21's graded wording; updated the claim–evidence table, the
+  novelty delineation, `AI_DISCLOSURE.md` and `PREREGISTRATION.md` §12.
+- Added `tests/check_results_numbers.py`, which re-derives every number quoted in `RESULTS.md` from
+  `results/` and fails on disagreement.
+
+### Results
+
+- **Evidence gate: `neither_passes`.** G1/G2/G3 hold 10/10 for both architectures; **G4 fails 0/10 for
+  both**. The structured-neuron definition selects 88–98 % of the network, so the size-matched random
+  control does 0.873 (MLP) / 0.916 (transformer) of the same damage and the criterion cannot
+  discriminate.
+- **H3 refuted by its own criterion.** The family definition closes +0.0049 of a +0.0898 gap (5.4 %);
+  the family gap remains +0.0850, CI95 [+0.0600, +0.1004], unanimous over 10 seeds.
+- **Key frequencies are causally load-bearing in both** (removal costs ~0.99 accuracy vs ~0.000 for a
+  size-matched random set), unlike the neuron sets.
+- **Function agreement 0.99977** over all 12,769 inputs, identical in 4 of 10 seeds, while logits
+  correlate at 0.083 and top-2 predictions agree 0.6 % of the time.
+- **H4 holds**: six structure metrics onset before the generalization crossing in 10/10 seeds, both
+  architectures, at 5.4–39.5 % of the way there. The waveform composition shifts during the plateau —
+  square-best-fit share 0.787 → 0.116 (txf) and 0.789 → 0.421 (MLP), sinusoid rising to 0.646 and
+  0.333 — unanimous in sign across all seeds.
+- **Bounded alternative**: effective rank 12.7 (txf) vs 66.6 (MLP); removing the top-16 singular
+  directions destroys the transformer (0.964) and leaves the MLP untouched (0.000). Cross-seed CKA is
+  0.0017 / 0.0973 between seeds of the *same* architecture, so representation similarity is unusable
+  here as evidence in either direction.
+- **Controls**: `train_frac` dominates Grokfast by an order of magnitude; every structure difference
+  survives parameter matching to 0.02 %; the two-hot MLP is **more** square-wave-like (+0.1836) than
+  the shared-embedding MLP.
+- **Convergence**: the MLP's `structured_fraction_of_live` — the metric behind the headline gap — is
+  settled at the 25,000-step budget in only **2 of 10 seeds** and still rising.
+- Suite: 24 files, 1,913 checks. Freeze audit: all 696 analysis artifacts across all 51 runs postdate
+  the freeze `0b55e1d`. All 11 figures regenerate byte-identically.
+
+### Decisions
+
+- Report the gate failure and the refutation as the results (master prompt §21), not reframed.
+- Do not change the onset rule, the structured-neuron threshold, or which transformer ablation G4 means
+  — all pre-registered. The last two are escalated as **D5** and **D6** with measured sensitivity.
+- Withdraw four headline claims from the 2026-09-03 `RESULTS.md`, each with the number that retires it.
+
+### Problems
+
+- Two further silent-extraction defects: `aggregate._progress_measures` (every restricted/excluded
+  column `null`) and `structure_over_time` comparing a model **index** to a model **name**, which
+  returned **0.0** and flattened both waveform trajectories for the entire study.
+- The convergence check promised by `LIMITATIONS.md` §A6 had never been executed.
+- `NOVELTY_AND_RELATED_WORK.md` still quoted retired numbers.
+
+### Solutions
+
+- Both defects fixed with regression tests; `structure_over_time` re-run over all 51 runs (51 ok, 0
+  failed) and every downstream report re-run and diffed to confirm nothing else was affected.
+- The convergence check was executed and its finding written into `LIMITATIONS.md` §B3 and
+  `RESULTS.md` §5.1.
+- The retired numbers were re-measured at convergence: 0.961 vs 0.891, not 0.73 vs 0.44.
+
+### Open tasks
+
+- [ ] **Human**: the final scientific interpretation in the authors' own words.
+- [ ] **Human**: `HUMAN_DECISIONS.md` A–F including **D5** and **D6**, plus the status line and sign-off.
+- [ ] **Human**: the 11 `[HUMAN AUTHORS MUST COMPLETE]` placeholders in `AI_DISCLOSURE.md`.
+- [ ] **Human**: the `txf_mul_*` runs (**E6**); the explorer update (**E3**).
+
+### Next step
+
+Human review of `docs/HUMAN_DECISIONS.md`. Nothing further can be decided by the AI without it.
+
+### Evidence
+
+`Claude/grokverse/RESULTS.md` · `docs/LIMITATIONS.md` §B · `docs/CLAIM_EVIDENCE_TABLE.md` ·
+`docs/LABBOOK.md` entries 99–105 · `training/results/decision_tree_final.json` ·
+`training/results/{statistics,h3_report,h4_report,controls_report}.json` ·
+`training/results/aggregate/` · `training/results/figures/` ·
+`training/tests/check_results_numbers.py`

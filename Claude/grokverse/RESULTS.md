@@ -205,11 +205,17 @@ below 5 %):
 | `phase_relation_R` | 10/10 (0.37 %) | 10/10 (0.03 %) |
 | `median_family_fraction` | 10/10 (0.15 %) | 10/10 (0.09 %) |
 | `logit_key_subspace_share` | 9/10 (1.25 %) | 10/10 (0.40 %) |
+| `fraction_best_aic_sinusoid` | **0/10** (17.1 %) | 2/10 (15.3 %) |
 
 `structured_fraction_of_live` is the metric behind G1 and behind the headline architecture gap of
 +0.085, and for the MLP it is **still rising at the budget in 8 of 10 seeds** — in seed 0 from 0.223 at
 step 8,000 to 0.861 at 20,000 to 0.881 at 25,000, while the transformer's has flattened (0.959 to
 0.965). A longer budget would therefore be expected to **shrink** the gap this study reports.
+
+The waveform shares are unsettled by more still — the transformer's sinusoid share moves **0.255 in
+absolute terms** between steps 20,000 and 25,000. This does not touch the §8.1 trajectory result, which
+is measured from initialization to the last checkpoint *before* generalization and so ends long before
+the budget; it does mean the *final* waveform split in §5 must not be read as an endpoint.
 
 This is the censoring Khanh 2026 (arXiv:2607.06639) warns about, measured here rather than assumed. It
 does not invalidate the comparison, but it fixes its meaning: **every number on this page is a
