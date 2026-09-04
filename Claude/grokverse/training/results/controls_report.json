@@ -1,10 +1,10 @@
 {
   "module": "controls_report",
   "module_version": "1.0",
-  "created_utc": "2026-09-04T02:59:19.759786+00:00",
-  "analysis_git_commit": "8b312a2db2a070d4fc3a33de5ac898c3f55ddbba",
+  "created_utc": "2026-09-04T04:10:15.400077+00:00",
+  "analysis_git_commit": "bb4c7c0319639c9062029097a4953ba46918b1ff",
   "measurement_point": "final",
-  "n_rows": 79,
+  "n_rows": 103,
   "separation_rule": "master prompt \u00a714: no change is attributed to Grokfast or to the training fraction alone unless the 2x2 decomposition separates them",
   "controls_are_separate": "STATISTICAL_ANALYSIS_PLAN \u00a78: each control is its own paired comparison and is never merged with the primary one",
   "factorial_grokfast_x_train_frac": {
@@ -134,7 +134,9 @@
         "mlp_twohot": {
           "cells_present": {
             "gf=False,frac=0.3": [
-              0
+              0,
+              1,
+              2
             ],
             "gf=True,frac=0.3": [],
             "gf=False,frac=0.5": [],
@@ -391,7 +393,9 @@
         "mlp_twohot": {
           "cells_present": {
             "gf=False,frac=0.3": [
-              0
+              0,
+              1,
+              2
             ],
             "gf=True,frac=0.3": [],
             "gf=False,frac=0.5": [],
@@ -648,7 +652,9 @@
         "mlp_twohot": {
           "cells_present": {
             "gf=False,frac=0.3": [
-              0
+              0,
+              1,
+              2
             ],
             "gf=True,frac=0.3": [],
             "gf=False,frac=0.5": [],
@@ -905,7 +911,9 @@
         "mlp_twohot": {
           "cells_present": {
             "gf=False,frac=0.3": [
-              0
+              0,
+              1,
+              2
             ],
             "gf=True,frac=0.3": [],
             "gf=False,frac=0.5": [],
@@ -1162,7 +1170,9 @@
         "mlp_twohot": {
           "cells_present": {
             "gf=False,frac=0.3": [
-              0
+              0,
+              1,
+              2
             ],
             "gf=True,frac=0.3": [],
             "gf=False,frac=0.5": [],
@@ -1300,9 +1310,8 @@
       "point": "final",
       "a": "transformer",
       "b": "mlp",
-      "n_pairs": 0,
-      "seeds": [],
-      "seeds_only_a": [
+      "n_pairs": 10,
+      "seeds": [
         0,
         1,
         2,
@@ -1314,8 +1323,57 @@
         8,
         9
       ],
+      "seeds_only_a": [],
       "seeds_only_b": [],
-      "not_computed": "no seed has both sides",
+      "values_a": [
+        7975.0,
+        6250.0,
+        8125.0,
+        7425.0,
+        10275.0,
+        5625.0,
+        6325.0,
+        7750.0,
+        8125.0,
+        5825.0
+      ],
+      "values_b": [
+        10100.0,
+        8550.0,
+        8125.0,
+        9450.0,
+        9450.0,
+        9575.0,
+        9975.0,
+        9325.0,
+        10500.0,
+        9500.0
+      ],
+      "differences": [
+        -2125.0,
+        -2300.0,
+        0.0,
+        -2025.0,
+        825.0,
+        -3950.0,
+        -3650.0,
+        -1575.0,
+        -2375.0,
+        -3675.0
+      ],
+      "mean_diff": -2085.0,
+      "median_diff": -2212.5,
+      "bootstrap_ci95": [
+        -2945.0,
+        -1132.5
+      ],
+      "direction": "mixed",
+      "all_positive": false,
+      "all_negative": false,
+      "sign_test_p": 0.0390625,
+      "cohens_dz": -1.3437947295862027,
+      "cliffs_delta": -0.8,
+      "ci95_contains_zero": false,
       "what_it_can_support": "that a difference survives, or does not survive, equalizing the parameter count; it does NOT equalize the shape of the budget, so capacity-allocation effects remain"
     },
     "grokking_gap": {
@@ -1323,9 +1381,8 @@
       "point": "final",
       "a": "transformer",
       "b": "mlp",
-      "n_pairs": 0,
-      "seeds": [],
-      "seeds_only_a": [
+      "n_pairs": 10,
+      "seeds": [
         0,
         1,
         2,
@@ -1337,8 +1394,57 @@
         8,
         9
       ],
+      "seeds_only_a": [],
       "seeds_only_b": [],
-      "not_computed": "no seed has both sides",
+      "values_a": [
+        7835.0,
+        6110.0,
+        7985.0,
+        7285.0,
+        10125.0,
+        5485.0,
+        6185.0,
+        7610.0,
+        7985.0,
+        5685.0
+      ],
+      "values_b": [
+        9950.0,
+        8400.0,
+        7975.0,
+        9300.0,
+        9300.0,
+        9425.0,
+        9825.0,
+        9175.0,
+        10350.0,
+        9350.0
+      ],
+      "differences": [
+        -2115.0,
+        -2290.0,
+        10.0,
+        -2015.0,
+        825.0,
+        -3940.0,
+        -3640.0,
+        -1565.0,
+        -2365.0,
+        -3665.0
+      ],
+      "mean_diff": -2076.0,
+      "median_diff": -2202.5,
+      "bootstrap_ci95": [
+        -2935.0,
+        -1124.5
+      ],
+      "direction": "mixed",
+      "all_positive": false,
+      "all_negative": false,
+      "sign_test_p": 0.109375,
+      "cohens_dz": -1.3397920580650997,
+      "cliffs_delta": -0.78,
+      "ci95_contains_zero": false,
       "what_it_can_support": "that a difference survives, or does not survive, equalizing the parameter count; it does NOT equalize the shape of the budget, so capacity-allocation effects remain"
     },
     "structured_fraction_of_live": {
@@ -1346,9 +1452,8 @@
       "point": "final",
       "a": "transformer",
       "b": "mlp",
-      "n_pairs": 0,
-      "seeds": [],
-      "seeds_only_a": [
+      "n_pairs": 10,
+      "seeds": [
         0,
         1,
         2,
@@ -1360,8 +1465,57 @@
         8,
         9
       ],
+      "seeds_only_a": [],
       "seeds_only_b": [],
-      "not_computed": "no seed has both sides",
+      "values_a": [
+        0.96484375,
+        0.990234375,
+        0.966796875,
+        0.994140625,
+        0.98046875,
+        1.0,
+        0.986328125,
+        0.974609375,
+        0.982421875,
+        0.982421875
+      ],
+      "values_b": [
+        0.8951048951048951,
+        0.9143356643356644,
+        0.8671328671328671,
+        0.8828671328671329,
+        0.8863636363636364,
+        0.9265734265734266,
+        0.8304195804195804,
+        0.8216783216783217,
+        0.8513986013986014,
+        0.9020979020979021
+      ],
+      "differences": [
+        0.0697388548951049,
+        0.07589871066433562,
+        0.09966400786713292,
+        0.11127349213286708,
+        0.09410511363636365,
+        0.07342657342657344,
+        0.15590854458041958,
+        0.15293105332167833,
+        0.13102327360139865,
+        0.08032397290209792
+      ],
+      "mean_diff": 0.10442935970279721,
+      "median_diff": 0.09688456075174828,
+      "bootstrap_ci95": [
+        0.08629783790428322,
+        0.12399274065777974
+      ],
+      "direction": "a>b",
+      "all_positive": true,
+      "all_negative": false,
+      "sign_test_p": 0.001953125,
+      "cohens_dz": 3.223515782193629,
+      "cliffs_delta": 1.0,
+      "ci95_contains_zero": false,
       "what_it_can_support": "that a difference survives, or does not survive, equalizing the parameter count; it does NOT equalize the shape of the budget, so capacity-allocation effects remain"
     },
     "phase_R": {
@@ -1369,9 +1523,8 @@
       "point": "final",
       "a": "transformer",
       "b": "mlp",
-      "n_pairs": 0,
-      "seeds": [],
-      "seeds_only_a": [
+      "n_pairs": 10,
+      "seeds": [
         0,
         1,
         2,
@@ -1383,8 +1536,57 @@
         8,
         9
       ],
+      "seeds_only_a": [],
       "seeds_only_b": [],
-      "not_computed": "no seed has both sides",
+      "values_a": [
+        0.99511573843323,
+        0.9894872750058621,
+        0.990887882845428,
+        0.9893228343695744,
+        0.9877875947725753,
+        0.9950337496168515,
+        0.9860212462174819,
+        0.9969156119592372,
+        0.9932622748350523,
+        0.9947662681936331
+      ],
+      "values_b": [
+        0.9997180425817198,
+        0.9998391881334762,
+        0.9996550116991305,
+        0.999248994277755,
+        0.9993404204020052,
+        0.999314453298298,
+        0.99785717337358,
+        0.9986855320820367,
+        0.9997039283646214,
+        0.9996819977008796
+      ],
+      "differences": [
+        -0.004602304148489833,
+        -0.010351913127614076,
+        -0.008767128853702566,
+        -0.009926159908180687,
+        -0.011552825629429941,
+        -0.004280703681446507,
+        -0.011835927156098158,
+        -0.0017699201227995287,
+        -0.006441653529569158,
+        -0.004915729507246502
+      ],
+      "mean_diff": -0.0074444265664576955,
+      "median_diff": -0.007604391191635862,
+      "bootstrap_ci95": [
+        -0.00948174484024925,
+        -0.005391497402218602
+      ],
+      "direction": "a<b",
+      "all_positive": false,
+      "all_negative": true,
+      "sign_test_p": 0.001953125,
+      "cohens_dz": -2.127336707860089,
+      "cliffs_delta": -1.0,
+      "ci95_contains_zero": false,
       "what_it_can_support": "that a difference survives, or does not survive, equalizing the parameter count; it does NOT equalize the shape of the budget, so capacity-allocation effects remain"
     },
     "square_or_harmonic_fraction": {
@@ -1392,9 +1594,8 @@
       "point": "final",
       "a": "transformer",
       "b": "mlp",
-      "n_pairs": 0,
-      "seeds": [],
-      "seeds_only_a": [
+      "n_pairs": 10,
+      "seeds": [
         0,
         1,
         2,
@@ -1406,8 +1607,57 @@
         8,
         9
       ],
+      "seeds_only_a": [],
       "seeds_only_b": [],
-      "not_computed": "no seed has both sides",
+      "values_a": [
+        0.59765625,
+        0.3359375,
+        0.3984375,
+        0.5,
+        0.283203125,
+        0.234375,
+        0.23046875,
+        0.171875,
+        0.818359375,
+        0.779296875
+      ],
+      "values_b": [
+        0.7325174825174826,
+        0.8444055944055945,
+        0.6625874125874126,
+        0.6818181818181819,
+        0.43356643356643354,
+        0.9388111888111889,
+        0.7202797202797203,
+        0.701048951048951,
+        0.8496503496503496,
+        0.5437062937062938
+      ],
+      "differences": [
+        -0.1348612325174826,
+        -0.5084680944055945,
+        -0.2641499125874126,
+        -0.18181818181818188,
+        -0.15036330856643354,
+        -0.7044361888111889,
+        -0.4898109702797203,
+        -0.529173951048951,
+        -0.03129097465034958,
+        0.23559058129370625
+      ],
+      "mean_diff": -0.2758782233391609,
+      "median_diff": -0.22298404720279724,
+      "bootstrap_ci95": [
+        -0.43481660429414337,
+        -0.10822719760708051
+      ],
+      "direction": "mixed",
+      "all_positive": false,
+      "all_negative": false,
+      "sign_test_p": 0.021484375,
+      "cohens_dz": -0.979649088753383,
+      "cliffs_delta": -0.66,
+      "ci95_contains_zero": false,
       "what_it_can_support": "that a difference survives, or does not survive, equalizing the parameter count; it does NOT equalize the shape of the budget, so capacity-allocation effects remain"
     }
   },
@@ -1417,14 +1667,14 @@
       "point": "final",
       "a": "mlp_twohot",
       "b": "mlp",
-      "n_pairs": 1,
+      "n_pairs": 3,
       "seeds": [
-        0
+        0,
+        1,
+        2
       ],
       "seeds_only_a": [],
       "seeds_only_b": [
-        1,
-        2,
         3,
         4,
         5,
@@ -1434,25 +1684,31 @@
         9
       ],
       "values_a": [
-        12775.0
+        12775.0,
+        13300.0,
+        12500.0
       ],
       "values_b": [
-        9125.0
+        9125.0,
+        10075.0,
+        9175.0
       ],
       "differences": [
-        3650.0
-      ],
-      "mean_diff": 3650.0,
-      "median_diff": 3650.0,
-      "bootstrap_ci95": [
         3650.0,
+        3225.0,
+        3325.0
+      ],
+      "mean_diff": 3400.0,
+      "median_diff": 3325.0,
+      "bootstrap_ci95": [
+        3225.0,
         3650.0
       ],
       "direction": "a>b",
       "all_positive": true,
       "all_negative": false,
-      "sign_test_p": 1.0,
-      "cohens_dz": null,
+      "sign_test_p": 0.25,
+      "cohens_dz": 15.301195452593925,
       "cliffs_delta": 1.0,
       "ci95_contains_zero": false,
       "what_it_can_support": "that a difference is, or is not, attributable to the input parametrization rather than the architecture; with 3 seeds it can only show a large effect, and A NULL HERE IS WEAK EVIDENCE"
@@ -1462,14 +1718,14 @@
       "point": "final",
       "a": "mlp_twohot",
       "b": "mlp",
-      "n_pairs": 1,
+      "n_pairs": 3,
       "seeds": [
-        0
+        0,
+        1,
+        2
       ],
       "seeds_only_a": [],
       "seeds_only_b": [
-        1,
-        2,
         3,
         4,
         5,
@@ -1479,25 +1735,31 @@
         9
       ],
       "values_a": [
-        12545.0
+        12545.0,
+        13060.0,
+        12270.0
       ],
       "values_b": [
-        8965.0
+        8965.0,
+        9915.0,
+        9015.0
       ],
       "differences": [
-        3580.0
-      ],
-      "mean_diff": 3580.0,
-      "median_diff": 3580.0,
-      "bootstrap_ci95": [
         3580.0,
+        3145.0,
+        3255.0
+      ],
+      "mean_diff": 3326.6666666666665,
+      "median_diff": 3255.0,
+      "bootstrap_ci95": [
+        3145.0,
         3580.0
       ],
       "direction": "a>b",
       "all_positive": true,
       "all_negative": false,
-      "sign_test_p": 1.0,
-      "cohens_dz": null,
+      "sign_test_p": 0.25,
+      "cohens_dz": 14.707914375929647,
       "cliffs_delta": 1.0,
       "ci95_contains_zero": false,
       "what_it_can_support": "that a difference is, or is not, attributable to the input parametrization rather than the architecture; with 3 seeds it can only show a large effect, and A NULL HERE IS WEAK EVIDENCE"
@@ -1507,14 +1769,14 @@
       "point": "final",
       "a": "mlp_twohot",
       "b": "mlp",
-      "n_pairs": 1,
+      "n_pairs": 3,
       "seeds": [
-        0
+        0,
+        1,
+        2
       ],
       "seeds_only_a": [],
       "seeds_only_b": [
-        1,
-        2,
         3,
         4,
         5,
@@ -1524,25 +1786,31 @@
         9
       ],
       "values_a": [
-        0.681640625
+        0.681640625,
+        0.673828125,
+        0.697265625
       ],
       "values_b": [
-        0.880859375
+        0.880859375,
+        0.869140625,
+        0.8671875
       ],
       "differences": [
-        -0.19921875
+        -0.19921875,
+        -0.1953125,
+        -0.169921875
       ],
-      "mean_diff": -0.19921875,
-      "median_diff": -0.19921875,
+      "mean_diff": -0.18815104166666666,
+      "median_diff": -0.1953125,
       "bootstrap_ci95": [
         -0.19921875,
-        -0.19921875
+        -0.169921875
       ],
       "direction": "a<b",
       "all_positive": false,
       "all_negative": true,
-      "sign_test_p": 1.0,
-      "cohens_dz": null,
+      "sign_test_p": 0.25,
+      "cohens_dz": -11.827982606062337,
       "cliffs_delta": -1.0,
       "ci95_contains_zero": false,
       "what_it_can_support": "that a difference is, or is not, attributable to the input parametrization rather than the architecture; with 3 seeds it can only show a large effect, and A NULL HERE IS WEAK EVIDENCE"
@@ -1552,14 +1820,14 @@
       "point": "final",
       "a": "mlp_twohot",
       "b": "mlp",
-      "n_pairs": 1,
+      "n_pairs": 3,
       "seeds": [
-        0
+        0,
+        1,
+        2
       ],
       "seeds_only_a": [],
       "seeds_only_b": [
-        1,
-        2,
         3,
         4,
         5,
@@ -1569,27 +1837,33 @@
         9
       ],
       "values_a": [
-        0.9994858913236825
+        0.9994858913236825,
+        0.999354590822804,
+        0.999378421616403
       ],
       "values_b": [
-        0.9996821962022615
+        0.9996821962022615,
+        0.9995503135069195,
+        0.9992849114995066
       ],
       "differences": [
-        -0.00019630487857902335
+        -0.00019630487857902335,
+        -0.00019572268411549576,
+        9.351011689640032e-05
       ],
-      "mean_diff": -0.00019630487857902335,
-      "median_diff": -0.00019630487857902335,
+      "mean_diff": -9.950581526603959e-05,
+      "median_diff": -0.00019572268411549576,
       "bootstrap_ci95": [
         -0.00019630487857902335,
-        -0.00019630487857902335
+        9.351011689640032e-05
       ],
-      "direction": "a<b",
+      "direction": "mixed",
       "all_positive": false,
-      "all_negative": true,
+      "all_negative": false,
       "sign_test_p": 1.0,
-      "cohens_dz": null,
-      "cliffs_delta": -1.0,
-      "ci95_contains_zero": false,
+      "cohens_dz": -0.5952837309610324,
+      "cliffs_delta": -0.3333333333333333,
+      "ci95_contains_zero": true,
       "what_it_can_support": "that a difference is, or is not, attributable to the input parametrization rather than the architecture; with 3 seeds it can only show a large effect, and A NULL HERE IS WEAK EVIDENCE"
     },
     "square_or_harmonic_fraction": {
@@ -1597,14 +1871,14 @@
       "point": "final",
       "a": "mlp_twohot",
       "b": "mlp",
-      "n_pairs": 1,
+      "n_pairs": 3,
       "seeds": [
-        0
+        0,
+        1,
+        2
       ],
       "seeds_only_a": [],
       "seeds_only_b": [
-        1,
-        2,
         3,
         4,
         5,
@@ -1614,25 +1888,31 @@
         9
       ],
       "values_a": [
-        0.865234375
+        0.865234375,
+        0.8515625,
+        0.859375
       ],
       "values_b": [
-        0.654296875
+        0.654296875,
+        0.73828125,
+        0.67578125
       ],
       "differences": [
-        0.2109375
-      ],
-      "mean_diff": 0.2109375,
-      "median_diff": 0.2109375,
-      "bootstrap_ci95": [
         0.2109375,
+        0.11328125,
+        0.18359375
+      ],
+      "mean_diff": 0.16927083333333334,
+      "median_diff": 0.18359375,
+      "bootstrap_ci95": [
+        0.11328125,
         0.2109375
       ],
       "direction": "a>b",
       "all_positive": true,
       "all_negative": false,
-      "sign_test_p": 1.0,
-      "cohens_dz": null,
+      "sign_test_p": 0.25,
+      "cohens_dz": 3.3599471955643336,
       "cliffs_delta": 1.0,
       "ci95_contains_zero": false,
       "what_it_can_support": "that a difference is, or is not, attributable to the input parametrization rather than the architecture; with 3 seeds it can only show a large effect, and A NULL HERE IS WEAK EVIDENCE"

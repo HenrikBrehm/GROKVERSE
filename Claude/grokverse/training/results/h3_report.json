@@ -1,8 +1,8 @@
 {
   "module": "h3_report",
   "module_version": "1.0",
-  "created_utc": "2026-09-04T00:46:49.922417+00:00",
-  "analysis_git_commit": "40cc8b0e560e457b5c7242cb6694141cb6676826",
+  "created_utc": "2026-09-04T04:10:14.138110+00:00",
+  "analysis_git_commit": "bb4c7c0319639c9062029097a4953ba46918b1ff",
   "measurement_point": "final",
   "difference_definition": "d_s = x_transformer(s) - x_mlp(s)",
   "gate": {

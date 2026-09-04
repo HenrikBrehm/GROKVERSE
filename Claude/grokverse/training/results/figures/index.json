@@ -1,8 +1,8 @@
 {
   "module": "figures_study",
   "module_version": "1.0",
-  "created_utc": "2026-09-03T23:44:21.473051+00:00",
-  "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+  "created_utc": "2026-09-04T04:10:22.272170+00:00",
+  "analysis_git_commit": "bb4c7c0319639c9062029097a4953ba46918b1ff",
   "aggregate_dir": "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\results\\aggregate",
   "rule": "exactly the eight paired comparisons of STATISTICAL_ANALYSIS_PLAN \u00a73, plus a gate summary; the count is fixed in advance and does not grow",
   "source_rule": "drawn from results/aggregate/*.json only \u2014 no checkpoint is read",

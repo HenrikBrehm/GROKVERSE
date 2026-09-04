@@ -1,8 +1,8 @@
 {
   "module": "statistics_report",
   "module_version": "1.0",
-  "created_utc": "2026-09-04T00:13:00.716583+00:00",
-  "analysis_git_commit": "1076deea356bf979380959d7ecb9e7de5f57e79a",
+  "created_utc": "2026-09-04T04:10:11.507587+00:00",
+  "analysis_git_commit": "bb4c7c0319639c9062029097a4953ba46918b1ff",
   "aggregate_dir": "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\results\\aggregate",
   "n_boot": 10000,
   "seed": 0,

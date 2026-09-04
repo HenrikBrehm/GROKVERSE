@@ -177,7 +177,26 @@ def check_full_aggregate(tmp: Path):
           {"n_rows", "n_missing", "n_not_applicable", "n_runs_applicable"}
           <= set(index["modules"]["mlp_mechanism"]))
     check("the commit and the run pattern are recorded for reproducibility",
-          index["analysis_git_commit"] and index["runs_pattern"] == "*_arch25k")
+          index["analysis_git_commit"] and index["runs_pattern"] == ["*_arch25k"])
+
+    # Several globs must be accepted. A single pattern cannot isolate the primary block:
+    # `*_frac0.3_seed*_arch25k` also matches the two-hot runs (`m2h_..._frac0.3_seed0_arch25k`),
+    # which put a third architecture into the primary tables and, through decision_tree, turned the
+    # gate's branch from `neither_passes` into `undetermined` (2026-09-04).
+    base2 = tmp / "runs6"
+    _make_run(base2, "txf_x_arch25k", "transformer", 0,
+              {"mlp_mechanism": _mech_payload(0.3, 0.9, 0.6)})
+    _make_run(base2, "mlp_x_arch25k", "mlp", 0, {"mlp_mechanism": _mech_payload(0.3, 0.9, 0.6)})
+    _make_run(base2, "m2h_x_arch25k", "mlp_twohot", 0,
+              {"mlp_mechanism": _mech_payload(0.3, 0.9, 0.6)})
+    multi = AG.aggregate(["txf_*_arch25k", "mlp_*_arch25k"], ("mlp_mechanism",), base=base2,
+                         out_dir=tmp / "agg_multi")
+    check("several globs are accepted and both are recorded",
+          multi["runs_pattern"] == ["txf_*_arch25k", "mlp_*_arch25k"] and multi["n_runs"] == 2)
+    check("...and the pattern that was NOT given is excluded",
+          "m2h_x_arch25k" not in multi["runs"])
+    one = AG.aggregate("*_arch25k", ("mlp_mechanism",), base=base2, out_dir=tmp / "agg_one")
+    check("a single glob given as a bare string still works", one["n_runs"] == 3)
     check("the 'all seeds shown' rule is stated in the document itself",
           "All seeds are shown" in (out / "TABLES.md").read_text(encoding="utf-8"))
     check("a module with no outputs at all is still listed, with zero rows",

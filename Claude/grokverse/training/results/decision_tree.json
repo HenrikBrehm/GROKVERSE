@@ -1,8 +1,8 @@
 {
   "module": "decision_tree",
   "module_version": "1.0",
-  "created_utc": "2026-09-03T23:42:35.153167+00:00",
-  "analysis_git_commit": "51f81222b2b8de6299b1f610b187617a2aaff970",
+  "created_utc": "2026-09-04T04:10:00.973123+00:00",
+  "analysis_git_commit": "bb4c7c0319639c9062029097a4953ba46918b1ff",
   "aggregate_dir": "C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\results\\aggregate",
   "measurement_point": "final",
   "structured_definition": "primary",

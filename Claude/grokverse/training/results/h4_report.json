@@ -1,8 +1,8 @@
 {
   "module": "h4_report",
   "module_version": "1.0",
-  "created_utc": "2026-09-04T01:42:14.732355+00:00",
-  "analysis_git_commit": "0c2783260e331ec009d9fc5ce2ac6dd232bbfc7d",
+  "created_utc": "2026-09-04T04:10:15.180660+00:00",
+  "analysis_git_commit": "bb4c7c0319639c9062029097a4953ba46918b1ff",
   "n_rows": 20,
   "hypothesis": "H4: mechanistic structure metrics rise already during the memorization plateau and precede the generalization jump",
   "reading": "CORRELATIONAL. Structure preceding generalization is consistent with H4; it cannot show that the structure caused the jump, nor that it had to form. Causal claims come from analysis/causal_ablation.py alone.",

@@ -398,19 +398,27 @@ def markdown_table(block: dict, columns: list[str] | None = None, max_columns: i
     return "\n".join(out) + "\n"
 
 
-def aggregate(runs: str = "*_arch25k", modules=MODULES, base: Path | None = None,
+def aggregate(runs="*_arch25k", modules=MODULES, base: Path | None = None,
               out_dir: Path | None = None) -> dict:
-    """Collect every module over every matching completed run and write the tables."""
+    """Collect every module over every matching completed run and write the tables.
+
+    ``runs`` is one glob or a list of them. Several are needed because the study's blocks are not
+    separable by a single pattern: `*_frac0.3_seed*_arch25k` also matches the two-hot runs
+    (`m2h_add_p113_wd1.0_frac0.3_seed0_arch25k`), which put a third architecture into the primary
+    tables and, through `decision_tree`, silently turned the gate's branch from `neither_passes`
+    into `undetermined` (2026-09-04).
+    """
     from .driver import resolve_runs
-    run_dirs = resolve_runs([runs], base)
+    patterns = [runs] if isinstance(runs, str) else list(runs)
+    run_dirs = resolve_runs(patterns, base)
     out_dir = Path(out_dir) if out_dir else (runs_dir().parent / "results" / "aggregate")
     out_dir.mkdir(parents=True, exist_ok=True)
     index = {"module": MODULE, "module_version": MODULE_VERSION, "created_utc": utcnow(),
-             "analysis_git_commit": git_commit(), "runs_pattern": runs,
+             "analysis_git_commit": git_commit(), "runs_pattern": patterns,
              "n_runs": len(run_dirs), "runs": [d.name for d in run_dirs], "modules": {}}
     md = [f"# Aggregated analysis tables\n",
           f"Generated {index['created_utc']} at commit `{index['analysis_git_commit']}` over "
-          f"{len(run_dirs)} runs matching `{runs}`.\n",
+          f"{len(run_dirs)} runs matching `{patterns}`.\n",
           "Every row is one run at one measurement point. **All seeds are shown** — no row is "
           "averaged away (master prompt §16). Numbers are copied from the per-run files named in "
           "`source_file`; nothing here is recomputed.\n"]
@@ -431,7 +439,8 @@ def aggregate(runs: str = "*_arch25k", modules=MODULES, base: Path | None = None
 
 def main() -> None:
     ap = argparse.ArgumentParser(description="Collect per-run analysis JSONs (INTERFACES §13)")
-    ap.add_argument("--runs", default="*_arch25k")
+    ap.add_argument("--runs", nargs="+", default=["*_arch25k"],
+                    help="one or more globs; several are needed to isolate a block cleanly")
     ap.add_argument("--only", nargs="+", default=None)
     ap.add_argument("--out", type=Path, default=None)
     args = ap.parse_args()

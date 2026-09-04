@@ -766,3 +766,45 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     entry for 2026-09-04 states plainly that the session produced **two negative results the AI
     reported rather than avoided** — the gate's `neither_passes` and H3's refutation by its own
     criterion. All eleven `[HUMAN AUTHORS MUST COMPLETE]` placeholders remain untouched.
+95. **Control blocks analysed: 181 ok, 1 failed, 13 skipped — and the one failure was a race in my own
+    code.** `causal_ablation` reads the *mechanism* module's `.npz` to reuse its structured-neuron
+    masks, and with 8 driver workers a run's mechanism call and its ablation call can overlap, so the
+    read hit a half-written archive and raised `BadZipFile`. The guard only covered a **missing**
+    file, not an unreadable one. An unreadable npz is now treated exactly like a missing one —
+    recompute, and say so in `source` — and the failed call re-runs cleanly. Post-freeze bug fix under
+    §9; no threshold, definition, control or statistic touched.
+96. **A near-miss that would have changed the study's headline, caught by checking rather than
+    trusting.** After the two-hot runs appeared, the glob `*_frac0.3_seed*_arch25k` — which had
+    isolated the primary block all night — also matched `m2h_add_p113_wd1.0_frac0.3_seed0_arch25k`.
+    That put a **third architecture** into the primary tables, and `decision_tree`, seeing an
+    architecture with 3 of 10 seeds, correctly returned `None` for it and therefore reported the
+    branch as **`undetermined`** instead of `neither_passes`. The arithmetic was right; the input was
+    wrong. `aggregate` now takes several globs (`--runs A B`), the primary block is addressed as
+    `txf_…_seed?_arch25k` + `mlp_…_seed?_arch25k`, and `tests/test_aggregate.py` pins that multiple
+    patterns work and that an unlisted prefix is excluded. Every report was regenerated afterwards and
+    reproduces the earlier numbers exactly.
+97. **The parameter-matched control: every structure difference survives.** Ten paired seeds,
+    transformer (`d_mlp = 512`) against the MLP at `d_mlp = 572` (+0.02 % of the transformer's
+    parameter count), final checkpoint, medians with 95 % bootstrap CIs:
+
+    | quantity | parameter-matched | primary comparison |
+    |---|---|---|
+    | generalization step | **−2,212** [−2,945, −1,132] | −1,562 |
+    | structured fraction | **+0.0969** [+0.086, +0.124] | +0.0850 |
+    | phase-relation `R` | **−0.0076** [−0.0095, −0.0054] | −0.0074 |
+    | square/odd-harmonic fraction | **−0.223** [−0.435, −0.108] | −0.324 |
+
+    Every interval excludes zero and every value sits close to the unmatched comparison, so the ~10 %
+    parameter-count gap does **not** explain the architecture differences. As `STATISTICAL_ANALYSIS_PLAN`
+    §8 states, this does not equalize the *shape* of the budget, so capacity-allocation effects are not
+    ruled out.
+98. **The two-hot control changes what may be said about the waveform result.** Three paired seeds,
+    two-hot MLP against the shared-embedding MLP: generalization step **+3,325** [+3,225, +3,650]
+    (the two-hot model crosses later), structured fraction **−0.195**, phase-relation `R` **spans
+    zero**, and the square/odd-harmonic best-fit fraction **+0.184** [+0.113, +0.211] — the two-hot
+    model is **more** square-wave-like than the shared-embedding MLP. Swaroop's square-wave result is
+    reported for a two-hot MLP, and our shared-embedding MLP shows *less* of that character than a
+    two-hot one does. So part of the waveform difference is attributable to the **input
+    parametrization**, exactly the confound master prompt §14 warned against labelling as an
+    architecture effect. Three seeds can only show a large effect; this one is large, but it is three
+    seeds.

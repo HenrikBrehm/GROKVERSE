@@ -13,13 +13,13 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] E1 — analysis code frozen at `0b55e1d`; recorded in `PREREGISTRATION.md` §12 (commit `1e3f646`)
 - [x] E2 — finished 2026-09-03T23:00:43Z, exit 1: **196 ok, 84 failed, 20 skipped** (`results/analysis_driver.json`). Failures were 3 module bugs, all now fixed (labbook 56–57, 60): key_frequencies 40 + progress_measures 20 (seed arg), wave_fitting 24 (IndexError ×4, wrong arch declaration ×20)
 - [x] E3 — training chain finished 2026-09-04T02:46:36Z; **51 runs, all completed, none failed** (primary 20, confound 18, param_matched 10, two-hot 3); `training/results/` committed
-- [~] E4 — primary ✓ and confound ✓ (234 ok, 0 failed) analysed; param_matched + two-hot launched at 8 workers
+- [x] E4 — every block analysed: primary 280, confound 234 ok/0 failed, controls 181 ok/1 failed (a race, fixed and re-run); aggregate over all 51 runs shows **0 missing**
 - [ ] E5 — seed-0 pilot outputs re-run under the freeze commit —
 - [x] E6 — re-run at commit `eeeef82`: **80 ok, 0 failed**; primary block now complete, 0 missing rows in every module
 - [x] F — `aggregate`, `decision_tree`, `figures_study`, `bounded_alternative` + tests — suite 20/20, 1,794 checks
 - [x] G1 — aggregate (0 missing) + gate at both points; **branch: `neither_passes` at final** (G1/G2/G3 10/10 both, G4 0/10 both), `undetermined` at crossing — labbook 62–65, `results/decision_tree_{final,crossing}.json`
 - [x] G2 — `analysis/statistics_report.py` + tests; the 8 pre-specified comparisons (10 rows) with per-seed differences, bootstrap CIs, exact tests, effect sizes, Holm aid and the §6 timing bounds — `results/statistics.json`, suite 21/21
-- [~] G3 — confound block (18 runs) complete 00:40:48 UTC and its analysis launched; `param_matched` training, `twohot` queued
+- [x] G3 — all three control comparisons done: Grokfast/`train_frac` separated, parameter-matched (differences survive), two-hot (waveform result is partly input parametrization) — `results/controls_report.json`, labbook 90–91, 97–98
 - [x] G4b — `analysis/h4_report.py` + tests: structure onset precedes generalization in 10/10 seeds, both architectures — `results/h4_report.json`, labbook 79–81
 - [x] G4c — bounded alternative-mechanism analysis: **20 ok, 0 failed**; probes at ceiling vs chance controls, effective rank 12.7 (txf) vs 66.6 (MLP), transformer destroyed by removing its top-16 directions while the MLP is unaffected, cross-seed CKA low in both — `results/aggregate/bounded_alternative.json`, `results/cross_seed_cka.json`, labbook 83–86
 - [x] G4 — `analysis/h3_report.py` + tests; both refutation criteria applied literally. **H3 is REFUTED** by criterion 2 (family gap +0.0850, CI [+0.0600, +0.1004]); the family definition closes only 5.4 % of the gap — `results/h3_report.json`, labbook 70–74
@@ -45,8 +45,8 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 | 9 | evidence gate evaluated, branch named | **done**: `neither_passes` at final, `undetermined` at crossing | `results/decision_tree_*.json` |
 | 10 | primary setting with multiple paired seeds | done | 20/20, shared split hashes |
 | 11 | main effects with confidence intervals | **done**: 8 comparisons, bootstrap CIs, all seeds shown | `results/statistics.json` |
-| 12 | parameter count + input parametrization as confounds | docs done; `param_matched`/`twohot` blocks training (stage G3) | |
-| 13 | grokking times with measurement interval | in manifests, not reported (stage G2) | |
+| 12 | parameter count + input parametrization as confounds | **done**: both measured; differences survive matching, waveform result is partly parametrization | `results/controls_report.json` |
+| 13 | grokking times with measurement interval | **done**: interval-consistent bounds, 10/10 seed intervals exclude zero | `results/statistics.json` |
 | 14 | delineation vs Manir/Rupa, Swaroop, Doshi, Khanh; H1/H2 as replication | done | `docs/NOVELTY_AND_RELATED_WORK.md` |
 | 15 | every figure reproducible from stored raw data | **done**: 11 figures from the aggregate tables only | `results/figures/index.json` |
 | 16 | negative results documented | **two so far**: gate `neither_passes` and H3 refuted by its own criterion | labbook 62–63, 70 |

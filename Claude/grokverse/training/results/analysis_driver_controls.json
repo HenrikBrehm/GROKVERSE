@@ -1,0 +1,1799 @@
+{
+  "runs": [
+    "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+    "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+    "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k"
+  ],
+  "points": [
+    "crossing",
+    "final"
+  ],
+  "key_rule": "nanda",
+  "seed": 0,
+  "n_calls": 182,
+  "analysis_git_commit": "96aa7fabeb03452e0ff8212e93f468d2ee592ea5",
+  "started_utc": "2026-09-04T03:51:24.369092+00:00",
+  "outcomes": [
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp_twohot'",
+      "seconds": 0.0
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp_twohot'",
+      "seconds": 0.0
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp_twohot'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 872.67
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 425.27
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 12775,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.87
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.89
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 12775,
+      "status": "ok",
+      "detail": "",
+      "seconds": 58.63
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 58.27
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 12775,
+      "status": "ok",
+      "detail": "",
+      "seconds": 32.61
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 33.39
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 12775,
+      "status": "ok",
+      "detail": "",
+      "seconds": 111.57
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 133.11
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 12775,
+      "status": "ok",
+      "detail": "",
+      "seconds": 45.11
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 44.26
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 12775,
+      "status": "failed",
+      "detail": "BadZipFile: File is not a zip file\nTraceback (most recent call last):\n  File \"C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\grokverse\\analysis\\driver.py\", line 173, in _execute\n    entry(run_dir, step=step, **kwargs)\n  File \"C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\grokverse\\analysis\\causal_ablation.py\", line 774, in analyse\n    masks = resolve_structured_masks(run_dir, meta[\"tag\"], cfg.arch, curves, cfg, key_freqs,\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\grokverse\\analysis\\causal_ablation.py\", line 739, in resolve_structured_masks\n    with np.load(npz) as z:\n         ^^^^^^^^^^^^\nzipfile.BadZipFile: File is not a zip file\n",
+      "seconds": 0.08
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 664.03
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 841.58
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 425.84
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 13300,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.05
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.01
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 13300,
+      "status": "ok",
+      "detail": "",
+      "seconds": 41.2
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 40.98
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 13300,
+      "status": "ok",
+      "detail": "",
+      "seconds": 29.87
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 25.48
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 13300,
+      "status": "ok",
+      "detail": "",
+      "seconds": 156.93
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 163.08
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 13300,
+      "status": "ok",
+      "detail": "",
+      "seconds": 30.56
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 29.97
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 13300,
+      "status": "ok",
+      "detail": "",
+      "seconds": 627.96
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 634.89
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 724.88
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 405.24
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 12500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.42
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.21
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 12500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 25.66
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 26.19
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 12500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 13.63
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 13.74
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 12500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 139.15
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 146.27
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 12500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 16.28
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 16.29
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 12500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 711.28
+    },
+    {
+      "run": "m2h_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 734.55
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 418.93
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 155.89
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 10100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.28
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.27
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 10100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 23.87
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 33.91
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 10100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 15.14
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.35
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 10100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 163.5
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 30.43
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 10100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 23.52
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 19.92
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 10100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 496.23
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 357.62
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 388.24
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 136.82
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.7
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.02
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 8550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 26.3
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 31.98
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 8550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 11.94
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 8.13
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 8550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 148.79
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 32.5
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 8550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 21.16
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 18.27
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 477.07
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 346.51
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 356.78
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 144.09
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.44
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.43
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 26.66
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 25.73
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 15.72
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.94
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 110.62
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 27.78
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 33.91
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 25.83
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 466.05
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 363.6
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 398.06
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 161.21
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.44
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.25
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 25.39
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 27.4
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 17.27
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.07
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 176.31
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 32.99
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 30.76
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 28.24
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 508.16
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 387.89
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 368.62
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 124.86
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.27
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.41
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 24.77
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 32.46
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 16.39
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 8.8
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 174.24
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 24.3
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 32.33
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 26.67
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9450,
+      "status": "ok",
+      "detail": "",
+      "seconds": 546.88
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 362.23
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 378.53
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 165.71
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9575,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.42
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.41
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9575,
+      "status": "ok",
+      "detail": "",
+      "seconds": 27.04
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 40.01
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9575,
+      "status": "ok",
+      "detail": "",
+      "seconds": 13.59
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 10.56
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9575,
+      "status": "ok",
+      "detail": "",
+      "seconds": 147.2
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 40.77
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9575,
+      "status": "ok",
+      "detail": "",
+      "seconds": 22.46
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 22.68
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9575,
+      "status": "ok",
+      "detail": "",
+      "seconds": 554.59
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 387.76
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 375.89
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 138.68
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9975,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.37
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.79
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9975,
+      "status": "ok",
+      "detail": "",
+      "seconds": 29.61
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 26.17
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9975,
+      "status": "ok",
+      "detail": "",
+      "seconds": 16.53
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 10.66
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9975,
+      "status": "ok",
+      "detail": "",
+      "seconds": 173.53
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 25.95
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9975,
+      "status": "ok",
+      "detail": "",
+      "seconds": 31.35
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 23.5
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9975,
+      "status": "ok",
+      "detail": "",
+      "seconds": 548.69
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 388.78
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 396.33
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 160.75
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.53
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.1
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 25.6
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 22.73
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 15.93
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 11.51
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 172.88
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 31.97
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 22.86
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 23.26
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 525.44
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 393.9
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 386.66
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 164.14
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 10500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.36
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.36
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 10500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 23.74
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 27.29
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 10500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 14.95
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 13.53
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 10500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 173.76
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 35.06
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 10500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 22.33
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 23.52
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 10500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 404.31
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 329.51
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 324.37
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 162.78
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.38
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.58
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 24.16
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 28.55
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 12.5
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 10.13
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 140.11
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 43.29
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 22.46
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 23.95
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9500,
+      "status": "ok",
+      "detail": "",
+      "seconds": 209.8
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 186.44
+    }
+  ],
+  "summary": {
+    "counts": {
+      "skipped": 13,
+      "ok": 181,
+      "failed": 1
+    },
+    "failed": [
+      {
+        "run": "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
+        "module": "causal_ablation",
+        "point": "crossing",
+        "detail": "BadZipFile: File is not a zip file\nTraceback (most recent call last):\n  File \"C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\grokverse\\analysis\\driver.py\", line 173, in _execute\n    entry(run_dir, step=step, **kwargs)\n  File \"C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\grokverse\\analysis\\causal_ablation.py\", line 774, in analyse\n    masks = resolve_structured_masks(run_dir, meta[\"tag\"], cfg.arch, curves, cfg, key_freqs,\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\henri\\Documents\\Brain\\bwki\\Claude\\grokverse\\training\\grokverse\\analysis\\causal_ablation.py\", line 739, in resolve_structured_masks\n    with np.load(npz) as z:\n         ^^^^^^^^^^^^\nzipfile.BadZipFile: File is not a zip file\n"
+      }
+    ],
+    "missing_modules": []
+  }
+}

@@ -736,19 +736,35 @@ def resolve_structured_masks(run_dir: Path, tag: str, arch: str, curves: dict, c
     npz = Path(run_dir) / "analysis" / module / f"{tag}.npz"
     wanted = (definition,) + SENSITIVITY_DEFINITIONS
     if npz.exists():
-        with np.load(npz) as z:
-            have = {d for d in wanted if f"mask__{d}" in z.files}
-            if "mask__alive" in z.files and definition in have:
-                return {"sets": {d: np.asarray(z[f"mask__{d}"], dtype=bool) for d in have},
-                        "alive": np.asarray(z["mask__alive"], dtype=bool),
-                        "primary": definition,
-                        "source": f"analysis/{module}/{tag}.npz"}
+        # The file belongs to ANOTHER module, and the driver may still be writing it: with 8 workers
+        # a run's mechanism call and its ablation call can overlap, and a half-written npz raises
+        # BadZipFile rather than looking absent. That failed 1 of 181 calls on 2026-09-04. An
+        # unreadable file is therefore treated exactly like a missing one — recompute, and say so in
+        # `source` — instead of aborting the analysis.
+        try:
+            with np.load(npz) as z:
+                have = {d for d in wanted if f"mask__{d}" in z.files}
+                if "mask__alive" in z.files and definition in have:
+                    return {"sets": {d: np.asarray(z[f"mask__{d}"], dtype=bool) for d in have},
+                            "alive": np.asarray(z["mask__alive"], dtype=bool),
+                            "primary": definition,
+                            "source": f"analysis/{module}/{tag}.npz"}
+        except Exception as exc:                       # recorded in `source`, never swallowed
+            return _recompute_structured_masks(
+                curves, cfg, key_freqs, definition, wanted,
+                f"recomputed here ({module} npz unreadable: {type(exc).__name__}: {exc})")
+    return _recompute_structured_masks(curves, cfg, key_freqs, definition, wanted,
+                                       f"recomputed here ({module} npz not found)")
+
+
+def _recompute_structured_masks(curves: dict, cfg: Config, key_freqs, definition: str,
+                                wanted, source: str) -> dict:
+    """The structured-neuron sets computed from scratch, with the reason recorded in ``source``."""
     tables = neuron_tables(curves, cfg.p)
     act = activation_analysis(curves, cfg.p, key_freqs, n_exemplars=0)
     defs = structured_neuron_definitions(tables, act)
     return {"sets": {d: defs["definitions"][d]["mask"] for d in wanted if d in defs["definitions"]},
-            "alive": defs["alive"], "primary": definition,
-            "source": f"recomputed here ({module} npz not found)"}
+            "alive": defs["alive"], "primary": definition, "source": source}
 
 
 # --------------------------------------------------------------------------- #
