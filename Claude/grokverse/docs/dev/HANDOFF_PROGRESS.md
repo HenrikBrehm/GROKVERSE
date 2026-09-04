@@ -20,6 +20,8 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] G1 — aggregate (0 missing) + gate at both points; **branch: `neither_passes` at final** (G1/G2/G3 10/10 both, G4 0/10 both), `undetermined` at crossing — labbook 62–65, `results/decision_tree_{final,crossing}.json`
 - [x] G2 — `analysis/statistics_report.py` + tests; the 8 pre-specified comparisons (10 rows) with per-seed differences, bootstrap CIs, exact tests, effect sizes, Holm aid and the §6 timing bounds — `results/statistics.json`, suite 21/21
 - [~] G3 — confound block (18 runs) complete 00:40:48 UTC and its analysis launched; `param_matched` training, `twohot` queued
+- [x] G4b — `analysis/h4_report.py` + tests: structure onset precedes generalization in 10/10 seeds, both architectures — `results/h4_report.json`, labbook 79–81
+- [~] G4c — bounded alternative-mechanism analysis (pre-committed by `neither_passes`) running over the 20 primary runs — `results/bounded_alternative_out.log`
 - [x] G4 — `analysis/h3_report.py` + tests; both refutation criteria applied literally. **H3 is REFUTED** by criterion 2 (family gap +0.0850, CI [+0.0600, +0.1004]); the family definition closes only 5.4 % of the gap — `results/h3_report.json`, labbook 70–74
 - [x] G5 — all 11 figures drawn from the aggregate tables only, captions naming sources — `results/figures/index.json`
 - [x] G6 — `docs/CLAIM_EVIDENCE_TABLE.md`: 8 claims in the §21 six-part structure, a forbidden-claims table, and what each pending item would settle

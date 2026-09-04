@@ -627,3 +627,38 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
 78. **Confound block complete and under analysis.** The training chain finished the 18 confound runs
     at 00:40:48 UTC (exit 0) and moved to `param_matched`. The analysis driver was launched over the
     confound runs at 01:0x UTC; `param_matched` trains concurrently.
+79. **H4 evaluated across seeds (`results/h4_report.json`, `analysis/h4_report.py`, 20 checks) — and
+    it holds.** The ordering H4 asserts is memorization → structure onset → generalization. Medians
+    over 10 seeds per architecture:
+
+    | | transformer | MLP |
+    |---|---|---|
+    | memorization | 140 | 160 |
+    | structured-fraction onset | 1,000 | 1,000 |
+    | key-subspace-share onset | 500 | 500 |
+    | generalization | 7,588 | 9,250 |
+
+    `structured_fraction_of_live`, `embedding_top8_concentration`, `logit_key_subspace_share` and
+    `median_family_fraction` each place their onset **after memorization and before generalization in
+    10 of 10 seeds, in both architectures**. The change from `init` to `pre_generalization` is
+    +0.450 (transformer) and +0.260 (MLP) for the structured fraction.
+80. **Two metrics honestly report nothing rather than something.** `phase_relation_R` has **no**
+    defined onset on any seed, because at `init` the structured set is empty and the resultant length
+    is `null` rather than a fabricated 0 (entry 48) — so the onset rule has no baseline to work from.
+    `fraction_best_aic_square` is flat, so no onset fires. Both are reported as `0/0` with the
+    denominator visible; `median_odd_minus_even_u_a` is defined on 8/10 MLP and only **2/10**
+    transformer seeds, and "2 of 2" is printed next to its denominator precisely so it cannot be read
+    as "2 of 10 failed".
+81. **What H4 does and does not license.** Structure demonstrably precedes generalization here, on
+    every seed, for four metrics. The analysis is nevertheless **correlational** and says so in its
+    own output: it cannot show the structure caused the jump, and the onset indicator's baseline
+    standard deviation is taken over two checkpoints, so the step is sensitive to the checkpoint grid.
+    Causal claims come from `causal_ablation` alone — where, for the structured-neuron set, they
+    **fail** (entry 63). H4 and G4 are therefore not in tension: structure forms early *and* the
+    pre-registered threshold selects too many neurons for an ablation to identify it.
+82. **The `neither_passes` branch's obligation is running.** `PREREGISTRATION.md` §6.3 pre-commits the
+    bounded alternative-mechanism analysis when no architecture passes the gate, for **both**
+    architectures. `run_bounded_alternative.py` was launched over the 20 primary runs. Early results
+    are uniform: the linear probe decodes `(a+b) mod 113` from the hidden layer at **1.000** while its
+    shuffled-label control sits at **0.008–0.010** against a chance level of 0.009, and the hidden
+    layer's entropy effective rank is ~59–66 of 512 dimensions.

@@ -1,0 +1,7 @@
+20 runs
+  mlp_add_p113_wd1.0_frac0.3_seed0_arch25k       linear 1.000 (control 0.009, chance 0.009)  eff.rank 74.6  [68s]
+  mlp_add_p113_wd1.0_frac0.3_seed1_arch25k       linear 1.000 (control 0.012, chance 0.009)  eff.rank 64.9  [63s]
+  mlp_add_p113_wd1.0_frac0.3_seed2_arch25k       linear 1.000 (control 0.010, chance 0.009)  eff.rank 64.0  [68s]
+  mlp_add_p113_wd1.0_frac0.3_seed3_arch25k       linear 1.000 (control 0.010, chance 0.009)  eff.rank 59.1  [75s]
+  mlp_add_p113_wd1.0_frac0.3_seed4_arch25k       linear 1.000 (control 0.008, chance 0.009)  eff.rank 65.1  [53s]
+  mlp_add_p113_wd1.0_frac0.3_seed5_arch25k       linear 1.000 (control 0.009, chance 0.009)  eff.rank 66.2  [44s]
