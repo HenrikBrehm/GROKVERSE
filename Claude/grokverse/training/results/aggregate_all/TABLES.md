@@ -1,6 +1,6 @@
 # Aggregated analysis tables
 
-Generated 2026-09-04T04:08:26.322255+00:00 at commit `bb4c7c0319639c9062029097a4953ba46918b1ff` over 51 runs matching `*_arch25k`.
+Generated 2026-09-04T04:34:56.752095+00:00 at commit `75d92ce2e5c691de089406ac2a927bd5cdfc7bed` over 51 runs matching `['*_arch25k']`.
 
 Every row is one run at one measurement point. **All seeds are shown** — no row is averaged away (master prompt §16). Numbers are copied from the per-run files named in `source_file`; nothing here is recomputed.
 
@@ -671,59 +671,59 @@ Every row is one run at one measurement point. **All seeds are shown** — no ro
 
 ### progress_measures  (51 rows, 0 missing)
 
-| run_id | arch | seed | tag | step | train_frac | weight_decay | grokfast | eval_every_test | eval_every_train | steps_completed | memorization_step | generalization_step | legacy_broad_mask__restricted | legacy_broad_mask__excluded | nanda_exact__restricted | nanda_exact__excluded |
+| run_id | arch | seed | tag | step | train_frac | weight_decay | grokfast | eval_every_test | eval_every_train | steps_completed | memorization_step | generalization_step | progress_measures_step | full_loss_all | legacy_broad_mask__n_kept | legacy_broad_mask__n_removed |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k | mlp | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 10100 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k | mlp | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 170 | 10850 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_seed0_arch25k | mlp | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9125 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k | mlp | 0 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 200 | 2100 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.5_seed0_arch25k | mlp | 0 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 190 | 1700 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k | mlp | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 8550 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k | mlp | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 170 | 11475 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_seed1_arch25k | mlp | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 10075 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k | mlp | 1 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 210 | 2125 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.5_seed1_arch25k | mlp | 1 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 190 | 1725 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k | mlp | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 8125 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k | mlp | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 170 | 10125 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_seed2_arch25k | mlp | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9175 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k | mlp | 2 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 200 | 2175 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.5_seed2_arch25k | mlp | 2 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 190 | 1700 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k | mlp | 3 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9450 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_seed3_arch25k | mlp | 3 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8150 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k | mlp | 4 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9450 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_seed4_arch25k | mlp | 4 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8650 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k | mlp | 5 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9575 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_seed5_arch25k | mlp | 5 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9375 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k | mlp | 6 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9975 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_seed6_arch25k | mlp | 6 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9900 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k | mlp | 7 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9325 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_seed7_arch25k | mlp | 7 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9200 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k | mlp | 8 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 10500 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_seed8_arch25k | mlp | 8 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9800 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k | mlp | 9 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9500 | — | — | — | — |
-| mlp_add_p113_wd1.0_frac0.3_seed9_arch25k | mlp | 9 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9300 | — | — | — | — |
-| m2h_add_p113_wd1.0_frac0.3_seed0_arch25k | mlp_twohot | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 230 | 12775 | — | — | — | — |
-| m2h_add_p113_wd1.0_frac0.3_seed1_arch25k | mlp_twohot | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 240 | 13300 | — | — | — | — |
-| m2h_add_p113_wd1.0_frac0.3_seed2_arch25k | mlp_twohot | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 230 | 12500 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k | transformer | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 150 | 6975 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_seed0_arch25k | transformer | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7975 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k | transformer | 0 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 170 | 675 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.5_seed0_arch25k | transformer | 0 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 140 | 375 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k | transformer | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 170 | 6500 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_seed1_arch25k | transformer | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6250 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k | transformer | 1 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 200 | 800 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.5_seed1_arch25k | transformer | 1 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 150 | 675 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k | transformer | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 170 | 6500 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_seed2_arch25k | transformer | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 8125 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k | transformer | 2 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 200 | 725 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.5_seed2_arch25k | transformer | 2 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 140 | 875 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_seed3_arch25k | transformer | 3 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7425 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_seed4_arch25k | transformer | 4 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 10275 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_seed5_arch25k | transformer | 5 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 5625 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_seed6_arch25k | transformer | 6 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6325 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_seed7_arch25k | transformer | 7 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7750 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_seed8_arch25k | transformer | 8 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 8125 | — | — | — | — |
-| txf_add_p113_wd1.0_frac0.3_seed9_arch25k | transformer | 9 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 5825 | — | — | — | — |
+| mlp_add_p113_wd1.0_frac0.3_dm572_seed0_arch25k | mlp | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 10100 | 25000 | 5.59e-06 | 625 | 4848 |
+| mlp_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k | mlp | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 170 | 10850 | 25000 | 0.0001457 | 2401 | 8544 |
+| mlp_add_p113_wd1.0_frac0.3_seed0_arch25k | mlp | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9125 | 25000 | 7.235e-06 | 729 | 5200 |
+| mlp_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k | mlp | 0 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 200 | 2100 | 25000 | 7.618e-07 | 529 | 4488 |
+| mlp_add_p113_wd1.0_frac0.5_seed0_arch25k | mlp | 0 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 190 | 1700 | 25000 | 1.891e-06 | 625 | 4848 |
+| mlp_add_p113_wd1.0_frac0.3_dm572_seed1_arch25k | mlp | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 8550 | 25000 | 5.856e-06 | 441 | 4120 |
+| mlp_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k | mlp | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 170 | 11475 | 25000 | 1.641e-05 | 1225 | 6528 |
+| mlp_add_p113_wd1.0_frac0.3_seed1_arch25k | mlp | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 10075 | 25000 | 6.146e-06 | 529 | 4488 |
+| mlp_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k | mlp | 1 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 210 | 2125 | 25000 | 6.23e-07 | 361 | 3744 |
+| mlp_add_p113_wd1.0_frac0.5_seed1_arch25k | mlp | 1 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 190 | 1725 | 25000 | 1.789e-06 | 361 | 3744 |
+| mlp_add_p113_wd1.0_frac0.3_dm572_seed2_arch25k | mlp | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 8125 | 25000 | 5.228e-06 | 441 | 4120 |
+| mlp_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k | mlp | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 170 | 10125 | 25000 | 0.0003339 | 1225 | 6528 |
+| mlp_add_p113_wd1.0_frac0.3_seed2_arch25k | mlp | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9175 | 25000 | 5.336e-06 | 529 | 4488 |
+| mlp_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k | mlp | 2 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 200 | 2175 | 25000 | 1.457e-06 | 441 | 4120 |
+| mlp_add_p113_wd1.0_frac0.5_seed2_arch25k | mlp | 2 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 190 | 1700 | 25000 | 1.809e-06 | 441 | 4120 |
+| mlp_add_p113_wd1.0_frac0.3_dm572_seed3_arch25k | mlp | 3 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9450 | 25000 | 5.104e-06 | 625 | 4848 |
+| mlp_add_p113_wd1.0_frac0.3_seed3_arch25k | mlp | 3 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8150 | 25000 | 4.609e-06 | 441 | 4120 |
+| mlp_add_p113_wd1.0_frac0.3_dm572_seed4_arch25k | mlp | 4 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9450 | 25000 | 3.449e-06 | 225 | 2968 |
+| mlp_add_p113_wd1.0_frac0.3_seed4_arch25k | mlp | 4 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8650 | 25000 | 7.087e-06 | 841 | 5544 |
+| mlp_add_p113_wd1.0_frac0.3_dm572_seed5_arch25k | mlp | 5 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9575 | 25000 | 6.124e-06 | 729 | 5200 |
+| mlp_add_p113_wd1.0_frac0.3_seed5_arch25k | mlp | 5 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9375 | 25000 | 6.437e-06 | 625 | 4848 |
+| mlp_add_p113_wd1.0_frac0.3_dm572_seed6_arch25k | mlp | 6 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9975 | 25000 | 6.343e-06 | 361 | 3744 |
+| mlp_add_p113_wd1.0_frac0.3_seed6_arch25k | mlp | 6 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9900 | 25000 | 7.955e-06 | 625 | 4848 |
+| mlp_add_p113_wd1.0_frac0.3_dm572_seed7_arch25k | mlp | 7 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9325 | 25000 | 6.13e-06 | 625 | 4848 |
+| mlp_add_p113_wd1.0_frac0.3_seed7_arch25k | mlp | 7 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9200 | 25000 | 6.553e-06 | 729 | 5200 |
+| mlp_add_p113_wd1.0_frac0.3_dm572_seed8_arch25k | mlp | 8 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 10500 | 25000 | 7.112e-06 | 729 | 5200 |
+| mlp_add_p113_wd1.0_frac0.3_seed8_arch25k | mlp | 8 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9800 | 25000 | 5.123e-06 | 729 | 5200 |
+| mlp_add_p113_wd1.0_frac0.3_dm572_seed9_arch25k | mlp | 9 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 9500 | 25000 | 4.883e-06 | 625 | 4848 |
+| mlp_add_p113_wd1.0_frac0.3_seed9_arch25k | mlp | 9 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9300 | 25000 | 5.222e-06 | 361 | 3744 |
+| m2h_add_p113_wd1.0_frac0.3_seed0_arch25k | mlp_twohot | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 230 | 12775 | 25000 | 0.01039 | 12769 | 12768 |
+| m2h_add_p113_wd1.0_frac0.3_seed1_arch25k | mlp_twohot | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 240 | 13300 | 25000 | 0.01032 | 12769 | 12768 |
+| m2h_add_p113_wd1.0_frac0.3_seed2_arch25k | mlp_twohot | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 230 | 12500 | 25000 | 0.008992 | 12769 | 12768 |
+| txf_add_p113_wd1.0_frac0.3_gf2.0_seed0_arch25k | transformer | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 150 | 6975 | 25000 | 2.098e-05 | 81 | 1744 |
+| txf_add_p113_wd1.0_frac0.3_seed0_arch25k | transformer | 0 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7975 | 25000 | 0.007261 | 289 | 3360 |
+| txf_add_p113_wd1.0_frac0.5_gf2.0_seed0_arch25k | transformer | 0 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 170 | 675 | 25000 | 5.488e-05 | 81 | 1744 |
+| txf_add_p113_wd1.0_frac0.5_seed0_arch25k | transformer | 0 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 140 | 375 | 25000 | 0.001548 | 49 | 1320 |
+| txf_add_p113_wd1.0_frac0.3_gf2.0_seed1_arch25k | transformer | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 170 | 6500 | 25000 | 0.006398 | 81 | 1744 |
+| txf_add_p113_wd1.0_frac0.3_seed1_arch25k | transformer | 1 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6250 | 25000 | 0.002142 | 81 | 1744 |
+| txf_add_p113_wd1.0_frac0.5_gf2.0_seed1_arch25k | transformer | 1 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 200 | 800 | 25000 | 0.01316 | 169 | 2568 |
+| txf_add_p113_wd1.0_frac0.5_seed1_arch25k | transformer | 1 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 150 | 675 | 25000 | 0.003729 | 81 | 1744 |
+| txf_add_p113_wd1.0_frac0.3_gf2.0_seed2_arch25k | transformer | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | yes | 25 | 10 | 25000 | 170 | 6500 | 25000 | 5.227e-05 | 121 | 2160 |
+| txf_add_p113_wd1.0_frac0.3_seed2_arch25k | transformer | 2 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 8125 | 25000 | 0.01162 | 169 | 2568 |
+| txf_add_p113_wd1.0_frac0.5_gf2.0_seed2_arch25k | transformer | 2 | all_checkpoints | all_checkpoints | 0.5 | 1 | yes | 25 | 10 | 25000 | 200 | 725 | 25000 | 2.184e-07 | 49 | 1320 |
+| txf_add_p113_wd1.0_frac0.5_seed2_arch25k | transformer | 2 | all_checkpoints | all_checkpoints | 0.5 | 1 | no | 25 | 10 | 25000 | 140 | 875 | 25000 | 1.004e-05 | 81 | 1744 |
+| txf_add_p113_wd1.0_frac0.3_seed3_arch25k | transformer | 3 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7425 | 25000 | 0.003213 | 121 | 2160 |
+| txf_add_p113_wd1.0_frac0.3_seed4_arch25k | transformer | 4 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 10275 | 25000 | 1.779e-05 | 121 | 2160 |
+| txf_add_p113_wd1.0_frac0.3_seed5_arch25k | transformer | 5 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 5625 | 25000 | 0.002729 | 49 | 1320 |
+| txf_add_p113_wd1.0_frac0.3_seed6_arch25k | transformer | 6 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6325 | 25000 | 3.154e-05 | 81 | 1744 |
+| txf_add_p113_wd1.0_frac0.3_seed7_arch25k | transformer | 7 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7750 | 25000 | 0.0008746 | 81 | 1744 |
+| txf_add_p113_wd1.0_frac0.3_seed8_arch25k | transformer | 8 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 8125 | 25000 | 0.0015 | 81 | 1744 |
+| txf_add_p113_wd1.0_frac0.3_seed9_arch25k | transformer | 9 | all_checkpoints | all_checkpoints | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 5825 | 25000 | 0.0006053 | 121 | 2160 |
 
 ### bounded_alternative  (20 rows, 31 missing)
 

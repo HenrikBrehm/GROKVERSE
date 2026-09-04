@@ -808,3 +808,66 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
     parametrization**, exactly the confound master prompt §14 warned against labelling as an
     architecture effect. Three seeds can only show a large effect; this one is large, but it is three
     seeds.
+
+99. **A fourth silent-extraction bug, caught by hand-reading a payload while writing RESULTS.md.**
+    While assembling the restricted/excluded-loss numbers for §21 I queried the aggregate table and got
+    the column headers for both architectures and **no rows at all**. The values were not missing —
+    every column existed and every one of them held `null`. `aggregate._progress_measures` read
+    `protocols[p]["restricted"]["loss"]`, but the real payload nests one level deeper:
+    `protocols[p]["restricted"][split]["loss"]`, with `split` in `test`/`train`/`all`. Reading a
+    dict where a number was expected returned `None`, and `None` is a legitimate cell in these tables
+    (it means "not evaluable"), so nothing anywhere complained.
+
+    This is the same shape as the `_wave_fitting` defect (entry 58) and the third of its family: the
+    extractor produced a **well-formed table of nothing**. Aggregation bugs do not crash; they quietly
+    empty a column, and every consumer downstream faithfully reports the emptiness as an absence of
+    evidence. The only reason this one was caught is that I went looking for a specific number I
+    intended to quote and it was not there. Had I quoted the restricted/excluded losses from the
+    per-run JSON directly — which was possible, and quicker — the aggregate would still be empty today
+    and the defect would have survived into the writeup unnoticed.
+
+    Fixed to read the split level and to carry all three splits explicitly, plus the accuracies, the
+    kept/removed component counts, the final step, and the unrestricted loss for comparison. Every loss
+    now travels with its convention attached, which is the whole point of `progress_measures` reporting
+    three splits in the first place. `tests/test_aggregate.py` gained
+    `check_progress_measures_extractor` (8 checks) which pins the nesting depth, the split labels and
+    the anchoring to the final checkpoint — a synthetic payload, so it needs no run.
+
+    Re-ran both aggregates (primary 20 runs, all 51 runs) and then re-ran every downstream report into
+    a scratch directory and diffed: `decision_tree_{final,crossing}`, `statistics`, `h3_report`,
+    `h4_report` and `controls_report` are **byte-identical apart from their timestamps**. None of them
+    consumes a progress-measures column, so no measured result, gate outcome or statistic changes. The
+    committed reports stand; only the aggregate tables gained columns.
+
+100. **Restricted and excluded loss at the final checkpoint (the numbers the fix recovered).**
+    Median over 10 seeds, test split, at step 25,000. Unrestricted test loss for reference:
+    transformer 0.00182, MLP 0.00001.
+
+    | protocol | arch | components kept | restricted | excluded |
+    |---|---|---|---|---|
+    | `nanda_exact` | transformer | 10 | 0.0000 | 19.16 |
+    | `nanda_exact` | MLP | 25 | 0.0000 | 5.00 |
+    | `paper_literal_2x2_block` | transformer | 19 | 0.0000 | 19.13 |
+    | `paper_literal_2x2_block` | MLP | 49 | 0.0000 | 4.86 |
+    | `legacy_broad_mask` | transformer | 101 | 0.0001 | 18.92 |
+    | `legacy_broad_mask` | MLP | 625 | 0.0000 | 4.37 |
+    | `sum_directions_only` | transformer | 10 | 0.0000 | 19.16 |
+    | `sum_directions_only` | MLP | 25 | 0.0000 | 5.00 |
+
+    Read carefully. **Restricted loss ~0 in both architectures under every protocol** says the key
+    frequencies alone suffice to produce the correct logits — for the MLP just as much as for the
+    transformer. **Excluded loss far above the unrestricted loss in both** says removing them destroys
+    the function in both. Both directions of the Nanda progress measure therefore hold for the MLP too.
+
+    The excluded losses are **not comparable across architectures**: the two protocols keep different
+    numbers of components (10 vs 25 under `nanda_exact`), the logit scales differ, and a larger
+    excluded loss here means "further from the correct logits", not "more Fourier". The transformer's
+    19.16 vs the MLP's 5.00 must not be read as the transformer being more frequency-dependent. What is
+    comparable is the qualitative pattern, and that pattern is the same in both.
+
+    This does **not** contradict G4 failing 0/10 in both architectures. G4 is a *causal* criterion
+    evaluated on `causal_ablation`'s `remove_key_freqs`, which deletes weights or neurons and lets the
+    rest of the network respond; the restricted/excluded losses are *projections in logit space* with
+    no such compensation. A network can be destroyed by an exact logit-space projection and still route
+    around the removal of the corresponding parameters. The two measures disagree by construction, and
+    which of them the study's G4 is supposed to mean is exactly what [D5] leaves to the human authors.

@@ -217,17 +217,29 @@ def _key_frequencies(res: dict) -> dict:
 
 
 def _progress_measures(res: dict) -> dict:
-    """Restricted / excluded loss per protocol and split, at every checkpoint that carries one."""
-    out = {}
+    """Restricted / excluded loss at the final checkpoint, per protocol **and per split**.
+
+    The value lives at `protocols[p]["restricted"][split]["loss"]` — one level deeper than a first
+    version of this extractor looked, which produced the right column names with `None` in every one
+    of them. `progress_measures` reports all three splits deliberately, "so no number travels without
+    its convention", and flattening to a single unlabelled loss would throw that away.
+    """
+    out: dict = {}
     ck = res.get("checkpoints") or res.get("per_checkpoint") or []
-    if isinstance(ck, list) and ck:
-        last = ck[-1]
-        for proto, block in (last.get("protocols") or {}).items():
-            if isinstance(block, dict):
-                out[f"{proto}__restricted"] = _q(block, "restricted", "loss", default=
-                                                 block.get("restricted_loss"))
-                out[f"{proto}__excluded"] = _q(block, "excluded", "loss", default=
-                                               block.get("excluded_loss"))
+    if not (isinstance(ck, list) and ck):
+        return out
+    last = ck[-1]
+    out["progress_measures_step"] = last.get("step")
+    out["full_loss_all"] = _q(last, "full_loss", "all", "loss")
+    for proto, block in (last.get("protocols") or {}).items():
+        if not isinstance(block, dict):
+            continue
+        out[f"{proto}__n_kept"] = block.get("n_components_kept_by_restricted")
+        out[f"{proto}__n_removed"] = block.get("n_components_removed_by_excluded")
+        for which in ("restricted", "excluded"):
+            for split in ("test", "train", "all"):
+                out[f"{proto}__{which}__{split}"] = _q(block, which, split, "loss")
+                out[f"{proto}__{which}__{split}_acc"] = _q(block, which, split, "accuracy")
     return out
 
 

@@ -142,6 +142,55 @@ def check_extractor_error(tmp: Path):
                or block["rows"][0].get("structured_fraction_of_live") is None))
 
 
+def _pm_payload() -> dict:
+    """A progress_measures payload with the real nesting: protocol -> restricted/excluded -> split."""
+    def side(loss, acc):
+        return {"test": {"loss": loss, "accuracy": acc, "n_cells": 8938},
+                "train": {"loss": loss - 0.3, "accuracy": acc, "n_cells": 3831},
+                "all": {"loss": loss - 0.1, "accuracy": acc, "n_cells": 12769}}
+    return {"module": "progress_measures", "step": 25000, "results": {
+        "final_step": 25000, "steps": [0, 25000],
+        "checkpoints": [
+            {"step": 0, "protocols": {}},
+            {"step": 25000,
+             "full_loss": {"all": {"loss": 0.0018}, "test": {"loss": 0.002}},
+             "protocols": {
+                 "nanda_exact": {"restricted": side(0.05, 0.99), "excluded": side(19.16, 0.008),
+                                 "n_components_kept_by_restricted": 10,
+                                 "n_components_removed_by_excluded": 12759},
+                 "legacy_broad_mask": {"restricted": side(0.07, 0.98), "excluded": side(18.92, 0.01),
+                                       "n_components_kept_by_restricted": 101,
+                                       "n_components_removed_by_excluded": 12668}}}]}}
+
+
+def check_progress_measures_extractor(tmp: Path):
+    """The restricted/excluded loss lives one level deeper than a first version of the extractor
+    looked. That version produced every column name with ``None`` in all of them — the same silent
+    shape as the `_wave_fitting` bug — and it was caught only by hand-reading a driver payload while
+    writing RESULTS.md (2026-09-04). The checks below pin the depth and the split labels."""
+    print("\n-- progress_measures: restricted/excluded reach the table, per split --")
+    base = tmp / "runs_pm"
+    _make_run(base, "txf_pm_arch25k", "transformer", 0, {"progress_measures": _pm_payload()})
+    block = AG.collect_module("progress_measures", sorted(base.iterdir()))
+    row = block["rows"][0]
+    check("the restricted loss carries a number, not None",
+          row["nanda_exact__restricted__test"] == 0.05)
+    check("the excluded loss carries a number, not None",
+          row["nanda_exact__excluded__test"] == 19.16)
+    check("all three splits are extracted separately — no loss travels without its convention",
+          row["nanda_exact__excluded__train"] == 19.16 - 0.3
+          and row["nanda_exact__excluded__all"] == 19.16 - 0.1)
+    check("accuracy comes along with the loss",
+          row["nanda_exact__restricted__test_acc"] == 0.99)
+    check("every protocol is extracted, not only the first",
+          row["legacy_broad_mask__excluded__test"] == 18.92)
+    check("the component counts travel with the losses, so 'kept 10' is never guessed",
+          row["nanda_exact__n_kept"] == 10 and row["nanda_exact__n_removed"] == 12759)
+    check("the extraction is anchored to the FINAL checkpoint, not the first",
+          row["progress_measures_step"] == 25000)
+    check("the unrestricted loss is carried for comparison", row["full_loss_all"] == 0.0018)
+
+
 def check_markdown(tmp: Path):
     print("\n-- markdown_table: every seed shown --")
     base = tmp / "runs4"
@@ -210,6 +259,7 @@ def main():
         check_collect(tmp)
         check_bad_file(tmp)
         check_extractor_error(tmp)
+        check_progress_measures_extractor(tmp)
         check_markdown(tmp)
         check_full_aggregate(tmp)
     print("\nALL CHECKS PASSED")

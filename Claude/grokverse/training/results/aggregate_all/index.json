@@ -1,9 +1,11 @@
 {
   "module": "aggregate",
   "module_version": "1.0",
-  "created_utc": "2026-09-04T04:08:26.322255+00:00",
-  "analysis_git_commit": "bb4c7c0319639c9062029097a4953ba46918b1ff",
-  "runs_pattern": "*_arch25k",
+  "created_utc": "2026-09-04T04:34:56.752095+00:00",
+  "analysis_git_commit": "75d92ce2e5c691de089406ac2a927bd5cdfc7bed",
+  "runs_pattern": [
+    "*_arch25k"
+  ],
   "n_runs": 51,
   "runs": [
     "m2h_add_p113_wd1.0_frac0.3_seed0_arch25k",
