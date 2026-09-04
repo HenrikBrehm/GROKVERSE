@@ -616,7 +616,10 @@ python -m grokverse.analysis.figures_study     --aggregate-dir results/aggregate
 ```
 
 Every figure in `training/results/figures/` is drawn from the aggregate tables alone and carries a
-caption naming its source file, so no figure can drift from the numbers above.
+caption naming its source file, so no figure can drift from the numbers above. This was checked rather
+than asserted: re-running `figures_study` into a scratch directory reproduces **all 11 figures
+byte-identically**, and each figure's index entry names source files that all exist (master prompt §23
+item 15).
 
 **Freeze audit.** Every analysis module stamps the git commit it ran at into its own output envelope.
 Reading those back: **all 696 analysis artifacts across all 51 runs record a commit that is a

@@ -968,3 +968,20 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
      6 of 10 runs**, so for those runs the number partly reports the cap rather than the network. The
      superseded page's `[AUDIT]` note said the cap bound on all 16 runs it covered; at convergence it
      binds on none of the transformer runs. Both documents now carry the measured version.
+
+104. **§23 item 15 verified rather than asserted: the figures regenerate byte-identically.** The claim
+     "every figure is reproducible from stored raw data" is the kind that is easy to write and rarely
+     tested. Two checks:
+
+     - **Provenance.** Every entry in `results/figures/index.json` names its `source_files`, and all of
+       them resolve to files that exist under `results/` (10 figures from `aggregate/*.json`, the gate
+       summary from `decision_tree.json`). 11 of 11 figures, 0 missing sources, 0 missing PNGs.
+     - **Determinism.** Re-running `figures_study` into a scratch directory and comparing bytes:
+       **11 identical, 0 differing.** Not "visually the same" — the same bytes.
+
+     The provenance check found my *own* first attempt at it was wrong, which is the more useful part:
+     I resolved the recorded paths against the wrong base directory and got 11 spurious failures. The
+     index stores figure paths relative to `results/figures/` and source paths relative to `results/`.
+     A verification script that reports a failure it cannot substantiate is worse than no script, so
+     the lesson is the same one as entries 99 and 101 — check the checker against a case whose answer
+     you already know before believing its verdict.
