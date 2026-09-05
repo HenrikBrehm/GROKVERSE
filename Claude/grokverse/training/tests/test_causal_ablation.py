@@ -471,6 +471,101 @@ def check_analyse(tmp: Path):
 
 
 # --------------------------------------------------------------------------- #
+# 11. graded structured-neuron ablation (PREREGISTRATION 14)                   #
+# --------------------------------------------------------------------------- #
+def _graded_setup():
+    """The ideal circuit as a `logits_fn(keep_mask)` plus its known neuron groups."""
+    cfg, state, groups = ideal_circuit()
+    pieces = CA._mlp_pieces(state, cfg)
+    base = CA.evaluate(pieces["base_logits"], cfg)
+    n = pieces["n_neurons"]
+    alive = np.ones(n, dtype=bool)
+    return cfg, groups, base, alive, (lambda keep: CA._logits_from_neuron_mask(pieces, keep, cfg.p)), n
+
+
+def _discriminable(entry) -> bool:
+    """PREREGISTRATION 14.5: exceeds every control AND z >= 3."""
+    z = entry.get("z")
+    return bool(entry.get("exceeds_all_controls")) and z is not None and z >= CA.NECESSARY_Z
+
+
+def check_graded_group_size():
+    check("fraction->cardinality rounds half UP, not to even (0.05 of 50 == 3)",
+          CA.graded_group_size(0.05, 50) == 3)
+    check("a fraction that would round to zero still selects one neuron",
+          CA.graded_group_size(0.001, 100) == 1)
+    check("1 % of 1164 live neurons is 12", CA.graded_group_size(0.01, 1164) == 12)
+    check("50 % of 1164 live neurons is 582", CA.graded_group_size(0.5, 1164) == 582)
+
+
+def check_graded_ranking_is_nested():
+    """The top-n sets must be nested, and must sit inside the B1 set while n <= |B1|."""
+    n = 20
+    score = np.linspace(0.0, 1.0, n)
+    alive = np.ones(n, dtype=bool)
+    o5 = CA.graded_top_indices(score, alive, 5)
+    o10 = CA.graded_top_indices(score, alive, 10)
+    check("the top-5 is a subset of the top-10 (nested family)", set(o5) <= set(o10))
+    check("the top-5 really are the five highest scores", sorted(o5) == [15, 16, 17, 18, 19])
+    dead = alive.copy()
+    dead[19] = False
+    check("dead neurons are never ranked", 19 not in set(CA.graded_top_indices(score, dead, 5)))
+    tied = np.zeros(n)
+    check("ties break deterministically by index", list(CA.graded_top_indices(tied, alive, 3)) == [0, 1, 2])
+
+
+def check_graded_ablation_separates_a_known_circuit():
+    cfg, groups, base, alive, logits_fn, n = _graded_setup()
+    circuit_first = np.where(groups["circuit"], 1.0,
+                             np.where(groups["distractor"], 0.5, 0.0))
+    block, arrays = CA.graded_ablation(base, logits_fn, alive, circuit_first, cfg,
+                                       seed=0, n_control=20, fractions=(0.05,))
+    entry = block["by_fraction"]["0.05"]
+    check(f"n_selected is the size-matched cardinality ({entry['n_selected']})",
+          entry["n_selected"] == CA.graded_group_size(0.05, n))
+    check("every random control group has EXACTLY the selected cardinality",
+          entry["control_group_sizes_unique"] == [entry["n_selected"]])
+    check("the control distribution has the requested number of draws",
+          entry["remove_top"]["control"]["n"] == 20)
+    rt = entry["remove_top"]
+    check(f"removing the top {entry['n_selected']} circuit neurons does real damage "
+          f"(drop {rt['observed']['test_accuracy_drop']:.4f})",
+          rt["observed"]["test_accuracy_drop"] >= 0.5)
+    check(f"...more than EVERY size-matched random group "
+          f"(control mean {rt['control']['test_accuracy_drop']['mean']:.4f})",
+          _discriminable(rt))
+    check("keep_only_top is reported in the sufficiency direction too",
+          "keep_only_top" in entry and "observed" in entry["keep_only_top"])
+
+
+def check_graded_ablation_control_does_not_separate():
+    """CONTROL: a structure-blind ranking must NOT come out discriminable."""
+    cfg, groups, base, alive, logits_fn, n = _graded_setup()
+    blind = np.where(groups["distractor"], 1.0, 0.0)          # ranks the harmless neurons first
+    block, _ = CA.graded_ablation(base, logits_fn, alive, blind, cfg,
+                                  seed=0, n_control=20, fractions=(0.05,))
+    rt = block["by_fraction"]["0.05"]["remove_top"]
+    check(f"a distractor-first ranking does NOT separate from its control "
+          f"(drop {rt['observed']['test_accuracy_drop']:.4f})",
+          not _discriminable(rt))
+
+
+def check_graded_ablation_is_deterministic():
+    cfg, groups, base, alive, logits_fn, n = _graded_setup()
+    score = np.where(groups["circuit"], 1.0, 0.0)
+    kw = dict(cfg=cfg, n_control=8, fractions=(0.05,))
+    a, aa = CA.graded_ablation(base, logits_fn, alive, score, seed=0, **kw)
+    b, bb = CA.graded_ablation(base, logits_fn, alive, score, seed=0, **kw)
+    c, cc = CA.graded_ablation(base, logits_fn, alive, score, seed=1, **kw)
+    key = "graded__0.05__remove_top__control_drops"
+    check("the same seed reproduces the control draws exactly", np.array_equal(aa[key], bb[key]))
+    check("a different seed draws different controls", not np.array_equal(aa[key], cc[key]))
+    check("the observed value does not depend on the control seed",
+          a["by_fraction"]["0.05"]["remove_top"]["observed"]["test_acc"]
+          == c["by_fraction"]["0.05"]["remove_top"]["observed"]["test_acc"])
+
+
+# --------------------------------------------------------------------------- #
 def main():
     with tempfile.TemporaryDirectory() as td:
         tmp = Path(td)
@@ -484,6 +579,11 @@ def main():
         check_transformer_ablations(tmp)
         check_gate_g4()
         check_analyse(tmp)
+        check_graded_group_size()
+        check_graded_ranking_is_nested()
+        check_graded_ablation_separates_a_known_circuit()
+        check_graded_ablation_control_does_not_separate()
+        check_graded_ablation_is_deterministic()
     print("\nALL CHECKS PASSED")
 
 

@@ -75,7 +75,7 @@ from .progress_measures import fwd2d, inv2d
 from . import transformer_mechanism as TM
 
 MODULE = "causal_ablation"
-MODULE_VERSION = "1.0"
+MODULE_VERSION = "1.1"
 #: Size-matched random draws per ablation (`CAUSAL_ABLATION_PLAN.md` §2).
 N_CONTROL = 50
 #: Interpretation thresholds — `CAUSAL_ABLATION_PLAN.md` §6, `[AI-PROPOSED]`, HUMAN_DECISIONS D1.
@@ -768,6 +768,159 @@ def _recompute_structured_masks(curves: dict, cfg: Config, key_freqs, definition
 
 
 # --------------------------------------------------------------------------- #
+# graded structured-neuron ablation (PREREGISTRATION 14)                       #
+# --------------------------------------------------------------------------- #
+GRADED_FRACTIONS = (0.01, 0.02, 0.05, 0.10, 0.25, 0.50)
+
+
+def graded_group_size(fraction: float, n_alive: int) -> int:
+    """round(f * n_alive) with half-UP rounding, never fewer than one neuron.
+
+    Python and numpy both round halves to even, so round(2.5) == 2. A cardinality grid that
+    silently shrinks at every half-integer is not reproducible from the written fraction, so the
+    rounding rule is spelled out here rather than inherited.
+    """
+    n = int(np.floor(float(fraction) * int(n_alive) + 0.5))
+    return max(1, min(int(n_alive), n))
+
+
+def graded_top_indices(score, alive, n: int) -> np.ndarray:
+    """The n highest-scoring LIVE neurons, ties broken by index.
+
+    Descending score with an ascending index tie-break makes the returned sets a **nested** family
+    (top(n) is a subset of top(m) for n < m), which is what lets the sweep contain the existing G4
+    test as its limiting case (PREREGISTRATION 14.3).
+    """
+    score = np.asarray(score, dtype=np.float64)
+    idx = np.flatnonzero(np.asarray(alive, dtype=bool))
+    return idx[np.lexsort((idx, -score[idx]))][:int(n)]
+
+
+def graded_ablation(base: dict, logits_fn, alive, score, cfg: Config, seed: int, n_control: int,
+                    fractions=GRADED_FRACTIONS) -> tuple[dict, dict]:
+    """PREREGISTRATION 14: nested top-f groups of the most structured live neurons.
+
+    Each group is compared against n_control seeded, **size-matched** random groups of live
+    neurons, in both directions: remove_top (necessity) and keep_only_top (sufficiency). The same
+    random groups serve both directions, so the two readings are paired.
+
+    This answers a question G4 cannot: G4 ablates 86-100 % of the live neurons, where a size-matched
+    control does comparable damage by construction (HUMAN_DECISIONS D6). Nothing here feeds the gate.
+    """
+    alive = np.asarray(alive, dtype=bool)
+    n = int(alive.size)
+    alive_idx = np.flatnonzero(alive)
+    n_alive = int(alive_idx.size)
+    rng = np.random.default_rng(int(seed))
+    by_fraction: dict = {}
+    arrays: dict = {}
+    skipped: list = []
+
+    for f in fractions:
+        n_f = graded_group_size(f, n_alive)
+        if n_alive < 2 or n_f >= n_alive:
+            skipped.append({"fraction": float(f), "reason":
+                            f"a group of {n_f} is not a proper subset of {n_alive} live neurons"})
+            continue
+        top = graded_top_indices(score, alive, n_f)
+        top_mask = np.zeros(n, dtype=bool)
+        top_mask[top] = True
+
+        controls = []
+        sizes = set()
+        for _ in range(int(n_control)):
+            m = np.zeros(n, dtype=bool)
+            m[rng.choice(alive_idx, size=n_f, replace=False)] = True
+            controls.append(m)
+            sizes.add(int(m.sum()))
+
+        sc = np.asarray(score, dtype=np.float64)[top]
+        entry: dict = {
+            "fraction": float(f),
+            "n_selected": int(n_f),
+            "n_alive": n_alive,
+            "control_group_sizes_unique": sorted(int(x) for x in sizes),
+            "score_in_group": {"min": _finite(sc.min()), "max": _finite(sc.max()),
+                               "median": _finite(np.median(sc))},
+        }
+        for direction, keep_of in (("remove_top", lambda m: alive & ~m),
+                                   ("keep_only_top", lambda m: m & alive)):
+            removed = n_f if direction == "remove_top" else n_alive - n_f
+            obs = report(base, evaluate(logits_fn(keep_of(top_mask)), cfg), cfg, removed)
+            ctrl = [report(base, evaluate(logits_fn(keep_of(m)), cfg), cfg, removed)
+                    for m in controls]
+            e = with_control(obs, ctrl)
+            key = f"graded__{f:.2f}__{direction}"
+            arrays[f"{key}__per_class_accuracy_change"] = obs["_per_class_accuracy_change"]
+            if "_control_drops" in e:
+                arrays[f"{key}__control_drops"] = e.pop("_control_drops")
+            z = e.get("z")
+            e["discriminable_by_prereg_14_5"] = bool(
+                e.get("exceeds_all_controls") and z is not None and z >= NECESSARY_Z)
+            entry[direction] = e
+        by_fraction[f"{f:.2f}"] = entry
+
+    return {
+        "fractions": [float(x) for x in fractions],
+        "n_control": int(n_control),
+        "n_alive": n_alive,
+        "by_fraction": by_fraction,
+        "skipped": skipped,
+        "control_definition": (f"{n_control} seeded size-matched random groups of live neurons, "
+                               f"drawn without replacement, seed {int(seed)}; the same groups are "
+                               f"used for both directions"),
+        "decision_rule": ("PREREGISTRATION 14.5: discriminable at f iff the observed remove_top drop "
+                          "exceeds EVERY control and z >= 3, in >= 8 of 10 seeds. The per-run flag "
+                          "is discriminable_by_prereg_14_5; the 8/10 rule is applied at aggregation."),
+        "status": "MEASUREMENT ONLY - feeds no gate criterion (PREREGISTRATION 14.5)",
+    }, arrays
+
+
+def _scores_from(a: dict, source: str) -> dict:
+    """The two ranking scores of PREREGISTRATION 14.3 from the mechanism per-neuron tables."""
+    fam_a = np.asarray(a["u_a__family_fraction"], dtype=np.float64)
+    fam_b = np.asarray(a["u_b__family_fraction"], dtype=np.float64)
+    fam_o = np.asarray(a["out__family_fraction"], dtype=np.float64)
+    categorical = np.asarray(a["same_ab_out"], dtype=bool)
+    primary = np.where(categorical, np.minimum(fam_a, fam_b), -1.0)
+    return {"primary": primary,
+            "sensitivity": (fam_a + fam_b + fam_o) / 3.0,
+            "n_categorical_ok": int(categorical.sum()),
+            "source": source}
+
+
+def _tables_scores(curves: dict, cfg: Config) -> dict:
+    tables = neuron_tables(curves, cfg.p)
+    per = tables["per_curve"]
+    return {"u_a__family_fraction": per["u_a"]["family_fraction"],
+            "u_b__family_fraction": per["u_b"]["family_fraction"],
+            "out__family_fraction": per["out"]["family_fraction"],
+            "same_ab_out": tables["same_ab_out"]}
+
+
+def resolve_structured_scores(run_dir, tag: str, arch: str, curves: dict, cfg: Config) -> dict:
+    """The continuous B1 ranking scores, preferring the mechanism module's own npz.
+
+    Same contract and same failure handling as resolve_structured_masks: reading the sibling
+    module's file guarantees the ranking is built from exactly the numbers that module reported, and
+    an unreadable file (the driver may still be writing it) is treated as a missing one.
+    """
+    module = "transformer_mechanism" if arch == "transformer" else "mlp_mechanism"
+    npz = Path(run_dir) / "analysis" / module / f"{tag}.npz"
+    need = ("u_a__family_fraction", "u_b__family_fraction", "out__family_fraction", "same_ab_out")
+    if npz.exists():
+        try:
+            with np.load(npz) as z:
+                if all(k in z.files for k in need):
+                    return _scores_from({k: z[k] for k in need}, f"analysis/{module}/{tag}.npz")
+        except Exception as exc:
+            return _scores_from(_tables_scores(curves, cfg),
+                                f"recomputed here ({module} npz unreadable: "
+                                f"{type(exc).__name__}: {exc})")
+    return _scores_from(_tables_scores(curves, cfg), f"recomputed here ({module} npz not found)")
+
+
+# --------------------------------------------------------------------------- #
 # run-level analysis                                                           #
 # --------------------------------------------------------------------------- #
 def analyse(run_dir, step: int | None = None, key_rule: str = PRIMARY_KEY_RULE, seed: int = 0,
@@ -807,6 +960,57 @@ def analyse(run_dir, step: int | None = None, key_rule: str = PRIMARY_KEY_RULE, 
                                         int(seed), int(n_control))
         base_eval = evaluate(_mlp_pieces(st, cfg)["base_logits"], cfg)
 
+    # --- graded structured-neuron ablation (PREREGISTRATION 14) -------------------------------
+    # Additive. Nothing above this line changes, and this block feeds no gate criterion: it answers
+    # the question G4 cannot, because G4 ablates 86-100 % of the live neurons (HUMAN_DECISIONS D6).
+    if cfg.arch == "transformer":
+        _hidden2d = abar_decomp["hidden"].reshape(p * p, cfg.d_mlp)
+        _NL = st["W_out"] @ st["W_U"][:, :p]
+        _direct = abar_decomp["direct_path_logits"]
+        _full = abar_decomp["logits"]
+
+        def _graded_logits(keep):
+            removed = ~keep
+            if int(removed.sum()) <= int(keep.sum()):
+                if not removed.any():
+                    return _full
+                return _full - (_hidden2d[:, removed] @ _NL[removed]).reshape(p, p, p)
+            if not keep.any():
+                return _direct
+            return _direct + (_hidden2d[:, keep] @ _NL[keep]).reshape(p, p, p)
+    else:
+        _pieces = _mlp_pieces(st, cfg)
+
+        def _graded_logits(keep):
+            return _logits_from_neuron_mask(_pieces, keep, p)
+
+    scores = resolve_structured_scores(run_dir, meta["tag"], cfg.arch, curves, cfg)
+    primary_set = masks["sets"][masks["primary"]]
+    graded: dict = {"score_source": scores["source"],
+                    "n_categorical_ok": scores["n_categorical_ok"],
+                    "n_b1_structured": int(primary_set.sum()),
+                    "scores": {}}
+    for _sname in ("primary", "sensitivity"):
+        _blk, _garr = graded_ablation(base_eval, _graded_logits, masks["alive"],
+                                      scores[_sname], cfg, int(seed), int(n_control))
+        # Self-check, recorded rather than assumed: while the group is no larger than the B1 set,
+        # the top-n must sit INSIDE it. That is what makes the sweep a refinement of G4 and not a
+        # different test wearing its name (PREREGISTRATION 14.3).
+        for _ent in _blk["by_fraction"].values():
+            _top = graded_top_indices(scores[_sname], masks["alive"], _ent["n_selected"])
+            _ent["subset_of_b1_structured"] = (bool(primary_set[_top].all())
+                                               if _ent["n_selected"] <= int(primary_set.sum())
+                                               else None)
+        _sv = np.asarray(scores[_sname], dtype=np.float64)
+        # A score with one distinct value would rank nothing and would still produce a well-formed
+        # result file; it is recorded so a degenerate ranking cannot pass as a measurement.
+        _blk["score_summary"] = {"min": _finite(_sv.min()), "median": _finite(np.median(_sv)),
+                                 "max": _finite(_sv.max()), "n_distinct": int(np.unique(_sv).size)}
+        graded["scores"][_sname] = _blk
+        for _k, _v in _garr.items():
+            arrays[_k.replace("graded__", f"graded__{_sname}__", 1)] = _v
+    results["graded_structured_ablation"] = graded
+
     gate = _gate_g4(results, masks["primary"])
     params = {
         "step": meta["step"], "seed": int(seed), "n_control": int(n_control),
@@ -817,6 +1021,11 @@ def analyse(run_dir, step: int | None = None, key_rule: str = PRIMARY_KEY_RULE, 
         "key_frequency_selection": key_info,
         "key_frequencies": [int(k) for k in key_freqs],
         "pruning_fractions": list(PRUNING_FRACTIONS),
+        "graded_fractions": list(GRADED_FRACTIONS),
+        "graded_score": ("PREREGISTRATION 14.3 - primary: min(u_a, u_b family fraction) with B1's "
+                         "categorical failures demoted to -1, so the top-n sets are nested subsets "
+                         "of the B1 structured set; sensitivity: mean of the three family "
+                         "fractions, no demotion"),
         "interpretation_thresholds": {
             "necessary_test_acc_drop": NECESSARY_TEST_ACC_DROP,
             "necessary_control_max_drop": NECESSARY_CONTROL_MAX_DROP,
