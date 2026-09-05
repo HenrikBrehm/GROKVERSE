@@ -488,3 +488,103 @@ frozen driver.
 | key-frequency rule | `embedding_top8` with a threshold that never fires | Nanda's neuron→logit-map rule, uncapped count | the source note established the published rule; the pre-declared conditional fired |
 | per-neuron sum-vs-difference test | expected sum ≫ difference | equal by derivation; tested on the logits instead | the prediction was mathematically wrong; corrected before any analysis |
 | two-hot control width | follow the source | keep `d_mlp = 512` | so the control varies the input parametrization only |
+
+## 14. Addendum — graded structured-neuron ablation
+
+> **[AI-PROPOSED], drafted 2026-09-06.** Added **after** the analysis freeze and **after** the primary
+> results were analysed, in response to an objection raised independently by an external reviewer on
+> 2026-09-05. Written **before any graded result was inspected**: at the time of writing, the only
+> things read from the existing artifacts were array names, shapes and dtypes — no value from any
+> pruning curve or family-fraction array had been looked at. Human approval is open as
+> `docs/HUMAN_DECISIONS.md` **D7**.
+
+### 14.1 Why this is a new pre-registration and not a threshold change
+
+`HUMAN_DECISIONS.md` **D6** records that under B1 the structured set is 86–100 % of the live neurons
+under *every* definition the pre-registration offers, so a size-matched random control does comparable
+damage by construction and G4 can discriminate neither necessity nor sufficiency. D6 also records the
+measured conclusion that **no available threshold rescues G4**, and that what would is *a different kind
+of selection*, which is a new pre-registration rather than a tweak of B1.
+
+This section is that new pre-registration. It therefore:
+
+* **does not change B1**, G4, any gate criterion, pass rule, control or statistic;
+* **does not change any number already reported.** The block is additive; every existing output of
+  `causal_ablation` is byte-identical apart from the new key;
+* **does not change the gate verdict.** The gate stands as reported (`neither_passes`), and §14.5 fixes
+  in advance that no outcome here may reopen it.
+
+§9 permits post-freeze additions that are logged and do not alter a measured number. This one is logged
+here, in `docs/LABBOOK.md`, and in the freeze record's post-freeze table.
+
+### 14.2 Question
+
+**Q5b.** At what group size, if any, does removing the *most structured* live neurons damage the model
+more than removing an equally large **random** group of live neurons?
+
+### 14.3 Ranking score, fixed before measurement
+
+Primary score, per live neuron `i`:
+
+```
+s_i = min( u_a__family_fraction_i , u_b__family_fraction_i )
+s_i = -1   if neuron i fails B1's categorical conditions
+```
+
+B1's categorical conditions are: `u_a` and `u_b` share the dominant frequency `k`, and the output curve's
+dominant frequency is also `k`. Dead neurons are excluded via `mask__alive` and never ranked.
+
+**Rationale.** `s` is exactly the quantity B1 thresholds at 0.50. Ranking by it makes "the top `n`
+neurons" a **nested family of subsets of the B1 structured set**, so the sweep contains the existing G4
+test as its limiting case instead of testing something unrelated to it. Demoting the categorical
+failures to `-1` keeps them strictly last without inventing a continuous surrogate for a boolean.
+
+**Sensitivity score** (always reported alongside, never used for the decision rule):
+`s'_i = mean( u_a__family_fraction_i , u_b__family_fraction_i , out__family_fraction_i )`, no demotion.
+
+### 14.4 Design
+
+| item | value |
+|---|---|
+| fractions `f` | 0.01, 0.02, 0.05, 0.10, 0.25, 0.50 of the **live** neurons |
+| group size | `n_f = max(1, round(f · n_alive))` |
+| operations per fraction | `remove_top` (necessity direction) and `keep_only_top` (sufficiency direction) |
+| control | **50 seeded, size-matched random groups** drawn from the live neurons, `seed = 0`, reproducible; the same two operations |
+| checkpoints | both measurement points, as everywhere else |
+| runs | the primary block: 10 MLP and 10 transformer seeds |
+| model state | unmodified checkpoints, **no retraining** |
+
+Per fraction, per operation, we report: observed test accuracy, observed drop, control mean drop,
+`z = (observed_drop − control_mean_drop) / control_sd`, and whether the observed drop **exceeds all 50**
+controls. Seeds are paired as everywhere else; the median and all ten seeds are reported, never a
+p-value alone (§7).
+
+### 14.5 Decision rule, fixed now
+
+The structured ranking counts as **discriminable at fraction `f`** for an architecture and checkpoint if,
+in **≥ 8 of 10 seeds**, the observed `remove_top` drop exceeds **every one** of the 50 size-matched
+controls **and** `z ≥ 3`. The reported result is the **smallest such `f`**, per architecture and per
+checkpoint, or "none of the tested fractions".
+
+**What may not be concluded, fixed before the measurement:**
+
+* A positive result **does not make G4 pass.** G4's verdict is fixed by its own pre-registered rule and
+  remains `neither_passes`. This analysis is reported separately and never folded into the gate.
+* A positive result says the structured **ranking** carries causal signal at small group size. It does
+  **not** establish that the B1 **set** is the mechanism, and it does not license "the same circuit",
+  "the same function", or any other phrase banned by §10.
+* A null result across all six fractions is a **negative result** and is reported as one, in
+  `RESULTS.md` §11, not quietly dropped.
+* No threshold in this section may be changed after a result is seen. If one is changed, every affected
+  analysis is re-run and the change is logged with its reason.
+
+### 14.6 Zero-cost companion: the IPR sweep that already exists
+
+`ipr_ranked_pruning` (pre-registered as **D2**, the Doshi sweep) already provides a graded, ranked
+pruning curve at 21 fractions with a 50-draw control, for both architectures and both checkpoints. It
+will be read at the matching fractions and reported **side by side** with no new computation.
+
+It answers a **different** question and is labelled as such wherever it appears: its ranking is the
+**IPR**, not the family fraction, and its control is a **random-order permutation** of the whole pruning
+sequence, not 50 independent size-matched draws. Agreement between the two is evidence; disagreement is
+a finding about the ranking, not about the model.
