@@ -299,3 +299,81 @@ Human review of `docs/HUMAN_DECISIONS.md`. Nothing further can be decided by the
 `training/results/{statistics,h3_report,h4_report,controls_report}.json` ·
 `training/results/aggregate/` · `training/results/figures/` ·
 `training/tests/check_results_numbers.py`
+
+## 2026-09-06
+
+### What was done
+
+- Executed the graded neuron-ablation follow-up an external reviewer proposed on 2026-09-05 after
+  reading branch `GROKVERSE-MP`.
+- Pre-registered it first as `docs/PREREGISTRATION.md` §14 with decision **D7** left blank, and
+  committed that (`7161842`) **before any graded number was read**.
+- Added `graded_structured_ablation` as an additive block in `causal_ablation`
+  (`MODULE_VERSION` 1.0 → 1.2), tests first and red first, and re-ran all 40 primary run-checkpoints.
+- Read the already-existing IPR sweep (D2) at matching fractions with no new computation, as an
+  independent second ranking.
+- Found and fixed a determinism defect in the frozen analysis code on the way.
+
+### Results
+
+Real measured results, 10 primary seeds per architecture, both checkpoints
+(`training/results/graded_ablation.json`, `training/results/GRADED_ABLATION.md`):
+
+| arch | checkpoint | smallest discriminating fraction | drop vs control | seeds |
+|---|---|---|---|---|
+| MLP | crossing | 1 % (5 neurons) | 0.187 vs 0.010 | 10/10 |
+| transformer | crossing | 1 % (5 neurons) | 0.031 vs 0.004 | 9/10 |
+| MLP | final | 50 % (256 neurons) | 0.412 vs 0.052 | 9/10 |
+| transformer | final | 5 % (26 neurons) | 0.096 vs 0.0002 | 9/10 |
+
+At the transition, removing the five most structured neurons beats every one of fifty random
+five-neuron groups in both architectures. At convergence the MLP shows nothing below half the
+network — its top 1/2/5/10 % cost exactly 0.0000 — while the transformer keeps a small load-bearing
+core. G4's failure was therefore set size, not causal inertness. The gate is untouched at
+`neither_passes`; §14.5 fixed in advance that no outcome here reopens it.
+
+Driver 40 ok / 0 failed. Suite 24/24 files. `check_results_numbers.py` 117/117.
+
+### Decisions
+
+- The graded ablation is a **new pre-registration**, not a change to threshold B1 — D6 already
+  established that no B1 threshold rescues G4, so only a different kind of selection could.
+- The determinism fix is treated as a `PREREGISTRATION.md` §9 **bug fix**, not a control change,
+  because determinism is a stated non-negotiable and the drift exceeded the verifier's tolerance.
+  Escalated as **D8** so the human authors can disagree.
+
+### Problems
+
+- Re-running `causal_ablation` showed 560 of 660 pre-existing ablation blocks differing — every
+  observed value identical, every control statistic moved.
+- The IPR extraction silently dropped two of its four fractions and still produced a well-formed table.
+
+### Solutions
+
+- `resolve_structured_masks` built the definitions as a Python **set**, whose order depends on
+  per-process string hashing, while both ablation functions draw from **one shared rng** in that
+  order. Fixed by iterating the already-ordered tuple; proven across six `PYTHONHASHSEED` values;
+  regression test added. Zero verdict flips; two published control numbers updated
+  (MLP 0.873 → 0.878, transformer 0.916 → 0.910).
+- The pruning grid is cardinality-derived (26/512 = 0.05078, not 0.05), so exact-equality matching
+  found nothing. Now matches the nearest grid point within half a step and reports the value used.
+
+### Open tasks
+
+- [ ] **D7** and **D8** — both need a human decision.
+- [ ] Compare the collaborator's longer convergence run (branch `arch-study-convergence`, their AWS
+      account, due 2026-09-06 morning) against our MLP structured fraction.
+- [ ] Unchanged and still human-only: the final interpretation, the 11 `AI_DISCLOSURE.md`
+      placeholders, the `txf_mul_*` runs, the explorer update.
+
+### Next step
+
+Human review of `docs/HUMAN_DECISIONS.md`, now including **D7** and **D8**.
+
+### Evidence
+
+`Claude/grokverse/RESULTS.md` §6.1 · `docs/PREREGISTRATION.md` §14 and §12 ·
+`docs/HUMAN_DECISIONS.md` D7, D8 · `docs/LABBOOK.md` 109 ·
+`training/results/graded_ablation.json` · `training/results/GRADED_ABLATION.md` ·
+`training/results/analysis_driver_graded.json` · `training/analyse_graded.py` ·
+[[Graded structured-neuron ablation]] · [[Nondeterministic control draws from a Python set]]
