@@ -1,0 +1,402 @@
+{
+  "runs": [
+    "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed9_arch25k"
+  ],
+  "points": [
+    "crossing",
+    "final"
+  ],
+  "key_rule": "nanda",
+  "seed": 0,
+  "n_calls": 40,
+  "analysis_git_commit": "f8fc430e6814c4a38779c1f8371fe28c9e85f4fa",
+  "started_utc": "2026-09-06T00:36:43.964831+00:00",
+  "outcomes": [
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 706.92
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 718.91
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 10075,
+      "status": "ok",
+      "detail": "",
+      "seconds": 912.63
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 677.11
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 846.98
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 569.59
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8150,
+      "status": "ok",
+      "detail": "",
+      "seconds": 637.95
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 695.54
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 642.98
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 558.53
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9375,
+      "status": "ok",
+      "detail": "",
+      "seconds": 875.44
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 744.42
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9900,
+      "status": "ok",
+      "detail": "",
+      "seconds": 746.58
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 743.5
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9200,
+      "status": "ok",
+      "detail": "",
+      "seconds": 871.4
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 728.39
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9800,
+      "status": "ok",
+      "detail": "",
+      "seconds": 656.95
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 531.23
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9300,
+      "status": "ok",
+      "detail": "",
+      "seconds": 889.37
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 530.2
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 7975,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1002.28
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 921.65
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 6250,
+      "status": "ok",
+      "detail": "",
+      "seconds": 981.27
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 912.1
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 728.49
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 716.76
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 7425,
+      "status": "ok",
+      "detail": "",
+      "seconds": 697.04
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 949.9
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 10275,
+      "status": "ok",
+      "detail": "",
+      "seconds": 960.58
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 717.86
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 5625,
+      "status": "ok",
+      "detail": "",
+      "seconds": 935.23
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 693.24
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 6325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 940.55
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 923.35
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 7750,
+      "status": "ok",
+      "detail": "",
+      "seconds": 738.64
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 569.72
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 562.92
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 638.5
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 5825,
+      "status": "ok",
+      "detail": "",
+      "seconds": 571.03
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_arch25k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 25000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 508.28
+    }
+  ],
+  "summary": {
+    "counts": {
+      "ok": 40
+    },
+    "failed": [],
+    "missing_modules": []
+  }
+}

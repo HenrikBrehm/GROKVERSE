@@ -1,6 +1,6 @@
 # Aggregated analysis tables
 
-Generated 2026-09-04T06:16:02.766217+00:00 at commit `b99035067912459b5b3cd7f0f98af3a63678ccfc` over 20 runs matching `['txf_add_p113_wd1.0_frac0.3_seed?_arch25k', 'mlp_add_p113_wd1.0_frac0.3_seed?_arch25k']`.
+Generated 2026-09-06T00:38:55.623363+00:00 at commit `f8fc430e6814c4a38779c1f8371fe28c9e85f4fa` over 20 runs matching `['txf_add_p113_wd1.0_frac0.3_seed?_arch25k', 'mlp_add_p113_wd1.0_frac0.3_seed?_arch25k']`.
 
 Every row is one run at one measurement point. **All seeds are shown** — no row is averaged away (master prompt §16). Numbers are copied from the per-run files named in `source_file`; nothing here is recomputed.
 
@@ -218,46 +218,46 @@ Every row is one run at one measurement point. **All seeds are shown** — no ro
 
 | run_id | arch | seed | tag | step | train_frac | weight_decay | grokfast | eval_every_test | eval_every_train | steps_completed | memorization_step | generalization_step | baseline_test_acc | n_structured | g4_passed | g4_remove_structured_necessary |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| mlp_add_p113_wd1.0_frac0.3_seed0_arch25k | mlp | 0 | step009125 | 9125 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9125 | 0.9513 | 128 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed0_arch25k | mlp | 0 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9125 | 1 | 425 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed1_arch25k | mlp | 1 | step010075 | 10075 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 10075 | 0.9508 | 110 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed1_arch25k | mlp | 1 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 10075 | 1 | 434 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed2_arch25k | mlp | 2 | step009175 | 9175 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9175 | 0.9512 | 123 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed2_arch25k | mlp | 2 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9175 | 1 | 418 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed3_arch25k | mlp | 3 | step008150 | 8150 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8150 | 0.9541 | 98 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed3_arch25k | mlp | 3 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8150 | 1 | 489 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed4_arch25k | mlp | 4 | step008650 | 8650 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8650 | 0.9512 | 108 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed4_arch25k | mlp | 4 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8650 | 1 | 464 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed5_arch25k | mlp | 5 | step009375 | 9375 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9375 | 0.9507 | 129 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed5_arch25k | mlp | 5 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9375 | 1 | 436 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed6_arch25k | mlp | 6 | step009900 | 9900 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9900 | 0.9503 | 120 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed6_arch25k | mlp | 6 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9900 | 1 | 427 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed7_arch25k | mlp | 7 | step009200 | 9200 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9200 | 0.9537 | 123 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed7_arch25k | mlp | 7 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9200 | 1 | 448 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed8_arch25k | mlp | 8 | step009800 | 9800 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9800 | 0.9509 | 113 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed8_arch25k | mlp | 8 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9800 | 1 | 458 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed9_arch25k | mlp | 9 | step009300 | 9300 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9300 | 0.9508 | 112 | no | no |
-| mlp_add_p113_wd1.0_frac0.3_seed9_arch25k | mlp | 9 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9300 | 1 | 459 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed0_arch25k | transformer | 0 | step007975 | 7975 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7975 | 0.9503 | 247 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed0_arch25k | transformer | 0 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7975 | 0.9977 | 487 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed1_arch25k | transformer | 1 | step006250 | 6250 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6250 | 0.9505 | 219 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed1_arch25k | transformer | 1 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6250 | 0.9994 | 504 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed2_arch25k | transformer | 2 | step008125 | 8125 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 8125 | 0.9549 | 244 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed2_arch25k | transformer | 2 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 8125 | 0.9971 | 491 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed3_arch25k | transformer | 3 | step007425 | 7425 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7425 | 0.9502 | 257 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed3_arch25k | transformer | 3 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7425 | 0.9996 | 508 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed4_arch25k | transformer | 4 | step010275 | 10275 | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 10275 | 0.9523 | 213 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed4_arch25k | transformer | 4 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 10275 | 1 | 497 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed5_arch25k | transformer | 5 | step005625 | 5625 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 5625 | 0.9526 | 188 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed0_arch25k | mlp | 0 | step009125 | 9125 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9125 | 0.9513 | 153 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed0_arch25k | mlp | 0 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9125 | 1 | 451 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed1_arch25k | mlp | 1 | step010075 | 10075 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 10075 | 0.9508 | 136 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed1_arch25k | mlp | 1 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 10075 | 1 | 445 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed2_arch25k | mlp | 2 | step009175 | 9175 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9175 | 0.9512 | 147 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed2_arch25k | mlp | 2 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9175 | 1 | 444 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed3_arch25k | mlp | 3 | step008150 | 8150 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8150 | 0.9541 | 118 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed3_arch25k | mlp | 3 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8150 | 1 | 503 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed4_arch25k | mlp | 4 | step008650 | 8650 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8650 | 0.9512 | 143 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed4_arch25k | mlp | 4 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 8650 | 1 | 479 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed5_arch25k | mlp | 5 | step009375 | 9375 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9375 | 0.9507 | 161 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed5_arch25k | mlp | 5 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9375 | 1 | 451 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed6_arch25k | mlp | 6 | step009900 | 9900 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9900 | 0.9503 | 149 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed6_arch25k | mlp | 6 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9900 | 1 | 448 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed7_arch25k | mlp | 7 | step009200 | 9200 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9200 | 0.9537 | 142 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed7_arch25k | mlp | 7 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9200 | 1 | 455 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed8_arch25k | mlp | 8 | step009800 | 9800 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9800 | 0.9509 | 139 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed8_arch25k | mlp | 8 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9800 | 1 | 470 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed9_arch25k | mlp | 9 | step009300 | 9300 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9300 | 0.9508 | 135 | no | no |
+| mlp_add_p113_wd1.0_frac0.3_seed9_arch25k | mlp | 9 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 160 | 9300 | 1 | 465 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed0_arch25k | transformer | 0 | step007975 | 7975 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7975 | 0.9503 | 316 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed0_arch25k | transformer | 0 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7975 | 0.9977 | 494 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed1_arch25k | transformer | 1 | step006250 | 6250 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6250 | 0.9505 | 279 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed1_arch25k | transformer | 1 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6250 | 0.9994 | 507 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed2_arch25k | transformer | 2 | step008125 | 8125 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 8125 | 0.9549 | 309 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed2_arch25k | transformer | 2 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 8125 | 0.9971 | 495 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed3_arch25k | transformer | 3 | step007425 | 7425 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7425 | 0.9502 | 320 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed3_arch25k | transformer | 3 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7425 | 0.9996 | 509 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed4_arch25k | transformer | 4 | step010275 | 10275 | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 10275 | 0.9523 | 293 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed4_arch25k | transformer | 4 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 150 | 10275 | 1 | 502 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed5_arch25k | transformer | 5 | step005625 | 5625 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 5625 | 0.9526 | 236 | no | no |
 | txf_add_p113_wd1.0_frac0.3_seed5_arch25k | transformer | 5 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 5625 | 1 | 512 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed6_arch25k | transformer | 6 | step006325 | 6325 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6325 | 0.9531 | 216 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed6_arch25k | transformer | 6 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6325 | 1 | 504 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed7_arch25k | transformer | 7 | step007750 | 7750 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7750 | 0.9516 | 216 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed6_arch25k | transformer | 6 | step006325 | 6325 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6325 | 0.9531 | 294 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed6_arch25k | transformer | 6 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 6325 | 1 | 505 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed7_arch25k | transformer | 7 | step007750 | 7750 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7750 | 0.9516 | 287 | no | no |
 | txf_add_p113_wd1.0_frac0.3_seed7_arch25k | transformer | 7 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 7750 | 1 | 499 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed8_arch25k | transformer | 8 | step008125 | 8125 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 8125 | 0.954 | 246 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed8_arch25k | transformer | 8 | step008125 | 8125 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 8125 | 0.954 | 299 | no | no |
 | txf_add_p113_wd1.0_frac0.3_seed8_arch25k | transformer | 8 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 8125 | 0.9993 | 503 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed9_arch25k | transformer | 9 | step005825 | 5825 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 5825 | 0.9512 | 247 | no | no |
-| txf_add_p113_wd1.0_frac0.3_seed9_arch25k | transformer | 9 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 5825 | 0.9998 | 494 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed9_arch25k | transformer | 9 | step005825 | 5825 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 5825 | 0.9512 | 329 | no | no |
+| txf_add_p113_wd1.0_frac0.3_seed9_arch25k | transformer | 9 | step025000 | 25000 | 0.3 | 1 | no | 25 | 10 | 25000 | 140 | 5825 | 0.9998 | 503 | no | no |
 
 ### structure_over_time  (20 rows, 0 missing)
 

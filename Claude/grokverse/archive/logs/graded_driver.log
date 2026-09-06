@@ -1,0 +1,40 @@
+{
+  "runs": [
+    "mlp_add_p113_wd1.0_frac0.3_seed0_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed1_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed2_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed3_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed4_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed5_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed6_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed7_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed8_arch25k",
+    "mlp_add_p113_wd1.0_frac0.3_seed9_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed0_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed1_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed2_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed3_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed4_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed5_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed6_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed7_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed8_arch25k",
+    "txf_add_p113_wd1.0_frac0.3_seed9_arch25k"
+  ],
+  "points": [
+    "crossing",
+    "final"
+  ],
+  "key_rule": "nanda",
+  "seed": 0,
+  "n_calls": 40,
+  "analysis_git_commit": "f8fc430e6814c4a38779c1f8371fe28c9e85f4fa",
+  "summary": {
+    "counts": {
+      "ok": 40
+    },
+    "failed": [],
+    "missing_modules": []
+  },
+  "manifest": "results\\analysis_driver_graded.json"
+}

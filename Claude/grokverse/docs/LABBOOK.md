@@ -1105,3 +1105,78 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
 
      After the move: suite 24/24; `check_results_numbers.py` agrees on every number; all 11 figures
      and their sources resolve. 36 renames, 0 deletions of content.
+
+109. **Graded structured-neuron ablation: there is a small load-bearing set, but only at the
+     transition — and a determinism defect found on the way.** An external reviewer read the branch on
+     2026-09-05 and raised, from outside, exactly the objection `HUMAN_DECISIONS` D6 records from
+     inside: the G4 ablation removes 88–98 % of the network, so it cannot separate "the structured
+     neurons matter" from "too much was removed". D6 already concluded that no available B1 threshold
+     rescues G4 and that only *a different kind of selection* could. This is that selection.
+
+     **Pre-registered first, and committed before any graded number was read** (`PREREGISTRATION.md`
+     §14, decision **D7** open, commit `7161842`). Rank the live neurons by B1's own yardstick,
+     `s = min(u_a family fraction, u_b family fraction)`, with B1's categorical failures demoted to
+     −1. Members score ≥ 0.50 and non-members strictly below, so the top-*n* sets are **nested subsets
+     of the B1 structured set** and the sweep contains the existing G4 test as its limiting case —
+     recorded per fraction as `subset_of_b1_structured` rather than assumed, and true at every
+     fraction in every run. Fractions 0.01/0.02/0.05/0.10/0.25/0.50, both directions, 50 seeded
+     size-matched random groups of live neurons shared between the directions so the two readings are
+     paired.
+
+     **What was already there, and was not rebuilt.** Most of what the reviewer proposed already
+     existed as `ipr_ranked_pruning` (D2, the Doshi sweep): 21 fractions, both directions, a 50-draw
+     control. What was missing was only the ranking *by the structure criterion* rather than by the
+     IPR, and the 1 % grid point. So the night's new compute was one additive block, not a new
+     experiment. The IPR curves were then read at the matching fractions with **no new computation**
+     and reported beside the new ones.
+
+     **Result** (10 primary seeds per architecture, both checkpoints, `results/GRADED_ABLATION.md`):
+
+     | arch | checkpoint | smallest discriminating fraction | drop vs control | seeds |
+     |---|---|---|---|---|
+     | MLP | crossing | **1 %** (5 neurons) | 0.187 vs 0.010 | 10/10 |
+     | transformer | crossing | **1 %** (5 neurons) | 0.031 vs 0.004 | 9/10 |
+     | MLP | final | **50 %** (256 neurons) | 0.412 vs 0.052 | 9/10 |
+     | transformer | final | **5 %** (26 neurons) | 0.096 vs 0.0002 | 9/10 |
+
+     At the crossing point, removing the **five** most structured neurons already beats every one of
+     fifty random five-neuron groups, in both architectures. At convergence the MLP shows nothing at
+     all below half the network — removing its top 1, 2, 5 or 10 % changes test accuracy by exactly
+     0.0000 — while the transformer keeps a small load-bearing core. The pre-registered sensitivity
+     score reproduces the pattern, and the independently-ranked IPR sweep agrees qualitatively
+     (final: 25 % for the MLP against 5 % for the transformer). So G4's failure was a property of the
+     set size, as D6 suspected, and not evidence that the structured neurons are causally inert. It
+     does **not** reopen the gate: §14.5 fixed that in advance and the gate stands at 0/10.
+
+     Honest counterweight, in `RESULTS.md` §6.1: statistical separation is not importance. The MLP's
+     25 % group at the final checkpoint separates from its control in 7 of 10 seeds while costing
+     **0.002** of accuracy. The pre-registered rule asks only whether the observed damage beats every
+     control, so the absolute drop belongs next to every flag.
+
+     **The defect found on the way.** Re-running `causal_ablation` and diffing against the artifacts
+     on disk showed 560 of 660 pre-existing ablation blocks differing — every **observed** value
+     identical, every **control** statistic moved. `resolve_structured_masks` built the available
+     definitions as a Python **set**, and both ablation functions iterate that dict while drawing from
+     **one shared rng**, so which 50 control draws went to which definition depended on the process's
+     string-hash seed. Confirmed directly: the same three-element set printed in six fresh
+     interpreters gave four different orders. The tell was that `n_structured`'s **key order** differed
+     between the old and new file.
+
+     This is a determinism violation of the project's own non-negotiable, present since `ac5bec4`,
+     i.e. from before the freeze, and invisible for three days because nothing ever re-ran the module
+     in a fresh process and compared. Treated as a §9 bug fix — a control that is not reproducible is
+     not a control — one line (`wanted` is already ordered, so iterate it), `MODULE_VERSION` 1.1 → 1.2,
+     all 40 primary checkpoints re-run, and a regression test that pins the key order. Proven fixed:
+     six processes with different `PYTHONHASHSEED` now return one order.
+
+     Impact, measured rather than assumed: **no observed value, no necessity or sufficiency label and
+     no gate verdict changed** — zero boolean flips across all 40 checkpoints. Two published control
+     numbers moved and are updated in `RESULTS.md` §6 and in the verifier: MLP `remove_structured`
+     control drop 0.873 → **0.878** (z 3.4 → 3.6), transformer `remove_structured_neurons` 0.916 →
+     **0.910** (z 1.4 → 1.9). The nondeterministic spread across runs was ≈ ±0.005, which exceeds the
+     ±0.001 the verifier asserts — which is why it had to be fixed rather than noted. Escalated as
+     **D8**; logged in `PREREGISTRATION.md` §12's post-freeze table; Obsidian
+     `Bugs/Nondeterministic control draws from a Python set`.
+
+     Suite 24/24 files; `check_results_numbers.py` agrees on all 117 checks. Both aggregates
+     regenerated; every module other than `causal_ablation` is byte-identical.

@@ -109,8 +109,8 @@ def check_ablations() -> None:
     print("\n-- section 6: ablations --")
     ca = rows("causal_ablation")
     for arch, ident, drop, ctrl in (
-            ("mlp", "remove_structured", 0.991, 0.873),
-            ("transformer", "remove_structured_neurons", 0.942, 0.916),
+            ("mlp", "remove_structured", 0.991, 0.878),
+            ("transformer", "remove_structured_neurons", 0.942, 0.910),
             ("mlp", "remove_key_freqs_from_curves", 0.989, 0.000),
             ("transformer", "remove_key_freqs_from_embedding", 0.984, 0.0005),
             ("transformer", "remove_key_subspace_from_residual", 0.235, 0.000),

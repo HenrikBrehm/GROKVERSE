@@ -30,6 +30,8 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - [x] G9 — D5 (which transformer ablation G4 means: 0/10 vs 10/10) and D6 (six-definition table showing no available definition makes G4 testable, plus the new budget-convergence caveat) carry their measured sensitivity; `STATUS: NOT YET APPROVED BY HUMAN AUTHORS` untouched
 - [x] H — `docs/dev/EXPLORER_UPDATE_PLAN.md` written (web/ untouched; approval box open); labbook entries 99–105; Obsidian session note `2026-09-04 - GROKVERSE`, project-log entry, `Bugs/Silent extractors that return a plausible number`, pitfalls #9 and the measured outcomes for #1/#2; master prompt §25 block delivered. **Every non-human item of §23 is done.**
 
+- [x] I — **graded structured-neuron ablation** (follow-up to an external review, 2026-09-06). Pre-registered FIRST as `PREREGISTRATION.md` §14 / decision **D7**, committed at `7161842` before any graded number was read. Additive block in `causal_ablation` (`MODULE_VERSION` 1.2), 40 primary checkpoints re-run, **40 ok / 0 failed**. Result: the structured ranking discriminates from **1 % (5 neurons)** at the crossing point in both architectures, and at the final checkpoint from **5 %** in the transformer but only **50 %** in the MLP — so G4's failure was set size, not causal inertness. Gate untouched at `neither_passes`. Found and fixed a determinism defect on the way (unordered set decided the shared rng's consumption order): two published control numbers updated, **zero** verdict flips, escalated as **D8**. Suite 24/24; `check_results_numbers.py` 117/117 — `results/GRADED_ABLATION.md`, `results/graded_ablation.json`, labbook 109
+
 ## Master prompt §23 — Definition of Done (19 items)
 
 | # | item | state | evidence |
@@ -60,3 +62,5 @@ path (commit hash, file, log line) is not a tick. Three states only: `[x] done �
 - `AI_DISCLOSURE.md`: every `[HUMAN AUTHORS MUST COMPLETE]`.
 - The final interpretation in the authors' own words; any threshold change; the `txf_mul_*` runs;
   the explorer update (after review).
+- **D7** (is the graded ablation accepted as pre-registered, and how is it positioned?) and
+  **D8** (is the determinism fix accepted as a §9 bug fix rather than a control change?).

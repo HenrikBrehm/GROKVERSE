@@ -266,9 +266,9 @@ set drawn 50 times; *necessary* requires drop ≥ 0.5 **and** control mean drop 
 
 | ablation | arch | test acc after | drop | control drop | z | necessary | sufficient |
 |---|---|---|---|---|---|---|---|
-| `remove_structured` | MLP | 0.009 | 0.991 | **0.873** | 3.4 | **0/10** | — |
-| `remove_structured_neurons` | transformer | 0.057 | 0.942 | **0.916** | 1.4 | **0/10** | — |
-| `keep_structured` | MLP | 1.000 | 0.000 | 0.000 | −0.2 | — | **10/10** |
+| `remove_structured` | MLP | 0.009 | 0.991 | **0.878** | 3.6 | **0/10** | — |
+| `remove_structured_neurons` | transformer | 0.057 | 0.942 | **0.910** | 1.9 | **0/10** | — |
+| `keep_structured` | MLP | 1.000 | 0.000 | 0.000 | −0.1 | — | **10/10** |
 | `keep_structured_neurons` | transformer | 0.9997 | 0.000 | 0.000 | −0.4 | — | **10/10** |
 | `remove_key_freqs_from_curves` | MLP | 0.011 | **0.989** | **0.000** | — | **10/10** | — |
 | `remove_key_freqs_from_embedding` | transformer | 0.015 | **0.984** | **0.0005** | 887 | **10/10** | — |
@@ -280,11 +280,13 @@ set drawn 50 times; *necessary* requires drop ≥ 0.5 **and** control mean drop 
 | `replace_with_square_fit` | MLP | **1.0000** | 0.000 | 0.991 | −185 | — | **10/10** |
 | `ablate_head_k` (4 heads × 2 modes) | transformer | 0.51–0.56 | 0.44–0.49 | 0.034–0.041 | 19–27 | 3–4/10 | 0/10 |
 
+> **Two control numbers in this table changed on 2026-09-06.** A determinism defect in the frozen code (an unordered set decided the order in which the shared random generator was consumed) made the size-matched control draws irreproducible; the fix moved the MLP control drop from 0.873 to 0.878 and the transformer's from 0.916 to 0.910. No observed value, no necessity or sufficiency label and no gate verdict changed. `PREREGISTRATION.md` §12 logs it as a post-freeze bug fix and `HUMAN_DECISIONS.md` **D8** puts it to the human authors.
+
 Three things follow.
 
 1. **G4 fails in both architectures for the same reason, and the reason is the structured-neuron
    threshold rather than the models.** Removing 88–98 % of any network destroys it, so the
-   size-matched control cannot discriminate: the control alone already does 0.873 (MLP) and 0.916
+   size-matched control cannot discriminate: the control alone already does 0.878 (MLP) and 0.910
    (transformer) of the damage. `CAUSAL_ABLATION_PLAN.md` §6 named this outcome in advance — "removing
    `C` and the control do comparable damage → `C` is **not** specifically load-bearing". Changing the
    threshold now, because the outcome is inconvenient, is exactly what pre-registration forbids.
@@ -319,6 +321,61 @@ interpretation that the key frequencies are load-bearing, while the *neuron set*
 them is not.
 
 ---
+
+### 6.1 The graded ablation: there *is* a small load-bearing set — at the transition
+
+§6 point 1 concedes that G4 cannot discriminate because the structured set is 86–100 % of the live
+neurons. An external reviewer raised the same objection independently on 2026-09-05: removing 88–98 %
+of a network tells you nothing about *which* neurons mattered. That objection is testable, and
+`docs/PREREGISTRATION.md` §14 pre-registers the test — written before any graded number was inspected,
+human approval open as **D7**.
+
+**Design.** Rank the live neurons by B1's own yardstick, `s = min(u_a family fraction, u_b family
+fraction)`, with B1's categorical failures demoted so the top-*n* sets are **nested subsets of the B1
+structured set**. Ablate the top 1 / 2 / 5 / 10 / 25 / 50 % against **50 seeded size-matched random
+groups of live neurons**, in both directions, over the 10 primary seeds and both checkpoints.
+Discriminable at *f* iff, in ≥ 8 of 10 seeds, the observed drop exceeds **every** control and z ≥ 3.
+
+**Observation.** The answer depends on *when* you look, and the two architectures part company.
+
+| arch | checkpoint | smallest discriminating fraction | at that fraction: drop vs control | seeds |
+|---|---|---|---|---|
+| MLP | crossing | **1 %** (5 neurons) | **0.187** vs 0.010 | 10/10 |
+| transformer | crossing | **1 %** (5 neurons) | **0.031** vs 0.004 | 9/10 |
+| MLP | final | **50 %** (256 neurons) | 0.412 vs 0.052 | 9/10 |
+| transformer | final | **5 %** (26 neurons) | **0.096** vs 0.0002 | 9/10 |
+
+At the **crossing** checkpoint, where test accuracy has just reached ≈ 0.95, removing the five
+most-structured neurons already does an order of magnitude more damage than any of fifty random
+five-neuron groups — in **both** architectures. The B1 set is also much smaller there (median 142 of
+512 neurons in the MLP, 296 in the transformer) than at the end of training (453 and 503).
+
+At the **final** checkpoint the MLP shows nothing: removing the top 1, 2, 5 or 10 % changes test
+accuracy by **exactly 0.0000**, and the ranking does not separate from its control until half the
+network is gone. The transformer keeps a small load-bearing core, discriminating from 5 % with a drop
+of 0.096 against a control mean of 0.0002 — a ratio of roughly 400.
+
+**Alternative explanation, tested.** That this is an artifact of the particular score is checked two
+ways. The pre-registered sensitivity score (the mean of the three family fractions, no demotion)
+reproduces the pattern. And the **IPR-ranked sweep that already existed** (D2, Doshi arXiv:2310.13061)
+— read at matching fractions with no new computation, a different ranking and a different control —
+agrees qualitatively: discriminating from 5 % at crossing in both architectures, and at the final
+checkpoint from 25 % in the MLP against 5 % in the transformer. Two independent rankings put the MLP's
+final state on the redundant side and the transformer's on the concentrated side.
+
+**Limitation.** Statistical separation is not importance. At the MLP's final checkpoint the 25 %
+group is separated from its control in 7 of 10 seeds while costing **0.002** of accuracy; the
+pre-registered rule tests only whether the observed damage beats every control, not whether it
+matters. Absolute drops belong next to every flag, and are given in
+`training/results/GRADED_ABLATION.md`.
+
+**Permissible conclusion.** G4's failure was, as D6 suspected, a property of the *set size* and not
+evidence that the structured neurons are causally inert: a nested subset of the very same B1 set is
+sharply load-bearing at the transition in both architectures. It remains so at convergence only in the
+transformer. **This does not reopen the gate.** G4's verdict is fixed by its own pre-registered rule
+and stands at 0/10 in both architectures; §14.5 fixed that in advance, before these numbers were seen.
+Nor does it show that the B1 *set* is the mechanism — only that the *ranking* carries causal signal at
+small group size.
 
 ## 7. H3 — the study's proposed primary contribution — is refuted by its own criterion
 

@@ -565,6 +565,30 @@ def check_graded_ablation_is_deterministic():
           == c["by_fraction"]["0.05"]["remove_top"]["observed"]["test_acc"])
 
 
+def check_structured_mask_order_is_deterministic(tmp: Path):
+    """The key order of `masks["sets"]` must not depend on per-process string hashing.
+
+    Both ablation functions iterate this dict while drawing from ONE shared rng, so an unordered
+    source made which 50 size-matched control draws went to which definition change from process to
+    process. Observed values were unaffected; control means moved by up to 0.0034 between runs of
+    identical code on identical inputs (HUMAN_DECISIONS D8, LABBOOK 109). `wanted` is ordered, so
+    the returned order must equal it.
+    """
+    run_dir = tmp / "order_probe"
+    (run_dir / "analysis" / "mlp_mechanism").mkdir(parents=True, exist_ok=True)
+    n = 8
+    names = ("primary_family_0.50",) + CA.SENSITIVITY_DEFINITIONS
+    np.savez(run_dir / "analysis" / "mlp_mechanism" / "stepX.npz",
+             **{f"mask__{d}": np.ones(n, bool) for d in names},
+             mask__alive=np.ones(n, bool))
+    got = CA.resolve_structured_masks(run_dir, "stepX", "mlp", {}, None, [],
+                                      "primary_family_0.50", 0)
+    check(f"the npz path returns the definitions in `wanted` order, not set order ({list(got['sets'])})",
+          list(got["sets"]) == list(names))
+    check("...and it really came from the npz, not the recompute fallback",
+          got["source"].endswith("stepX.npz"))
+
+
 # --------------------------------------------------------------------------- #
 def main():
     with tempfile.TemporaryDirectory() as td:
@@ -584,6 +608,7 @@ def main():
         check_graded_ablation_separates_a_known_circuit()
         check_graded_ablation_control_does_not_separate()
         check_graded_ablation_is_deterministic()
+        check_structured_mask_order_is_deterministic(tmp)
     print("\nALL CHECKS PASSED")
 
 

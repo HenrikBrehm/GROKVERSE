@@ -1,0 +1,2398 @@
+===== tests\test_aggregate.py =====
+
+-- collect_module: rows, gaps, and not-applicable --
+[PASS] one row per run that has the analysis
+[PASS] a run whose analysis is absent becomes a MISSING row, with its reason
+[PASS] a transformer run is NOT counted as missing for an MLP-only module
+[PASS] the applicable denominator excludes the not-applicable run
+[PASS] run metadata travels with every row
+[PASS] the transition steps are carried through
+[PASS] the source file is named so any number can be traced back
+[PASS] provenance from the envelope is kept
+[PASS] the G1 inputs are extracted
+[PASS] the G2 inputs are extracted
+[PASS] every structured definition present is extracted, not only the primary
+[PASS] the transformer module sees its own run and calls the MLPs not-applicable
+
+-- an unreadable analysis file --
+[PASS] a corrupt file is recorded as missing with the parse error, not crashed on
+
+-- an extractor that cannot read a payload --
+[PASS] a payload the extractor cannot read still produces a row, flagged with the error
+
+-- progress_measures: restricted/excluded reach the table, per split --
+[PASS] the restricted loss carries a number, not None
+[PASS] the excluded loss carries a number, not None
+[PASS] all three splits are extracted separately — no loss travels without its convention
+[PASS] accuracy comes along with the loss
+[PASS] every protocol is extracted, not only the first
+[PASS] the component counts travel with the losses, so 'kept 10' is never guessed
+[PASS] the extraction is anchored to the FINAL checkpoint, not the first
+[PASS] the unrestricted loss is carried for comparison
+
+-- markdown_table: every seed shown --
+[PASS] one table line per seed — nothing is averaged away
+[PASS] the header names the row and gap counts
+[PASS] a missing run is listed under the table
+[PASS] None renders as an em dash, never as a silent blank or a 0
+
+-- aggregate(): the written artifacts --
+[PASS] an index and a markdown file are written
+[PASS] one json per module
+[PASS] the index records rows, gaps and the applicable denominator per module
+[PASS] the commit and the run pattern are recorded for reproducibility
+[PASS] several globs are accepted and both are recorded
+[PASS] ...and the pattern that was NOT given is excluded
+[PASS] a single glob given as a bare string still works
+[PASS] the 'all seeds shown' rule is stated in the document itself
+[PASS] a module with no outputs at all is still listed, with zero rows
+
+ALL CHECKS PASSED
+----- test_aggregate.py: PASS
+
+===== tests\test_bounded_alternative.py =====
+
+-- probes for (a+b) mod p, each against its shuffled-label control --
+[PASS] the linear probe decodes a one-hot sum representation (1.000)
+[PASS] ...while its shuffled-label control stays at chance (0.046 vs 0.043)
+[PASS] the gap above the control is reported, not just the raw accuracy
+[PASS] both probe depths are run
+[PASS] the protocol records that it trains on the model's own split
+[PASS] CONTROL: on noise the linear probe does not beat its shuffled control (0.041 vs 0.070)
+[PASS] CONTROL: and it stays near chance on the test split
+[PASS] the real and control probes are given identical budgets
+
+-- singular spectra --
+[PASS] a rank-1 matrix has effective rank ~1 (1.000)
+[PASS] ...and one component explains ~all of it
+[PASS] CONTROL: isotropic noise has a much higher effective rank (29.0)
+[PASS] both effective-rank definitions are named in the output
+[PASS] a degenerate (all-zero) input is flagged, not divided by zero
+
+-- linear CKA --
+[PASS] CKA of a representation with itself is 1
+[PASS] CKA is invariant to an orthogonal rotation
+[PASS] ...and to isotropic scaling
+[PASS] CONTROL: two independent representations have low CKA (0.067)
+[PASS] CKA is symmetric
+
+-- removing the top-r singular directions vs r random directions --
+[PASS] the synthetic circuit solves the task first (1.000)
+[PASS] removing the 2 directions it uses destroys it (0.035)
+[PASS] CONTROL: removing 2 RANDOM directions barely hurts (0.116 mean drop)
+[PASS] the observed damage exceeds every random control
+[PASS] the control definition is recorded with the number
+[PASS] every requested rank is reported
+
+-- analyse(): the run-level output contract --
+[PASS] mlp: the result lands at analysis/bounded_alternative/final.json
+[PASS] mlp: all four pre-committed questions are answered
+[PASS] mlp: the Khanh caveat travels with the numbers
+[PASS] mlp: the bounded scope is stated, including that a negative result is valid
+[PASS] mlp: it records that it only runs for an architecture that FAILED the gate
+[PASS] mlp: the shuffled-label control is present for both probe depths
+[PASS] transformer: the result lands at analysis/bounded_alternative/final.json
+[PASS] transformer: all four pre-committed questions are answered
+[PASS] transformer: the Khanh caveat travels with the numbers
+[PASS] transformer: the bounded scope is stated, including that a negative result is valid
+[PASS] transformer: it records that it only runs for an architecture that FAILED the gate
+[PASS] transformer: the shuffled-label control is present for both probe depths
+
+-- compare_seeds(): cross-seed CKA --
+[PASS] the matrix is square with 1 on the diagonal
+[PASS] it is symmetric
+[PASS] each run is identified with its checkpoint
+[PASS] the checkpoint caveat is attached
+
+ALL CHECKS PASSED
+----- test_bounded_alternative.py: PASS
+
+===== tests\test_causal_ablation.py =====
+
+-- evaluate, margin, report (INTERFACES 9 common block) --
+[PASS] the injected circuit solves the task on both splits
+[PASS] evaluate accepts a callable as well as an array (INTERFACES 9 spelling)
+[PASS] a wrong-shaped logit grid is rejected
+[PASS] margin of the correct circuit is positive
+[PASS] margin of an all-equal grid is 0
+[PASS] report of a model against itself has zero deltas
+[PASS] ...zero logit change and zero margin change
+[PASS] ...and zero test_accuracy_drop
+[PASS] per-class accuracy change is per class and summarized
+[PASS] destroying the model gives a large positive test_accuracy_drop
+[PASS] absolute AND relative changes are both reported (plan 2)
+[PASS] n_components_removed is carried through
+[PASS] a relative change against a zero baseline is None, never nan or inf
+
+-- ideal circuit: necessity, sufficiency, and the no-damage case --
+[PASS] the circuit solves the task exactly (n=1164, |S|=64)
+[PASS] remove_structured destroys accuracy (0.0514 <= 0.1)
+[PASS] keep_structured keeps accuracy (1.0000 >= 0.9)
+[PASS] the size-matched random control keeps > 0.9 on average (0.9848)
+[PASS] ...so the plan's rule can separate the two at all
+[PASS] remove_key_freqs destroys accuracy (0.0486 <= 0.1)
+[PASS] keep_key_freqs retains accuracy (1.0000 >= 0.9)
+[PASS] removing the 300 zero-output neurons changes the logits by exactly 0
+[PASS] ...and the module labels that no_damage, not necessary
+[PASS] CONTROL: the circuit removal is NOT labelled no_damage
+
+-- filter_curve_frequencies --
+[PASS] keep + remove reconstructs the curve plus its constant (keep carries the DC)
+[PASS] keeping every frequency is the identity
+[PASS] removing every frequency leaves only the constant
+[PASS] removing a curve's own frequency annihilates it
+[PASS] CONTROL: removing a different frequency leaves it untouched
+[PASS] an unknown mode raises
+
+-- phase_scramble (the waveform-substitution control) --
+[PASS] scrambling preserves every column's multiset of values (it is a rotation)
+[PASS] ...and therefore the amplitude exactly
+[PASS] ...but changes the phase of at least one column
+[PASS] it is deterministic under its seed
+[PASS] CONTROL: a different seed gives a different scramble
+
+-- size-matched control draws --
+[PASS] random frequency sets match the key set's cardinality
+[PASS] ...and are drawn from the complement of the key set
+[PASS] an empty key set yields no control sets
+[PASS] random neuron masks select exactly the requested count
+[PASS] a size larger than the population yields no masks
+[PASS] draws are reproducible under the seed
+
+-- with_control: z, its degenerate case, and the plan's 6 labels --
+[PASS] a large observed damage against a tight control gives a large z
+[PASS] ...and is labelled necessary
+[PASS] the control distribution is summarized, not dumped
+[PASS] a zero-spread control gives z = None, not inf (common._jsonable forbids non-finite)
+[PASS] ...and the z-condition falls back to exceeding every control
+[PASS] CONTROL: a zero-spread control that is NOT exceeded is not necessary
+[PASS] a control that does comparable damage is NOT necessary (plan 6, 'removing more removes more')
+[PASS] an ablation with no control at all reports z = None with its reason
+[PASS] sufficiency reads the retained accuracy, not the drop
+[PASS] the [AI-PROPOSED] threshold provenance travels with every label
+
+-- cumulative pruning sweep (Doshi protocol + our random-order control) --
+[PASS] the sweep is reported ascending in n_pruned
+[PASS] pruning nothing reproduces the unablated model
+[PASS] pruning everything leaves only the constant term
+[PASS] every requested fraction is evaluated
+[PASS] a sweep point equals the direct evaluation of that same neuron set
+
+-- transformer ablations (plan 5) --
+[PASS] every plan-5 ablation id is present
+[PASS] every head is ablated in both modes
+[PASS] ablating the all-zero head changes NOTHING (INTERFACES 9 test)
+[PASS] ...and is labelled no_damage
+[PASS] CONTROL: at least one live head DOES change the logits when zeroed
+[PASS] fix_attention_to_mean declares that it has no size-matched control (plan 5)
+[PASS] the embedding ablation records that attention is recomputed under it
+[PASS] per-class accuracy changes reach the npz arrays
+[PASS] the IPR pruning block carries our random-order control, which Doshi's protocol has not
+[PASS] ...and both ranking directions are swept
+
+-- gate criterion G4 (PREREGISTRATION 5) --
+[PASS] all three conditions met -> G4 passes
+[PASS] one condition unmet -> G4 fails
+[PASS] a missing ablation makes G4 null, never a silent False
+[PASS] ...and says which ids it did find
+[PASS] the transformer's own ids are recognised
+[PASS] ...and the id actually used is named
+[PASS] the aggregation caveat travels with the number
+
+-- analyse(): run-level entry point + output contract --
+[PASS] mlp: the result lands at analysis/causal_ablation/final.json
+[PASS] mlp: the npz is written next to it
+[PASS] mlp: the provenance envelope is complete
+[PASS] mlp: baseline, ablations and the G4 verdict are all reported
+[PASS] mlp: the no-retraining rule is recorded in params
+[PASS] mlp: the interpretation thresholds carry their [AI-PROPOSED] status
+[PASS] mlp: the structured-mask source is recorded
+[PASS] mlp: the result is labelled measurement-only
+[PASS] mlp: the sensitivity definitions are ablated too (plan 9)
+[PASS] transformer: the result lands at analysis/causal_ablation/final.json
+[PASS] transformer: the npz is written next to it
+[PASS] transformer: the provenance envelope is complete
+[PASS] transformer: baseline, ablations and the G4 verdict are all reported
+[PASS] transformer: the no-retraining rule is recorded in params
+[PASS] transformer: the interpretation thresholds carry their [AI-PROPOSED] status
+[PASS] transformer: the structured-mask source is recorded
+[PASS] transformer: the result is labelled measurement-only
+[PASS] transformer: the sensitivity definitions are ablated too (plan 9)
+[PASS] an unknown structured definition is refused, naming what is available
+[PASS] fraction->cardinality rounds half UP, not to even (0.05 of 50 == 3)
+[PASS] a fraction that would round to zero still selects one neuron
+[PASS] 1 % of 1164 live neurons is 12
+[PASS] 50 % of 1164 live neurons is 582
+[PASS] the top-5 is a subset of the top-10 (nested family)
+[PASS] the top-5 really are the five highest scores
+[PASS] dead neurons are never ranked
+[PASS] ties break deterministically by index
+[PASS] n_selected is the size-matched cardinality (58)
+[PASS] every random control group has EXACTLY the selected cardinality
+[PASS] the control distribution has the requested number of draws
+[PASS] removing the top 58 circuit neurons does real damage (drop 0.9514)
+[PASS] ...more than EVERY size-matched random group (control mean 0.0041)
+[PASS] keep_only_top is reported in the sufficiency direction too
+[PASS] a distractor-first ranking does NOT separate from its control (drop 0.0000)
+[PASS] the same seed reproduces the control draws exactly
+[PASS] a different seed draws different controls
+[PASS] the observed value does not depend on the control seed
+[PASS] the npz path returns the definitions in `wanted` order, not set order (['primary_family_0.50', 'sensitivity_family_0.30', 'sensitivity_family_0.70'])
+[PASS] ...and it really came from the npz, not the recompute fallback
+
+ALL CHECKS PASSED
+----- test_causal_ablation.py: PASS
+
+===== tests\test_controls_report.py =====
+
+-- the 2x2 decomposition separates the two knobs --
+[PASS] a pure Grokfast effect lands in the Grokfast main effect
+[PASS] ...and NOT in the training-fraction effect
+[PASS] ...and NOT in the interaction
+[PASS] a pure training-fraction effect lands in its own term
+[PASS] a pure interaction lands in the interaction term
+[PASS] ...and splits evenly across the two main effects, as a 2x2 must
+[PASS] the simple effects at each level are reported, not only the mains
+[PASS] the small-sample caveat travels with the decomposition
+
+-- a missing cell is reported, never silently averaged over --
+[PASS] with one cell missing the decomposition is not computed
+[PASS] ...and the cells that ARE present are listed
+[PASS] a seed missing from one cell is dropped from the pairing and counted
+
+-- the parameter-matched and two-hot controls --
+[PASS] the parameter-matched control pairs the transformer with the d_mlp=572 MLP
+[PASS] ...and it does NOT pick up the default-width MLP
+[PASS] the two-hot control pairs against the shared-embedding MLP, on its 3 seeds
+[PASS] the two-hot block states that a null there is weak evidence
+[PASS] the parameter-matched block states what it cannot equalize
+[PASS] the separation rule is written into the artifact
+[PASS] ...as is the rule that controls are never merged with the primary comparison
+
+-- the metric extractors --
+[PASS] the grokking gap is generalization minus memorization
+[PASS] the square-or-harmonic fraction sums the two shares
+[PASS] a missing input gives None, not 0
+[PASS] a boolean is not treated as a number
+
+ALL CHECKS PASSED
+----- test_controls_report.py: PASS
+
+===== tests\test_decision_tree.py =====
+
+-- the constants are PREREGISTRATION 5's, unchanged --
+[PASS] G1 thresholds
+[PASS] G2 threshold
+[PASS] G3 thresholds
+[PASS] the seed rule is 8 of 10
+[PASS] both sensitivity definitions are declared
+
+-- G1..G4 truth tables, including 'not evaluable' --
+[PASS] G1 passes when both conditions hold
+[PASS] G1 fails on too few structured neurons
+[PASS] G1 fails when only ONE curve reaches the family threshold
+[PASS] G1 with a missing input is NOT evaluable, not failed
+[PASS] G1 reads the requested sensitivity definition
+[PASS] G2 passes above the null and above 0.5
+[PASS] G2 fails when R is below the null
+[PASS] G2 fails when R clears the null but is below 0.5
+[PASS] G2 on an empty structured set is NOT evaluable, and says so
+[PASS] G3 passes on a good fit with a working control
+[PASS] G3 fails when argmax accuracy is below 0.90
+[PASS] G3 fails when the (a-b) control fits nearly as well
+[PASS] G3 with a control drawing EVERY frequency is not evaluable, not passed
+[PASS] G3 with no fit numbers at all is not evaluable
+[PASS] G4 is read from causal_ablation's own verdict
+[PASS] G4 fails when the module says so
+[PASS] G4 with no verdict is not evaluable, not failed
+
+-- _is_point: final vs crossing --
+[PASS] the final checkpoint is the last completed step
+[PASS] ...and is not the crossing
+[PASS] the crossing checkpoint matches the logged generalization step
+[PASS] ...and is not the final point
+[PASS] a legacy run tagged 'final' with no step counts as the final point
+[PASS] an unknown measurement point raises
+
+-- evaluate(): the 8-of-10 rule and the branch --
+[PASS] both architectures pass when every seed passes
+[PASS] the branch is both_pass
+[PASS] the permitted conclusion is quoted, and the banned one named
+[PASS] the thresholds that produced the verdict are echoed with their provenance
+[PASS] every seed is listed, not just a count
+[PASS] 7 of 10 does NOT pass the gate
+[PASS] the transformer still passes
+[PASS] the branch is one_passes and names which architecture gets the bounded analysis
+[PASS] when neither passes the branch says so, and prescribes the bounded analysis for both
+
+-- an unfinished analysis is UNDETERMINED, never a verdict --
+[PASS] with 3 of 10 seeds analysed the gate is None, not False
+[PASS] ...and the reason names the incompleteness
+[PASS] the branch is undetermined, not neither_passes
+[PASS] ...and it forbids taking a branch meanwhile
+[PASS] 6 passed + 4 not evaluable leaves the gate open (they could still reach 8)
+[PASS] ...and the reason says exactly that
+[PASS] 1 passed + 9 not evaluable CAN still reach 8, so it stays open
+[PASS] the per-criterion counts separate passed from not-evaluable
+
+ALL CHECKS PASSED
+----- test_decision_tree.py: PASS
+
+===== tests\test_derivations.py =====
+
+-- transformer forward decomposition (TRANSFORMER_MECHANISM_DERIVATION §2, §3) --
+[PASS] decomposition reproduces model.logits_last (<1e-5)
+[PASS] logits split exactly into direct path + MLP path
+[PASS] per-neuron contributions sum to the MLP path (<1e-12)
+[PASS] neuron_logit_map has shape [d_mlp, vocab]
+[PASS] attention row is a distribution over the 3 positions
+
+-- transformer effective curves (derivation §4) --
+[PASS] W_Q = W_K = 0 gives a uniform causal attention row
+[PASS] uniform attention: effective curves reproduce the pre-activation (<1e-10)
+[PASS] uniform attention: additivity_r2 == 1 for every neuron
+[PASS] strong Q/K makes attention input-dependent (std > 0.01)
+[PASS] input-dependent attention: additivity_r2 drops below 1
+[PASS] additivity_r2 stays a finite number <= 1
+
+-- MLP effective curves (MLP_MECHANISM_DERIVATION §2) --
+[PASS] effective curves reproduce the MLP forward pass (<1e-5)
+[PASS] u_a / u_b have shape [p, d_mlp]
+[PASS] the MLP pre-activation is exactly additive in (a, b)
+
+-- ReLU produces the (a+b) cross term with phase phi_a + phi_b (§4) --
+[PASS] phase(cross term) == phi_a + phi_b for (0.7, -1.3) (err 2.1e-04)
+[PASS] cross-term amplitude ~ 8/(3 pi^2) for (0.7, -1.3) (got 0.2698)
+[PASS] phase(cross term) == phi_a + phi_b for (0.0, 0.0) (err 2.2e-16)
+[PASS] cross-term amplitude ~ 8/(3 pi^2) for (0.0, 0.0) (got 0.2698)
+[PASS] phase(cross term) == phi_a + phi_b for (2.5, 2.5) (err 2.5e-04)
+[PASS] cross-term amplitude ~ 8/(3 pi^2) for (2.5, 2.5) (got 0.2705)
+[PASS] single neuron: (a-b) amplitude equals (a+b) amplitude (0.2705 vs 0.2698)
+[PASS] single neuron: (a-b) phase equals phi_a - phi_b (err 2.4e-04)
+[PASS] single neuron: (a-b) amplitude equals (a+b) amplitude (0.2698 vs 0.2699)
+[PASS] single neuron: (a-b) phase equals phi_a - phi_b (err 9.0e-05)
+[PASS] without the ReLU there is no (a+b) term
+
+-- the population + readout select (a+b) (§4.1) --
+[PASS] H1 readout: logits are mostly cos(w(a+b-c)) (R2 0.938)
+[PASS] H1 readout: the (a-b) content cancels (R2 0.003)
+[PASS] scrambled readout: no (a+b) structure (R2 0.113)
+[PASS] difference readout selects (a-b) instead (R2 0.909)
+
+-- discrete square waves and aliasing (§5) --
+[PASS] k=1: fundamental share ~ 8/pi^2 (got 0.8107)
+[PASS] k=1: odd-harmonic share ~ 1/9+1/25+1/49 (got 0.1717)
+[PASS] k=1: even-harmonic share is small but nonzero (got 5.82e-04)
+[PASS] k=1: aliased odd harmonics are distinct from each other and from k
+[PASS] k=5: fundamental share ~ 8/pi^2 (got 0.8107)
+[PASS] k=5: odd-harmonic share ~ 1/9+1/25+1/49 (got 0.1717)
+[PASS] k=5: even-harmonic share is small but nonzero (got 5.82e-04)
+[PASS] k=5: aliased odd harmonics are distinct from each other and from k
+[PASS] k=18: fundamental share ~ 8/pi^2 (got 0.8107)
+[PASS] k=18: odd-harmonic share ~ 1/9+1/25+1/49 (got 0.1717)
+[PASS] k=18: even-harmonic share is small but nonzero (got 5.82e-04)
+[PASS] k=18: aliased odd harmonics are distinct from each other and from k
+[PASS] k=56: fundamental share ~ 8/pi^2 (got 0.8107)
+[PASS] k=56: odd-harmonic share ~ 1/9+1/25+1/49 (got 0.1717)
+[PASS] k=56: even-harmonic share is small but nonzero (got 5.82e-04)
+[PASS] k=56: aliased odd harmonics are distinct from each other and from k
+[PASS] a sinusoid puts no power at its odd harmonics
+[PASS] the legacy top-8 set has harmonic collisions (>= 5)
+
+ALL DERIVATION CHECKS PASSED
+----- test_derivations.py: PASS
+
+===== tests\test_driver.py =====
+[PASS] only completed runs are selected
+[PASS] a still-running run is excluded
+[PASS] an empty selection raises instead of doing nothing
+[PASS] crossing resolves to the generalization checkpoint
+[PASS] final resolves to the last step
+[PASS] a legacy run without checkpoints resolves to None (model_final.pt)
+[PASS] an unknown measurement point raises
+[PASS] a module that does not exist resolves to no entry point
+[PASS] every module the driver lists but cannot import is reported missing, never skipped silently
+[PASS] ...and an implemented, architecture-agnostic module is planned instead
+[PASS] an MLP-only module is skipped on the transformer run
+[PASS] the same module is NOT skipped on the MLP run
+[PASS] every planned per-checkpoint call carries a resolved step
+[PASS] both measurement points are planned for an implemented module
+[PASS] --only restricts the plan to the named module
+[PASS] a failing module is recorded as failed, not raised
+[PASS] the failure detail names the exception
+[PASS] a sibling module still runs after a failure
+[PASS] the summary counts one failure
+[PASS] the summary lists the failing run and module
+[PASS] a per-run module is called without a step argument
+
+-- every driver module runs with the driver's kwargs --
+[from-checkpoints] step      0  full(all)=3.13712
+[from-checkpoints] step     10  full(all)=3.13712
+[from-checkpoints] step    100  full(all)=3.13712
+[saved] C:\Users\henri\AppData\Local\Temp\tmp2c5akpaf\mlp_mlp_add_p23_wd1.0_frac0.3_dm8_seed0\analysis\progress_measures\all_checkpoints.json
+[PASS] mlp: structure_over_time accepts the driver's kwargs — ran
+[from-checkpoints] step      0  full(all)=3.13712
+[from-checkpoints] step     10  full(all)=3.13712
+[from-checkpoints] step    100  full(all)=3.13712
+[saved] C:\Users\henri\AppData\Local\Temp\tmp2c5akpaf\mlp_mlp_add_p23_wd1.0_frac0.3_dm8_seed0\analysis\progress_measures\all_checkpoints.json
+[PASS] mlp: progress_measures accepts the driver's kwargs — ran
+[PASS] mlp: key_frequencies accepts the driver's kwargs — ran
+[PASS] mlp: mlp_mechanism accepts the driver's kwargs — ran
+[PASS] mlp: wave_fitting accepts the driver's kwargs — ran
+[PASS] mlp: logit_formula_fit accepts the driver's kwargs — ran
+[PASS] mlp: h3_validity accepts the driver's kwargs — ran
+[PASS] mlp: causal_ablation accepts the driver's kwargs — ran
+[from-checkpoints] step      0  full(all)=3.21271
+[from-checkpoints] step     10  full(all)=3.21271
+[from-checkpoints] step    100  full(all)=3.21271
+[saved] C:\Users\henri\AppData\Local\Temp\tmp2c5akpaf\transformer_txf_add_p23_wd1.0_frac0.3_dm8_seed0\analysis\progress_measures\all_checkpoints.json
+[PASS] transformer: structure_over_time accepts the driver's kwargs — ran
+[from-checkpoints] step      0  full(all)=3.21271
+[from-checkpoints] step     10  full(all)=3.21271
+[from-checkpoints] step    100  full(all)=3.21271
+[saved] C:\Users\henri\AppData\Local\Temp\tmp2c5akpaf\transformer_txf_add_p23_wd1.0_frac0.3_dm8_seed0\analysis\progress_measures\all_checkpoints.json
+[PASS] transformer: progress_measures accepts the driver's kwargs — ran
+[PASS] transformer: key_frequencies accepts the driver's kwargs — ran
+[PASS] transformer: transformer_mechanism accepts the driver's kwargs — ran
+[PASS] transformer: logit_formula_fit accepts the driver's kwargs — ran
+[PASS] transformer: h3_validity accepts the driver's kwargs — ran
+[PASS] transformer: causal_ablation accepts the driver's kwargs — ran
+
+ALL DRIVER CHECKS PASSED
+----- test_driver.py: PASS
+
+===== tests\test_figures_study.py =====
+
+-- the pre-specified comparison set --
+[PASS] exactly eight comparisons are declared (the count is fixed in advance)
+[PASS] they are numbered p1..p8 in the plan's order
+[PASS] every comparison declares its modules, points and an extractor
+[PASS] the two structure comparisons are drawn at BOTH measurement points (plan §3)
+
+-- the per-comparison extractors --
+[PASS] p2 is the gap between the two logged transitions
+[PASS] p5 sums the square and odd-harmonic shares
+[PASS] p6 is family minus top-1
+[PASS] p7 is damage minus its size-matched control
+[PASS] p8 takes the better of the two Fourier formulas
+[PASS] a missing input yields None, never 0
+[PASS] a boolean is not mistaken for a number
+
+-- values are taken at the requested measurement point only --
+[PASS] the final point picks the last completed step
+[PASS] the crossing point picks the logged generalization step
+[PASS] one seed is never counted twice at one point
+
+-- figures(): drawing, captions and the reasons for not drawing --
+[PASS] the eight comparisons produce at least eight drawn figures
+[PASS] each drawn figure exists on disk
+[PASS] every figure names the aggregate files it came from
+[PASS] the caption names the sources and the pair count
+[PASS] the paired statistics travel with the figure
+[PASS] every seed is in the figure's record, not just a count
+[PASS] the index states that nothing is recomputed
+[PASS] the index states that the count is fixed in advance
+[PASS] a missing decision_tree.json makes the gate figure NOT drawn, with its reason
+[PASS] with no shared seed the figure is not drawn and the reason lists what it had
+[PASS] ...and the unpaired seeds are recorded per architecture
+
+-- the gate summary figure --
+[PASS] the gate figure is drawn
+[PASS] it records the branch and each architecture's verdict
+[PASS] its caption names the source and the shading convention
+
+ALL CHECKS PASSED
+----- test_figures_study.py: PASS
+
+===== tests\test_function_agreement.py =====
+-- identical models --
+[PASS] identical: agreement_rate == 1
+[PASS] identical: error_jaccard == 1 (5 shared errors)
+[PASS] identical: both_correct == accuracy_a == accuracy_b
+[PASS] identical: only_a == only_b == 0, both_wrong == 5/p^2
+[PASS] contingency fractions sum to 1
+[PASS] identical: no disagreement pairs
+[PASS] identical: logit_pearson == margin_pearson == 1
+[PASS] identical: top-2 agreement (set and ordered) == 1
+[PASS] per-split blocks partition the grid
+[PASS] per-split agreement == 1 on both splits
+[PASS] shared split: the per-split numbers are reported once (model_b_split == model_a_split)
+[PASS] per-split errors add up to the full-grid count
+[PASS] identical: every error histogram of model a sums to its 5 errors
+[PASS] identical: the disagreement mask is empty and its histograms sum to 0
+[PASS] identical, zero errors: jaccard of two empty error sets is None (0/0), not a silent 0
+[PASS] identical, zero errors: symmetric shares are None too, with n_errors 0 next to them
+-- models differing on a known set of 10 inputs --
+[PASS] agreement == 1 - 10/p^2
+[PASS] disagreement list equals the known set exactly
+[PASS] disagreement_pairs() matches the npz array
+[PASS] only_a_correct == 10/p^2, only_b == both_wrong == 0
+[PASS] error_jaccard == 0 (a has no errors, b has 10) -- a DEFINED zero, union 10
+[PASS] every error histogram of model b sums to its 10 errors
+[PASS] every npz histogram sums to the error count too
+[PASS] every disagreement histogram sums to the number of disagreements
+[PASS] model_a_split train: only_a_correct == |S & train_a| / n_train
+[PASS] model_b_split train: only_a_correct == |S & train_b| / n_train
+[PASS] different splits give different per-split blocks
+[PASS] logit_pearson stays high when only 10 cells changed
+-- scrambled controls (must NOT look like agreement) --
+[PASS] cell-shuffled control: agreement far below 1
+[PASS] cell-shuffled control: accuracy_b near chance
+[PASS] cell-shuffled control: logit_pearson near 0
+[PASS] cell-shuffled control: top-2 agreement far below 1
+[PASS] cell-shuffled control: error_jaccard == 0 (a has no errors)
+[PASS] class-shifted control: agreement == 0 and accuracy_b == 0
+[PASS] class-shifted control: only_a_correct == 1
+-- NEGATIVE CONTROL: two independently seeded models must NOT agree --
+[PASS] independent seeds: agreement_rate NOT near 1 (< 0.2)
+[PASS] independent seeds: agreement_rate sits at chance 1/p
+[PASS] independent seeds: logit_pearson near 0
+[PASS] independent seeds: top-2 set agreement far below 1
+[PASS] independent seeds: per-split agreement is at chance on both splits too
+[PASS] the negative control discriminates (identical logits reach 1.0, noise does not)
+-- error structure --
+[PASS] every histogram the module produces has p bins and sums to 37
+[PASS] by_residue_sum bin 4 matches a hand count
+[PASS] by_target_class == by_residue_sum for task 'add'
+[PASS] by_abs_diff bin 0 counts the diagonal errors
+[PASS] histogram summary: total 37, entropy in (0, 1]
+[PASS] histogram summary of an empty histogram: entropy None (not 0), total 0
+[PASS] error_structure: summary n_errors and every histogram total == 37
+[PASS] error_structure: npz arrays hold the same histograms + the control draws
+[PASS] constructed symmetric errors: share == 1 (incl. and excl. diagonal), n_errors 12
+[PASS] hand-constructed mixed case: 4 errors, 2 symmetric -> share exactly 0.5
+[PASS] adding one diagonal error: 5 errors, 3 symmetric, off-diagonal share unchanged
+[PASS] random-placement control is far below the constructed share
+[PASS] control echoes n_control, seed and the analytic expectation (n-1)/(p^2-1)
+[PASS] control is reproducible: the same seed gives the same numbers, draw for draw
+[PASS] a different seed gives a different draw (the seed is really used)
+[PASS] control values are stored per draw
+[PASS] control is size-matched: n_errors = p^2 forces every draw to share exactly 1.0
+[PASS] one-sided errors: share == 0
+[PASS] diagonal-only errors: share 1 incl. diagonal, off-diagonal share None (0/0)
+[PASS] random errors: |z| < 3 against the random-placement control
+[PASS] no errors: both shares None (never a silent 0), n_errors 0
+[PASS] no errors: control undefined (0 defined draws), z None, expectation None
+[PASS] error_histograms rejects a wrong-shape mask
+-- logit-level quantities --
+[PASS] margin matches a hand-computed cell
+[PASS] margin is negative on a wrong cell
+[PASS] top-2 best class is the target everywhere
+[PASS] swapped top-2 order: set agreement 1, ordered agreement 1 - 1/p^2
+[PASS] identical logits: logit_agreement reports pearson 1.0 on both correlations
+[PASS] independent noise: logit_pearson and margin_pearson near 0
+[PASS] pearson(x, x) == 1 and pearson(x, -x) == -1
+[PASS] pearson RAISES on zero variance (documented: r undefined, no value invented)
+[PASS] pearson names the metric and the zero-variance side
+[PASS] pearson raises on shape mismatch
+[PASS] target grid: mul
+[PASS] unknown task rejected
+[PASS] non-finite logits rejected
+[PASS] wrong-shape logits rejected
+[PASS] non-partitioning split rejected
+[PASS] agreement_block rejects an empty mask
+-- end to end: load_side/compare/baseline/CLI on tiny run directories --
+[PASS] load_side: the legacy final model is identified by the bare run_id
+[PASS] load_side: logits [p, p, p] and a split that partitions the grid
+[PASS] load_side: a v2 checkpoint is identified as <run_id>_step{N:06d}
+[PASS] different splits raise by default (assert and record, INTERFACES section 8)
+[PASS] same weights, other seed: agreement 1 and identical error sets
+[PASS] same weights: both_correct == accuracy_a == accuracy_b
+[PASS] split mismatch is RECORDED, not raised, under require_same_split=False
+[PASS] per-split numbers are reported for EACH model's own split
+[PASS] envelope: module, version, run ids, steps and both checkpoint hashes
+[PASS] params echo n_control, seed, both steps and require_same_split
+[PASS] JSON + npz written under <id_a>__vs__<id_b>
+[PASS] JSON round-trips the headline number
+[PASS] npz holds disagreement pairs, correctness masks, splits, histograms and control draws
+[PASS] npz holds every histogram the module produces, for all three masks
+[PASS] same seed, other weights: split hashes equal (no raise under the default)
+[PASS] shared split: the per-split numbers are reported once (both blocks identical)
+[PASS] NEGATIVE CONTROL (runs): two independently seeded models do NOT agree near 1
+[PASS] disagreement count == p^2 * (1 - agreement)
+[PASS] compare_sides(load_side, load_side) reproduces compare() exactly
+[PASS] p mismatch raises
+[PASS] task mismatch raises
+[PASS] missing run directory raises
+[PASS] common_checkpoint_steps returns the steps listed in BOTH runs
+[PASS] common_checkpoint_steps raises for a legacy run (no checkpoints.json)
+[PASS] compare_all_checkpoints: one payload per common step, in step order
+[PASS] each checkpoint pair writes <id_a>__vs__<id_b> with the step-tagged ids
+[PASS] headline carries every baseline metric
+[PASS] config_key strips the seed token and groups seed-only variants together
+[PASS] baseline groups by config_key: 3 seeds -> 3 pairs; single-run groups reported with 0 pairs
+[PASS] baseline: every pair of a group shares the architecture
+[PASS] baseline compares seeds across their differing splits and records the mismatch
+[PASS] baseline summary: n 3, max 1.0 (the identical-weights pair), min < 1
+[PASS] baseline summary counts undefined entries instead of hiding them
+[PASS] baseline summary of an empty group is n=0, no invented numbers
+[PASS] baseline table written
+[PASS] baseline needs >= 2 runs
+[PASS] baseline rejects a run paired with itself
+[PASS] baseline rejects a same-key group whose configs differ outside seed/label/device
+[PASS] the CLI's default output directory is training/results/function_agreement
+[PASS] CLI writes <id_a>__vs__<id_b>.json plus its .npz, and prints the payload
+[PASS] CLI --step writes the step-tagged pair
+[PASS] CLI --all-checkpoints reports every common step and the file it wrote
+[PASS] CLI refuses two runs with different splits unless --allow-different-splitsusage: test_function_agreement.py [-h] [--step STEP] [--step-a STEP_A]
+                                  [--step-b STEP_B] [--all-checkpoints]
+                                  [--baseline RUN_DIR [RUN_DIR ...]]
+                                  [--allow-different-splits]
+                                  [--n-control N_CONTROL] [--seed SEED]
+                                  [--out-dir OUT_DIR]
+                                  [run_dirs ...]
+test_function_agreement.py: error: exactly two run directories are required (or use --baseline)
+usage: test_function_agreement.py [-h] [--step STEP] [--step-a STEP_A]
+                                  [--step-b STEP_B] [--all-checkpoints]
+                                  [--baseline RUN_DIR [RUN_DIR ...]]
+                                  [--allow-different-splits]
+                                  [--n-control N_CONTROL] [--seed SEED]
+                                  [--out-dir OUT_DIR]
+                                  [run_dirs ...]
+test_function_agreement.py: error: --baseline takes its run directories itself and excludes --all-checkpoints
+
+[PASS] CLI --allow-different-splits writes the cross-split pair
+[PASS] CLI --baseline writes a baseline table
+[PASS] CLI rejects a single run directory (argparse usage error)
+[PASS] CLI rejects --baseline combined with positional run dirs
+
+ALL CHECKS PASSED
+----- test_function_agreement.py: PASS
+
+===== tests\test_h3_report.py =====
+
+-- the gate precondition (master prompt 12) --
+[PASS] with no architecture passing, the report says NONE is cleared
+[PASS] ...and states the numbers are about the metric, not a mechanism
+[PASS] with both passing, both are listed as cleared
+[PASS] the §12 rule is quoted in the output
+[PASS] a missing gate file is reported, not assumed to be a pass
+
+-- both refutation criteria, in both directions --
+[PASS] criterion 1: a real difference between the two gaps does NOT refute H3
+[PASS] criterion 2: a family gap of zero does NOT refute H3
+[PASS] with neither criterion met, H3 is not refuted
+[PASS] criterion 2 refutes H3 when the MLP is still lower under the family definition
+[PASS] ...and the verdict names that criterion
+[PASS] ...with the reading spelling out 'a real loss of structure'
+[PASS] criterion 1 refutes H3 when the CI of the gap difference contains zero
+[PASS] the verdict block is named for H3, not H3_0
+[PASS] ...and states H3's prediction and what H3_0 is, so the direction is unambiguous
+
+-- how much of the gap the family definition closes --
+[PASS] the top-1 gap is reported (0.45 - 0.30)
+[PASS] the family gap is reported (0.40 - 0.30)
+[PASS] the closed amount is their difference
+[PASS] ...expressed as a fraction of the top-1 gap
+
+-- the forbidden criterion and H3a --
+[PASS] the audit holds when family never beats matched top-m
+[PASS] ...and says it is an audit, never support for H3
+[PASS] CONTROL: a positive value fails the audit
+[PASS] H3a is reported per architecture for every curve and cardinality
+[PASS] ...and is labelled a property of the metric
+[PASS] H3c is reported with its W_E caveat
+
+ALL CHECKS PASSED
+----- test_h3_report.py: PASS
+
+===== tests\test_h3_validity.py =====
+
+-- synthetic populations at matched (k, phase, amplitude) --
+[PASS] both populations are [p, n]
+[PASS] the dominant frequency of every built sinusoid is recovered exactly
+[PASS] ...its phase to 1e-10
+[PASS] ...and its amplitude to 1e-10 (the calibration is not assumed from the basis scaling)
+[PASS] the square population takes only two values per column (up to its amplitude)
+[PASS] the two populations differ ONLY in waveform: same k, same phase, same amplitude
+
+-- H3a: the concentration metric is waveform sensitive --
+[PASS] top-8 concentration is LOWER for the squares (0.9752 < 1.0000) although both carry the same fundamentals
+[PASS] the effect is larger at top-1 (0.1893 > 0.0248) — the harmonics are what the metric misses
+[PASS] the odd-minus-even shape separates them in the OPPOSITE direction (square +0.1387 > sinusoid -0.0000)
+[PASS] a pure sinusoid population has ~zero odd-minus-even shape
+[PASS] waveform_sensitivity is reported positive for every reported cardinality
+[PASS] the module states that this is a property of the metric, not of the model
+[PASS] CONTROL: a noise population does NOT show the square wave's odd-harmonic shape
+
+-- H3b: family vs top-1, with the matched top-m and random-m controls --
+[PASS] sin: family_fraction NEVER exceeds the matched top-m (forbidden criterion)
+[PASS] sin: the random-m null sits far below the family fraction
+[PASS] sin: both controls are reported, not just one
+[PASS] sq: family_fraction NEVER exceeds the matched top-m (forbidden criterion)
+[PASS] sq: the random-m null sits far below the family fraction
+[PASS] sq: both controls are reported, not just one
+[PASS] the family captures MORE of a square than of a sinusoid is NOT asserted as evidence; the forbidden criterion is spelled out in the output
+[PASS] per-curve arrays reach the npz
+[PASS] the family fraction of a pure sinusoid is ~its top-1 fraction (nothing in the harmonics)
+[PASS] CONTROL: for the squares the family fraction EXCEEDS the top-1 fraction
+[PASS] for a clean square the family IS the top-4, so the two coincide exactly
+[PASS] CONTROL: on noise the odd harmonics add what 3 random frequencies would (0.0534 vs 0.0536)
+[PASS] ...and far less than for a square population (0.0534 << 0.1392)
+[PASS] CONTROL: on noise the matched top-m beats the family by a wide margin
+
+-- the random-m null --
+[PASS] the null has one row per draw and one column per curve
+[PASS] a random 4-of-56 set captures the single loaded frequency only sometimes
+[PASS] on a flat spectrum the null is exactly m/half
+[PASS] it is reproducible under its seed
+[PASS] CONTROL: a different seed gives a different draw
+[PASS] an impossible cardinality yields no draws
+
+-- the p = 113 aliasing caveat (re-asserted from test_wave_fitting) --
+[PASS] at p = 113 the odd-harmonic families of k = 6, 19 and 51 all contain 18 ({6: [6, 18, 30, 42], 19: [19, 56, 18, 20], 51: [51, 40, 29, 18]})
+[PASS] ...so 'the harmonic family fits at k' does not identify k as the fundamental
+[PASS] the family the module matches its control to has cardinality 4, not 7
+[PASS] n_collisions is reported per curve so the caveat travels with the number
+
+-- H3c: the legacy embedding concentration, descriptive only --
+[PASS] every swept cardinality is reported, not one invented choice
+[PASS] n_f=1: the family never beats its matched top-m
+[PASS] n_f=1: the random null is reported with the family number
+[PASS] n_f=2: the family never beats its matched top-m
+[PASS] n_f=2: the random null is reported with the family number
+[PASS] n_f=4: the family never beats its matched top-m
+[PASS] n_f=4: the random null is reported with the family number
+[PASS] n_f=8: the family never beats its matched top-m
+[PASS] n_f=8: the random null is reported with the family number
+[PASS] the object it was computed on is named
+[PASS] the W_E caveat travels with the number
+
+-- analyse(): run-level entry point + output contract --
+[PASS] mlp: the result lands at analysis/h3_validity/final.json
+[PASS] mlp: the npz is written next to it
+[PASS] mlp: all three H3 blocks are present
+[PASS] mlp: the gate dependence is stated verbatim in params
+[PASS] mlp: the module declares that it makes no architecture comparison
+[PASS] mlp: the aliasing caveat is recorded
+[PASS] mlp: the result is labelled measurement-only
+[PASS] mlp: both structured-neuron definitions H3b contrasts are reported
+[PASS] mlp/u_a: the forbidden inequality holds on real weights
+[PASS] mlp/u_b: the forbidden inequality holds on real weights
+[PASS] mlp/out: the forbidden inequality holds on real weights
+[PASS] transformer: the result lands at analysis/h3_validity/final.json
+[PASS] transformer: the npz is written next to it
+[PASS] transformer: all three H3 blocks are present
+[PASS] transformer: the gate dependence is stated verbatim in params
+[PASS] transformer: the module declares that it makes no architecture comparison
+[PASS] transformer: the aliasing caveat is recorded
+[PASS] transformer: the result is labelled measurement-only
+[PASS] transformer: both structured-neuron definitions H3b contrasts are reported
+[PASS] transformer/u_a: the forbidden inequality holds on real weights
+[PASS] transformer/u_b: the forbidden inequality holds on real weights
+[PASS] transformer/out: the forbidden inequality holds on real weights
+
+ALL CHECKS PASSED
+----- test_h3_validity.py: PASS
+
+===== tests\test_h4_report.py =====
+
+-- the ordering H4 asserts --
+[PASS] an onset between memorization and generalization counts on both sides
+[PASS] the onset median is reported
+[PASS] the change is summarized across seeds
+[PASS] CONTROL: an onset after the generalization crossing counts 0 before it
+[PASS] CONTROL: an onset before memorization counts 0 after it
+[PASS] ...though it is still before generalization
+
+-- the denominator is never quietly reduced --
+[PASS] seeds with no defined onset are counted, not dropped
+[PASS] the 'before generalization' count is over the DEFINED onsets
+[PASS] the reading states how many seeds had no onset at all
+[PASS] every seed appears in the per-seed detail
+[PASS] a seed with no onset has None, not a fabricated step
+
+-- the caveats travel with the numbers --
+[PASS] the analysis is labelled correlational in the artifact itself
+[PASS] ...and points at causal_ablation for causal claims
+[PASS] the onset's two-checkpoint fragility is recorded
+[PASS] the hypothesis is quoted so the artifact is self-describing
+[PASS] both step counts are summarized for context
+[PASS] the summary block gives the per-metric ratio as a string
+[PASS] a missing aggregate table raises, naming what to run first
+
+ALL CHECKS PASSED
+----- test_h4_report.py: PASS
+
+===== tests\test_key_frequencies.py =====
+
+--- pre-registered constants (docs/PREREGISTRATION.md section 4.3) ---
+[PASS] PRIMARY_RULE is 'nanda'
+[PASS] the nanda threshold is 0.25 of the maximum
+[PASS] the sensitivity thresholds are 0.10 and 0.50
+[PASS] every INTERFACES section-4 rule name is implemented
+[PASS] neuron_clusters defaults: min_neurons 5, variance share 2 %
+
+--- the nanda score curve, against its analytic value ---
+[PASS] the per-frequency norm equals A*sqrt(n*p/2) = 25.7818 at the planted k
+[PASS] and is exactly zero everywhere else
+[PASS] the score curve covers every frequency 1..(p-1)/2, untruncated
+[PASS] a W_L whose class axis is not last is rejected
+
+--- a planted 2-frequency circuit is recovered by EVERY rule ---
+[PASS] nanda recovers exactly [3, 7] (n = 2)
+[PASS] nanda reports rule, n, scores, cap_binding and threshold_frac
+[PASS] embedding_top8 recovers exactly [3, 7] (n = 2)
+[PASS] embedding_top8 reports rule, n, scores, cap_binding and threshold_frac
+[PASS] embedding_threshold recovers exactly [3, 7] (n = 2)
+[PASS] embedding_threshold reports rule, n, scores, cap_binding and threshold_frac
+[PASS] logit_sum_directions recovers exactly [3, 7] (n = 2)
+[PASS] logit_sum_directions reports rule, n, scores, cap_binding and threshold_frac
+[PASS] neuron_clusters recovers exactly [3, 7] (n = 2)
+[PASS] neuron_clusters reports rule, n, scores, cap_binding and threshold_frac
+[PASS] only the nanda result is flagged as the primary rule
+[PASS] all five rules agree perfectly on the planted circuit (Jaccard 1.0)
+[PASS] the logit rule puts exactly half the sum-direction power at each planted k
+
+--- the nanda count is MEASURED, never capped at 8 ---
+[PASS] planting 2 strong frequencies recovers 2
+[PASS] ...and cap_binding is False with cap None (2 planted)
+[PASS] planting 3 strong frequencies recovers 3
+[PASS] ...and cap_binding is False with cap None (3 planted)
+[PASS] planting 5 strong frequencies recovers 5
+[PASS] ...and cap_binding is False with cap None (5 planted)
+[PASS] planting 10 strong frequencies recovers 10
+[PASS] ...and cap_binding is False with cap None (10 planted)
+[PASS] 10 planted frequencies give n = 10 > 8: a silent cap at 8 could not survive this
+[PASS] the threshold actually used is reported (0.25 x max)
+
+--- the nanda threshold is monotone: 0.10 >= 0.25 >= 0.50 ---
+[PASS] n(0.10)=4 >= n(0.25)=3 >= n(0.50)=2
+[PASS] the graded spectrum actually separates the three thresholds (2, 3, 4)
+[PASS] and the sets are nested, not merely equal in size
+[PASS] the primary result carries both sensitivity sets alongside
+[PASS] the primary result's own count equals the 0.25 count
+
+--- embedding_top8 caps, embedding_threshold does not ---
+[PASS] embedding_top8 reports cap_binding True on a diffuse spectrum
+[PASS] ...and its count is the cap, 8 (not a measurement): n = 8
+[PASS] embedding_threshold reports its measured count (10) and does not cap
+[PASS] ...and that count is above the legacy cap (10 > 8) on this spectrum
+[PASS] the top-8 set is a subset of the 90 %-threshold set
+[PASS] both echo the 90 % power threshold they used
+[PASS] agreement() runs on sets of different sizes
+
+--- NEGATIVE CONTROL: the logit rule must ignore (a-b) structure ---
+[PASS] a pure (a-b-c) logit tensor selects NOTHING (n = 0)
+[PASS] ...because its sum-direction share is numerically zero everywhere
+[PASS] ...while the (a+b-c) tensor of the same amplitude selects both frequencies
+[PASS] the threshold is three times the uniform share, 3/half
+[PASS] white-noise logits select at most a stray frequency (n = 0 <= 1)
+
+--- neuron_clusters: a cluster must be both large and loud ---
+[PASS] a frequency used by fewer than min_neurons (3 < 5) neurons is ignored, even though its cluster is the loudest per neuron
+[PASS] a numerous but quiet cluster (8 neurons, < 2 % of the variance) is ignored
+[PASS] the two real clusters survive: [3, 7]
+[PASS] lowering min_neurons to 3 admits the small loud cluster: the count is the threshold's doing, and the threshold is reported
+[PASS] the variance share of the two real clusters sums to essentially all of it
+[PASS] a caller-supplied hidden_variance replaces the recomputed one: with every neuron equally loud the quiet 8-neuron cluster now passes both criteria
+[PASS] a hidden_variance of the wrong length is refused
+
+--- agreement(): pairwise Jaccard ---
+[PASS] the diagonal is 1.0 for every set
+[PASS] J({1,2,3}, {2,3,4}) = 2/4 = 0.5 (hand-computed)
+[PASS] J({1,2,3}, {5}) = 0/4 = 0.0
+[PASS] intersection and union counts are reported next to the ratio
+[PASS] names and sizes are carried through in order
+[PASS] two empty sets have Jaccard 1.0 (defined, not a division by zero)
+[PASS] a bare sequence of sets is accepted and named by position
+
+--- errors, and an empty selection reported as n = 0 ---
+[PASS] an unknown rule name raises ValueError
+[PASS] an even p raises ValueError (the cos/sin basis needs odd p)
+[PASS] a rule called without its input array raises ValueError naming that array
+[PASS] ...and so does neuron_clusters without curves
+[PASS] an all-zero neuron->logit map gives an EMPTY set with n = 0, not a crash
+[PASS] ...and its reported threshold is 0.0, not a made-up value
+[PASS] an all-zero embedding gives an empty set with n = 0
+[PASS] all-dead neurons give an empty set with n = 0
+[PASS] a non-finite score curve is refused rather than silently selected
+[PASS] agreement() handles an empty set against a non-empty one (J = 0)
+
+ALL CHECKS PASSED
+----- test_key_frequencies.py: PASS
+
+===== tests\test_logit_formula_fit.py =====
+
+-- normal equations vs explicit p^3-row design matrix --
+[PASS] a+b-c sin5: design matrix has p^3 rows
+[PASS] a+b-c sin5: X^T X by residue aggregation is exact
+[PASS] a+b-c sin5: X^T y by residue aggregation is exact
+[PASS] a-b-c sin5: design matrix has p^3 rows
+[PASS] a-b-c sin5: X^T X by residue aggregation is exact
+[PASS] a-b-c sin5: X^T y by residue aggregation is exact
+[PASS] a+b-c sq7: design matrix has p^3 rows
+[PASS] a+b-c sq7: X^T X by residue aggregation is exact
+[PASS] a+b-c sq7: X^T y by residue aggregation is exact
+[PASS] a+b-c sin11: design matrix has p^3 rows
+[PASS] a+b-c sin11: X^T X by residue aggregation is exact
+[PASS] a+b-c sin11: X^T y by residue aggregation is exact
+[PASS] full_sum_basis has p parameters
+[PASS] sparse_sinusoid has 2|K|+1 parameters
+[PASS] ideal_square charges 2|K|+1 parameters (phases are free)
+
+-- synthetic circuit: L = sum_k cos(w_k(a+b-c)), K = {3, 5} --
+[PASS] sparse_sinusoid r2_all > 0.999
+[PASS] sparse_sinusoid r2_train and r2_test > 0.999
+[PASS] sparse_sinusoid argmax accuracy 1.0 on train and test
+[PASS] control_difference r2_all < 0.05 (wrong symmetry)
+[PASS] control_difference r2_test < 0.05
+[PASS] odd_harmonics contains K and reaches r2 > 0.999
+[PASS] full_sum_basis r2 > 0.999 (the ceiling)
+[PASS] control_top_m picks K from the logit sum-direction power
+[PASS] sum-direction power share sits on k=3 and k=5 only
+[PASS] ideal_square does NOT reach the sinusoid's r2 on a sinusoid
+[PASS] per-class r2 quantiles reported with n = p classes
+[PASS] residual RMS ~ 0 for the exact circuit
+[PASS] residual RMS map is [p, p] float32
+[PASS] random control values stored (n_control draws, sets of size |F|)
+[PASS] every formula id of the §7 table is reported
+[PASS] wrong key set {1, 2}: r2 < 0.05
+[PASS] amplitudes recovered
+[PASS] phases recovered (phi = atan2(beta_sin, beta_cos))
+[PASS] constant coefficient ~ 0 on centred logits
+
+-- scrambled control: class axis permuted per (a, b) --
+[PASS] scrambled: sparse_sinusoid r2 < 0.05
+[PASS] scrambled: argmax accuracy near chance (< 0.15)
+[PASS] scrambled: even the full sum basis explains < 0.05
+[PASS] a (a-b-c) tensor has ~no power in the sum directions
+
+-- synthetic square-wave tensor: L = sum_k sq(w_k(a+b-c) + phi_k) + noise --
+[PASS] ideal_square r2 > 0.99
+[PASS] ideal_square beats sparse_sinusoid by AIC
+[PASS] odd_harmonics beats sparse_sinusoid by AIC
+[PASS] odd_harmonics r2 exceeds sparse_sinusoid r2 on a square wave
+[PASS] AIC ranking puts ideal_square first
+[PASS] searched phases reproduce the true sign patterns exactly
+[PASS] phase-search correlations are high and reported per k
+[PASS] phase grid has 4p points
+[PASS] no grid phase lands on a zero crossing of the sampled square wave
+[PASS] phase search alone recovers the phases (grid indices reported)
+[PASS] partial square fit with no fitted phase is the constant-only model (~0 on centred L)
+[PASS] partial square fit with one phase reproduces that wave's fit
+[PASS] partial square fit rejects a phase/frequency count mismatch
+[PASS] n_refine_passes=0 returns the stage-1 phases and is NOT flagged converged
+[PASS] stage-1 phases are identical with and without refinement
+[PASS] refinement converged within the pass budget on the synthetic square tensor
+[PASS] number of phases changed by refinement is reported and consistent
+[PASS] correlation grid is [|K|, 4p] and its argmax is the reported initial index
+[PASS] refined phases fit no worse than the stage-1 phases
+[PASS] negative refinement budget rejected
+[PASS] phase search on an empty key set rejected
+[PASS] noisy sinusoid circuit: sparse_sinusoid beats full_sum_basis by AIC
+[PASS] noisy sinusoid circuit: sparse_sinusoid beats ideal_square by AIC
+
+-- iid Gaussian logits --
+[PASS] sparse_sinusoid: r2_all < 0.02 and within 0.005 of n_params/p^3 (5/12167)
+[PASS] odd_harmonics: r2_all < 0.02 and within 0.005 of n_params/p^3 (13/12167)
+[PASS] ideal_square: r2_all < 0.02 and within 0.005 of n_params/p^3 (5/12167)
+[PASS] control_top_m: r2_all < 0.02 and within 0.005 of n_params/p^3 (13/12167)
+[PASS] control_difference: r2_all < 0.02 and within 0.005 of n_params/p^3 (5/12167)
+[PASS] full_sum_basis: r2_all < 0.02 and within 0.005 of n_params/p^3 (23/12167)
+[PASS] random control r2 is also ~ n_params/p^3
+[PASS] z-scores are reported for every formula and metric
+
+-- random-frequency control at p = 113 (K = {3, 5, 7}) --
+[PASS] p=113: sparse_sinusoid r2 > 0.999 and test accuracy 1.0
+[PASS] p=113: control uses 50 seeded draws of size |F|
+[PASS] p=113: control r2 distribution lies below the true-K fit (q95 < r2)
+[PASS] p=113: control mean r2 well below the true-K fit
+[PASS] p=113: z-score of sparse_sinusoid against the control >= 3
+[PASS] p=113: control_difference sits inside the control's bulk (z < 1)
+[PASS] p=113: control draws are reproducible under the seed
+
+-- centering: a per-(a, b) constant changes nothing --
+[PASS] all r2 / aic / accuracy identical after adding a per-(a,b) constant
+[PASS] centering is idempotent
+
+-- key set resolution + explicit errors --
+[PASS] embedding_top8 recovers the injected embedding frequency
+[PASS] explicit key set recorded as rule 'explicit'
+[PASS] both key_freqs and key_rule -> ValueError
+[PASS] neither key_freqs nor key_rule -> ValueError
+[PASS] empty explicit key set -> ValueError
+[PASS] embedding_top8 without W_E -> ValueError
+[PASS] rule 'nanda' without analysis.key_frequencies -> NotImplementedError naming both
+[PASS] rule 'neuron_clusters' without analysis.key_frequencies -> NotImplementedError naming both
+[PASS] rule 'embedding_threshold' without analysis.key_frequencies -> NotImplementedError naming both
+[PASS] rule 'logit_sum_directions' without analysis.key_frequencies -> NotImplementedError naming both
+[PASS] the primary rule 'nanda' is delegated to key_frequencies.select(run_dir, step, rule)
+[PASS] the primary rule of INTERFACES §4 is 'nanda' and is listed
+[PASS] a rule name outside INTERFACES §4 -> ValueError (not NotImplementedError)
+[PASS] --key-freqs parsing: '3, 5,7' -> [3, 5, 7]; None -> None
+[PASS] --key-freqs parsing rejects non-integers
+[PASS] even p rejected
+[PASS] duplicate frequencies rejected
+[PASS] out-of-range frequency rejected
+[PASS] phase count mismatch rejected
+[PASS] wrong logit shape rejected
+[PASS] non-bool mask rejected
+[PASS] overlapping masks rejected
+[PASS] all-zero logits rejected
+[PASS] non-finite logits rejected
+[PASS] empty key set for the full table rejected
+[PASS] n_control < 2 rejected
+
+-- analyse(): tiny legacy run directory (p = 23 MLP) --
+[PASS] writes analysis/logit_formula_fit/final.json
+[PASS] writes the npz next to it
+[PASS] envelope carries module / run_id / step / checkpoint hash
+[PASS] params echo key set, rule, seed, n_control and the phase-grid size
+[PASS] results hold every formula and the random control
+[PASS] npz holds coefficients, per-class r2 + residual maps per formula and control draws
+[PASS] per-class r2 array has one entry per class and matches the JSON summary
+[PASS] returned payload names the output path
+[PASS] params echo the phase-refinement budget and the primary §4 rule
+[PASS] embedding_top8 rule recorded with its cap provenance
+[PASS] a non-addition task is refused (formulas are defined for a+b-c only)
+
+-- v2 run directory: --step tags, missing step, CLI --all-checkpoints --
+[PASS] --step writes analysis/logit_formula_fit/step000005.json
+[PASS] a step without a checkpoint is a ValueError naming the run
+[PASS] CLI --all-checkpoints exits 0
+[PASS] CLI wrote one JSON per checkpoints.json entry
+[PASS] CLI prints the per-formula table and the saved paths
+[PASS] CLI with both --key-freqs and --key-rule fails loudly (ValueError: exactly one)
+[PASS] CLI rejects a rule outside INTERFACES §4 at argument parsing
+
+ALL LOGIT_FORMULA_FIT CHECKS PASSED
+----- test_logit_formula_fit.py: PASS
+
+===== tests\test_mask_protocols.py =====
+
+-- 2D Fourier round trip --
+[PASS] inv2d(fwd2d(L)) == L to 1e-9
+[PASS] fwd2d(inv2d(Lhat)) == Lhat to 1e-9
+[PASS] the transform is norm-preserving (orthonormal basis)
+[PASS] (1,-1,0,0) in the k=3 block IS cos(w_3(a+b))
+
+-- component counts (MASK_PROTOCOL_AUDIT §2, p=113, 8 key freqs) --
+[PASS] legacy_broad_mask: restricted keeps 289 of 12769
+[PASS] legacy_broad_mask: excluded removes 3360
+[PASS] paper_literal_2x2_block: restricted keeps 33 of 12769
+[PASS] paper_literal_2x2_block: excluded removes 32
+[PASS] sum_directions_only: restricted keeps 17 of 12769
+[PASS] sum_directions_only: excluded removes 16
+[PASS] diff_directions_only: restricted keeps 17 of 12769
+[PASS] diff_directions_only: excluded removes 16
+[PASS] nanda_exact: restricted keeps 17 of 12769
+[PASS] nanda_exact: excluded removes 16
+[PASS] every implemented variant is covered by the count table
+[PASS] nanda_exact keeps exactly what sum_directions_only keeps (audit §3/§4)
+[PASS] legacy keeps 17x more than the published operator
+[PASS] legacy_broad_mask: n_kept == trace(restrict) at p=23
+[PASS] legacy_broad_mask: n_removed == p^2 - trace(exclude) at p=23
+[PASS] paper_literal_2x2_block: n_kept == trace(restrict) at p=23
+[PASS] paper_literal_2x2_block: n_removed == p^2 - trace(exclude) at p=23
+[PASS] diff_directions_only: n_kept == trace(restrict) at p=23
+[PASS] diff_directions_only: n_removed == p^2 - trace(exclude) at p=23
+[PASS] sum_directions_only: n_kept == trace(restrict) at p=23
+[PASS] sum_directions_only: n_removed == p^2 - trace(exclude) at p=23
+[PASS] nanda_exact: n_kept == trace(restrict) at p=23
+[PASS] nanda_exact: n_removed == p^2 - trace(exclude) at p=23
+[PASS] paper_literal_2x2_block: n_kept == n_removed + 1 (the constant)
+[PASS] sum_directions_only: n_kept == n_removed + 1 (the constant)
+[PASS] nanda_exact: n_kept == n_removed + 1 (the constant)
+[PASS] diff_directions_only: n_kept == n_removed + 1 (the constant)
+[PASS] legacy restricted/excluded are NOT complements (the defect)
+[PASS] same_frequency_block still builds
+[PASS] paper_literal_2x2_block reaches the same class
+[PASS] ...and reports under the audit's name
+[PASS] ALIASES records the rename
+[PASS] IMPLEMENTED (frozen for test_core / the re-train CLI) is unchanged
+[PASS] nanda_exact is implemented but not split-agnostic
+
+-- cross-frequency leakage --
+[PASS] legacy restricted LEAKS cos(w_3 a)cos(w_5 b) (the §3.1 defect)
+[PASS] paper_literal_2x2_block: no cross-frequency leakage
+[PASS] sum_directions_only: no cross-frequency leakage
+[PASS] nanda_exact: no cross-frequency leakage
+[PASS] diff_directions_only: no cross-frequency leakage
+[PASS] legacy_broad_mask: keeps_cross_frequency() == True
+[PASS] paper_literal_2x2_block: keeps_cross_frequency() == False
+[PASS] diff_directions_only: keeps_cross_frequency() == False
+[PASS] sum_directions_only: keeps_cross_frequency() == False
+[PASS] nanda_exact: keeps_cross_frequency() == False
+[PASS] paper_literal_2x2_block: excluded leaves the cross term untouched
+[PASS] sum_directions_only: excluded leaves the cross term untouched
+[PASS] nanda_exact: excluded leaves the cross term untouched
+[PASS] diff_directions_only: excluded leaves the cross term untouched
+[PASS] legacy excluded DESTROYS the cross term (it deletes whole rows/columns)
+
+-- constant term --
+[PASS] legacy_broad_mask: restricted KEEPS the constant (Colab bias_correction=True)
+[PASS] legacy_broad_mask: excluded also keeps the constant (paper: only the key terms go)
+[PASS] legacy_broad_mask: restricted passes NOTHING else of a pure constant
+[PASS] paper_literal_2x2_block: restricted KEEPS the constant (Colab bias_correction=True)
+[PASS] paper_literal_2x2_block: excluded also keeps the constant (paper: only the key terms go)
+[PASS] paper_literal_2x2_block: restricted passes NOTHING else of a pure constant
+[PASS] diff_directions_only: restricted KEEPS the constant (Colab bias_correction=True)
+[PASS] diff_directions_only: excluded also keeps the constant (paper: only the key terms go)
+[PASS] diff_directions_only: restricted passes NOTHING else of a pure constant
+[PASS] sum_directions_only: restricted KEEPS the constant (Colab bias_correction=True)
+[PASS] sum_directions_only: excluded also keeps the constant (paper: only the key terms go)
+[PASS] sum_directions_only: restricted passes NOTHING else of a pure constant
+[PASS] nanda_exact: restricted KEEPS the constant (Colab bias_correction=True)
+[PASS] nanda_exact: excluded also keeps the constant (paper: only the key terms go)
+[PASS] nanda_exact: restricted passes NOTHING else of a pure constant
+[PASS] legacy_broad_mask: a per-class constant logit offset survives restriction
+[PASS] paper_literal_2x2_block: a per-class constant logit offset survives restriction
+[PASS] diff_directions_only: a per-class constant logit offset survives restriction
+[PASS] sum_directions_only: a per-class constant logit offset survives restriction
+[PASS] nanda_exact: a per-class constant logit offset survives restriction
+
+-- injected ideal cos(w_k(a+b)) circuit --
+[PASS] the injected circuit solves the task (acc == 1)
+[PASS] the injected circuit has a low full loss
+[PASS] paper_literal_2x2_block: restricted ~= full loss (1.946e-05 vs 1.946e-05)
+[PASS] paper_literal_2x2_block: restricted keeps accuracy 1
+[PASS] paper_literal_2x2_block: excluded is FAR above full (3.1355 >> 1.946e-05)
+[PASS] paper_literal_2x2_block: excluded loss is log p (3.135494215929 vs 3.135494215929)
+[PASS] paper_literal_2x2_block: excluded annihilates the circuit (max|logit| 1.70e-13 vs amplitude 40)
+[PASS] paper_literal_2x2_block: excluded accuracy carries no signal (0.0038, was 1.0)
+[PASS] sum_directions_only: restricted ~= full loss (1.946e-05 vs 1.946e-05)
+[PASS] sum_directions_only: restricted keeps accuracy 1
+[PASS] sum_directions_only: excluded is FAR above full (3.1355 >> 1.946e-05)
+[PASS] sum_directions_only: excluded loss is log p (3.135494215929 vs 3.135494215929)
+[PASS] sum_directions_only: excluded annihilates the circuit (max|logit| 1.72e-13 vs amplitude 40)
+[PASS] sum_directions_only: excluded accuracy carries no signal (0.0038, was 1.0)
+[PASS] nanda_exact: restricted ~= full loss (1.946e-05 vs 1.946e-05)
+[PASS] nanda_exact: restricted keeps accuracy 1
+[PASS] nanda_exact: excluded is FAR above full (3.1355 >> 1.946e-05)
+[PASS] nanda_exact: excluded loss is log p (3.135494215929 vs 3.135494215929)
+[PASS] nanda_exact: excluded annihilates the circuit (max|logit| 1.72e-13 vs amplitude 40)
+[PASS] nanda_exact: excluded accuracy carries no signal (0.0038, was 1.0)
+[PASS] nanda_exact_restricted_loss ~= full loss on every split
+[PASS] nanda_exact_excluded_loss is far above full loss (train split)
+[PASS] full_grid_extension_excluded_loss agrees with the operator on the full grid
+
+-- injected mixed frequencies --
+[PASS] sum_directions_only: restricting to k=3 recovers ONLY the k=3 wave
+[PASS] sum_directions_only: restricting to k=5 recovers ONLY the k=5 wave
+[PASS] sum_directions_only: the two single-frequency parts re-sum to the input
+[PASS] nanda_exact: restricting to k=3 recovers ONLY the k=3 wave
+[PASS] nanda_exact: restricting to k=5 recovers ONLY the k=5 wave
+[PASS] nanda_exact: the two single-frequency parts re-sum to the input
+[PASS] sum_directions_only picks out cos(w_3(a+b)) and nothing else
+[PASS] diff_directions_only picks out cos(w_5(a-b)) and nothing else
+[PASS] the two mirror projections partition the mixed field
+
+-- DiffDirectionsOnly (mirror control) --
+[PASS] diff: cos(w(a-b)) survives restriction unchanged
+[PASS] diff: cos(w(a+b)) is ANNIHILATED by the diff restriction
+[PASS] diff: cos(w(a-b)) is annihilated by the diff EXCLUSION
+[PASS] diff: cos(w(a+b)) passes the diff exclusion untouched
+[PASS] sum + diff projections == the full 2x2 block projection
+[PASS] sum and diff subspaces are orthogonal (their projections commute to 0)
+[PASS] mirror control has the SAME size as the hypothesis it controls
+
+-- per_frequency_shares --
+[PASS] shares sum to 1 over ALL frequencies + the residual
+[PASS] powers sum to the total NON-CONSTANT power
+[PASS] the constant is excluded from the budget
+[PASS] with every k as a key, the residual is exactly the cross-frequency power
+[PASS] per-k block power == sum power + diff power
+[PASS] a pure block field leaves no residual power
+[PASS] cos(w_3(a+b)) sits entirely in k=3's SUM directions
+[PASS] cos(w_5(a-b)) sits entirely in k=5's DIFFERENCE directions
+[PASS] amplitude 2 carries 4x the power
+[PASS] shares of the pure block field still sum to 1
+[PASS] a tensor with no non-constant power raises instead of returning NaN
+
+-- splits (the audit's 'NOT YET' row) --
+[PASS] the constructed case really is asymmetric (train acc 1, test acc 0)
+[PASS] train and test cross-entropy differ by a lot
+[PASS] the split masks partition the grid
+[PASS] nanda_exact_excluded_loss declares the TRAIN split
+[PASS] ...and its number IS the train-split number
+[PASS] ...which differs from the test-split number on the asymmetric case
+[PASS] ...and from the full-grid number
+[PASS] excluded cell counts match the masks
+[PASS] excluded records the source of its split (the paper states it)
+[PASS] excluded removes 2 directions per key frequency
+[PASS] excluded reports the per-frequency variant the Colab plots
+[PASS] ...each per-frequency variant removes exactly 2 components
+[PASS] ...and removing ONE frequency hurts no more than removing both
+[PASS] nanda_exact_restricted_loss reports all three splits
+[PASS] ...each with a loss and an accuracy
+[PASS] ...they are not all the same number on the asymmetric case
+[PASS] ...the quoted convention is the TransformerLens 'test' split
+[PASS] ...and the paper's own split is recorded as NOT FOUND IN SOURCE
+[PASS] ...with the provenance of the quoted split spelled out
+[PASS] restricted keeps 1 + 2 per key frequency
+[PASS] neither nanda_exact function is labelled OUR variant
+[PASS] full_grid_extension_restricted: declares the full grid
+[PASS] full_grid_extension_restricted: labelled OUR variant
+[PASS] full_grid_extension_restricted: same component rule as nanda_exact
+[PASS] full_grid_extension_restricted: its number IS the full-grid number
+[PASS] full_grid_extension_excluded: declares the full grid
+[PASS] full_grid_extension_excluded: labelled OUR variant
+[PASS] full_grid_extension_excluded: same component rule as nanda_exact
+[PASS] full_grid_extension_excluded: its number IS the full-grid number
+[PASS] full_grid_extension differs from nanda_exact ONLY in the split
+[PASS] legacy_broad_mask_variant defaults to the restricted operator
+[PASS] legacy_broad_mask_variant is never labelled a reproduction
+[PASS] legacy keeps far more than the published operator (p=23, 2 keys)
+[PASS] legacy deletes far more than the published operator
+[PASS] legacy declares the full grid and keeps cross-frequency blocks
+[PASS] nanda_exact keeps no cross-frequency block
+[PASS] an unknown 'which' raises
+
+-- vectorized projection vs a slow per-component reference --
+[PASS] SumDirectionsOnly._project == the reference loop
+[PASS] NandaExact._project == the reference loop (it IS the same operator)
+[PASS] restrict == reference projection + the constant
+[PASS] exclude == Lhat - reference projection
+[PASS] the two implementations give the same restricted LOSS
+[PASS] the projection is idempotent (it is a projection)
+
+-- NEGATIVE CONTROL: cos(w(a-b)) must not survive a sum restriction --
+[PASS] sum_directions_only: cos(w(a-b)) does NOT survive the restriction
+[PASS] sum_directions_only: cos(w(a-b)) passes the EXCLUSION untouched (it was never in S)
+[PASS] nanda_exact: cos(w(a-b)) does NOT survive the restriction
+[PASS] nanda_exact: cos(w(a-b)) passes the EXCLUSION untouched (it was never in S)
+[PASS] paper_literal_2x2_block DOES keep cos(w(a-b)) — the looser reading (audit §3)
+[PASS] legacy_broad_mask also keeps it
+[PASS] a (a-b) circuit is NOT rescued by the sum-direction restriction
+[PASS] ...and the excluded loss leaves it exactly as it was
+
+-- construction contracts --
+[PASS] nanda_exact refuses to be built without a declared split (the paper's restricted split is [NOT FOUND IN SOURCE])
+[PASS] ...and rejects a split name that is not one of the three
+[PASS] ...but builds with an explicit split
+[PASS] NandaExact.describe() carries the split and the provenance
+[PASS] unknown protocol name rejected
+[PASS] legacy_broad_mask: empty key set rejected
+[PASS] legacy_broad_mask: out-of-range key frequency rejected
+[PASS] legacy_broad_mask: duplicate key frequencies rejected
+[PASS] legacy_broad_mask: even p rejected
+[PASS] paper_literal_2x2_block: empty key set rejected
+[PASS] paper_literal_2x2_block: out-of-range key frequency rejected
+[PASS] paper_literal_2x2_block: duplicate key frequencies rejected
+[PASS] paper_literal_2x2_block: even p rejected
+[PASS] diff_directions_only: empty key set rejected
+[PASS] diff_directions_only: out-of-range key frequency rejected
+[PASS] diff_directions_only: duplicate key frequencies rejected
+[PASS] diff_directions_only: even p rejected
+[PASS] sum_directions_only: empty key set rejected
+[PASS] sum_directions_only: out-of-range key frequency rejected
+[PASS] sum_directions_only: duplicate key frequencies rejected
+[PASS] sum_directions_only: even p rejected
+[PASS] a logit grid of the wrong shape is rejected
+[PASS] no protocol mutates its input
+
+ALL CHECKS PASSED (197 checks)
+----- test_mask_protocols.py: PASS
+
+===== tests\test_metrics.py =====
+
+-- power_spectrum: same object and phase convention as curve_spectra --
+[PASS] power equals mlp_mechanism.curve_spectra's power (<1e-12)
+[PASS] phase equals curve_spectra's phase (<1e-12)
+[PASS] dominant_freq equals curve_spectra's dominant_freq
+[PASS] phase convention y = A cos(2 pi k n / p - phi): recovers k=7
+[PASS] phase convention recovers phi=-2.1 (err 8.88e-16 rad)
+[PASS] power_spectrum rejects a curve whose length is not p
+
+-- injected pure sinusoid: entropy ~ 0, PR ~ 1, top-1 = 1 --
+[PASS] k=5: spectral entropy ~ 0 (got 1.05e-27)
+[PASS] k=5: participation ratio ~ 1 (got 1.000000000000)
+[PASS] k=5: top-1 concentration = 1 (got 1.000000000000)
+[PASS] k=5: dominant_fraction = 1
+[PASS] k=5: dominant_frequency = 5
+[PASS] k=18: spectral entropy ~ 0 (got 1.87e-27)
+[PASS] k=18: participation ratio ~ 1 (got 1.000000000000)
+[PASS] k=18: top-1 concentration = 1 (got 1.000000000000)
+[PASS] k=18: dominant_fraction = 1
+[PASS] k=18: dominant_frequency = 18
+[PASS] k=56: spectral entropy ~ 0 (got 4.36e-27)
+[PASS] k=56: participation ratio ~ 1 (got 1.000000000000)
+[PASS] k=56: top-1 concentration = 1 (got 1.000000000000)
+[PASS] k=56: dominant_fraction = 1
+[PASS] k=56: dominant_frequency = 56
+[PASS] a constant offset does not enter the (non-constant) power spectrum
+[PASS] topk_concentration is monotone non-decreasing in k
+[PASS] topk_concentration rejects k outside 1..half
+
+-- white noise: entropy near 1, participation ratio near the frequency count --
+[PASS] single-realization entropy matches the analytic exponential-periodogram value 0.8950 (got 0.8976)
+[PASS] single-realization entropy is near 1 and far above a sinusoid's (got 0.898)
+[PASS] every noise column has entropy > 0.8
+[PASS] single-realization PR ~ half/2 = 28.0 (got 29.1), the exponential-periodogram value
+[PASS] single-realization PR is an order of magnitude above a sinusoid's 1 (got min 16.8)
+[PASS] ensemble-mean noise spectrum: PR ~ half = 56 (got 55.82)
+[PASS] ensemble-mean noise spectrum: entropy ~ 1 (got 0.99959)
+[PASS] noise top-1 concentration is small (< 0.25)
+[PASS] entropy needs at least 2 frequencies
+[PASS] negative power is rejected
+
+-- continuous ideal square wave: odd-harmonic power -> 1/9, 1/25, 1/49 --
+[PASS] CONTINUOUS_SQUARE_POWER_RATIO is the 1/j^2 law
+[PASS] CONTINUOUS_SQUARE_AMPLITUDE_RATIO is the 1/j law
+[PASS] p=113: power(3k,5k,7k)/power(k) = 0.11117, 0.04006, 0.02047 vs 1/9, 1/25, 1/49 (within 1%)
+[PASS] p=113: fundamental share of non-constant power ~ 8/pi^2 (got 0.8107)
+[PASS] p=1009: power(3k,5k,7k)/power(k) = 0.11111, 0.04000, 0.02041 vs 1/9, 1/25, 1/49 (within 1%)
+[PASS] p=1009: fundamental share of non-constant power ~ 8/pi^2 (got 0.8106)
+[PASS] p=4001: power(3k,5k,7k)/power(k) = 0.11111, 0.04000, 0.02041 vs 1/9, 1/25, 1/49 (within 1%)
+[PASS] p=4001: fundamental share of non-constant power ~ 8/pi^2 (got 0.8106)
+[PASS] p=20011: power(3k,5k,7k)/power(k) = 0.11111, 0.04000, 0.02041 vs 1/9, 1/25, 1/49 (within 1%)
+[PASS] p=20011: fundamental share of non-constant power ~ 8/pi^2 (got 0.8106)
+[PASS] the ratios converge to the continuous law as p grows (p=20011 beats p=113)
+[PASS] a fine-grained square wave has ~no even-harmonic power (got 1.85e-08)
+
+-- discrete_square_reference at p=113 (docs/MLP_MECHANISM_DERIVATION.md §5) --
+[PASS] k=1, phi=0.0: discrete_square_reference reproduces itself
+[PASS] k=1, phi=0.0: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=1, phi=0.0: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=1, phi=0.0: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=1, phi=0.0: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=1, phi=0.0: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=1, phi=0.0: no harmonic collision at prime p
+[PASS] k=1, phi=0.7: discrete_square_reference reproduces itself
+[PASS] k=1, phi=0.7: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=1, phi=0.7: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=1, phi=0.7: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=1, phi=0.7: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=1, phi=0.7: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=1, phi=0.7: no harmonic collision at prime p
+[PASS] k=1, phi=-2.3: discrete_square_reference reproduces itself
+[PASS] k=1, phi=-2.3: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=1, phi=-2.3: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=1, phi=-2.3: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=1, phi=-2.3: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=1, phi=-2.3: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=1, phi=-2.3: no harmonic collision at prime p
+[PASS] k=5, phi=0.0: discrete_square_reference reproduces itself
+[PASS] k=5, phi=0.0: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=5, phi=0.0: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=5, phi=0.0: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=5, phi=0.0: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=5, phi=0.0: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=5, phi=0.0: no harmonic collision at prime p
+[PASS] k=5, phi=0.7: discrete_square_reference reproduces itself
+[PASS] k=5, phi=0.7: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=5, phi=0.7: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=5, phi=0.7: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=5, phi=0.7: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=5, phi=0.7: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=5, phi=0.7: no harmonic collision at prime p
+[PASS] k=5, phi=-2.3: discrete_square_reference reproduces itself
+[PASS] k=5, phi=-2.3: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=5, phi=-2.3: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=5, phi=-2.3: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=5, phi=-2.3: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=5, phi=-2.3: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=5, phi=-2.3: no harmonic collision at prime p
+[PASS] k=18, phi=0.0: discrete_square_reference reproduces itself
+[PASS] k=18, phi=0.0: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=18, phi=0.0: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=18, phi=0.0: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=18, phi=0.0: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=18, phi=0.0: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=18, phi=0.0: no harmonic collision at prime p
+[PASS] k=18, phi=0.7: discrete_square_reference reproduces itself
+[PASS] k=18, phi=0.7: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=18, phi=0.7: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=18, phi=0.7: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=18, phi=0.7: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=18, phi=0.7: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=18, phi=0.7: no harmonic collision at prime p
+[PASS] k=18, phi=-2.3: discrete_square_reference reproduces itself
+[PASS] k=18, phi=-2.3: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=18, phi=-2.3: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=18, phi=-2.3: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=18, phi=-2.3: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=18, phi=-2.3: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=18, phi=-2.3: no harmonic collision at prime p
+[PASS] k=56, phi=0.0: discrete_square_reference reproduces itself
+[PASS] k=56, phi=0.0: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=56, phi=0.0: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=56, phi=0.0: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=56, phi=0.0: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=56, phi=0.0: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=56, phi=0.0: no harmonic collision at prime p
+[PASS] k=56, phi=0.7: discrete_square_reference reproduces itself
+[PASS] k=56, phi=0.7: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=56, phi=0.7: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=56, phi=0.7: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=56, phi=0.7: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=56, phi=0.7: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=56, phi=0.7: no harmonic collision at prime p
+[PASS] k=56, phi=-2.3: discrete_square_reference reproduces itself
+[PASS] k=56, phi=-2.3: ideal_square_* of harmonic_shares equals the reference
+[PASS] k=56, phi=-2.3: fundamental share = 0.8107 vs the module's own 0.8107 (2 dp)
+[PASS] k=56, phi=-2.3: odd/fundamental = 0.1717 vs 0.1717 (2 dp)
+[PASS] k=56, phi=-2.3: even/fundamental = 5.82e-04 ~ 5.8e-04
+[PASS] k=56, phi=-2.3: even harmonics are present but tiny (0 < even < 1e-3)
+[PASS] k=56, phi=-2.3: no harmonic collision at prime p
+[PASS] fundamental share = 0.8107 (table: 0.8107)
+[PASS] odd/fundamental = 0.1717 (table: 0.1717)
+[PASS] even/fundamental = 5.82e-04 (table: 5.8e-04)
+[PASS] discrete shares bracket the continuous ideal: fundamental 0.8107 vs 8/pi^2 0.8106
+[PASS] discrete odd share 0.1717 vs continuous 1/9+1/25+1/49 = 0.1715
+[PASS] the discrete wave has a small constant component at odd p (0 < share < 1e-3)
+[PASS] n_positive_samples = (p+1)/2 at odd p (unequal level counts)
+[PASS] amplitude_ratio_to_fundamental ~ 1/3, 1/5, 1/7 (within 1%)
+[PASS] sign convention is recorded ('cos >= 0 -> +1')
+[PASS] discrete_square_reference rejects even p
+
+-- harmonic_shares: each column's OWN fundamental; no collisions at prime p --
+[PASS] n_collisions == 0 for every k in 1..56 at prime p=113
+[PASS] aliased odd harmonics {k,3k,5k,7k} are 4 distinct nonzero frequencies for every k
+[PASS] per-column fundamental_share ~ 0.8107 at each column's own k
+[PASS] harmonic_index_by_j row 1 is exactly each column's own k
+[PASS] harmonic_index_by_j rows 3,5,7 are alias(j*k) per column
+[PASS] using the WRONG fundamental for every column collapses the fundamental share
+[PASS] odd_minus_even > 0 for square-wave columns
+[PASS] family_share = fundamental + odd
+[PASS] shares are fractions of the column's total power (each <= 1)
+[PASS] a sinusoid column has fundamental_share = 1 and odd_share ~ 0
+[PASS] n_collisions is nonzero where harmonics really do alias (p=11, k=3: 2)
+[PASS] harmonic_shares rejects a power array whose length contradicts p
+[PASS] harmonic_indices rejects a fundamental outside 1..half
+
+-- IPR: Doshi et al. 2310.13061 Eq. 3 (r=2), and the _ours variant --
+[PASS] IPR_DEFINITION_STATUS records where the definition came from
+[PASS] IPR_DEFINITIONS names all three definitions (doshi_rfft, doshi_fft, ours)
+[PASS] IPR_DEFINITIONS['doshi_rfft'] cites the source and its equation
+[PASS] IPR_DEFINITIONS['ours'] is labelled a GROKVERSE definition
+[PASS] the _ours variant is exposed separately under its own name
+[PASS] both DFT conventions of the source are exposed
+[PASS] ideal single-frequency curve: IPR_doshi(rfft) = 1 (got 1.000000000000)
+[PASS] ideal single-frequency curve: IPR_doshi(fft) = 0.5 (the paper's stated range [1/p,1]) (got 0.500000000000)
+[PASS] ideal single-frequency curve: IPR_ours = 1 (got 1.000000000000)
+[PASS] inverse_participation_ratio (plain name) = IPR_ours on the power array
+[PASS] IPR_ours = 1 / participation_ratio exactly
+[PASS] one-hot curve hits the rfft floor 1/(p//2+1) = 0.01754
+[PASS] one-hot curve hits the fft floor 1/p = 0.00885
+[PASS] white noise: IPR_ours = 0.0350 is of order 1/n_freq = 0.0179 (exponential periodogram gives ~2/n_freq)
+[PASS] white noise: IPR_doshi(rfft) = 0.0347 is of order 1/n_freq = 0.0175
+[PASS] white noise IPR is far below the single-frequency value 1 (max < 0.2)
+[PASS] Eq. 4 on three single-frequency curves gives ipr_neuron = 1
+[PASS] Eq. 4 is the plain mean of the three per-vector IPRs
+[PASS] Eq. 4 result echoes the DFT convention it used
+[PASS] Eq. 4 rejects curves of differing shape
+[PASS] an unknown DFT convention is rejected
+[PASS] no IPR threshold is applied anywhere (the source defines none: it ranks)
+
+-- periodicity_score: Swaroop 2603.23784 Eq. 1, thresholds exposed not applied --
+[PASS] SWAROOP_PERIODICITY_THRESHOLDS is a labelled constant naming its source and p
+[PASS] the thresholds are NOT applied silently: periodicity_score returns a raw score, no boolean/classification key exists in the module
+[PASS] a clean sinusoid attains the maximum (p-1)/2 = 56.0 (got 56.0000)
+[PASS] Eq. 1 is max|DFT| over mean|DFT| (k = 1..p-1) — the reference implementation agrees to 1e-12
+[PASS] periodicity_score_from_power equals periodicity_score for real curves at odd p
+[PASS] periodicity_score_swaroop is the same function (source-named alias)
+[PASS] an ideal sign(cos) square wave scores 17.991 at p=113, reproducing the source note's own computation (17.991)
+[PASS] the score measures single-frequency dominance, not square-ness: a cosine scores ~3x an ideal square wave
+[PASS] white noise scores near the flat-spectrum floor 1 (mean 2.40, max 3.63)
+[PASS] white noise never reaches the source's 'structured' threshold 12
+[PASS] periodicity_score is NaN (not 0, not a substitute) for an all-zero curve
+[PASS] periodicity_score needs p >= 3
+
+-- binarization_score_ours: 1 for a square wave, small for a sinusoid --
+[PASS] binarization_score_ours is 1.0 for a perfect square wave
+[PASS] still 1.0 for a scaled/negated square wave
+[PASS] a pure sinusoid scores ~2 arccos(0.8)/pi = 0.4097 (got 0.4071)
+[PASS] a sinusoid scores far below a square wave
+[PASS] white noise scores small (max 0.124)
+[PASS] the threshold is a parameter, not a hidden constant (0.5 admits more samples)
+[PASS] binarization_score is the labelled alias of the _ours definition
+[PASS] an out-of-range threshold is rejected
+[PASS] binarization_score_ours is NaN for an all-zero curve
+
+-- curve_metrics: every documented key for a [p, n] matrix; 1-D accepted --
+[PASS] curve_metrics returns exactly the documented top-level keys
+[PASS] harmonic_shares carries every documented key
+[PASS] params echoes p, topk, max_harmonic, binarization_threshold and the IPR definition
+[PASS] n_columns = 3, n_undefined_columns = 0
+[PASS] every per-column array has length n_columns
+[PASS] topk_concentration is reported per requested k (1, 4, 8)
+[PASS] the sinusoid / square / noise columns are ordered as expected by dominant_fraction
+[PASS] each column is measured at its OWN dominant frequency
+[PASS] the square column's fundamental share ~ 0.8107, the sinusoid's ~ 1
+[PASS] the wrapper's values equal the standalone functions
+[PASS] 1-D input is accepted and squeezed to a single column (n_columns == 1)
+[PASS] 1-D input gives length-1 per-column arrays, not a ragged/2-D result
+[PASS] 1-D input agrees value-for-value with the same curve as a [p, 1] matrix
+[PASS] 1-D input agrees with the [p, n] result for the same column
+
+-- edge cases: zero-power column, even p, malformed input --
+[PASS] a zero-power column does not crash curve_metrics
+[PASS] the zero column is COUNTED, not silently substituted (n_undefined_columns == 1)
+[PASS] the good column keeps finite metrics next to a zero column
+[PASS] the good column's values are unchanged by the zero column's presence
+[PASS] the zero column reports NaN (documented: never a substitute value)
+[PASS] the zero column's dominant_frequency is the reserved 0 = undefined
+[PASS] a zero column's harmonic shares are NaN, not 0
+[PASS] an ALL-zero matrix raises instead of returning meaningless numbers
+[PASS] a zero column does not make the standalone metrics raise
+[PASS] p=112 (even) is rejected by power_spectrum
+[PASS] p=112 (even) is rejected by curve_metrics
+[PASS] p=112 (even) is rejected by discrete_square_reference
+[PASS] p=8 (even) is rejected by power_spectrum
+[PASS] p=8 (even) is rejected by curve_metrics
+[PASS] p=8 (even) is rejected by discrete_square_reference
+[PASS] non-finite input is rejected, not propagated
+[PASS] a 3-D array is rejected
+[PASS] an empty array is rejected
+
+-- NEGATIVE CONTROL: white noise must NOT be scored as periodic --
+[PASS] noise: NO column reaches Swaroop's 'structured' periodicity threshold (>12) — max 3.79
+[PASS] noise: every column is below the periodicity score of an ideal square wave
+[PASS] noise: no column has dominant_fraction > 0.3 (max 0.186)
+[PASS] noise: no column has top-1 concentration above the weakest sinusoid's
+[PASS] noise: top-8 concentration (max 0.55) stays below every square wave's (0.98) and every sinusoid's (1.00) — but its MEAN is already 0.41 because 8 of 56 frequencies carry that much of any spectrum, so top-8 alone is a weak periodicity statistic (H3)
+[PASS] noise: every column's participation ratio is far above 1 (min 17.9)
+[PASS] noise: every column's spectral entropy exceeds every sinusoid's and every square wave's
+[PASS] noise: no column reaches IPR 0.2 (single-frequency = 1)
+[PASS] noise: no column looks near-binary (binarization < 0.3)
+[PASS] noise: no column looks like a square wave at its own dominant frequency (fundamental share < 0.3 everywhere; an ideal square wave has 0.81)
+[PASS] noise: odd_minus_even does not separate it from a square wave in the wrong direction (square wave's median is far larger)
+[PASS] scrambled square wave (same values, shuffled positions) loses its periodicity score (max 3.28 < 12)
+[PASS] scrambled square wave loses its fundamental share (max < 0.3 vs 0.81)
+[PASS] but the scrambled curve is STILL near-binary — binarization measures shape, not periodicity (and is therefore not a periodicity statistic)
+
+ALL CHECKS PASSED
+----- test_metrics.py: PASS
+
+===== tests\test_mlp_mechanism.py =====
+
+-- neuron_tables (INTERFACES 5, bullet 1) --
+[PASS] tables cover u_a, u_b and out
+[PASS] ideal circuit: u_a dominant frequency == the injected k
+[PASS] ideal circuit: u_b and out share that frequency
+[PASS] ideal circuit: dominant fraction ~ 1 on every curve
+[PASS] ideal circuit: family fraction ~ 1 on every curve
+[PASS] ideal circuit: the recovered phase equals the injected phi_a
+[PASS] every metrics.py statistic is in the table
+[PASS] harmonic shares carry the discrete square-wave reference
+[PASS] no harmonic collisions at prime p for a single fundamental
+[PASS] top-3 frequencies are ranked by power
+[PASS] the phase of the 2nd frequency is recovered too
+[PASS] top-3 power shares are decreasing
+[PASS] contingency counts partition the neurons
+[PASS] ideal circuit: the contingency table is all in the agreeing cell
+[PASS] CONTROL scrambled output frequency: same_ab still holds
+[PASS] CONTROL scrambled output frequency: same_ab_out fails for every neuron
+[PASS] CONTROL: its contingency table moves out of the agreeing cell
+[PASS] summarize_tables is JSON-serializable and finite
+
+-- activation_analysis (INTERFACES 5, bullet 2) --
+[PASS] ideal neuron is alive
+[PASS] sum and diff direction shares are both substantial
+[PASS] sum_direction_share ~= diff_direction_share (derivation 4.1)
+[PASS] CONTROL: the false 'sum >> diff' per-neuron prediction is NOT satisfied
+[PASS] the (a+b) power agrees with mask_protocols.SumDirectionsOnly
+[PASS] the (a-b) projection source is recorded
+[PASS] the (a+b) cross-term amplitude is 8/(3 pi^2)
+[PASS] swap_symmetry ~ 1 when phi_a == phi_b
+[PASS] CONTROL swap_symmetry < 1 when phi_a != phi_b
+[PASS] ev_hypothesized(sinusoid) ~ 1 for a sinusoidal neuron
+[PASS] CONTROL ev_hypothesized(square) is clearly worse for a sinusoidal neuron
+[PASS] ev_hypothesized(square) ~ 1 for a square-wave neuron
+[PASS] a dead neuron is flagged dead
+[PASS] a dead neuron's swap_symmetry is NaN, not a substitute value
+[PASS] the summary counts the dead neuron
+[PASS] a constant (zero-variance) curve raises instead of returning a made-up fit
+[PASS] the top-5 modes are reported per neuron
+[PASS] the strongest modes of an ideal neuron are the linear single-axis ones (single_axis_b)
+[PASS] the same-frequency (cross-term) modes appear in the top-5
+[PASS] and those same-frequency modes sit at the neuron's own frequency k
+[PASS] the top-mode shares are ordered
+[PASS] at most n_exemplars 2-D spectra are stored
+[PASS] exemplar spectra are [p, p, n]
+[PASS] chunking does not change any per-neuron number
+
+-- logit_contributions (INTERFACES 5, bullet 3) --
+[PASS] the centered logit tensor is reproduced exactly
+[PASS] per-neuron mean correct-logit contributions sum to the mean correct logit
+[PASS] the logit-variance shares plus the bias share sum to exactly 1
+[PASS] the margin contributions sum to the mean correct-class margin
+[PASS] the margin shares sum to 1
+[PASS] chunking does not change the contributions
+[PASS] CONTROL: a neuron with a zero readout row has zero variance share
+[PASS] CONTROL: and zero mean correct-logit contribution
+[PASS] the wrong W_out shape is rejected
+
+-- structured_neuron_definitions (PREREGISTRATION 4.2) --
+[PASS] the primary definition is the pre-registered one
+[PASS] ideal circuit: every neuron passes the PRIMARY definition
+[PASS] the mandatory sensitivity variants are present
+[PASS] Doshi's IPR carries the 'source states no threshold' label
+[PASS] Swaroop's 12/5 cuts are labelled as his p=97 histogram cuts
+[PASS] counts per frequency are reported per definition
+[PASS] pairwise Jaccard overlaps are reported
+[PASS] CONTROL scrambled output frequency: the primary definition selects nobody
+[PASS] family thresholds 0.30/0.50/0.70/0.99 select [44, 37, 8, 0] (monotone non-increasing)
+[PASS] a family threshold of 0.99 selects strictly FEWER neurons than 0.50
+[PASS] the noisy population is not degenerate (0.50 selects some neurons)
+[PASS] CONTROL: dead neurons are excluded even when every curve is perfect
+[PASS] ideal circuit: the phase relation on the primary set is tight (R > 0.99)
+[PASS] CONTROL scrambled output phase: the phase relation is NOT tight
+
+-- both MLP architectures (INTERFACES 5, last bullet) --
+[PASS] mlp: effective curves are [p, d_mlp]
+[PASS] mlp: the effective curves reproduce the model's forward pass
+[PASS] mlp_twohot: effective curves are [p, d_mlp]
+[PASS] mlp_twohot: the effective curves reproduce the model's forward pass
+[PASS] the two-hot a-curve IS the first half of W_in
+[PASS] an unsupported arch is rejected by name
+
+-- key-frequency selection with analysis.key_frequencies absent --
+[PASS] the requested (pre-registered primary) rule is recorded verbatim
+[PASS] a key set is returned either way
+[PASS] key_frequencies exists, so no fallback was used
+[PASS] the two-hot model (which has no W_E) still resolves a key set
+
+-- analyse(): run-level entry point + output contract --
+[PASS] mlp: the result lands at analysis/mlp_mechanism/final.json
+[PASS] mlp: the npz of per-neuron arrays is written next to it
+[PASS] mlp: the provenance envelope is complete
+[PASS] mlp: every INTERFACES 5 result block is present
+[PASS] mlp: the structured-neuron fraction is reported per definition
+[PASS] mlp: the key-frequency rule (and any fallback) is recorded
+[PASS] mlp: per-neuron fit results are stored (best-by-AIC, r2, alpha3/alpha1)
+[PASS] mlp: the structured masks are stored
+[PASS] mlp: no per-neuron [p,p,p] tensor is stored
+[PASS] mlp: at most 16 exemplar 2-D spectra are stored
+[PASS] mlp_twohot: the result lands at analysis/mlp_mechanism/final.json
+[PASS] mlp_twohot: the npz of per-neuron arrays is written next to it
+[PASS] mlp_twohot: the provenance envelope is complete
+[PASS] mlp_twohot: every INTERFACES 5 result block is present
+[PASS] mlp_twohot: the structured-neuron fraction is reported per definition
+[PASS] mlp_twohot: the key-frequency rule (and any fallback) is recorded
+[PASS] mlp_twohot: per-neuron fit results are stored (best-by-AIC, r2, alpha3/alpha1)
+[PASS] mlp_twohot: the structured masks are stored
+[PASS] mlp_twohot: no per-neuron [p,p,p] tensor is stored
+[PASS] mlp_twohot: at most 16 exemplar 2-D spectra are stored
+
+ALL CHECKS PASSED
+----- test_mlp_mechanism.py: PASS
+
+===== tests\test_run_format_v2.py =====
+-- dense transition detection --
+[PASS] memorization first crossing at 30, previous 20
+[PASS] generalization first crossing at 75, previous 50
+[PASS] grok gap = 45 with interval [20, 55]
+[PASS] eval_every is carried per crossing
+[PASS] no generalization crossing -> null with last evaluated step
+[PASS] every threshold set is reported
+[PASS] stricter threshold never memorizes EARLIER than the looser one
+[PASS] no key or docstring uses the word 'exact'
+-- checkpoint grid + roles --
+[PASS] grid filtered to <= steps
+[PASS] default grid is the pre-specified constant
+[PASS] grid is normalized to a sorted tuple
+[PASS] init = step 0
+[PASS] pre_memorization = last grid before 150 -> 100
+[PASS] memorization = event 150
+[PASS] mid_plateau = grid nearest (150+450)/2=300
+[PASS] pre_generalization = last grid before 450 -> 400
+[PASS] generalization = event 450
+[PASS] final = step 500
+[PASS] never generalized -> generalization/mid/pre_gen are None
+[PASS] memorization at step 0 -> no pre_memorization
+-- manifest validation --
+[PASS] complete manifest validates
+[PASS] removing 'run_id' raises
+[PASS] removing 'study' raises
+[PASS] removing 'arch' raises
+[PASS] removing 'seed' raises
+[PASS] removing 'task' raises
+[PASS] removing 'p' raises
+[PASS] removing 'train_frac' raises
+[PASS] removing 'weight_decay' raises
+[PASS] removing 'grokfast' raises
+[PASS] removing 'steps' raises
+[PASS] removing 'split_hash' raises
+[PASS] removing 'git_commit' raises
+[PASS] removing 'python_version' raises
+[PASS] removing 'torch_version' raises
+[PASS] removing 'numpy_version' raises
+[PASS] removing 'platform' raises
+[PASS] removing 'processor' raises
+[PASS] removing 'cpu_count' raises
+[PASS] removing 'torch_num_threads' raises
+[PASS] removing 'config' raises
+[PASS] removing 'start_utc' raises
+[PASS] removing 'end_utc' raises
+[PASS] removing 'elapsed_seconds' raises
+[PASS] removing 'steps_completed' raises
+[PASS] removing 'status' raises
+[PASS] removing 'abort_reason' raises
+[PASS] removing 'n_params' raises
+[PASS] removing 'weight_norms_init' raises
+[PASS] removing 'weight_norms_final' raises
+[PASS] removing 'effective_weight_decay_per_step' raises
+[PASS] removing 'checkpoints' raises
+[PASS] removing 'result_files' raises
+[PASS] unknown status raises
+[PASS] mistyped field raises
+[PASS] flatten uses dotted keys and JSON lists
+[PASS] per_module keys are named_parameters names
+[PASS] effective weight decay per step = lr*wd
+-- split hash --
+[PASS] split hash deterministic
+[PASS] split hash independent of arch
+[PASS] split hash differs between seeds
+[PASS] split hash is order-invariant
+[PASS] train_idx + test_idx partition the grid
+-- two-hot MLP --
+[PASS] two-hot output is [B, p]
+[PASS] n_params equals the built module
+[PASS] n_params formula for two-hot
+[PASS] forward equals the two-hot matrix product
+[PASS] embedding object is the a-half of W_in
+[PASS] embedding object of the MLP / transformer is W_E
+[PASS] wrong arch rejected
+-- run ids + paired seeds --
+[PASS] legacy ids unchanged when study is empty
+[PASS] study suffix applied
+[PASS] m2h prefix for the two-hot MLP
+[PASS] param-matched keeps the dm tag
+[PASS] arch25k preset: 25k steps, frac 0.3, wd 1.0, no grokfast
+[PASS] block pilot: identical seeds for every architecture
+[PASS] block pilot: no duplicate run ids
+[PASS] block primary: identical seeds for every architecture
+[PASS] block primary: no duplicate run ids
+[PASS] block confound: identical seeds for every architecture
+[PASS] block confound: no duplicate run ids
+[PASS] block param_matched: identical seeds for every architecture
+[PASS] block param_matched: no duplicate run ids
+[PASS] block twohot: identical seeds for every architecture
+[PASS] block twohot: no duplicate run ids
+[PASS] primary block has 20 runs
+[PASS] confound block has 18 runs (3 cells x 2 archs x 3 seeds)
+[PASS] confound block excludes the primary cell
+[PASS] longest configs first (transformer before mlp)
+[PASS] seed spec parsing
+[PASS] commands pin threads=1
+[PASS] grokfast flag only on grokfast cells
+[PASS] config round-trip through to_dict compares equal
+-- dense evaluation leaves the trajectory bit-identical --
+[PASS] transformer: final state identical with dense eval on vs off
+[PASS] mlp: final state identical with dense eval on vs off
+[PASS] mlp_twohot: final state identical with dense eval on vs off
+-- end-to-end smoke run into a temp dir --
+[PASS] run.json has dense block with both grids
+[PASS] run.json has transitions for all threshold sets
+[PASS] legacy transition block kept and labelled
+[PASS] protocol_version 2 + embedding_object recorded
+[PASS] checkpoints.json lists the 3 grid entries
+[PASS] final step is tagged grid,final
+[PASS] checkpoint files exist with sha256
+[PASS] model_final.pt equals ckpt_step000030.pt
+[PASS] manifest validates and is completed
+[PASS] manifest has init and final norms and 3 checkpoints
+[PASS] manifest split hash matches the data
+[PASS] load_run rebuilds the config
+[PASS] assign_roles works on the smoke run (init + final present)
+[PASS] embeddings.npy shape [T, p, d]
+[PASS] aggregate writes csv + json with the run
+[PASS] legacy dir listed as legacy_no_manifest
+[PASS] invalid manifest blocks the aggregate
+[PASS] collision guard rejects a different config in the same dir
+
+ALL V2 CHECKS PASSED
+----- test_run_format_v2.py: PASS
+
+===== tests\test_statistics.py =====
+-- exact Wilcoxon signed-rank, hand-enumerated (n = 6) --
+[PASS] n=6, no ties: W+ = 20, W- = 1
+[PASS] n=6, no ties: p = 4/64 = 0.0625 (hand-enumerated)
+[PASS] n=6: 2^6 = 64 sign assignments were enumerated
+[PASS] n=6 with ties: average ranks give W+ = 17.5, W- = 3.5
+[PASS] n=6 with ties: p = 12/64 = 0.1875 (hand-enumerated)
+[PASS] n=6 with ties: two tie groups counted
+[PASS] zero difference dropped (counted) and p unchanged
+[PASS] balanced-sign control: W+ = 9, W- = 12
+[PASS] balanced-sign control: p = 54/64 = 0.84375 (hand-enumerated), does NOT pass
+[PASS] negated differences: W+/W- swap, p identical
+[PASS] n=10 all positive: p = 2/1024
+[PASS] n=20 all positive at the exact limit: p = 2/2^20
+[PASS] n=21 non-zero differences exceed the exact limit -> ValueError
+[PASS] n=21 is computable when the caller raises max_exact_n explicitly
+[PASS] NaN in the differences is refused, not silently dropped
+
+-- exact sign test --
+[PASS] 8+/2-: p = 112/1024 = 0.109375
+[PASS] 5+/5-: p capped at 1
+[PASS] ties excluded and counted: p = 0.25, n_ties = 2
+[PASS] 10 positive: p = 2/1024
+[PASS] all tied: p = 1 with n_nonzero = 0 (no information)
+
+-- effect sizes --
+[PASS] cohens_dz([1,2,3]) = 2.0
+[PASS] cohens_dz undefined (None) for a constant shift
+[PASS] cohens_dz undefined (None) for a single pair
+[PASS] cliffs_delta hand case = 1/3
+[PASS] cliffs_delta of identical samples = 0
+[PASS] cliffs_delta = +1 / -1 under complete separation
+[PASS] cliffs_delta refuses an empty sample
+
+-- robust summary --
+[PASS] robust: n = 5, n_missing = 2
+[PASS] robust: median 3, MAD_raw 1, MAD 1.4826
+[PASS] robust: IQR 2, min 1, max 100
+[PASS] robust echoes its MAD scale
+[PASS] robust of nothing: n = 0, every statistic None, missing counted
+[PASS] robust refuses a non-numeric entry
+
+-- percentile bootstrap --
+[PASS] bootstrap CI of the mean covers the true mean 5 (n=200, sd=1)
+[PASS] bootstrap CI brackets the point estimate
+[PASS] bootstrap CI width is ~0.28 (2 * 1.96 / sqrt(200))
+[PASS] bootstrap echoes n_boot, seed, alpha, n, method
+[PASS] bootstrap is deterministic under its seed
+[PASS] a different seed gives a different resample
+[PASS] alpha = 0.5 gives a narrower interval than alpha = 0.05
+[PASS] bootstrap refuses n_boot < 1
+[PASS] bootstrap refuses an empty sample
+[PASS] bootstrap refuses alpha outside (0, 1)
+[PASS] bootstrap refuses a non-scalar statistic
+[PASS] bootstrap refuses NaN input
+
+-- paired: a known shift recovers sign, CI excludes 0 --
+[PASS] all 10 seeds paired, nothing dropped
+[PASS] mean difference ~ +1
+[PASS] every per-seed difference is positive -> direction 'a>b', all_positive
+[PASS] bootstrap CI95 excludes 0 and lies near the shift
+[PASS] sign test p = 2/1024 for 10 consistent signs
+[PASS] Wilcoxon p = 2/1024 for 10 consistent signs
+[PASS] Cohen's d_z large and positive (shift 1, noise sd 0.1)
+[PASS] Cliff's delta positive
+[PASS] defaults echoed: n_boot = 10000, seed = 0, alpha = 0.05, max_exact_n = 20
+[PASS] per-seed differences are listed with their seeds
+[PASS] result is JSON-serializable without numpy types
+[PASS] paired() is deterministic under its seed
+[PASS] swapping the samples negates the difference and flips the direction
+[PASS] swapping the samples leaves both exact p-values unchanged
+[PASS] swapping negates d_z and Cliff's delta
+
+-- paired: identical samples --
+[PASS] identical samples: mean and median difference 0
+[PASS] identical samples: CI95 contains 0
+[PASS] identical samples: sign-test p = 1, Wilcoxon p = 1
+[PASS] identical samples: every pair tied -> direction 'all_tied', n_zero = 10
+[PASS] identical samples: d_z is None with the reason stated
+[PASS] identical samples: Cliff's delta = 0
+
+-- paired: unpaired seeds and missing values are dropped and counted --
+[PASS] kept pairs = seeds 0,1,2,4,6,7
+[PASS] dropped seeds listed and counted: 3, 5 (missing), 8, 9 (only a), 11, 12 (only b)
+[PASS] breakdown: 2 unpaired a, 2 unpaired b, 2 missing values
+[PASS] n_total counts every entry given, dropped included
+[PASS] kept values belong to their seeds
+[PASS] every kept difference is -0.5
+[PASS] input order does not matter - alignment is by seed
+[PASS] length mismatch between values and seeds is refused
+[PASS] duplicate seeds are refused (ambiguous alignment)
+[PASS] no overlapping seed -> ValueError, not an empty result
+[PASS] a non-numeric value is refused
+
+-- negative control: permuting the pairing destroys a real paired effect --
+[PASS] real pairing: all 10 differences positive, CI95 excludes 0
+[PASS] real pairing: sign p = Wilcoxon p = 2/1024
+[PASS] the permutation is not the identity
+[PASS] permuted pairing: unpaired means unchanged
+[PASS] permuted pairing: robust summary of b unchanged
+[PASS] permuted pairing: mean difference itself is unchanged (it only depends on the means)
+[PASS] permuted pairing: CI95 now contains 0
+[PASS] permuted pairing: signs are mixed, sign test and Wilcoxon are NOT significant
+[PASS] permuted pairing: |d_z| collapses (real d_z is None: sd 0; control |d_z| < 1)
+
+-- paired: beyond the exact Wilcoxon limit --
+[PASS] 21 non-zero pairs: Wilcoxon p is None with the reason stated, nothing guessed
+[PASS] 21 pairs: the sign test is still exact
+[PASS] raising max_exact_n explicitly computes it: p = 2/2^21
+[PASS] a single pair: statistics defined where possible, d_z None with reason
+
+-- plot_paired --
+[PASS] plot_paired returns the path and writes a non-empty PNG
+[PASS] plot_paired refuses mismatched lengths
+[PASS] plot_paired refuses a label list that is not (label_a, label_b)
+[PASS] plot_paired refuses to draw when no pair is complete
+
+ALL CHECKS PASSED
+----- test_statistics.py: PASS
+
+===== tests\test_statistics_report.py =====
+
+-- Holm adjustment (a descriptive aid, never a decision rule) --
+[PASS] the smallest p is multiplied by n
+[PASS] the adjustment is monotone
+[PASS] values are capped at 1
+[PASS] a None p-value stays None
+[PASS] an empty input is handled
+
+-- timing: the evaluation grid vs the seed spread (plan 6) --
+[PASS] one entry per paired seed
+[PASS] the bound is [(a - e) - b, a - (b - e)] exactly
+[PASS] with a large, consistent gap the direction is unanimous
+[PASS] ...and every seed's interval excludes zero
+[PASS] the phrase 'exact transition' is forbidden in the output
+[PASS] a reversing seed makes the direction non-unanimous
+[PASS] ...while every per-seed interval still excludes zero (the grid is not the limit)
+[PASS] the reading says the spread is what limits the claim, not the grid
+[PASS] ...and it refuses a universal claim
+[PASS] a difference smaller than the evaluation interval gives seed intervals spanning zero
+[PASS] no pairs at all is reported, not crashed on
+
+-- compute(): the eight pre-specified comparisons --
+[PASS] exactly the pre-specified comparisons are computed (10 rows from 8 specs)
+[PASS] the count matches figures_study's specification, so figures and numbers agree
+[PASS] the rule that none is added after the fact is stated in the output
+[PASS] p-values are labelled as companions, not evidence
+[PASS] every per-seed difference is listed, not only summarized (plan 2)
+[PASS] both raw value lists are kept as well
+[PASS] the interval, both tests, both effect sizes and the robust spread are all present
+[PASS] a constant negative shift is detected as unanimous
+[PASS] the reading states in words whether the interval spans zero (plan 9)
+[PASS] the Holm block is present and labelled a descriptive aid
+[PASS] the small-sample discipline is written into the artifact
+[PASS] the timing block is included
+[PASS] an unpaired seed reduces n_pairs and is named
+
+ALL CHECKS PASSED
+----- test_statistics_report.py: PASS
+
+===== tests\test_structure_over_time.py =====
+
+-- onset_step (INTERFACES 12) --
+[PASS] a flat series has no onset
+[PASS] a step series has its onset at the step it rises (3)
+[PASS] the onset never fires on the two baseline checkpoints themselves
+[PASS] the fragile inputs travel with the answer
+[PASS] ...and the caveat is stated, not left to the reader
+[PASS] a series shorter than three checkpoints reports why it has no onset
+[PASS] a series with a non-finite baseline is refused, not guessed
+
+-- bootstrap over neurons --
+[PASS] a known paired shift is recovered
+[PASS] ...with a CI excluding 0
+[PASS] CONTROL: identical inputs give a CI containing 0
+[PASS] mismatched neuron counts are reported, not silently truncated
+[PASS] it is reproducible under its seed
+
+-- _curves_and_logits: exact forward and an exact dead mask --
+[PASS] the MLP logits are the model's own forward pass
+[PASS] the cheap dead mask equals the one computed from the full activation
+[PASS] a neuron driven below the ReLU floor is detected as dead
+[PASS] CONTROL: the other neurons are not
+[PASS] the transformer logits are the model's own forward pass to 1e-10
+[PASS] the transformer dead mask is read off the TRUE hidden layer
+
+-- checkpoint_metrics: the INTERFACES 12 set --
+[PASS] the metric set contains embedding_top8_concentration
+[PASS] the metric set contains embedding_threshold_count
+[PASS] the metric set contains structured_fraction_of_live
+[PASS] the metric set contains phase_relation_R
+[PASS] the metric set contains fraction_best_aic_square
+[PASS] the metric set contains fraction_best_aic_sinusoid
+[PASS] the metric set contains median_odd_minus_even_u_a
+[PASS] the metric set contains logit_key_subspace_share
+[PASS] the metric set contains train_acc
+[PASS] the metric set contains test_acc
+[PASS] the metric set contains weight_norm_total
+[PASS] per-neuron arrays are returned for the bootstrap
+[PASS] all four waveform shares are reported
+[PASS] the waveform shares sum to exactly 1 -- every column has one best model
+[PASS] ...and they are not all zero, which is what comparing an index to a name produced
+[PASS] a missing phase relation is null, never a fabricated 0
+[PASS] weight norms are reported per parameter tensor as well as in total
+
+-- analyse(): run-level entry point + output contract --
+[PASS] mlp: the result lands at analysis/structure_over_time/all_checkpoints.json
+[PASS] mlp: one series point per checkpoint
+[PASS] mlp: the roles are resolved and recorded
+[PASS] mlp: the H4 contrast names its two roles
+[PASS] mlp: every scalar metric gets an onset entry
+[PASS] mlp: the correlational caveat is in the output, not only the docstring
+[PASS] mlp: the key set is fixed once from the final checkpoint
+[PASS] mlp: the Khanh caveat is recorded
+[PASS] mlp: the output-path deviation from INTERFACES 12 is declared
+[PASS] mlp: a figure is written and referenced from the JSON
+[PASS] mlp: per-neuron arrays are stored per checkpoint
+[PASS] transformer: the result lands at analysis/structure_over_time/all_checkpoints.json
+[PASS] transformer: one series point per checkpoint
+[PASS] transformer: the roles are resolved and recorded
+[PASS] transformer: the H4 contrast names its two roles
+[PASS] transformer: every scalar metric gets an onset entry
+[PASS] transformer: the correlational caveat is in the output, not only the docstring
+[PASS] transformer: the key set is fixed once from the final checkpoint
+[PASS] transformer: the Khanh caveat is recorded
+[PASS] transformer: the output-path deviation from INTERFACES 12 is declared
+[PASS] transformer: a figure is written and referenced from the JSON
+[PASS] transformer: per-neuron arrays are stored per checkpoint
+[PASS] a legacy run without checkpoints.json is refused with a message naming why
+
+ALL CHECKS PASSED
+----- test_structure_over_time.py: PASS
+
+===== tests\test_transformer_mechanism.py =====
+
+-- forward_decomposition (INTERFACES 6) --
+[PASS] logits match the float32 model to 1e-4 (INTERFACES 6 tolerance)
+[PASS] ...and match the SAME model in float64 to 1e-10 (so 1e-4 is float32, not error)
+[PASS] direct path + mlp path == logits exactly
+[PASS] shapes follow INTERFACES 6
+[PASS] read-out attention is a distribution over the 3 positions
+[PASS] hidden is a ReLU output (no negative entries)
+[PASS] forward_decomposition accepts an nn.Module as well as a state dict
+[PASS] a wrong-shaped attention override is rejected
+
+-- effective_curves + additivity (the module's one approximation) --
+[PASS] W_Q = W_K = 0 gives exactly uniform attention (1/3 on each position)
+[PASS] uniform attention: additivity_r2 == 1 for every neuron (INTERFACES 6 test)
+[PASS] uniform attention: no neuron has a constant pre-activation (the check is live)
+[PASS] uniform attention: the reconstruction equals the true pre-activation to 1e-10
+[PASS] uniform attention: ReLU of the reconstruction IS the true hidden
+[PASS] CONTROL: input-dependent attention does NOT give additivity_r2 == 1
+[PASS] CONTROL: the attention actually varies across inputs
+[PASS] the curves carry exactly the MLP's keys and shapes
+[PASS] out[c, f] is what neuron f adds to the logit of class c
+[PASS] a wrong-shaped attn_mean is rejected
+
+-- key_subspace_variance (sum-direction projection + size-matched null) --
+[PASS] a pure cos(w_5(a+b)) field has share 1 at k=5
+[PASS] ...and share 0 at every other frequency
+[PASS] the size-matched random control is ~0 for that field
+[PASS] the share is phase invariant (the cos/sin pair is projected, not just cos)
+[PASS] CONTROL: a cos(w_k(a-b)) field has ~0 sum-direction share
+[PASS] a large constant offset does not change the share (DC is excluded)
+[PASS] CONTROL: white noise scores within the random-set null (z below 3)
+[PASS] the control definition is recorded in the output
+
+-- attention_report (differentiated, descriptive) --
+[PASS] uniform attention: every head reports mean 1/3 with zero spread
+[PASS] uniform attention: nothing explains its (zero) variance
+[PASS] every head and every attended position is reported
+[PASS] the 50/50 caveat travels with the number (master prompt 5)
+[PASS] an attention pattern that is a function of (a+b) is attributed to 'sum'
+[PASS] ...and NOT to a alone or b alone
+
+-- head_ablation (causal, on the unmodified checkpoint) --
+[PASS] ablating an all-zero head changes NOTHING (INTERFACES 6 test)
+[PASS] CONTROL: at least one live head DOES change the loss when zeroed
+[PASS] both absolute and relative changes are reported (master prompt 11)
+[PASS] the baseline is reported next to the ablations
+[PASS] no retraining is claimed anywhere in the record
+[PASS] uniform attention: fixing attention to its mean changes nothing
+[PASS] CONTROL: with input-dependent attention it is NOT a no-op
+
+-- variance_explained_by --
+[PASS] a function of (a+b) is fully explained by (a+b)
+[PASS] ...and barely at all by a alone
+[PASS] a function of a alone is fully explained by a
+[PASS] a constant column reports 0, not nan
+[PASS] a 1-D input is accepted and returns one value
+[PASS] unequal group sizes are weighted by count
+
+-- direction_spectra --
+[PASS] the direct, per-head, logit-map and unembedding spectra are all present
+[PASS] one entry per head
+[PASS] W_pos norms are reported per position
+[PASS] an injected frequency 6 is recovered by the direct spectrum
+[PASS] ...and it is reported as fully concentrated
+
+-- analyse(): run-level entry point + output contract --
+[PASS] the result lands at analysis/transformer_mechanism/final.json
+[PASS] the npz is written next to it
+[PASS] the provenance envelope is complete
+[PASS] every INTERFACES 6 result block is present
+[PASS] the forward decomposition is re-checked against the model on every run
+[PASS] the logit-variance shares still sum to 1 with the [p,p,p] direct path as bias
+[PASS] the key-frequency rule (and any fallback) is recorded
+[PASS] the mean-attention approximation is declared in params, not hidden
+[PASS] the activation source is declared as the TRUE hidden layer
+[PASS] the storage deviation from INTERFACES 6 is recorded in params
+[PASS] the result is labelled measurement-only
+[PASS] per-neuron additivity is stored
+[PASS] the effective curves are stored
+[PASS] the structured masks are stored
+[PASS] the read-out attention tensor is stored
+[PASS] no [p, p, d_mlp] hidden tensor is stored (master prompt 20)
+[PASS] an MLP run is refused with a pointer to the right module
+
+ALL CHECKS PASSED
+----- test_transformer_mechanism.py: PASS
+
+===== tests\test_wave_fitting.py =====
+
+-- a sinusoid is recovered exactly and wins by AIC --
+[PASS] sinusoid: r2 == 1 on a noiseless sinusoid
+[PASS] sinusoid: amplitude recovered (2.000000)
+[PASS] sinusoid: offset recovered (-0.400000)
+[PASS] sinusoid: phase recovered within 2 degrees (err 0.0000 deg)
+[PASS] sinusoid: n_params is 3
+[PASS] sinusoid: n_positions is p
+[PASS] sinusoid: sinusoid wins by AIC
+[PASS] sinusoid: r2 > 0.999
+[PASS] sinusoid: beats square by more than 10 AIC (3546.8)
+[PASS] sinusoid: the phase convention is echoed
+[PASS] sinusoid: delta_aic of the winner is 0
+[PASS] sinusoid: every model reports a delta_aic >= 0
+
+-- a discrete square wave is recovered and wins by AIC --
+[PASS] square: r2 == 1 on a noiseless square wave
+[PASS] square: amplitude recovered (1.000000)
+[PASS] square: n_params is 3
+[PASS] square: the square model wins by AIC
+[PASS] square: it also wins by AICc
+[PASS] square: beats the sinusoid by more than 10 AIC (3468.4)
+[PASS] square: the sinusoid alone explains at most ~8/pi^2 of the variance (0.8107)
+
+-- the odd-harmonic fit recovers the 1/j amplitude law --
+[PASS] p=23: the fitted harmonics are (1, 3, 5, 7)
+[PASS] p=23: alpha_3/alpha_1 = 0.3354 within 5% of 1/3 = 0.3333
+[PASS] p=23: alpha_5/alpha_1 = 0.2038 within 5% of 1/5 = 0.2000
+[PASS] p=23: alpha_7/alpha_1 = 0.1483 within 5% of 1/7 = 0.1429
+[PASS] p=23: odd_harmonics has 9 free parameters
+[PASS] p=23: odd_harmonics reaches the j<=7 truncation ceiling ~0.95 (got 0.9565)
+[PASS] p=23: odd_harmonics still beats the plain sinusoid
+[PASS] p=113: the fitted harmonics are (1, 3, 5, 7)
+[PASS] p=113: alpha_3/alpha_1 = 0.3334 within 5% of 1/3 = 0.3333
+[PASS] p=113: alpha_5/alpha_1 = 0.2002 within 5% of 1/5 = 0.2000
+[PASS] p=113: alpha_7/alpha_1 = 0.1431 within 5% of 1/7 = 0.1429
+[PASS] p=113: odd_harmonics has 9 free parameters
+[PASS] p=113: odd_harmonics reaches the j<=7 truncation ceiling ~0.95 (got 0.9499)
+[PASS] p=113: odd_harmonics still beats the plain sinusoid
+[PASS] a sinusoid has ~zero harmonic amplitude (max ratio 1.47e-15)
+[PASS] odd_harmonics_1_over_j has exactly 3 free parameters
+[PASS] odd_harmonics_1_over_j reaches the analytic square-wave ceiling ~0.9496 (got 0.9499)
+[PASS] odd_harmonics_1_over_j beats a plain sinusoid on a square wave (it would not if the alternating sign were missing)
+[PASS] odd_harmonics_1_over_j fits a sinusoid worse than the sinusoid model does
+[PASS] the constrained fit is within 0.01 of the free odd-harmonic fit (0.9499 vs 0.9499)
+
+-- the right model still wins at signal-to-noise ratio 3 --
+[PASS] SNR 3, sinusoid: the sinusoid model still wins by AIC
+[PASS] SNR 3, sinusoid: r2 of the winner is still > 0.8
+[PASS] SNR 3, square: the square model still wins by AIC
+[PASS] SNR 3, square: r2 of the winner is still > 0.8
+[PASS] SNR 3: the phase is recovered within 10 degrees (2.70 deg)
+
+-- negative controls: a wrong k and pure noise must NOT fit --
+[PASS] sinusoid at a wrong fundamental k=5 gives r2 < 0.2 (0.0000)
+[PASS] square at a wrong fundamental k=5 gives r2 < 0.2 (0.0023)
+[PASS] sinusoid at a wrong fundamental k=17 gives r2 < 0.2 (0.0000)
+[PASS] square at a wrong fundamental k=17 gives r2 < 0.2 (0.0019)
+[PASS] sinusoid at a wrong fundamental k=19 gives r2 < 0.2 (0.0000)
+[PASS] square at a wrong fundamental k=19 gives r2 < 0.2 (0.0325)
+[PASS] sinusoid at a wrong fundamental k=20 gives r2 < 0.2 (0.0000)
+[PASS] square at a wrong fundamental k=20 gives r2 < 0.2 (0.0008)
+[PASS] exactly k = 6, 19, 51 alias onto the true fundamental 18 at p=113 (got [6, 19, 51])
+[PASS] the harmonic family of k=6 contains 18, so it DOES fit (1.0000) — documented caveat, not a defect
+[PASS] the harmonic family of k=19 contains 18, so it DOES fit (1.0000) — documented caveat, not a defect
+[PASS] the harmonic family of k=51 contains 18, so it DOES fit (1.0000) — documented caveat, not a defect
+[PASS] a wrong fundamental k=5 whose family excludes 18 gives r2 < 0.2 for every model (0.0023)
+[PASS] a wrong fundamental k=17 whose family excludes 18 gives r2 < 0.2 for every model (0.0019)
+[PASS] a wrong fundamental k=20 whose family excludes 18 gives r2 < 0.2 for every model (0.0008)
+[PASS] white noise is not explained by any model (max r2 0.0896)
+[PASS] a scrambled square wave is not fit (max r2 0.1650)
+
+-- held-out cross-validation is seeded and does not pick the sinusoid for a square --
+[PASS] CV picks the sinusoid for a sinusoid
+[PASS] CV does NOT pick the sinusoid for a square wave (picked 'square')
+[PASS] CV is reproducible under its seed
+[PASS] a different seed is allowed and still returns a model name
+[PASS] folds outside 2..p are rejected
+[PASS] CV on pure noise shows no held-out predictive power: the best model still has held-out nmse >= 1 (1.098)
+[PASS] CV on a real sinusoid does show predictive power (held-out nmse 2.52e-30 << 1)
+[PASS] CV reports a pooled ranking as well as a per-fold mean
+
+-- frequency sensitivity reports its rule and the best model per k --
+[PASS] the k-selection rule is echoed
+[PASS] the dominant frequency is the planted one
+[PASS] the true k is among the ks tried
+[PASS] at the true k the square model wins
+[PASS] an explicit ks list is honoured (order-independent)
+[PASS] an explicit ks list is labelled as user-supplied, not as the default rule
+[PASS] an aliasing neighbour k=19 is reported as odd_harmonics, not silently dropped
+
+-- fit_matrix over columns agrees with fitting each column alone --
+[PASS] fit_matrix reports one column per input column
+[PASS] fit_matrix echoes each column's k
+[PASS] column 0: r2 of sinusoid matches the single-column fit
+[PASS] column 0: r2 of square matches the single-column fit
+[PASS] column 0: r2 of odd_harmonics matches the single-column fit
+[PASS] column 0: r2 of odd_harmonics_1_over_j matches the single-column fit
+[PASS] column 0: best_by_aic matches the single-column ranking
+[PASS] column 1: r2 of sinusoid matches the single-column fit
+[PASS] column 1: r2 of square matches the single-column fit
+[PASS] column 1: r2 of odd_harmonics matches the single-column fit
+[PASS] column 1: r2 of odd_harmonics_1_over_j matches the single-column fit
+[PASS] column 1: best_by_aic matches the single-column ranking
+[PASS] column 2: r2 of sinusoid matches the single-column fit
+[PASS] column 2: r2 of square matches the single-column fit
+[PASS] column 2: r2 of odd_harmonics matches the single-column fit
+[PASS] column 2: r2 of odd_harmonics_1_over_j matches the single-column fit
+[PASS] column 2: best_by_aic matches the single-column ranking
+[PASS] column 3: r2 of sinusoid matches the single-column fit
+[PASS] column 3: r2 of square matches the single-column fit
+[PASS] column 3: r2 of odd_harmonics matches the single-column fit
+[PASS] column 3: r2 of odd_harmonics_1_over_j matches the single-column fit
+[PASS] column 3: best_by_aic matches the single-column ranking
+[PASS] summarize reports a fraction per model that sums to 1
+[PASS] summarize finds the two sinusoid columns and the two square columns
+[PASS] summarize reports the fraction where square beats sinusoid by AIC
+[PASS] summarize reports r2 quantiles per model
+[PASS] summarize reports the continuous 1/j reference alongside the measured ratios
+[PASS] summarize contains no raw per-column array
+[PASS] summarize reports the k histogram
+
+-- numerical guards and rejected inputs --
+[PASS] an exact fit gives a finite AIC (the rss floor works)
+[PASS] an exact fit gives rss ~ 0 and r2 ~ 1
+[PASS] AICc exceeds AIC (the finite-sample penalty is positive)
+[PASS] a constant (zero-variance) curve is rejected rather than scored
+[PASS] k = 0 is rejected
+[PASS] k above (p-1)/2 is rejected
+[PASS] an unknown model name is rejected
+[PASS] a curve too short for the 9-parameter model is rejected
+[PASS] fit_matrix rejects non-integer frequencies
+[PASS] delta_aic_sinusoid_minus_square > 0 exactly when the square model is better
+[PASS] no result key claims a conclusion
+
+ALL WAVE-FITTING CHECKS PASSED
+----- test_wave_fitting.py: PASS
+
+===== test_core.py =====
+[PASS] labels == (a+b) mod p
+[PASS] equals token in last column
+[PASS] train+test partition complete
+[PASS] split is deterministic
+[PASS] model init deterministic
+[PASS] mul labels == (a*b) mod p
+[PASS] mlp outputs p classes
+[PASS] fourier basis orthonormal
+[PASS] fourier basis has p rows
+[PASS] spectrum recovers injected frequency k
+[PASS] pca projects to 3D
+[PASS] transition: train sat at 0.99 crossing
+[PASS] transition: test gen at 0.95 crossing
+[PASS] transition: grok gap
+[PASS] transition: no generalization -> None gap
+[PASS] log schedule includes 0 and final step
+[PASS] log schedule strictly increasing
+[PASS] log schedule for smoke run
+[PASS] 2D fourier roundtrip inverts
+[PASS] mode masks: const kept, not a key freq
+[PASS] mode masks: 2 rows per key freq
+[PASS] agg uses sample std (ddof=1)
+[PASS] agg drops None but counts totals
+
+-- mask protocols (RESEARCH_SPEC §3.1) --
+[PASS] legacy_broad_mask: keeps 289 of 12769 components
+[PASS] legacy_broad_mask: excluded removes 3360 components
+[PASS] same_frequency_block: keeps 33 of 12769 components
+[PASS] same_frequency_block: excluded removes 32 components
+[PASS] sum_directions_only: keeps 17 of 12769 components
+[PASS] sum_directions_only: excluded removes 16 components
+[PASS] legacy excluded deletes 26.3% of the logit tensor
+[PASS] legacy keeps ~9x more than same-frequency, ~17x more than sum-directions
+[PASS] legacy KEEPS cross-frequency blocks (the §3.1 defect)
+[PASS] same_frequency_block: no cross-frequency blocks
+[PASS] sum_directions_only: no cross-frequency blocks
+[PASS] legacy_broad_mask: n_kept matches operator trace (p=23)
+[PASS] legacy_broad_mask: n_removed matches 23^2 - trace(exclude)
+[PASS] same_frequency_block: n_kept matches operator trace (p=23)
+[PASS] same_frequency_block: n_removed matches 23^2 - trace(exclude)
+[PASS] sum_directions_only: n_kept matches operator trace (p=23)
+[PASS] sum_directions_only: n_removed matches 23^2 - trace(exclude)
+[PASS] legacy_broad_mask: restricted keeps the constant
+[PASS] legacy_broad_mask: excluded keeps the constant
+[PASS] same_frequency_block: restricted keeps the constant
+[PASS] same_frequency_block: excluded keeps the constant
+[PASS] sum_directions_only: restricted keeps the constant
+[PASS] sum_directions_only: excluded keeps the constant
+[PASS] legacy_broad_mask: restrict is idempotent
+[PASS] legacy_broad_mask: exclude is idempotent
+[PASS] same_frequency_block: restrict is idempotent
+[PASS] same_frequency_block: exclude is idempotent
+[PASS] sum_directions_only: restrict is idempotent
+[PASS] sum_directions_only: exclude is idempotent
+[PASS] same_frequency_block: n_kept == n_removed + 1 (const)
+[PASS] sum_directions_only: n_kept == n_removed + 1 (const)
+[PASS] sum_directions: ideal cos(w(a+b)) survives restriction
+[PASS] sum_directions: ideal cos(w(a+b)) is destroyed by exclusion
+[PASS] sum_directions: cos(w(a-b)) is NOT mistaken for the circuit
+[PASS] same_frequency_block DOES keep cos(w(a-b)) (it is the looser variant)
+[PASS] legacy restricted leaks a cross-frequency term
+[PASS] exact variants leak nothing
+[PASS] legacy protocol == original _mode_indices masks
+[PASS] nanda_exact refuses to guess the published protocol
+[PASS] unknown protocol name rejected
+[PASS] empty key set rejected
+[PASS] out-of-range key freq rejected
+
+-- harmonic families (RESEARCH_SPEC §4/H3) --
+[PASS] alias folds k and p-k together
+[PASS] alias sends multiples of p to 0 (the constant, not a frequency)
+[PASS] aliased odd harmonics of k=18 are {54, 23, 13}
+[PASS] aliased odd harmonics of k=15 are {45, 38, 8}
+[PASS] aliased odd harmonics of k=11 are {33, 55, 36}
+[PASS] uncapped odd family of a single fundamental covers ALL frequencies
+[PASS] capped family of one fundamental has 4 members
+[PASS] capped family of 8 fundamentals has at most 32 members
+[PASS] square wave: fundamental k is the strongest frequency
+[PASS] square wave: >99% of power sits in the uncapped odd family
+[PASS] greedy selection picks the square wave's fundamental first
+[PASS] greedy selection is deterministic
+[PASS] family concentration reports a cardinality-matched top-m control
+[PASS] family concentration reports a random-set null
+[PASS] family concentration is reproducible under its seed
+[PASS] family can never beat the matched top-m control (forced inequality)
+[PASS] square waves put energy at ODD harmonics (j=3,5,7)
+[PASS] square-wave odd share is near the ideal 1/j^2 law (0.1715)
+[PASS] sinusoids put ~no energy at harmonics
+[PASS] set-based shape: separation is degraded to ~0.09 by in-set aliasing collisions
+[PASS] set-based shape: a clean square wave reports a spurious even share ~0.08
+[PASS] set-based shape: the canonical fundamental set has exactly 6 in-set collisions
+[PASS] per-curve shape: no harmonic collisions for sinusoid at noise 0.0
+[PASS] per-curve shape: no harmonic collisions for sinusoid at noise 0.6
+[PASS] per-curve shape: no harmonic collisions for square at noise 0.0
+[PASS] per-curve shape: no harmonic collisions for square at noise 0.6
+[PASS] per-curve shape: a clean square wave has a near-zero even share (not 0.08)
+[PASS] per-curve shape: odd-minus-even separates square from sinusoid by > 0.10
+[PASS] per-curve shape: the separation survives noise that swamps the raw shares
+[PASS] degenerate case is flagged via fundamental_power_fraction
+[PASS] dominant_frequencies reports whether the max_k cap bound
+[PASS] cap does NOT bind on a single-frequency embedding
+
+-- MLP mechanism (RESEARCH_SPEC §3.3) --
+[PASS] effective curves are [p, d_mlp]
+[PASS] u_a matches a hand-computed reference (float64)
+[PASS] u_b reads the SECOND half of W_in (float64)
+[PASS] the same reference taken in float32 agrees only to ~1e-8 (why float64 is used)
+[PASS] effective curves reproduce the model's forward pass
+[PASS] curve_spectra recovers the injected frequency
+[PASS] curve_spectra recovers the injected phase
+[PASS] a pure sinusoid concentrates ~all power in one frequency
+[PASS] synthetic circuit: every neuron classified structured
+[PASS] synthetic circuit: phase relation is tight (R > 0.99)
+[PASS] synthetic circuit: beats the permutation null
+[PASS] scrambled control: phase relation is NOT tight
+[PASS] stricter variance thresholds never select MORE neurons
+[PASS] sensitivity criteria are shipped alongside the proposal
+
+-- config: parameter count, threads, run_id (§3.6, §3.8) --
+[PASS] transformer has 226,176 parameters
+[PASS] default MLP has 204,017 parameters
+[PASS] MLP has 9.8% fewer parameters than the transformer
+[PASS] d_mlp=572 matches the transformer to +0.02%
+[PASS] n_params matches the built transformer (d_mlp=512)
+[PASS] n_params matches the built mlp (d_mlp=512)
+[PASS] n_params matches the built mlp (d_mlp=572)
+[PASS] threads defaults to 1 (pinned for a reproducible matrix)
+[PASS] threads is recorded in the run config
+[PASS] d_mlp tag keeps the param-matched control in its own run dir
+[PASS] existing run_ids are unchanged (no tag at the default d_mlp)
+[PASS] canonical transformer run_id unchanged
+[PASS] a newly added config field is 'added since', not a mismatch
+[PASS] a real config difference still blocks
+
+ALL CHECKS PASSED
+----- test_core.py: PASS
+
+24/24 test files passed

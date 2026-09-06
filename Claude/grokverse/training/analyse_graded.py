@@ -36,6 +36,7 @@ SEEDS_REQUIRED = 10
 PASS_SEEDS = 8                      # PREREGISTRATION 14.5
 Z_MIN = 3.0                         # NECESSARY_Z
 IPR_FRACTIONS = (0.05, 0.10, 0.25, 0.50)
+IPR_GRID_STEP = 0.05          # the D2 sweep grid: 21 points from 0.00 to 1.00
 ARCHES = ("mlp", "transformer")
 
 
@@ -56,9 +57,24 @@ def _ablation_files(run_id: str) -> list[Path]:
 
 
 def _load(path: Path) -> tuple[dict, dict]:
-    payload = json.loads(path.read_text())
+    """The result pair, or (None, {}) if the driver is still writing it.
+
+    The driver writes these files from eight worker threads; a half-written JSON raises
+    JSONDecodeError and a half-written npz raises BadZipFile rather than looking absent. The same
+    race is documented in causal_ablation.resolve_structured_masks, where it failed 1 call in 181.
+    An unreadable file is reported as missing, never silently treated as an empty result.
+    """
+    try:
+        payload = json.loads(path.read_text())
+    except (json.JSONDecodeError, OSError):
+        return None, {}
     npz = path.with_suffix(".npz")
-    return payload, dict(np.load(npz)) if npz.exists() else {}
+    if not npz.exists():
+        return payload, {}
+    try:
+        return payload, dict(np.load(npz))
+    except Exception:
+        return payload, {}
 
 
 def _nonempty(a) -> bool:
@@ -68,7 +84,12 @@ def _nonempty(a) -> bool:
     well-formed, correctly shaped object carrying no information at all (LABBOOK 99-101).
     """
     a = np.asarray(a, dtype=np.float64)
-    return bool(a.size) and bool(np.isfinite(a).any()) and float(np.nanstd(a)) >= 0.0
+    if not a.size or not np.isfinite(a).any():
+        return False
+    # `std >= 0` would be vacuously true and is exactly the kind of check that gives false
+    # confidence. A pruning curve that never moves cannot be real: at fraction 1.0 every neuron is
+    # gone, so accuracy must fall. More than one distinct finite value is the honest test.
+    return int(np.unique(a[np.isfinite(a)]).size) > 1
 
 
 def collect_graded(payload: dict, score: str = "primary") -> dict:
@@ -112,8 +133,14 @@ def collect_ipr(payload: dict, arrays: dict) -> dict:
     base = float(payload["results"]["baseline"]["test_acc"])
     out = {}
     for f in IPR_FRACTIONS:
+        # The stored grid is CARDINALITY-derived, not the requested fraction: the sweep prunes
+        # `int(round(f * n))` neurons and stores `cut / n`, so 5 % of 512 neurons is recorded as
+        # 26/512 = 0.05078, not 0.05. An exact-equality match silently dropped 0.05 and 0.10 and
+        # still produced a well-formed table (LABBOOK: the same failure shape as 99-101). The
+        # nearest grid point within half a grid step is taken instead, and the value actually used
+        # is reported as `grid_fraction`.
         j = int(np.argmin(np.abs(grid - f)))
-        if abs(float(grid[j]) - f) > 1e-9:
+        if abs(float(grid[j]) - f) > 0.5 * IPR_GRID_STEP:
             continue
         obs_drop = base - float(hi[j])
         cdrops = base - ctrl[:, j]
@@ -146,8 +173,12 @@ def main() -> None:
 
     steps_by_run = {}
     for run_id in runs:
-        steps_by_run[run_id] = [int(json.loads(p.read_text())["step"])
-                                for p in _ablation_files(run_id)]
+        steps = []
+        for f in _ablation_files(run_id):
+            pl, _ = _load(f)
+            if pl is not None:
+                steps.append(int(pl["step"]))
+        steps_by_run[run_id] = steps
 
     for run_id in runs:
         files = _ablation_files(run_id)
@@ -156,6 +187,9 @@ def main() -> None:
             continue
         for path in files:
             payload, arrays = _load(path)
+            if payload is None:
+                missing.append(f"{run_id}@{path.name}: unreadable (being written?)")
+                continue
             arch = payload["arch"]
             point = _point_of(payload, steps_by_run, run_id)
             try:

@@ -75,7 +75,7 @@ from .progress_measures import fwd2d, inv2d
 from . import transformer_mechanism as TM
 
 MODULE = "causal_ablation"
-MODULE_VERSION = "1.1"
+MODULE_VERSION = "1.2"
 #: Size-matched random draws per ablation (`CAUSAL_ABLATION_PLAN.md` §2).
 N_CONTROL = 50
 #: Interpretation thresholds — `CAUSAL_ABLATION_PLAN.md` §6, `[AI-PROPOSED]`, HUMAN_DECISIONS D1.
@@ -743,7 +743,13 @@ def resolve_structured_masks(run_dir: Path, tag: str, arch: str, curves: dict, c
         # `source` — instead of aborting the analysis.
         try:
             with np.load(npz) as z:
-                have = {d for d in wanted if f"mask__{d}" in z.files}
+                # A SET here made the key order of `sets` depend on per-process string hashing,
+                # and both ablation functions iterate `masks["sets"]` while drawing from ONE shared
+                # rng - so which 50 control draws went to which definition changed between
+                # processes. Observed ablations were unaffected, but `remove_structured` and
+                # `keep_structured` control means moved by up to 0.0034 between runs of identical
+                # code on identical inputs. `wanted` is already ordered; iterate it.
+                have = tuple(d for d in wanted if f"mask__{d}" in z.files)
                 if "mask__alive" in z.files and definition in have:
                     return {"sets": {d: np.asarray(z[f"mask__{d}"], dtype=bool) for d in have},
                             "alive": np.asarray(z["mask__alive"], dtype=bool),
