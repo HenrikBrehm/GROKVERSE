@@ -51,6 +51,12 @@ Full numbers, the six-part claim structure, the negative results and the withdra
 [`RESULTS.md`](RESULTS.md). **The final scientific interpretation has not yet been written by the human
 authors** — see [`docs/HUMAN_DECISIONS.md`](docs/HUMAN_DECISIONS.md).
 
+The eleven study figures (the gate summary and the pre-registered comparison plots `p1`–`p8`) are in
+[`training/results/figures/`](training/results/figures/); the aggregate tables with all ten seeds listed
+individually are in [`training/results/aggregate/TABLES.md`](training/results/aggregate/TABLES.md); the
+graded-ablation addendum (`RESULTS.md` §6.1) is reported in full in
+[`training/results/GRADED_ABLATION.md`](training/results/GRADED_ABLATION.md).
+
 ### What this repository does not claim
 
 Stated explicitly, because the earlier version of `RESULTS.md` did claim some of them:
