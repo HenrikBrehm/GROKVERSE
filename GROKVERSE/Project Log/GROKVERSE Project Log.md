@@ -377,3 +377,39 @@ Human review of `docs/HUMAN_DECISIONS.md`, now including **D7** and **D8**.
 `training/results/graded_ablation.json` · `training/results/GRADED_ABLATION.md` ·
 `training/results/analysis_driver_graded.json` · `training/analyse_graded.py` ·
 [[Graded structured-neuron ablation]] · [[Nondeterministic control draws from a Python set]]
+
+---
+
+## 2026-09-07
+
+### What was done
+- Archived the complete LinkedIn mentoring chat (2026-08-14 to 2026-09-07) between the authors and the external reviewer of 2026-09-05 in `GROKVERSE/Mentoring/` (local only, see Decisions), with a table of the reviewer's contributions and where each landed in the project, and a list of open items from the chat.
+- Added `GROKVERSE/Mentoring/` to `.gitignore`.
+- Re-checked the reviewer's proposed submission framing (chat of 2026-09-07, 17:09) against `RESULTS.md`, `training/results/aggregate/TABLES.md`, the per-run `key_frequencies` artifacts and the git remote. No code or result file was changed.
+
+### Results
+- No experiments were run.
+- The 11 study figures (`training/results/figures/`) and the aggregate tables are on `origin/GROKVERSE-MP` (commits `1076dee`, `75d92ce`), but `README.md` links neither `training/results/figures/` nor `TABLES.md`. This is the likely reason the reviewer lists "plots and reports comparing the architectures" as still to do.
+- The four graded-ablation commits (`7161842`, `f8fc430`, `b97d7b7`, `e7dcf82`) are local only; the branch is 4 ahead of origin. The reviewer asked to be told when these runs are done.
+- The reviewer's convergence branch `arch-study-convergence` (100k steps, her AWS account) is not on origin. Her 100k numbers (about 11 vs about 4.5 key frequencies; nearly all live neurons structured in both architectures) cannot be verified from this repository yet. At 25k steps the same counts here are median 12 vs 4.5 (`nanda`) and 9 vs 4 (`neuron_clusters`), and the key-frequency sets differ between every pair of seeds in both architectures (`analysis/key_frequencies/step025000.json`, 20 primary runs).
+- Her sentence "MLP broader and more redundant, transformer more compact and more sensitive to removing important neurons" matches `RESULTS.md` 6.1 at the final checkpoint (MLP discriminates from its control only from 50 %, transformer from 5 %, two independent rankings). At the crossing checkpoint both architectures discriminate from 1 % (5 neurons), so the sentence needs the qualifier "at the end of training".
+- Her sentence "both models learn the same mathematical principle" is not licensed by the pre-registered gate (`neither_passes`, `RESULTS.md` 3 and 11) and would not become so at 100k steps: a larger structured set makes the size-matched control discriminate less, not more. What is licensed: key frequencies are causally load-bearing in both architectures (`RESULTS.md` 6, 10/10 necessary and 10/10 sufficient), phase relation and end-to-end Fourier fit hold in both (G2, G3 10/10).
+- Her earlier hypothesis that attention explains the difference has a partial test on disk already: fixing attention to its mean costs 0.336 accuracy, each head drop is 0.44 to 0.49 with z 19 to 27, no single head sufficient (`RESULTS.md` 6).
+- No `bwki-evaluation-criteria` skill exists yet (promised to the reviewer on 2026-09-02).
+
+### Decisions
+- The mentoring folder is kept out of git rather than redacted, so the vault holds the complete record: this vault is the public GitHub repository and the chat contains a private e-mail address and personal details. Reversible by removing the `.gitignore` line.
+- This public log keeps the existing anonymisation ("external reviewer"); the name is in the local note. Whether the reviewer is named in the submission is the authors' decision (Eigenstaendigkeit disclosure).
+
+### Open tasks
+- [ ] Push the four local commits and tell the reviewer the graded ablation is done.
+- [ ] Ask the reviewer for the `arch-study-convergence` branch or fork and for the analysis commit used for the 100k numbers (frozen code or not).
+- [x] Link `training/results/figures/` and `training/results/aggregate/TABLES.md` from `README.md` (done 2026-09-07, also links `GRADED_ABLATION.md`).
+- [ ] `AI_DISCLOSURE.md` has no section for external input; the reviewer's contributions (framing question, mask question, graded ablation, convergence run, reframing text) belong there. Human authors.
+- [ ] File the reviewer's e-mail of 2026-09-02 (suggested edits to the spec) in `GROKVERSE/Mentoring/`.
+- [ ] Decide the wording of the "same principle" sentence before it goes into the Projektdoku (see Results above).
+
+### Evidence
+- `git branch -r --contains 1076dee` -> `origin/GROKVERSE-MP`; `git log --oneline origin/GROKVERSE-MP..HEAD` -> 4 commits; `git branch -r` -> no `arch-study-convergence`.
+- `Claude/grokverse/RESULTS.md` 3, 5, 6, 6.1, 11; `training/results/aggregate/TABLES.md` (`key_frequencies` block); `training/runs/*_frac0.3_seed?_arch25k/analysis/key_frequencies/step025000.json`.
+- `.gitignore` (line 2); `GROKVERSE/Mentoring/` (local).
