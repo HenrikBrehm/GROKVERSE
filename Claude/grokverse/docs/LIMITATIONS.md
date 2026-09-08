@@ -169,6 +169,17 @@ shifting during the plateau) is unaffected, because it is measured from initiali
 checkpoint *before* generalization — an interval that ends long before the budget. What is affected is
 any reading of the *final* waveform split as an endpoint: it is not one.
 
+**Measured at 100,000 steps (2026-09-08, external S1 block; `RESULTS.md` §16).** The external reviewer's
+20-run block at 4× the budget, on the frozen configuration, gives median `structured_fraction_of_live`
+**1.0000** for both architectures (25k: 0.9824 / 0.8848), gap **0.0000** (25k: +0.0977 as a difference of
+medians; +0.0850 as the paired median of `RESULTS.md` §7); MLP settled **10/10** between steps 90,000 and
+100,000, transformer 9/10 (seed 2 at 8.24 %, falling from 0.877 to 0.805). So the direction predicted above is
+what happened: the gap this study reports is a budget-fixed gap that vanishes at convergence, and the sentence
+"no claim may be read as a converged-state comparison" stays — now with the converged state measured for this
+one metric. The gate does not change (G4 0/10 in both at 100k, because the structured set is then ~100 % of
+the live neurons; D6). The block was run externally, its integrity and reports were verified here, and it has
+**not** been reproduced on the authors' hardware; see `docs/HUMAN_DECISIONS.md` D9.
+
 ### B4. The measured `additivity_r2` distribution for the transformer
 
 Median **0.922**, range 0.871–0.961 across the 10 seeds (final checkpoint). The mean-attention

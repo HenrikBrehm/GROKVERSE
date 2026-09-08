@@ -1,0 +1,11 @@
+commit=42dd79a49225abe33f1b4f144acb98ec26d47f69
+steps=100000
+study=conv100k
+failed_runs=0
+run_dirs=20
+instance=i-035c16ffd1005e3df
+instance_type=c7i.16xlarge
+torch=2.12.1+cpu
+python=3.12.14
+platform=Linux-6.18.44-99.149.amzn2023.x86_64-x86_64-with-glibc2.34
+finished_utc=2026-09-05T20:50:15+00:00

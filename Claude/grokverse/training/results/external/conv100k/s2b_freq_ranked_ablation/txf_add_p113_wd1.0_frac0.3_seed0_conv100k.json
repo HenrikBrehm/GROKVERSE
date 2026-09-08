@@ -1,0 +1,174 @@
+{
+ "run_id": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+ "arch": "transformer",
+ "seed": 0,
+ "n_neurons": 512,
+ "n_alive": 512,
+ "key_frequencies": [
+  1,
+  11,
+  15,
+  18,
+  56
+ ],
+ "params": {
+  "percents": [
+   1,
+   5,
+   10,
+   25,
+   50
+  ],
+  "n_control": 50,
+  "ranking": "summed u_a+u_b power at primary key frequencies, desc",
+  "rng_seed": 0
+ },
+ "baseline": {
+  "train_loss": 1.533702988786826e-07,
+  "test_loss": 1.773280078473681e-05,
+  "train_acc": 1.0,
+  "test_acc": 1.0
+ },
+ "cuts": [
+  {
+   "percent": 1,
+   "k": 5,
+   "removed_key_power_share": 0.04191932675298014,
+   "removed_nonkey_power_share": 0.04065632072315823,
+   "observed": {
+    "test_acc": 0.9919445066010293,
+    "train_acc": 0.9945184025058731,
+    "margin": 14.238312101121767
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.9919445066010293,
+    "train_acc": 0.9945184025058731,
+    "margin": 14.238312101121767
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "18": 5
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 5,
+   "k": 26,
+   "removed_key_power_share": 0.1887741029180131,
+   "removed_nonkey_power_share": 0.1865698281664654,
+   "observed": {
+    "test_acc": 0.8816289997762363,
+    "train_acc": 0.8953275907073871,
+    "margin": 8.522098992783041
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.8816289997762363,
+    "train_acc": 0.8953275907073871,
+    "margin": 8.522098992783041
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.9999709107182815,
+    "test_acc_q05": 0.9998265831282166,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": 1219.423428349538,
+   "removed_group_dominant_freq_hist": {
+    "18": 26
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 10,
+   "k": 51,
+   "removed_key_power_share": 0.30736450083557315,
+   "removed_nonkey_power_share": 0.30576369849840723,
+   "observed": {
+    "test_acc": 0.9069142985007832,
+    "train_acc": 0.9240407204385278,
+    "margin": 8.081551266347676
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.9089281718505259,
+    "train_acc": 0.9250848342469329,
+    "margin": 8.0923191839024
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.9999216827030655,
+    "test_acc_q05": 0.9995412844036697,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": 569.5973744796238,
+   "removed_group_dominant_freq_hist": {
+    "18": 51
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 25,
+   "k": 128,
+   "removed_key_power_share": 0.5481954322369464,
+   "removed_nonkey_power_share": 0.523507485677947,
+   "observed": {
+    "test_acc": 0.5119713582456925,
+    "train_acc": 0.5231010180109632,
+    "margin": -1.0751766980629536
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.47281270977847395,
+    "train_acc": 0.4748107543722266,
+    "margin": -2.6418780090929124
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.994929514432759,
+    "test_acc_q05": 0.9840624300738421,
+    "test_acc_q95": 0.9998881181472365
+   },
+   "z_vs_random": 49.97544199822663,
+   "removed_group_dominant_freq_hist": {
+    "1": 24,
+    "18": 104
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 50,
+   "k": 256,
+   "removed_key_power_share": 0.7629664779842888,
+   "removed_nonkey_power_share": 0.7209591898637201,
+   "observed": {
+    "test_acc": 0.1375027970463191,
+    "train_acc": 0.14643696162881753,
+    "margin": -9.81669761830141
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.13045424032221972,
+    "train_acc": 0.1419994779430958,
+    "margin": -12.425968121724338
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.8899462967106737,
+    "test_acc_q05": 0.7526851644663235,
+    "test_acc_q95": 0.9782054150816737
+   },
+   "z_vs_random": 9.69606115294004,
+   "removed_group_dominant_freq_hist": {
+    "1": 64,
+    "11": 13,
+    "15": 28,
+    "18": 151
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  }
+ ],
+ "elapsed_seconds": 3.5
+}

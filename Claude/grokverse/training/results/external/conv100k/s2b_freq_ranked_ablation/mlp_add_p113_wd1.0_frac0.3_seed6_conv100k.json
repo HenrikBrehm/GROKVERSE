@@ -1,0 +1,201 @@
+{
+ "run_id": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+ "arch": "mlp",
+ "seed": 6,
+ "n_neurons": 512,
+ "n_alive": 512,
+ "key_frequencies": [
+  4,
+  13,
+  15,
+  19,
+  21,
+  26,
+  29,
+  37,
+  39,
+  44,
+  46,
+  49
+ ],
+ "params": {
+  "percents": [
+   1,
+   5,
+   10,
+   25,
+   50
+  ],
+  "n_control": 50,
+  "ranking": "summed u_a+u_b power at primary key frequencies, desc",
+  "rng_seed": 6
+ },
+ "baseline": {
+  "train_loss": 1.1096691208297155e-06,
+  "test_loss": 6.401760331995711e-06,
+  "train_acc": 1.0,
+  "test_acc": 1.0
+ },
+ "cuts": [
+  {
+   "percent": 1,
+   "k": 5,
+   "removed_key_power_share": 0.016691094658321828,
+   "removed_nonkey_power_share": 0.0235577789144867,
+   "observed": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 14.128066300938395
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 14.253489903845123
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "19": 1,
+    "44": 4
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 5,
+   "k": 26,
+   "removed_key_power_share": 0.07990665179777405,
+   "removed_nonkey_power_share": 0.06606905113182089,
+   "observed": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 11.535837543929997
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 12.57506975752892
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "19": 3,
+    "29": 5,
+    "37": 2,
+    "44": 7,
+    "49": 9
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 10,
+   "k": 51,
+   "removed_key_power_share": 0.15095509879402452,
+   "removed_nonkey_power_share": 0.08536669470009821,
+   "observed": {
+    "test_acc": 0.999776236294473,
+    "train_acc": 1.0,
+    "margin": 9.554664760915859
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 11.374173393563064
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "19": 3,
+    "29": 12,
+    "37": 10,
+    "44": 13,
+    "46": 1,
+    "49": 12
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 25,
+   "k": 128,
+   "removed_key_power_share": 0.35582156408824267,
+   "removed_nonkey_power_share": 0.14367724250253713,
+   "observed": {
+    "test_acc": 0.9871335869321995,
+    "train_acc": 0.9960845732184808,
+    "margin": 5.0193469102629615
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 7.924936488439169
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "4": 3,
+    "13": 5,
+    "19": 3,
+    "29": 24,
+    "37": 38,
+    "44": 22,
+    "46": 2,
+    "49": 31
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 50,
+   "k": 256,
+   "removed_key_power_share": 0.658220672514345,
+   "removed_nonkey_power_share": 0.31637443944546917,
+   "observed": {
+    "test_acc": 0.7959275005594093,
+    "train_acc": 0.8741842860871835,
+    "margin": 1.322854759890392
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.9343253524278362,
+    "train_acc": 0.9678935003915426,
+    "margin": 2.3734422045113837
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.9982613560080554,
+    "test_acc_q05": 0.9946464533452674,
+    "test_acc_q95": 0.9998881181472365
+   },
+   "z_vs_random": 117.57921085959713,
+   "removed_group_dominant_freq_hist": {
+    "4": 21,
+    "13": 6,
+    "19": 9,
+    "29": 49,
+    "37": 59,
+    "44": 31,
+    "46": 23,
+    "49": 58
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  }
+ ],
+ "elapsed_seconds": 2.93
+}

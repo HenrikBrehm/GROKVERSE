@@ -1180,3 +1180,47 @@ names what was done, by whom, and where the evidence is. Nothing here is a resul
 
      Suite 24/24 files; `check_results_numbers.py` agrees on all 117 checks. Both aggregates
      regenerated; every module other than `causal_ablation` is byte-identical.
+
+110. **The external 100,000-step block arrived; verified, re-derived where the frozen code reaches,
+     reported as a separate section — and three scripts are missing.** On 2026-09-08 the external
+     reviewer sent, by a presigned S3 link valid for 24 h, `grokverse_run_data.zip` (1,329,140,232 bytes,
+     SHA-256 `c6e532ef…add44`): the S1 convergence block (20 runs, seeds 0–9 × both architectures,
+     `--steps 100000 --study conv100k`, run 2026-09-05 on an EC2 `c7i.16xlarge`, ~10.75 h wall clock), the
+     two-hot control extended to 10 seeds (run 2026-09-07), the executed source tree with its `.git`, and
+     four documents. Unpacked into the gitignored `training/external/`; the small outputs copied
+     unmodified to `training/results/external/`, the documents to `docs/external/`; the reviewer's branch
+     fetched from the bundled tree as a local, unpushed `arch-study-convergence`.
+
+     What was checked, and how. `git diff --stat fda066e 42dd79a` on the bundled tree: two files,
+     `config.py` (ten `CHECKPOINT_GRID` entries above 25,000, entries ≤ 25,000 untouched) and the runbook —
+     so the reviewer ran exactly our `fda066e` plus the grid. All 30 manifests: `git_commit=42dd79a`,
+     `status=completed`, Linux x86_64, torch 2.12.1+cpu, numpy 2.4.6, Python 3.12.14. Split hash per seed
+     identical to ours in all 23 comparable runs. Every file named in every `checkpoints.json` re-hashed:
+     829 of 829 match. Then the frozen `decision_tree`, `statistics_report`, `h4_report` and `h3_report` of
+     *this* branch run on the bundle's `aggregate_conv100k`: all four reports byte-identical to the bundle's
+     apart from timestamps, commit stamps and paths. The reviewer's per-seed table (structured fraction at
+     25k, 90k, 100k) recomputed from the runs' `structure_over_time` series: every value agrees; medians
+     1.0000 / 1.0000; MLP settled 10/10, transformer 9/10 (seed 2, 8.24 %). Key-frequency counts at 100k
+     from the runs' frozen `key_frequencies` artifacts: `nanda` 4.5 (3–5) vs 11 (9–12), `neuron_clusters`
+     4 vs 8. Attention ablations from `causal_ablation/step100000.json`: `fix_attention_to_mean` −0.415
+     median (25k: −0.336). Two-hot seeds 0–2 vs our Windows runs: memorization 230/230/230 vs 230/240/230,
+     generalization 12,575/14,100/12,125 vs 12,775/13,300/12,500; `nanda` selects 56/56 in all ten seeds,
+     as in our three. One reconciliation: the reviewer's findings note flags "+0.085 vs +0.0977" for the
+     25k gap; they are two statistics of one metric — the paired per-seed median under the family
+     definition (`h3_report.json`) and the difference of the per-architecture medians — not a discrepancy.
+
+     What could not be checked. `S2_S3_FINDINGS.md` says its scripts (`training/run_s2_ranked_ablation.py`,
+     `run_s2b_freq_ranked_ablation.py`, `run_s3_frequency_families.py`) are "this commit"; the bundled tree
+     at `42dd79a` has no such files (its `git status` shows only 22 re-serialised `function_agreement`
+     files, 0 of 242 values differing in the one checked). S2, S2b, S3 and the two-hot S2 are therefore
+     reported in `RESULTS.md` §16.6–16.7 as the reviewer's numbers, marked **(r)**, and the scripts have
+     been requested.
+
+     What changed in the repository. `RESULTS.md` §16 (new, additive; one-sentence pointers in §3, §5.1
+     and §14), `LIMITATIONS.md` B3 (measured endpoint appended), `PREREGISTRATION.md` §12 (external block
+     noted; this branch's `config.py` unchanged), `AI_DISCLOSURE.md` §5 rows and a new §9 on external
+     input, `HUMAN_DECISIONS.md` **D9**, `README.md` status. No number above §16 moved; no code changed;
+     the gate stands. Not done, by the reviewer's own conditions: the local reproduction of at least one
+     seed pair before any S1 number is used (≈ 3.6 h MLP + ≈ 16 h transformer on this machine), and the
+     competition-rules check on external compute. Suite and `check_results_numbers.py` re-run after the
+     edits: 24/24 test files green (no code changed); `check_results_numbers.py` agrees on all 117 checks, including the count of human placeholders in `AI_DISCLOSURE.md`, which stays at 11 — the new §9 is labelled as a D9 task rather than a placeholder.

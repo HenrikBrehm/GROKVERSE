@@ -1,0 +1,182 @@
+{
+ "run_id": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+ "arch": "transformer",
+ "seed": 6,
+ "n_neurons": 512,
+ "n_alive": 512,
+ "key_frequencies": [
+  29,
+  33,
+  39,
+  40,
+  47
+ ],
+ "params": {
+  "percents": [
+   1,
+   5,
+   10,
+   25,
+   50
+  ],
+  "n_control": 50,
+  "ranking": "summed u_a+u_b power at primary key frequencies, desc",
+  "rng_seed": 6
+ },
+ "baseline": {
+  "train_loss": 7.188579734152338e-05,
+  "test_loss": 0.00033082506826267744,
+  "train_acc": 1.0,
+  "test_acc": 1.0
+ },
+ "cuts": [
+  {
+   "percent": 1,
+   "k": 5,
+   "removed_key_power_share": 0.025585597536695488,
+   "removed_nonkey_power_share": 0.0317932930611822,
+   "observed": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 11.442692399007893
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 11.459479628155746
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "39": 4,
+    "40": 1
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 5,
+   "k": 26,
+   "removed_key_power_share": 0.11042218386679709,
+   "removed_nonkey_power_share": 0.08813572186915,
+   "observed": {
+    "test_acc": 0.9231371671514881,
+    "train_acc": 0.9344818585225789,
+    "margin": 8.256293577380497
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.9007607965987917,
+    "train_acc": 0.9002871312973114,
+    "margin": 8.185891708944848
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.9999820989035578,
+    "test_acc_q05": 0.9998265831282166,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": 1361.7488778364084,
+   "removed_group_dominant_freq_hist": {
+    "29": 3,
+    "39": 4,
+    "40": 19
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 10,
+   "k": 51,
+   "removed_key_power_share": 0.19435160344045568,
+   "removed_nonkey_power_share": 0.15275409431570056,
+   "observed": {
+    "test_acc": 0.9258223316178116,
+    "train_acc": 0.9373531714956931,
+    "margin": 7.019115659137514
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.5931975833519804,
+    "train_acc": 0.59592795614722,
+    "margin": 3.70197632438026
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.9998657417766837,
+    "test_acc_q05": 0.9995524725889461,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": 258.389489044691,
+   "removed_group_dominant_freq_hist": {
+    "29": 9,
+    "33": 5,
+    "39": 7,
+    "40": 30
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 25,
+   "k": 128,
+   "removed_key_power_share": 0.4291533470708074,
+   "removed_nonkey_power_share": 0.3821781199709145,
+   "observed": {
+    "test_acc": 0.6975833519803087,
+    "train_acc": 0.727747324458366,
+    "margin": 2.3279146723104676
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.4541284403669725,
+    "train_acc": 0.447141738449491,
+    "margin": -1.2269049229677065
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.9965585142089953,
+    "test_acc_q05": 0.9890691429850078,
+    "test_acc_q95": 0.9992783620496755
+   },
+   "z_vs_random": 59.950328196851885,
+   "removed_group_dominant_freq_hist": {
+    "29": 21,
+    "33": 20,
+    "39": 34,
+    "40": 53
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 50,
+   "k": 256,
+   "removed_key_power_share": 0.720301618104349,
+   "removed_nonkey_power_share": 0.6402199217289182,
+   "observed": {
+    "test_acc": 0.33296039382412174,
+    "train_acc": 0.35839206473505614,
+    "margin": -1.574356109148365
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.14611769970910718,
+    "train_acc": 0.15374575828765336,
+    "margin": -9.983497877688105
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.9492257775788768,
+    "test_acc_q05": 0.8977903334079212,
+    "test_acc_q95": 0.9907977176102036
+   },
+   "z_vs_random": 19.08160802980174,
+   "removed_group_dominant_freq_hist": {
+    "29": 33,
+    "33": 84,
+    "39": 64,
+    "40": 75
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  }
+ ],
+ "elapsed_seconds": 3.71
+}

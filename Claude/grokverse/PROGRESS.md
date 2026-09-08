@@ -4,6 +4,50 @@ Append-only. Newest entry at the top. One block per task-batch / phase, per the 
 
 ---
 
+## [2026-09-08] External 100,000-step block received — verified, reported as `RESULTS.md` §16, not yet reproduced
+Done:
+- The external reviewer's data bundle (1.33 GB zip, SHA-256 `c6e532ef…add44`) unpacked into the gitignored
+  `training/external/`; its small outputs and four documents copied unmodified to `training/results/external/`
+  and `docs/external/`; the reviewer's branch `arch-study-convergence` (`42dd79a` = our `fda066e` +
+  `CHECKPOINT_GRID` entries above 25,000 + runbook) fetched locally, not pushed.
+- `RESULTS.md` §16 written as a separate, labelled section; `docs/LIMITATIONS.md` B3, `docs/PREREGISTRATION.md`
+  §12, `AI_DISCLOSURE.md` §5/§9, `docs/HUMAN_DECISIONS.md` D9, `README.md` updated. No existing number changed;
+  no code changed.
+
+Measured results (external runs; verified here as stated):
+- **S1, 20 runs at 100,000 steps, 20/20 completed.** Median `structured_fraction_of_live` **1.0000** in both
+  architectures (25k: 0.9824 transformer, 0.8848 MLP); the gap closes from +0.0977 to **0.0000**. MLP settled
+  10/10 between 90k and 100k (25k: 2/10), transformer 9/10 (seed 2 at 8.24 %, falling). Min final test acc 0.9992.
+- **Gate at 100k: `neither_passes`** — G1–G3 10/10 both, G4 0/10 both, re-derived with the frozen code
+  (byte-identical reports).
+- **Key-frequency counts at 100k**: `nanda` 4.5 (3–5) vs 11 (9–12); `neuron_clusters` 4 vs 8 — the 25k
+  difference holds under all five rules.
+- **Attention at 100k**: `fix_attention_to_mean` −0.415 median (25k: −0.336); single heads −0.49 to −0.55.
+- **Two-hot ×10** (reviewer's runs): `nanda` selects all 56 frequencies in 10/10 seeds; seeds 0–2 reproduce
+  our three runs behaviourally (same split hashes, transitions within a few hundred steps).
+- **Reviewer's own S2/S2b/S3** (reported only, scripts missing): MLP k* necessity 320 vs transformer 128;
+  keep-only-top-k never sufficient in the transformer; key-ranked percentile removal harms the transformer
+  from 5 % and the MLP from 50 %; frequency-set similarity at the size-matched null in both.
+
+Verification:
+- 30/30 manifests at `42dd79a`, completed; 23/23 split hashes identical to ours; **829/829** checkpoint SHA-256
+  match; `decision_tree`/`statistics_report`/`h3_report`/`h4_report` re-run on the bundle's aggregate:
+  byte-identical; per-seed structured fractions recomputed from raw trajectories: all agree with the
+  reviewer's table.
+- Suite 24/24 files green (no code changed); `check_results_numbers.py` agrees on all 117 checks after the edits.
+
+Open questions:
+- **D9**: does the external block enter the study; competition rules on external compute (runbook §0.4);
+  naming of the reviewer; merge or not merge the grid extension.
+- The S2/S2b/S3 scripts are not in the bundle — requested.
+- Reproduction of ≥ 1 seed pair at 100k on this machine before any S1 number is used (runbook §0.3):
+  ≈ 3.6 h MLP, ≈ 16 h transformer. Not started; needs the compute decision (`AI_DISCLOSURE.md` §1).
+
+Next: human decision D9; on "go", run `mlp` and `transformer` seed 0 at 100,000 steps from a worktree of
+`arch-study-convergence` and compare against `training/external/conv100k/runs/*_seed0_conv100k`.
+
+---
+
 ## [2026-09-03] Architecture study — baseline, pre-registration, pipeline, primary runs
 Done:
 - **Scope change.** Following `GROKVERSE_MASTER_PROMPT_EN.md`, the project is being turned from a

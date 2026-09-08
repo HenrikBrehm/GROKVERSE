@@ -1,0 +1,105 @@
+{
+  "module": "aggregate",
+  "module_version": "1.0",
+  "created_utc": "2026-09-05T20:49:52.892771+00:00",
+  "analysis_git_commit": "42dd79a49225abe33f1b4f144acb98ec26d47f69",
+  "runs_pattern": [
+    "txf_add_p113_wd1.0_frac0.3_seed?_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed?_conv100k"
+  ],
+  "n_runs": 20,
+  "runs": [
+    "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed9_conv100k"
+  ],
+  "modules": {
+    "key_frequencies": {
+      "n_rows": 40,
+      "n_missing": 0,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 20,
+      "file": "aggregate/key_frequencies.json"
+    },
+    "mlp_mechanism": {
+      "n_rows": 20,
+      "n_missing": 0,
+      "n_not_applicable": 10,
+      "n_runs_applicable": 10,
+      "file": "aggregate/mlp_mechanism.json"
+    },
+    "transformer_mechanism": {
+      "n_rows": 20,
+      "n_missing": 0,
+      "n_not_applicable": 10,
+      "n_runs_applicable": 10,
+      "file": "aggregate/transformer_mechanism.json"
+    },
+    "wave_fitting": {
+      "n_rows": 20,
+      "n_missing": 0,
+      "n_not_applicable": 10,
+      "n_runs_applicable": 10,
+      "file": "aggregate/wave_fitting.json"
+    },
+    "logit_formula_fit": {
+      "n_rows": 40,
+      "n_missing": 0,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 20,
+      "file": "aggregate/logit_formula_fit.json"
+    },
+    "h3_validity": {
+      "n_rows": 40,
+      "n_missing": 0,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 20,
+      "file": "aggregate/h3_validity.json"
+    },
+    "causal_ablation": {
+      "n_rows": 40,
+      "n_missing": 0,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 20,
+      "file": "aggregate/causal_ablation.json"
+    },
+    "structure_over_time": {
+      "n_rows": 20,
+      "n_missing": 0,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 20,
+      "file": "aggregate/structure_over_time.json"
+    },
+    "progress_measures": {
+      "n_rows": 20,
+      "n_missing": 0,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 20,
+      "file": "aggregate/progress_measures.json"
+    },
+    "bounded_alternative": {
+      "n_rows": 0,
+      "n_missing": 20,
+      "n_not_applicable": 0,
+      "n_runs_applicable": 20,
+      "file": "aggregate/bounded_alternative.json"
+    }
+  }
+}

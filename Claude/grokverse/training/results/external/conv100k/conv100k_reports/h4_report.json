@@ -1,0 +1,2086 @@
+{
+  "module": "h4_report",
+  "module_version": "1.0",
+  "created_utc": "2026-09-05T20:49:56.935951+00:00",
+  "analysis_git_commit": "42dd79a49225abe33f1b4f144acb98ec26d47f69",
+  "n_rows": 20,
+  "hypothesis": "H4: mechanistic structure metrics rise already during the memorization plateau and precede the generalization jump",
+  "reading": "CORRELATIONAL. Structure preceding generalization is consistent with H4; it cannot show that the structure caused the jump, nor that it had to form. Causal claims come from analysis/causal_ablation.py alone.",
+  "onset_caveat": "the onset indicator's baseline standard deviation is taken over two checkpoints, so the step is sensitive to the checkpoint grid; it is an indicator, not a measured transition",
+  "per_architecture": {
+    "mlp": {
+      "n_seeds": 10,
+      "memorization_step": {
+        "median": 160.0,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 160.0,
+        "q75": 160.0,
+        "min": 160.0,
+        "max": 160.0,
+        "n": 10,
+        "n_missing": 0
+      },
+      "generalization_step": {
+        "median": 9287.5,
+        "mad": 518.91,
+        "mad_raw": 350.0,
+        "mad_scale": 1.4826,
+        "iqr": 618.75,
+        "q25": 9043.75,
+        "q75": 9662.5,
+        "min": 8125.0,
+        "max": 9775.0,
+        "n": 10,
+        "n_missing": 0
+      },
+      "metrics": {
+        "structured_fraction_of_live": {
+          "n_seeds": 10,
+          "n_onset_defined": 10,
+          "n_onset_before_generalization": 10,
+          "n_onset_after_memorization": 10,
+          "onset_step": {
+            "median": 1000.0,
+            "mad": 0.0,
+            "mad_raw": 0.0,
+            "mad_scale": 1.4826,
+            "iqr": 0.0,
+            "q25": 1000.0,
+            "q75": 1000.0,
+            "min": 1000.0,
+            "max": 2000.0,
+            "n": 10,
+            "n_missing": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": 0.240234375,
+            "mad": 0.0246134765625,
+            "mad_raw": 0.0166015625,
+            "mad_scale": 1.4826,
+            "iqr": 0.029296875,
+            "q25": 0.22314453125,
+            "q75": 0.25244140625,
+            "min": 0.216796875,
+            "max": 0.291015625,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9250,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.291015625,
+              "change": 0.291015625
+            },
+            {
+              "seed": 1,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9775,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.234375,
+              "change": 0.234375
+            },
+            {
+              "seed": 2,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9000,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.216796875,
+              "change": 0.216796875
+            },
+            {
+              "seed": 3,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 8125,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.24609375,
+              "change": 0.24609375
+            },
+            {
+              "seed": 4,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 8675,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.22265625,
+              "change": 0.22265625
+            },
+            {
+              "seed": 5,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9175,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.279296875,
+              "change": 0.279296875
+            },
+            {
+              "seed": 6,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9725,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.248046875,
+              "change": 0.248046875
+            },
+            {
+              "seed": 7,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9325,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.25390625,
+              "change": 0.25390625
+            },
+            {
+              "seed": 8,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9700,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.224609375,
+              "change": 0.224609375
+            },
+            {
+              "seed": 9,
+              "onset_step": 2000,
+              "memorization_step": 160,
+              "generalization_step": 9550,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.220703125,
+              "change": 0.220703125
+            }
+          ],
+          "reading": "10 of 10 seeds with a defined onset place it before the generalization crossing"
+        },
+        "phase_relation_R": {
+          "n_seeds": 10,
+          "n_onset_defined": 0,
+          "n_onset_before_generalization": 0,
+          "n_onset_after_memorization": 0,
+          "onset_step": {
+            "n": 0
+          },
+          "change_init_to_pre_generalization": {
+            "n": 0
+          },
+          "n_change_undefined": 10,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9250,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9962052887182161,
+              "change": null
+            },
+            {
+              "seed": 1,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9775,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.996198095400914,
+              "change": null
+            },
+            {
+              "seed": 2,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9000,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9959865147191822,
+              "change": null
+            },
+            {
+              "seed": 3,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 8125,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9963259703899716,
+              "change": null
+            },
+            {
+              "seed": 4,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 8675,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9962192445470233,
+              "change": null
+            },
+            {
+              "seed": 5,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9175,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.995970148736225,
+              "change": null
+            },
+            {
+              "seed": 6,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9725,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.993943479554785,
+              "change": null
+            },
+            {
+              "seed": 7,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9325,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9963061431380903,
+              "change": null
+            },
+            {
+              "seed": 8,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9700,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9949036947852565,
+              "change": null
+            },
+            {
+              "seed": 9,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9550,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9961820757536556,
+              "change": null
+            }
+          ],
+          "reading": "0 of 0 seeds with a defined onset place it before the generalization crossing; 10 seed(s) have no defined onset for this metric"
+        },
+        "embedding_top8_concentration": {
+          "n_seeds": 10,
+          "n_onset_defined": 10,
+          "n_onset_before_generalization": 10,
+          "n_onset_after_memorization": 10,
+          "onset_step": {
+            "median": 1000.0,
+            "mad": 741.3,
+            "mad_raw": 500.0,
+            "mad_scale": 1.4826,
+            "iqr": 1125.0,
+            "q25": 625.0,
+            "q75": 1750.0,
+            "min": 500.0,
+            "max": 2000.0,
+            "n": 10,
+            "n_missing": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": 0.22403272359179935,
+            "mad": 0.02581159136597805,
+            "mad_raw": 0.017409679863738065,
+            "mad_scale": 1.4826,
+            "iqr": 0.031158090672473382,
+            "q25": 0.21557813569506334,
+            "q75": 0.24673622636753673,
+            "min": 0.19830520403102375,
+            "max": 0.3133114046144056,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9250,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16094061149772032,
+              "value_at_pre_generalization": 0.3606667361170515,
+              "change": 0.1997261246193312
+            },
+            {
+              "seed": 1,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9775,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16101614036860956,
+              "value_at_pre_generalization": 0.3593213443996333,
+              "change": 0.19830520403102375
+            },
+            {
+              "seed": 2,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9000,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16399492687854128,
+              "value_at_pre_generalization": 0.37751488971533265,
+              "change": 0.21351996283679137
+            },
+            {
+              "seed": 3,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 8125,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16460718544898179,
+              "value_at_pre_generalization": 0.4779185900633874,
+              "change": 0.3133114046144056
+            },
+            {
+              "seed": 4,
+              "onset_step": 2000,
+              "memorization_step": 160,
+              "generalization_step": 8675,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.1626932651564376,
+              "value_at_pre_generalization": 0.3925792982127098,
+              "change": 0.22988603305627223
+            },
+            {
+              "seed": 5,
+              "onset_step": 2000,
+              "memorization_step": 160,
+              "generalization_step": 9175,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16585680890596305,
+              "value_at_pre_generalization": 0.3889104555033134,
+              "change": 0.22305364659735033
+            },
+            {
+              "seed": 6,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9725,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.1625081869976937,
+              "value_at_pre_generalization": 0.384260841267573,
+              "change": 0.22175265426987928
+            },
+            {
+              "seed": 7,
+              "onset_step": 2000,
+              "memorization_step": 160,
+              "generalization_step": 9325,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.15920635509035969,
+              "value_at_pre_generalization": 0.41155931256165124,
+              "change": 0.25235295747129155
+            },
+            {
+              "seed": 8,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9700,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.161677608085166,
+              "value_at_pre_generalization": 0.4178692201019219,
+              "change": 0.2561916120167559
+            },
+            {
+              "seed": 9,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9550,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16332953422270396,
+              "value_at_pre_generalization": 0.38834133480895233,
+              "change": 0.22501180058624837
+            }
+          ],
+          "reading": "10 of 10 seeds with a defined onset place it before the generalization crossing"
+        },
+        "logit_key_subspace_share": {
+          "n_seeds": 10,
+          "n_onset_defined": 10,
+          "n_onset_before_generalization": 10,
+          "n_onset_after_memorization": 10,
+          "onset_step": {
+            "median": 500.0,
+            "mad": 0.0,
+            "mad_raw": 0.0,
+            "mad_scale": 1.4826,
+            "iqr": 0.0,
+            "q25": 500.0,
+            "q75": 500.0,
+            "min": 500.0,
+            "max": 500.0,
+            "n": 10,
+            "n_missing": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": 0.419568225858547,
+            "mad": 0.049171558496602194,
+            "mad_raw": 0.03316576183502104,
+            "mad_scale": 1.4826,
+            "iqr": 0.08236350714936747,
+            "q25": 0.39256536668819475,
+            "q75": 0.4749288738375622,
+            "min": 0.34368178023927404,
+            "max": 0.5620941476561204,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9250,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0002840569607190849,
+              "value_at_pre_generalization": 0.3845273813098502,
+              "change": 0.3842433243491311
+            },
+            {
+              "seed": 1,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9775,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.00024654683906301513,
+              "value_at_pre_generalization": 0.41020845526110455,
+              "change": 0.40996190842204155
+            },
+            {
+              "seed": 2,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9000,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.00027497651790084793,
+              "value_at_pre_generalization": 0.3888365802158216,
+              "change": 0.38856160369792075
+            },
+            {
+              "seed": 3,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 8125,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.00022997183056668952,
+              "value_at_pre_generalization": 0.5623241194866871,
+              "change": 0.5620941476561204
+            },
+            {
+              "seed": 4,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 8675,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.00023529931680055664,
+              "value_at_pre_generalization": 0.42940984261185294,
+              "change": 0.4291745432950524
+            },
+            {
+              "seed": 5,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9175,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0003037868732775666,
+              "value_at_pre_generalization": 0.4852388816160912,
+              "change": 0.4849350947428136
+            },
+            {
+              "seed": 6,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9725,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.00028945750244746283,
+              "value_at_pre_generalization": 0.4048661131614643,
+              "change": 0.40457665565901685
+            },
+            {
+              "seed": 7,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9325,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.00027697684370321435,
+              "value_at_pre_generalization": 0.34395875708297724,
+              "change": 0.34368178023927404
+            },
+            {
+              "seed": 8,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9700,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.00024506187547969284,
+              "value_at_pre_generalization": 0.4874686150289222,
+              "change": 0.4872235531534425
+            },
+            {
+              "seed": 9,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9550,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.00030959266097095595,
+              "value_at_pre_generalization": 0.445219803782779,
+              "change": 0.444910211121808
+            }
+          ],
+          "reading": "10 of 10 seeds with a defined onset place it before the generalization crossing"
+        },
+        "median_odd_minus_even_u_a": {
+          "n_seeds": 10,
+          "n_onset_defined": 8,
+          "n_onset_before_generalization": 8,
+          "n_onset_after_memorization": 8,
+          "onset_step": {
+            "median": 3000.0,
+            "mad": 2965.2,
+            "mad_raw": 2000.0,
+            "mad_scale": 1.4826,
+            "iqr": 3000.0,
+            "q25": 2500.0,
+            "q75": 5500.0,
+            "min": 500.0,
+            "max": 8000.0,
+            "n": 8,
+            "n_missing": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": 0.006137042137248638,
+            "mad": 0.002646529649889069,
+            "mad_raw": 0.001785059793531006,
+            "mad_scale": 1.4826,
+            "iqr": 0.003149660978828129,
+            "q25": 0.004826755039608996,
+            "q75": 0.007976416018437125,
+            "min": 0.0032058097074104614,
+            "max": 0.009762828657775228,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": 3000,
+              "memorization_step": 160,
+              "generalization_step": 9250,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": -0.0006174953135590633,
+              "value_at_pre_generalization": 0.005964828018941156,
+              "change": 0.006582323332500219
+            },
+            {
+              "seed": 1,
+              "onset_step": 5000,
+              "memorization_step": 160,
+              "generalization_step": 9775,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": -0.001869690844842814,
+              "value_at_pre_generalization": 0.007893137812932414,
+              "change": 0.009762828657775228
+            },
+            {
+              "seed": 2,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9000,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": -0.0010556155619843247,
+              "value_at_pre_generalization": 0.003593472156222321,
+              "change": 0.004649087718206646
+            },
+            {
+              "seed": 3,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 8125,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.0015240990655546321,
+              "value_at_pre_generalization": 0.0047299087729650935,
+              "change": 0.0032058097074104614
+            },
+            {
+              "seed": 4,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 8675,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": -0.00017107593766099022,
+              "value_at_pre_generalization": 0.003359601005235439,
+              "change": 0.0035306769428964293
+            },
+            {
+              "seed": 5,
+              "onset_step": 3000,
+              "memorization_step": 160,
+              "generalization_step": 9175,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": -0.0009405902933104695,
+              "value_at_pre_generalization": 0.007090139812784135,
+              "change": 0.008030730106094605
+            },
+            {
+              "seed": 6,
+              "onset_step": 8000,
+              "memorization_step": 160,
+              "generalization_step": 9725,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": -0.002886288609698879,
+              "value_at_pre_generalization": 0.006804387896495223,
+              "change": 0.009690676506194103
+            },
+            {
+              "seed": 7,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9325,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": -0.0003531033332582305,
+              "value_at_pre_generalization": 0.005338657608738828,
+              "change": 0.005691760941997058
+            },
+            {
+              "seed": 8,
+              "onset_step": 7000,
+              "memorization_step": 160,
+              "generalization_step": 9700,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": -0.002201241128582908,
+              "value_at_pre_generalization": 0.005612232626881776,
+              "change": 0.007813473755464683
+            },
+            {
+              "seed": 9,
+              "onset_step": 3000,
+              "memorization_step": 160,
+              "generalization_step": 9550,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": -0.0020404675161060093,
+              "value_at_pre_generalization": 0.0033192894877100386,
+              "change": 0.005359757003816048
+            }
+          ],
+          "reading": "8 of 8 seeds with a defined onset place it before the generalization crossing; 2 seed(s) have no defined onset for this metric"
+        },
+        "median_family_fraction": {
+          "n_seeds": 10,
+          "n_onset_defined": 10,
+          "n_onset_before_generalization": 10,
+          "n_onset_after_memorization": 10,
+          "onset_step": {
+            "median": 500.0,
+            "mad": 0.0,
+            "mad_raw": 0.0,
+            "mad_scale": 1.4826,
+            "iqr": 0.0,
+            "q25": 500.0,
+            "q75": 500.0,
+            "min": 500.0,
+            "max": 1000.0,
+            "n": 10,
+            "n_missing": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": 0.09945134417601147,
+            "mad": 0.005464179961648118,
+            "mad_raw": 0.0036855388922488325,
+            "mad_scale": 1.4826,
+            "iqr": 0.007199729111589476,
+            "q25": 0.09584739643583887,
+            "q75": 0.10304712554742834,
+            "min": 0.07746300919993943,
+            "max": 0.1251000731955664,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9250,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12858472446140173,
+              "value_at_pre_generalization": 0.2520616577532322,
+              "change": 0.12347693329183046
+            },
+            {
+              "seed": 1,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9775,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12633032938959715,
+              "value_at_pre_generalization": 0.22423086812957516,
+              "change": 0.097900538739978
+            },
+            {
+              "seed": 2,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9000,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12750133738261588,
+              "value_at_pre_generalization": 0.21577748631440602,
+              "change": 0.08827614893179014
+            },
+            {
+              "seed": 3,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 8125,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12964534472753386,
+              "value_at_pre_generalization": 0.23239468533838942,
+              "change": 0.10274934061085556
+            },
+            {
+              "seed": 4,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 8675,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12825321173178317,
+              "value_at_pre_generalization": 0.2240285211402381,
+              "change": 0.09577530940845494
+            },
+            {
+              "seed": 5,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9175,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12733748749635773,
+              "value_at_pre_generalization": 0.25243756069192413,
+              "change": 0.1251000731955664
+            },
+            {
+              "seed": 6,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9725,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12912840417890958,
+              "value_at_pre_generalization": 0.2322747913718622,
+              "change": 0.1031463871929526
+            },
+            {
+              "seed": 7,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9325,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12803144159679475,
+              "value_at_pre_generalization": 0.22903359120883968,
+              "change": 0.10100214961204493
+            },
+            {
+              "seed": 8,
+              "onset_step": 500,
+              "memorization_step": 160,
+              "generalization_step": 9700,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12934972601165057,
+              "value_at_pre_generalization": 0.20681273521159,
+              "change": 0.07746300919993943
+            },
+            {
+              "seed": 9,
+              "onset_step": 1000,
+              "memorization_step": 160,
+              "generalization_step": 9550,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12636418967076674,
+              "value_at_pre_generalization": 0.22242784718875738,
+              "change": 0.09606365751799065
+            }
+          ],
+          "reading": "10 of 10 seeds with a defined onset place it before the generalization crossing"
+        },
+        "fraction_best_aic_square": {
+          "n_seeds": 10,
+          "n_onset_defined": 0,
+          "n_onset_before_generalization": 0,
+          "n_onset_after_memorization": 0,
+          "onset_step": {
+            "n": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": -0.35693359375,
+            "mad": 0.01520244140625,
+            "mad_raw": 0.01025390625,
+            "mad_scale": 1.4826,
+            "iqr": 0.018310546875,
+            "q25": -0.36669921875,
+            "q75": -0.348388671875,
+            "min": -0.412109375,
+            "max": -0.31640625,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9250,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.8173828125,
+              "value_at_pre_generalization": 0.4052734375,
+              "change": -0.412109375
+            },
+            {
+              "seed": 1,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9775,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.78515625,
+              "value_at_pre_generalization": 0.4443359375,
+              "change": -0.3408203125
+            },
+            {
+              "seed": 2,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9000,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.8076171875,
+              "value_at_pre_generalization": 0.4501953125,
+              "change": -0.357421875
+            },
+            {
+              "seed": 3,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 8125,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.783203125,
+              "value_at_pre_generalization": 0.416015625,
+              "change": -0.3671875
+            },
+            {
+              "seed": 4,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 8675,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.7802734375,
+              "value_at_pre_generalization": 0.4638671875,
+              "change": -0.31640625
+            },
+            {
+              "seed": 5,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9175,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.7744140625,
+              "value_at_pre_generalization": 0.41796875,
+              "change": -0.3564453125
+            },
+            {
+              "seed": 6,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9725,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.794921875,
+              "value_at_pre_generalization": 0.427734375,
+              "change": -0.3671875
+            },
+            {
+              "seed": 7,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9325,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.783203125,
+              "value_at_pre_generalization": 0.4267578125,
+              "change": -0.3564453125
+            },
+            {
+              "seed": 8,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9700,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.7919921875,
+              "value_at_pre_generalization": 0.4462890625,
+              "change": -0.345703125
+            },
+            {
+              "seed": 9,
+              "onset_step": null,
+              "memorization_step": 160,
+              "generalization_step": 9550,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.8046875,
+              "value_at_pre_generalization": 0.439453125,
+              "change": -0.365234375
+            }
+          ],
+          "reading": "0 of 0 seeds with a defined onset place it before the generalization crossing; 10 seed(s) have no defined onset for this metric"
+        }
+      }
+    },
+    "transformer": {
+      "n_seeds": 10,
+      "memorization_step": {
+        "median": 140.0,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 140.0,
+        "q75": 140.0,
+        "min": 140.0,
+        "max": 150.0,
+        "n": 10,
+        "n_missing": 0
+      },
+      "generalization_step": {
+        "median": 7875.0,
+        "mad": 1482.6,
+        "mad_raw": 1000.0,
+        "mad_scale": 1.4826,
+        "iqr": 1787.5,
+        "q25": 6368.75,
+        "q75": 8156.25,
+        "min": 5425.0,
+        "max": 10150.0,
+        "n": 10,
+        "n_missing": 0
+      },
+      "metrics": {
+        "structured_fraction_of_live": {
+          "n_seeds": 10,
+          "n_onset_defined": 10,
+          "n_onset_before_generalization": 10,
+          "n_onset_after_memorization": 10,
+          "onset_step": {
+            "median": 1000.0,
+            "mad": 741.3,
+            "mad_raw": 500.0,
+            "mad_scale": 1.4826,
+            "iqr": 2125.0,
+            "q25": 625.0,
+            "q75": 2750.0,
+            "min": 500.0,
+            "max": 4000.0,
+            "n": 10,
+            "n_missing": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": 0.4111328125,
+            "mad": 0.13754589843749998,
+            "mad_raw": 0.0927734375,
+            "mad_scale": 1.4826,
+            "iqr": 0.123046875,
+            "q25": 0.384765625,
+            "q75": 0.5078125,
+            "min": 0.279296875,
+            "max": 0.5234375,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": 3000,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.49609375,
+              "change": 0.49609375
+            },
+            {
+              "seed": 1,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 6650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.279296875,
+              "change": 0.279296875
+            },
+            {
+              "seed": 2,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 8650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.3828125,
+              "change": 0.3828125
+            },
+            {
+              "seed": 3,
+              "onset_step": 500,
+              "memorization_step": 140,
+              "generalization_step": 7650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.416015625,
+              "change": 0.416015625
+            },
+            {
+              "seed": 4,
+              "onset_step": 4000,
+              "memorization_step": 150,
+              "generalization_step": 10150,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.517578125,
+              "change": 0.517578125
+            },
+            {
+              "seed": 5,
+              "onset_step": 500,
+              "memorization_step": 140,
+              "generalization_step": 6275,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.390625,
+              "change": 0.390625
+            },
+            {
+              "seed": 6,
+              "onset_step": 500,
+              "memorization_step": 140,
+              "generalization_step": 5425,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.40625,
+              "change": 0.40625
+            },
+            {
+              "seed": 7,
+              "onset_step": 2000,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.5234375,
+              "change": 0.5234375
+            },
+            {
+              "seed": 8,
+              "onset_step": 3000,
+              "memorization_step": 140,
+              "generalization_step": 8175,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.51171875,
+              "change": 0.51171875
+            },
+            {
+              "seed": 9,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 5750,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.0,
+              "value_at_pre_generalization": 0.287109375,
+              "change": 0.287109375
+            }
+          ],
+          "reading": "10 of 10 seeds with a defined onset place it before the generalization crossing"
+        },
+        "phase_relation_R": {
+          "n_seeds": 10,
+          "n_onset_defined": 0,
+          "n_onset_before_generalization": 0,
+          "n_onset_after_memorization": 0,
+          "onset_step": {
+            "n": 0
+          },
+          "change_init_to_pre_generalization": {
+            "n": 0
+          },
+          "n_change_undefined": 10,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9920111250398439,
+              "change": null
+            },
+            {
+              "seed": 1,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 6650,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9808874150860648,
+              "change": null
+            },
+            {
+              "seed": 2,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 8650,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.978198199887181,
+              "change": null
+            },
+            {
+              "seed": 3,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 7650,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9839774719381172,
+              "change": null
+            },
+            {
+              "seed": 4,
+              "onset_step": null,
+              "memorization_step": 150,
+              "generalization_step": 10150,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9849559257186249,
+              "change": null
+            },
+            {
+              "seed": 5,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 6275,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9826603264508643,
+              "change": null
+            },
+            {
+              "seed": 6,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 5425,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9840768864303227,
+              "change": null
+            },
+            {
+              "seed": 7,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9908228616108018,
+              "change": null
+            },
+            {
+              "seed": 8,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 8175,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.986056763292756,
+              "change": null
+            },
+            {
+              "seed": 9,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 5750,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": null,
+              "value_at_pre_generalization": 0.9869730594834804,
+              "change": null
+            }
+          ],
+          "reading": "0 of 0 seeds with a defined onset place it before the generalization crossing; 10 seed(s) have no defined onset for this metric"
+        },
+        "embedding_top8_concentration": {
+          "n_seeds": 10,
+          "n_onset_defined": 10,
+          "n_onset_before_generalization": 10,
+          "n_onset_after_memorization": 10,
+          "onset_step": {
+            "median": 1000.0,
+            "mad": 0.0,
+            "mad_raw": 0.0,
+            "mad_scale": 1.4826,
+            "iqr": 0.0,
+            "q25": 1000.0,
+            "q75": 1000.0,
+            "min": 1000.0,
+            "max": 2000.0,
+            "n": 10,
+            "n_missing": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": 0.45581172005443005,
+            "mad": 0.05436438505979262,
+            "mad_raw": 0.03666827536745759,
+            "mad_scale": 1.4826,
+            "iqr": 0.061873497218129236,
+            "q25": 0.4189806715833623,
+            "q75": 0.4808541688014915,
+            "min": 0.3530064837083934,
+            "max": 0.5202380956712475,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16094061149772032,
+              "value_at_pre_generalization": 0.6604450081145706,
+              "change": 0.4995043966168503
+            },
+            {
+              "seed": 1,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 6650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16101614036860956,
+              "value_at_pre_generalization": 0.5140226240770029,
+              "change": 0.3530064837083934
+            },
+            {
+              "seed": 2,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 8650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16399492687854128,
+              "value_at_pre_generalization": 0.6392340826626401,
+              "change": 0.47523915578409887
+            },
+            {
+              "seed": 3,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 7650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16460718544898179,
+              "value_at_pre_generalization": 0.6186349649500007,
+              "change": 0.4540277795010189
+            },
+            {
+              "seed": 4,
+              "onset_step": 1000,
+              "memorization_step": 150,
+              "generalization_step": 10150,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.1626932651564376,
+              "value_at_pre_generalization": 0.682931360827685,
+              "change": 0.5202380956712475
+            },
+            {
+              "seed": 5,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 6275,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16585680890596305,
+              "value_at_pre_generalization": 0.5846747073857151,
+              "change": 0.4188178984797521
+            },
+            {
+              "seed": 6,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 5425,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.1625081869976937,
+              "value_at_pre_generalization": 0.5819771778918865,
+              "change": 0.4194689908941928
+            },
+            {
+              "seed": 7,
+              "onset_step": 2000,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.15920635509035969,
+              "value_at_pre_generalization": 0.6168020156982008,
+              "change": 0.4575956606078411
+            },
+            {
+              "seed": 8,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 8175,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.161677608085166,
+              "value_at_pre_generalization": 0.6444034478924551,
+              "change": 0.48272583980728906
+            },
+            {
+              "seed": 9,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 5750,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.16332953422270396,
+              "value_at_pre_generalization": 0.5363538681485559,
+              "change": 0.37302433392585194
+            }
+          ],
+          "reading": "10 of 10 seeds with a defined onset place it before the generalization crossing"
+        },
+        "logit_key_subspace_share": {
+          "n_seeds": 10,
+          "n_onset_defined": 10,
+          "n_onset_before_generalization": 10,
+          "n_onset_after_memorization": 10,
+          "onset_step": {
+            "median": 500.0,
+            "mad": 0.0,
+            "mad_raw": 0.0,
+            "mad_scale": 1.4826,
+            "iqr": 500.0,
+            "q25": 500.0,
+            "q75": 1000.0,
+            "min": 500.0,
+            "max": 1000.0,
+            "n": 10,
+            "n_missing": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": 0.5378344579159082,
+            "mad": 0.2692158950836535,
+            "mad_raw": 0.18158363353814483,
+            "mad_scale": 1.4826,
+            "iqr": 0.38095304430293087,
+            "q25": 0.2972319597044609,
+            "q75": 0.6781850040073918,
+            "min": 0.21256743731976294,
+            "max": 0.7976841083043252,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 1.5242864829643582e-05,
+              "value_at_pre_generalization": 0.5383759606084002,
+              "change": 0.5383607177435705
+            },
+            {
+              "seed": 1,
+              "onset_step": 500,
+              "memorization_step": 140,
+              "generalization_step": 6650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 1.3942045139403191e-05,
+              "value_at_pre_generalization": 0.27591103375578224,
+              "change": 0.27589709171064286
+            },
+            {
+              "seed": 2,
+              "onset_step": 500,
+              "memorization_step": 140,
+              "generalization_step": 8650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 1.2225654076493333e-05,
+              "value_at_pre_generalization": 0.5611238603429693,
+              "change": 0.5611116346888928
+            },
+            {
+              "seed": 3,
+              "onset_step": 500,
+              "memorization_step": 140,
+              "generalization_step": 7650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 1.3389540253938355e-05,
+              "value_at_pre_generalization": 0.7216401120014687,
+              "change": 0.7216267224612147
+            },
+            {
+              "seed": 4,
+              "onset_step": 1000,
+              "memorization_step": 150,
+              "generalization_step": 10150,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 1.0698548798158217e-05,
+              "value_at_pre_generalization": 0.21257813586856109,
+              "change": 0.21256743731976294
+            },
+            {
+              "seed": 5,
+              "onset_step": 500,
+              "memorization_step": 140,
+              "generalization_step": 6275,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 1.3238928445494357e-05,
+              "value_at_pre_generalization": 0.2674237811795194,
+              "change": 0.2674105422510739
+            },
+            {
+              "seed": 6,
+              "onset_step": 500,
+              "memorization_step": 140,
+              "generalization_step": 5425,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 1.4347211191512839e-05,
+              "value_at_pre_generalization": 0.3612509108971066,
+              "change": 0.36123656368591506
+            },
+            {
+              "seed": 7,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 1.5208408170887366e-05,
+              "value_at_pre_generalization": 0.7172246688550623,
+              "change": 0.7172094604468914
+            },
+            {
+              "seed": 8,
+              "onset_step": 1000,
+              "memorization_step": 140,
+              "generalization_step": 8175,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 1.1584613478680915e-05,
+              "value_at_pre_generalization": 0.797695692917804,
+              "change": 0.7976841083043252
+            },
+            {
+              "seed": 9,
+              "onset_step": 500,
+              "memorization_step": 140,
+              "generalization_step": 5750,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 1.723520866525502e-05,
+              "value_at_pre_generalization": 0.5373254332969112,
+              "change": 0.5373081980882459
+            }
+          ],
+          "reading": "10 of 10 seeds with a defined onset place it before the generalization crossing"
+        },
+        "median_odd_minus_even_u_a": {
+          "n_seeds": 10,
+          "n_onset_defined": 4,
+          "n_onset_before_generalization": 3,
+          "n_onset_after_memorization": 4,
+          "onset_step": {
+            "median": 4000.0,
+            "mad": 2965.2,
+            "mad_raw": 2000.0,
+            "mad_scale": 1.4826,
+            "iqr": 7500.0,
+            "q25": 2000.0,
+            "q75": 9500.0,
+            "min": 2000.0,
+            "max": 20000.0,
+            "n": 4,
+            "n_missing": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": -0.001071977958434097,
+            "mad": 0.002485911202312706,
+            "mad_raw": 0.001676724134839273,
+            "mad_scale": 1.4826,
+            "iqr": 0.0033392451512124256,
+            "q25": -0.0019688937577094926,
+            "q75": 0.001370351393502933,
+            "min": -0.0034905765388514223,
+            "max": 0.003271969855838242,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.0015948829661719573,
+              "value_at_pre_generalization": -0.00027267848785350363,
+              "change": -0.001867561454025461
+            },
+            {
+              "seed": 1,
+              "onset_step": 6000,
+              "memorization_step": 140,
+              "generalization_step": 6650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": -0.0018692783887497497,
+              "value_at_pre_generalization": -0.00048451563720992787,
+              "change": 0.0013847627515398218
+            },
+            {
+              "seed": 2,
+              "onset_step": 20000,
+              "memorization_step": 140,
+              "generalization_step": 8650,
+              "onset_before_generalization": false,
+              "onset_after_memorization": true,
+              "value_at_init": 0.002277034267187776,
+              "value_at_pre_generalization": 0.00027436307491693964,
+              "change": -0.0020026711922708365
+            },
+            {
+              "seed": 3,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 7650,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": -0.0034342671729355526,
+              "value_at_pre_generalization": -0.001662765482640221,
+              "change": 0.0017715016902953315
+            },
+            {
+              "seed": 4,
+              "onset_step": null,
+              "memorization_step": 150,
+              "generalization_step": 10150,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.0009793323774281541,
+              "value_at_pre_generalization": -0.00038581802469342055,
+              "change": -0.0013651504021215746
+            },
+            {
+              "seed": 5,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 6275,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.0012913231843348777,
+              "value_at_pre_generalization": -0.0021992533545165446,
+              "change": -0.0034905765388514223
+            },
+            {
+              "seed": 6,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 5425,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": -0.001423265084687795,
+              "value_at_pre_generalization": -9.614776529552789e-05,
+              "change": 0.001327117319392267
+            },
+            {
+              "seed": 7,
+              "onset_step": 2000,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 9.655493164843071e-06,
+              "value_at_pre_generalization": -0.0007691500215817764,
+              "change": -0.0007788055147466195
+            },
+            {
+              "seed": 8,
+              "onset_step": 2000,
+              "memorization_step": 140,
+              "generalization_step": 8175,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": -0.0022945586400995033,
+              "value_at_pre_generalization": 0.0009774112157387384,
+              "change": 0.003271969855838242
+            },
+            {
+              "seed": 9,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 5750,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.0029246047195466696,
+              "value_at_pre_generalization": 0.0008982737692603906,
+              "change": -0.002026330950286279
+            }
+          ],
+          "reading": "3 of 4 seeds with a defined onset place it before the generalization crossing; 6 seed(s) have no defined onset for this metric"
+        },
+        "median_family_fraction": {
+          "n_seeds": 10,
+          "n_onset_defined": 10,
+          "n_onset_before_generalization": 10,
+          "n_onset_after_memorization": 10,
+          "onset_step": {
+            "median": 2000.0,
+            "mad": 0.0,
+            "mad_raw": 0.0,
+            "mad_scale": 1.4826,
+            "iqr": 750.0,
+            "q25": 2000.0,
+            "q75": 2750.0,
+            "min": 2000.0,
+            "max": 4000.0,
+            "n": 10,
+            "n_missing": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": 0.31334443378525245,
+            "mad": 0.12679505247531825,
+            "mad_raw": 0.08552209124195215,
+            "mad_scale": 1.4826,
+            "iqr": 0.11867873932304046,
+            "q25": 0.2892799402802707,
+            "q75": 0.40795867960331117,
+            "min": 0.19744705021006642,
+            "max": 0.4520554380508048,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": 2000,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.13071060125454054,
+              "value_at_pre_generalization": 0.5301032591375191,
+              "change": 0.39939265788297856
+            },
+            {
+              "seed": 1,
+              "onset_step": 2000,
+              "memorization_step": 140,
+              "generalization_step": 6650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.1278586372938912,
+              "value_at_pre_generalization": 0.3253056875039576,
+              "change": 0.19744705021006642
+            },
+            {
+              "seed": 2,
+              "onset_step": 2000,
+              "memorization_step": 140,
+              "generalization_step": 8650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.1335536074245039,
+              "value_at_pre_generalization": 0.42199722971770337,
+              "change": 0.2884436222931995
+            },
+            {
+              "seed": 3,
+              "onset_step": 3000,
+              "memorization_step": 140,
+              "generalization_step": 7650,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12941161607640295,
+              "value_at_pre_generalization": 0.4437948848076389,
+              "change": 0.31438326873123595
+            },
+            {
+              "seed": 4,
+              "onset_step": 4000,
+              "memorization_step": 150,
+              "generalization_step": 10150,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12850486700448993,
+              "value_at_pre_generalization": 0.5393188871812453,
+              "change": 0.4108140201767554
+            },
+            {
+              "seed": 5,
+              "onset_step": 2000,
+              "memorization_step": 140,
+              "generalization_step": 6275,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12956130538578536,
+              "value_at_pre_generalization": 0.4213501996272697,
+              "change": 0.29178889424148435
+            },
+            {
+              "seed": 6,
+              "onset_step": 2000,
+              "memorization_step": 140,
+              "generalization_step": 5425,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12784708426763478,
+              "value_at_pre_generalization": 0.4401526831069037,
+              "change": 0.3123055988392689
+            },
+            {
+              "seed": 7,
+              "onset_step": 3000,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.12916827916133983,
+              "value_at_pre_generalization": 0.5812237172121446,
+              "change": 0.4520554380508048
+            },
+            {
+              "seed": 8,
+              "onset_step": 2000,
+              "memorization_step": 140,
+              "generalization_step": 8175,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.126960992527479,
+              "value_at_pre_generalization": 0.5440825683137351,
+              "change": 0.41712157578625614
+            },
+            {
+              "seed": 9,
+              "onset_step": 2000,
+              "memorization_step": 140,
+              "generalization_step": 5750,
+              "onset_before_generalization": true,
+              "onset_after_memorization": true,
+              "value_at_init": 0.1292972009083852,
+              "value_at_pre_generalization": 0.35764567630745947,
+              "change": 0.22834847539907427
+            }
+          ],
+          "reading": "10 of 10 seeds with a defined onset place it before the generalization crossing"
+        },
+        "fraction_best_aic_square": {
+          "n_seeds": 10,
+          "n_onset_defined": 0,
+          "n_onset_before_generalization": 0,
+          "n_onset_after_memorization": 0,
+          "onset_step": {
+            "n": 0
+          },
+          "change_init_to_pre_generalization": {
+            "median": -0.64404296875,
+            "mad": 0.078183984375,
+            "mad_raw": 0.052734375,
+            "mad_scale": 1.4826,
+            "iqr": 0.093017578125,
+            "q25": -0.675537109375,
+            "q75": -0.58251953125,
+            "min": -0.7265625,
+            "max": -0.5380859375,
+            "n": 10,
+            "n_missing": 0
+          },
+          "n_change_undefined": 0,
+          "per_seed": [
+            {
+              "seed": 0,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.76953125,
+              "value_at_pre_generalization": 0.119140625,
+              "change": -0.650390625
+            },
+            {
+              "seed": 1,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 6650,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.7890625,
+              "value_at_pre_generalization": 0.2509765625,
+              "change": -0.5380859375
+            },
+            {
+              "seed": 2,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 8650,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.7734375,
+              "value_at_pre_generalization": 0.1630859375,
+              "change": -0.6103515625
+            },
+            {
+              "seed": 3,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 7650,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.78515625,
+              "value_at_pre_generalization": 0.1220703125,
+              "change": -0.6630859375
+            },
+            {
+              "seed": 4,
+              "onset_step": null,
+              "memorization_step": 150,
+              "generalization_step": 10150,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.806640625,
+              "value_at_pre_generalization": 0.080078125,
+              "change": -0.7265625
+            },
+            {
+              "seed": 5,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 6275,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.77734375,
+              "value_at_pre_generalization": 0.2138671875,
+              "change": -0.5634765625
+            },
+            {
+              "seed": 6,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 5425,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.8017578125,
+              "value_at_pre_generalization": 0.1220703125,
+              "change": -0.6796875
+            },
+            {
+              "seed": 7,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 8100,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.80859375,
+              "value_at_pre_generalization": 0.0947265625,
+              "change": -0.7138671875
+            },
+            {
+              "seed": 8,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 8175,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.751953125,
+              "value_at_pre_generalization": 0.1142578125,
+              "change": -0.6376953125
+            },
+            {
+              "seed": 9,
+              "onset_step": null,
+              "memorization_step": 140,
+              "generalization_step": 5750,
+              "onset_before_generalization": null,
+              "onset_after_memorization": null,
+              "value_at_init": 0.7958984375,
+              "value_at_pre_generalization": 0.22265625,
+              "change": -0.5732421875
+            }
+          ],
+          "reading": "0 of 0 seeds with a defined onset place it before the generalization crossing; 10 seed(s) have no defined onset for this metric"
+        }
+      }
+    }
+  },
+  "summary": {
+    "mlp": {
+      "memorization_median": 160.0,
+      "generalization_median": 9287.5,
+      "onset_before_generalization_by_metric": {
+        "structured_fraction_of_live": "10/10",
+        "phase_relation_R": "0/0",
+        "embedding_top8_concentration": "10/10",
+        "logit_key_subspace_share": "10/10",
+        "median_odd_minus_even_u_a": "8/8",
+        "median_family_fraction": "10/10",
+        "fraction_best_aic_square": "0/0"
+      }
+    },
+    "transformer": {
+      "memorization_median": 140.0,
+      "generalization_median": 7875.0,
+      "onset_before_generalization_by_metric": {
+        "structured_fraction_of_live": "10/10",
+        "phase_relation_R": "0/0",
+        "embedding_top8_concentration": "10/10",
+        "logit_key_subspace_share": "10/10",
+        "median_odd_minus_even_u_a": "3/4",
+        "median_family_fraction": "10/10",
+        "fraction_best_aic_square": "0/0"
+      }
+    }
+  }
+}

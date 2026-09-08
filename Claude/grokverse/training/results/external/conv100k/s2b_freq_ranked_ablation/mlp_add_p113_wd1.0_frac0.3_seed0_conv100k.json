@@ -1,0 +1,190 @@
+{
+ "run_id": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+ "arch": "mlp",
+ "seed": 0,
+ "n_neurons": 512,
+ "n_alive": 512,
+ "key_frequencies": [
+  1,
+  3,
+  11,
+  13,
+  21,
+  28,
+  33,
+  37,
+  42,
+  47,
+  56
+ ],
+ "params": {
+  "percents": [
+   1,
+   5,
+   10,
+   25,
+   50
+  ],
+  "n_control": 50,
+  "ranking": "summed u_a+u_b power at primary key frequencies, desc",
+  "rng_seed": 0
+ },
+ "baseline": {
+  "train_loss": 1.1549983585664411e-06,
+  "test_loss": 6.025750438035048e-06,
+  "train_acc": 1.0,
+  "test_acc": 1.0
+ },
+ "cuts": [
+  {
+   "percent": 1,
+   "k": 5,
+   "removed_key_power_share": 0.023707205331596093,
+   "removed_nonkey_power_share": 0.013441667551961843,
+   "observed": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 13.709870401936335
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 14.110122247295116
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "33": 5
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 5,
+   "k": 26,
+   "removed_key_power_share": 0.11389893647166889,
+   "removed_nonkey_power_share": 0.062499188188054944,
+   "observed": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 10.777348448080737
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 11.820900002412415
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "28": 2,
+    "33": 24
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 10,
+   "k": 51,
+   "removed_key_power_share": 0.21168682530129393,
+   "removed_nonkey_power_share": 0.10884828228920483,
+   "observed": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 8.985094796783223
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 10.309115223333054
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "28": 12,
+    "33": 39
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 25,
+   "k": 128,
+   "removed_key_power_share": 0.4556728687663749,
+   "removed_nonkey_power_share": 0.2837303853269742,
+   "observed": {
+    "test_acc": 0.9853434772879839,
+    "train_acc": 0.9976507439310884,
+    "margin": 3.7806312533974116
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 6.625177955526452
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "3": 12,
+    "11": 4,
+    "21": 5,
+    "28": 54,
+    "33": 45,
+    "37": 8
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 50,
+   "k": 256,
+   "removed_key_power_share": 0.7731639114298452,
+   "removed_nonkey_power_share": 0.6434222861304393,
+   "observed": {
+    "test_acc": 0.3264712463638398,
+    "train_acc": 0.4656747585486818,
+    "margin": -0.30672179999249394
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.4478630566122175,
+    "train_acc": 0.5518141477421039,
+    "margin": 0.021731633282448964
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.9927836204967555,
+    "test_acc_q05": 0.9775565003356456,
+    "test_acc_q95": 0.9995021257552025
+   },
+   "z_vs_random": 85.84184023136001,
+   "removed_group_dominant_freq_hist": {
+    "1": 5,
+    "3": 42,
+    "11": 20,
+    "13": 3,
+    "21": 46,
+    "28": 56,
+    "33": 45,
+    "37": 39
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  }
+ ],
+ "elapsed_seconds": 2.94
+}

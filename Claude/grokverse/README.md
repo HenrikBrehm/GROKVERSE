@@ -75,6 +75,13 @@ Stated explicitly, because the earlier version of `RESULTS.md` did claim some of
 The architecture study on branch `GROKVERSE-MP` (local name until 2026-09-04: `arch-study`) is complete: **51 runs, all completed, none failed**; 24
 test files and 1,913 automated checks; every threshold frozen before the runs at commit `0b55e1d`.
 
+On 2026-09-08 the study's external reviewer handed back a **100,000-step convergence block** (20 runs, the
+frozen configuration, the reviewer's own AWS compute) and a **10-seed two-hot control**. Integrity verified and
+the gate re-derived here: the MLP's structured fraction settles at 1.000 in 10 of 10 seeds, the 25k architecture
+gap closes to zero, and the gate still returns `neither_passes`. Reported separately in
+[`RESULTS.md` §16](RESULTS.md) and [`docs/external/`](docs/external/README.md); not yet reproduced on the
+authors' hardware (**D9**).
+
 Open, and reserved for the human authors: the final interpretation, the decisions in
 [`docs/HUMAN_DECISIONS.md`](docs/HUMAN_DECISIONS.md) (including **D5** and **D6**, two choices that turned
 out to be load-bearing), the `[HUMAN AUTHORS MUST COMPLETE]` placeholders in
@@ -90,12 +97,13 @@ grokverse/
 ├─ PROMPT.md  PLAN.md            # operating manual + plan (binding)
 ├─ README.md  RESULTS.md  PROGRESS.md
 ├─ AI_DISCLOSURE.md  THIRD_PARTY.md  IDEAS_BACKLOG.md
-├─ docs/                         # pre-registration, plans, audits, labbook, claim–evidence table
+├─ docs/                         # pre-registration, plans, audits, labbook, claim–evidence table; external/ = the reviewer's documents
 ├─ training/                     # Python + PyTorch: the science
 │  ├─ grokverse/                 # config, seed, data, models/, train, analysis/, export
 │  ├─ tests/                     # 24 test files, 1,913 checks
 │  ├─ runs/                      # per-run outputs (gitignored; regenerable)
-│  └─ results/                   # aggregates, reports, figures (committed)
+│  ├─ external/                  # the reviewer's 100k / two-hot bundle, 1.5 GB (gitignored)
+│  └─ results/                   # aggregates, reports, figures (committed); external/ = the bundle's small outputs
 ├─ web/                          # Next.js + React Three Fiber: the explorer
 └─ archive/                      # logs, pre-study figures, session scaffolding, raw dumps — nothing load-bearing (see archive/README.md)
 ```

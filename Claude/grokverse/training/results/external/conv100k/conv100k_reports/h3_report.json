@@ -1,0 +1,889 @@
+{
+  "module": "h3_report",
+  "module_version": "1.0",
+  "created_utc": "2026-09-05T20:49:56.317017+00:00",
+  "analysis_git_commit": "42dd79a49225abe33f1b4f144acb98ec26d47f69",
+  "measurement_point": "final",
+  "difference_definition": "d_s = x_transformer(s) - x_mlp(s)",
+  "gate": {
+    "available": true,
+    "source": "decision_tree_final.json",
+    "measurement_point": "final",
+    "passes_gate": {
+      "mlp": false,
+      "transformer": false
+    },
+    "architectures_passing": [],
+    "branch": "neither_passes",
+    "interpretation_rule": "master prompt \u00a712: harmonic-family concentration may be interpreted as the same Fourier principle in a different form ONLY for an architecture that passes the gate",
+    "consequence": "architectures cleared to carry an H3 mechanism reading: NONE. Every H3 number below is therefore a measurement about the METRIC, not evidence about a mechanism."
+  },
+  "h3a_metric_waveform_sensitivity": {
+    "definition": "two populations built from each checkpoint's own dominant (k, phase, amplitude), differing ONLY in waveform; sensitivity = median top-k(sinusoid) - median top-k(square). A positive value means the concentration metric scores the square population as less concentrated although both carry the same fundamentals \u2014 a property of the METRIC.",
+    "u_a__top1": {
+      "mlp": {
+        "median": 0.1893148305244331,
+        "mad": 8.230083281546285e-17,
+        "mad_raw": 5.551115123125783e-17,
+        "mad_scale": 1.4826,
+        "iqr": 8.326672684688674e-17,
+        "q25": 0.18931483052443301,
+        "q75": 0.1893148305244331,
+        "min": 0.189314830524433,
+        "max": 0.18931483052443332,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.1893148305244331,
+        "mad": 8.230083281546285e-17,
+        "mad_raw": 5.551115123125783e-17,
+        "mad_scale": 1.4826,
+        "iqr": 1.1102230246251565e-16,
+        "q25": 0.189314830524433,
+        "q75": 0.1893148305244331,
+        "min": 0.18931483052443288,
+        "max": 0.1893148305244332,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_a__top4": {
+      "mlp": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.05011884525724719,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724719,
+        "max": 0.0501188452572473,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.05011884525724719,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724708,
+        "max": 0.05011884525724719,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_a__top8": {
+      "mlp": {
+        "median": 0.02480206291274134,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.02480206291274134,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.02480206291274134,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 1.1102230246251565e-16,
+        "q25": 0.02480206291274123,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_a__shape_separation": {
+      "mlp": {
+        "median": 0.1387243592869068,
+        "mad": 1.2345124922319428e-16,
+        "mad_raw": 8.326672684688674e-17,
+        "mad_scale": 1.4826,
+        "iqr": 1.6653345369377348e-16,
+        "q25": 0.1387243592869067,
+        "q75": 0.13872435928690688,
+        "min": 0.13872435928690668,
+        "max": 0.138724359286907,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.1387243592869068,
+        "mad": 1.646016656309257e-16,
+        "mad_raw": 1.1102230246251565e-16,
+        "mad_scale": 1.4826,
+        "iqr": 1.942890293094024e-16,
+        "q25": 0.1387243592869067,
+        "q75": 0.1387243592869069,
+        "min": 0.13872435928690663,
+        "max": 0.13872435928690707,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_b__top1": {
+      "mlp": {
+        "median": 0.1893148305244331,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.1893148305244331,
+        "q75": 0.1893148305244331,
+        "min": 0.189314830524433,
+        "max": 0.1893148305244332,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.1893148305244331,
+        "mad": 8.230083281546285e-17,
+        "mad_raw": 5.551115123125783e-17,
+        "mad_scale": 1.4826,
+        "iqr": 8.326672684688674e-17,
+        "q25": 0.18931483052443301,
+        "q75": 0.1893148305244331,
+        "min": 0.189314830524433,
+        "max": 0.1893148305244332,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_b__top4": {
+      "mlp": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.05011884525724719,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724719,
+        "max": 0.0501188452572473,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 8.326672684688674e-17,
+        "q25": 0.05011884525724711,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724708,
+        "max": 0.05011884525724719,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_b__top8": {
+      "mlp": {
+        "median": 0.02480206291274134,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.02480206291274134,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.024802062912741285,
+        "mad": 8.230083281546285e-17,
+        "mad_raw": 5.551115123125783e-17,
+        "mad_scale": 1.4826,
+        "iqr": 1.1102230246251565e-16,
+        "q25": 0.02480206291274123,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "u_b__shape_separation": {
+      "mlp": {
+        "median": 0.13872435928690685,
+        "mad": 1.0287604101932856e-16,
+        "mad_raw": 6.938893903907228e-17,
+        "mad_scale": 1.4826,
+        "iqr": 1.1102230246251565e-16,
+        "q25": 0.13872435928690677,
+        "q75": 0.13872435928690688,
+        "min": 0.1387243592869067,
+        "max": 0.13872435928690693,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.1387243592869068,
+        "mad": 1.646016656309257e-16,
+        "mad_raw": 1.1102230246251565e-16,
+        "mad_scale": 1.4826,
+        "iqr": 1.6653345369377348e-16,
+        "q25": 0.1387243592869067,
+        "q75": 0.13872435928690688,
+        "min": 0.13872435928690663,
+        "max": 0.13872435928690705,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "out__top1": {
+      "mlp": {
+        "median": 0.1893148305244331,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.1893148305244331,
+        "q75": 0.1893148305244331,
+        "min": 0.189314830524433,
+        "max": 0.1893148305244332,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.1893148305244331,
+        "mad": 1.646016656309257e-16,
+        "mad_raw": 1.1102230246251565e-16,
+        "mad_scale": 1.4826,
+        "iqr": 1.1102230246251565e-16,
+        "q25": 0.1893148305244331,
+        "q75": 0.1893148305244332,
+        "min": 0.189314830524433,
+        "max": 0.18931483052443332,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "out__top4": {
+      "mlp": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.05011884525724719,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724708,
+        "max": 0.05011884525724719,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.05011884525724719,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 0.0,
+        "q25": 0.05011884525724719,
+        "q75": 0.05011884525724719,
+        "min": 0.05011884525724708,
+        "max": 0.0501188452572473,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "out__top8": {
+      "mlp": {
+        "median": 0.02480206291274134,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 8.326672684688674e-17,
+        "q25": 0.024802062912741257,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.02480206291274134,
+        "mad": 0.0,
+        "mad_raw": 0.0,
+        "mad_scale": 1.4826,
+        "iqr": 8.326672684688674e-17,
+        "q25": 0.024802062912741257,
+        "q75": 0.02480206291274134,
+        "min": 0.02480206291274123,
+        "max": 0.02480206291274134,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "out__shape_separation": {
+      "mlp": {
+        "median": 0.1387243592869068,
+        "mad": 8.230083281546285e-17,
+        "mad_raw": 5.551115123125783e-17,
+        "mad_scale": 1.4826,
+        "iqr": 8.326672684688674e-17,
+        "q25": 0.1387243592869068,
+        "q75": 0.13872435928690688,
+        "min": 0.13872435928690666,
+        "max": 0.1387243592869069,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.13872435928690682,
+        "mad": 4.1150416407731425e-17,
+        "mad_raw": 2.7755575615628914e-17,
+        "mad_scale": 1.4826,
+        "iqr": 1.1102230246251565e-16,
+        "q25": 0.1387243592869068,
+        "q75": 0.1387243592869069,
+        "min": 0.1387243592869068,
+        "max": 0.13872435928690702,
+        "n": 10,
+        "n_missing": 0
+      }
+    }
+  },
+  "h3b_criterion_1_gap_difference": {
+    "quantity": "(architecture gap under top-1) minus (architecture gap under the family)",
+    "per_seed": [
+      0.0,
+      0.0,
+      0.001953125,
+      0.001953125,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "mean": 0.000390625,
+    "median": 0.0,
+    "bootstrap_ci95": [
+      0.0,
+      0.0009765625
+    ],
+    "ci95_contains_zero": true,
+    "n_boot": 10000,
+    "refutes_H3": true,
+    "reading": "the CI contains zero, so by the pre-registered criterion the gap is the same under both definitions and H3_0 is NOT refuted by this branch"
+  },
+  "h3b_criterion_2_family_gap": {
+    "n_pairs": 10,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "values_a": [
+      1.0,
+      1.0,
+      0.8046875,
+      0.982421875,
+      1.0,
+      1.0,
+      0.998046875,
+      1.0,
+      0.998046875,
+      1.0
+    ],
+    "values_b": [
+      1.0,
+      0.994140625,
+      0.9140625,
+      0.9921875,
+      1.0,
+      0.990234375,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "differences": [
+      0.0,
+      0.005859375,
+      -0.109375,
+      -0.009765625,
+      0.0,
+      0.009765625,
+      -0.001953125,
+      0.0,
+      -0.001953125,
+      0.0
+    ],
+    "mean_diff": -0.0107421875,
+    "median_diff": 0.0,
+    "bootstrap_ci95": [
+      -0.0337890625,
+      0.0025390625
+    ],
+    "direction": "mixed",
+    "all_positive": false,
+    "all_negative": false,
+    "sign_test_p": 0.6875,
+    "wilcoxon_signed_rank_p": 0.65625,
+    "cohens_dz": -0.3066882710989164,
+    "cliffs_delta": 0.02,
+    "ci95_contains_zero": true,
+    "a_is": "transformer",
+    "b_is": "mlp",
+    "quantity": "structured-neuron fraction under the FAMILY definition",
+    "mlp_still_lower_with_ci_excluding_zero": false,
+    "refutes_H3": false,
+    "reading": "the MLP's family-based fraction is not lower with a CI excluding zero, so this branch does not refute H3_0"
+  },
+  "h3b_gap_under_top1": {
+    "n_pairs": 10,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "values_a": [
+      1.0,
+      1.0,
+      0.8046875,
+      0.982421875,
+      1.0,
+      1.0,
+      0.998046875,
+      1.0,
+      0.998046875,
+      1.0
+    ],
+    "values_b": [
+      1.0,
+      0.994140625,
+      0.912109375,
+      0.990234375,
+      1.0,
+      0.990234375,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "differences": [
+      0.0,
+      0.005859375,
+      -0.107421875,
+      -0.0078125,
+      0.0,
+      0.009765625,
+      -0.001953125,
+      0.0,
+      -0.001953125,
+      0.0
+    ],
+    "mean_diff": -0.0103515625,
+    "median_diff": 0.0,
+    "bootstrap_ci95": [
+      -0.0330078125,
+      0.002734375
+    ],
+    "direction": "mixed",
+    "all_positive": false,
+    "all_negative": false,
+    "sign_test_p": 0.6875,
+    "wilcoxon_signed_rank_p": 0.65625,
+    "cohens_dz": -0.30069123898271205,
+    "cliffs_delta": 0.02,
+    "ci95_contains_zero": true,
+    "a_is": "transformer",
+    "b_is": "mlp",
+    "quantity": "structured-neuron fraction under the TOP-1 definition"
+  },
+  "h3_verdict": {
+    "h3_refuted": true,
+    "refuting_criteria": [
+      "criterion_1_gap_difference"
+    ],
+    "criteria_verbatim": "H3 is refuted if the paired difference (gap under top-1 minus gap under family) has a 95 % CI containing 0, OR if the MLP's family-based structured fraction is still lower than the transformer's with a CI excluding 0 \u2014 in which case the deficit is a real loss of structure, not a measurement artifact.",
+    "h3_prediction": "the architecture gap in the structured-neuron fraction closes under the family-based definition but not under the top-1 definition",
+    "h3_0_is": "the null that the gap is the SAME under both definitions",
+    "gate_precondition": "architectures cleared to carry an H3 mechanism reading: NONE. Every H3 number below is therefore a measurement about the METRIC, not evidence about a mechanism.",
+    "how_much_of_the_gap_the_family_closes": {
+      "gap_under_top1_median": 0.0,
+      "gap_under_family_median": 0.0,
+      "closed_median": 0.0,
+      "closed_fraction_of_the_top1_gap": null,
+      "reading": "this is the substantive quantity behind H3: how much of the architecture gap the harmonic-aware definition removes"
+    }
+  },
+  "h3c_legacy_embedding": {
+    "object": "W_E",
+    "caveat": "W_E alone decides nothing for the MLP, which reads it through two halves of W_in; reported descriptively (PREREGISTRATION \u00a73, H3c)",
+    "top8_concentration": {
+      "mlp": {
+        "median": 0.9761671872190392,
+        "mad": 0.003407139569735675,
+        "mad_raw": 0.002298084156033775,
+        "mad_scale": 1.4826,
+        "iqr": 0.055088815217189,
+        "q25": 0.9230981936583474,
+        "q75": 0.9781870088755364,
+        "min": 0.8925197844136165,
+        "max": 0.9844853275813243,
+        "n": 10,
+        "n_missing": 0
+      },
+      "transformer": {
+        "median": 0.9608021183505392,
+        "mad": 0.005917932803425307,
+        "mad_raw": 0.0039915909911137915,
+        "mad_scale": 1.4826,
+        "iqr": 0.007055610627869413,
+        "q25": 0.957173203825151,
+        "q75": 0.9642288144530204,
+        "min": 0.9477007718546586,
+        "max": 0.9680052230952515,
+        "n": 10,
+        "n_missing": 0
+      }
+    },
+    "top8_paired": {
+      "n_pairs": 10,
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "values_a": [
+        0.9585812709295706,
+        0.9628541674943656,
+        0.9477007718546586,
+        0.9599944740042221,
+        0.9567038481236778,
+        0.9680052230952515,
+        0.9646870301059054,
+        0.9652153353070287,
+        0.9616097626968563,
+        0.9519532313654927
+      ],
+      "values_b": [
+        0.978275275569825,
+        0.8925197844136165,
+        0.9775758739578748,
+        0.9746127730478059,
+        0.9844853275813243,
+        0.9747585004802035,
+        0.9059266671951947,
+        0.9028714325135668,
+        0.9786552671803209,
+        0.9779222087926711
+      ],
+      "differences": [
+        -0.019694004640254392,
+        0.07033438308074913,
+        -0.0298751021032162,
+        -0.014618299043583804,
+        -0.02778147945764653,
+        -0.006753277384952017,
+        0.05876036291071074,
+        0.062343902793461914,
+        -0.017045504483464646,
+        -0.025968977427178408
+      ],
+      "mean_diff": 0.004970200424462579,
+      "median_diff": -0.015831901763524225,
+      "bootstrap_ci95": [
+        -0.017036877585787005,
+        0.030622097691568047
+      ],
+      "direction": "mixed",
+      "all_positive": false,
+      "all_negative": false,
+      "sign_test_p": 0.34375,
+      "wilcoxon_signed_rank_p": 1.0,
+      "cohens_dz": 0.1204826225732774,
+      "cliffs_delta": -0.4,
+      "ci95_contains_zero": true,
+      "a_is": "transformer",
+      "b_is": "mlp"
+    },
+    "n_fundamentals_1": {
+      "family_fraction": {
+        "mlp": {
+          "median": 0.294526504149931,
+          "mad": 0.05042077759852039,
+          "mad_raw": 0.03400834857582652,
+          "mad_scale": 1.4826,
+          "iqr": 0.05347526150060278,
+          "q25": 0.27689795808359663,
+          "q75": 0.3303732195841994,
+          "min": 0.20919719568502051,
+          "max": 0.4081959385324666,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.45068209327595216,
+          "mad": 0.04490201425617638,
+          "mad_raw": 0.030285993697677316,
+          "mad_scale": 1.4826,
+          "iqr": 0.0704286142827597,
+          "q25": 0.39683804968426406,
+          "q75": 0.46726666396702377,
+          "min": 0.3593004428164978,
+          "max": 0.5262131590771105,
+          "n": 10,
+          "n_missing": 0
+        }
+      },
+      "random_null": {
+        "mlp": {
+          "median": 0.07099329381454131,
+          "mad": 0.012626238560820506,
+          "mad_raw": 0.008516281236220495,
+          "mad_scale": 1.4826,
+          "iqr": 0.02091291454637441,
+          "q25": 0.05511149155894747,
+          "q75": 0.07602440610532188,
+          "min": 0.044948876941959065,
+          "max": 0.09828946221115724,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.06562047834997523,
+          "mad": 0.015771390928672357,
+          "mad_raw": 0.010637657445482503,
+          "mad_scale": 1.4826,
+          "iqr": 0.02182424422962237,
+          "q25": 0.053314868409873206,
+          "q75": 0.07513911263949558,
+          "min": 0.04100608770289508,
+          "max": 0.08759279884526501,
+          "n": 10,
+          "n_missing": 0
+        }
+      }
+    },
+    "n_fundamentals_2": {
+      "family_fraction": {
+        "mlp": {
+          "median": 0.5387137322955828,
+          "mad": 0.06506398734578131,
+          "mad_raw": 0.04388505823943162,
+          "mad_scale": 1.4826,
+          "iqr": 0.0787740485821471,
+          "q25": 0.496370318044415,
+          "q75": 0.5751443666265621,
+          "min": 0.3644744940513985,
+          "max": 0.7865799965508304,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.7027268546478144,
+          "mad": 0.0897931053269561,
+          "mad_raw": 0.06056461980774053,
+          "mad_scale": 1.4826,
+          "iqr": 0.09547592011126882,
+          "q25": 0.6796231168280787,
+          "q75": 0.7750990369393476,
+          "min": 0.5911665672280927,
+          "max": 0.9557262549498956,
+          "n": 10,
+          "n_missing": 0
+        }
+      },
+      "random_null": {
+        "mlp": {
+          "median": 0.1397131069560665,
+          "mad": 0.029997073254059387,
+          "mad_raw": 0.020232748721205576,
+          "mad_scale": 1.4826,
+          "iqr": 0.03562813933422407,
+          "q25": 0.11490751553641104,
+          "q75": 0.1505356548706351,
+          "min": 0.10577058629331526,
+          "max": 0.18322440765116274,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.13856848395226268,
+          "mad": 0.013035961554995855,
+          "mad_raw": 0.008792635609736851,
+          "mad_scale": 1.4826,
+          "iqr": 0.018075047972135688,
+          "q25": 0.12561971511551145,
+          "q75": 0.14369476308764714,
+          "min": 0.12063141042005379,
+          "max": 0.1923061071698663,
+          "n": 10,
+          "n_missing": 0
+        }
+      }
+    },
+    "n_fundamentals_4": {
+      "family_fraction": {
+        "mlp": {
+          "median": 0.8306263171275736,
+          "mad": 0.09155228126685942,
+          "mad_raw": 0.06175116772349887,
+          "mad_scale": 1.4826,
+          "iqr": 0.11744267956523347,
+          "q25": 0.7760330904557593,
+          "q75": 0.8934757700209928,
+          "min": 0.654419086209247,
+          "max": 0.9830322165389641,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.9668787584768649,
+          "mad": 0.004908029465582946,
+          "mad_raw": 0.0033104205217745486,
+          "mad_scale": 1.4826,
+          "iqr": 0.005795444671274574,
+          "q25": 0.9641160838521787,
+          "q75": 0.9699115285234533,
+          "min": 0.9497140078241737,
+          "max": 0.973830599979321,
+          "n": 10,
+          "n_missing": 0
+        }
+      },
+      "random_null": {
+        "mlp": {
+          "median": 0.2692829362632323,
+          "mad": 0.015435503452325933,
+          "mad_raw": 0.010411104446462927,
+          "mad_scale": 1.4826,
+          "iqr": 0.018877461441211885,
+          "q25": 0.25712202839151244,
+          "q75": 0.2759994898327243,
+          "min": 0.2458673209372713,
+          "max": 0.2905703665109699,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.2667257296985004,
+          "mad": 0.021258039892682445,
+          "mad_raw": 0.01433835147219914,
+          "mad_scale": 1.4826,
+          "iqr": 0.02295222801631741,
+          "q25": 0.25879252978063205,
+          "q75": 0.28174475779694946,
+          "min": 0.21565219739063948,
+          "max": 0.354497944286145,
+          "n": 10,
+          "n_missing": 0
+        }
+      }
+    },
+    "n_fundamentals_8": {
+      "family_fraction": {
+        "mlp": {
+          "median": 0.9911120886439062,
+          "mad": 0.0007636425964009323,
+          "mad_raw": 0.0005150698748151439,
+          "mad_scale": 1.4826,
+          "iqr": 0.0015657226409080405,
+          "q25": 0.9908454422120793,
+          "q75": 0.9924111648529873,
+          "min": 0.9899766258541486,
+          "max": 0.9940765047678003,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.9843472226894601,
+          "mad": 0.0025275172662177782,
+          "mad_raw": 0.001704787040481437,
+          "mad_scale": 1.4826,
+          "iqr": 0.004625409808197589,
+          "q25": 0.9808386342452495,
+          "q75": 0.9854640440534471,
+          "min": 0.9779294590355769,
+          "max": 0.9874535234944857,
+          "n": 10,
+          "n_missing": 0
+        }
+      },
+      "random_null": {
+        "mlp": {
+          "median": 0.5416641892376404,
+          "mad": 0.021774192642899756,
+          "mad_raw": 0.014686491732699147,
+          "mad_scale": 1.4826,
+          "iqr": 0.025851013092473285,
+          "q25": 0.5295836814962958,
+          "q75": 0.555434694588769,
+          "min": 0.5072105485602868,
+          "max": 0.5895249400376552,
+          "n": 10,
+          "n_missing": 0
+        },
+        "transformer": {
+          "median": 0.5421112870630143,
+          "mad": 0.04970719704822716,
+          "mad_raw": 0.03352704508851151,
+          "mad_scale": 1.4826,
+          "iqr": 0.05651587584597062,
+          "q25": 0.5206903769181459,
+          "q75": 0.5772062527641165,
+          "min": 0.47272094705320783,
+          "max": 0.5925547167837073,
+          "n": 10,
+          "n_missing": 0
+        }
+      }
+    }
+  },
+  "forbidden_criterion_audit": {
+    "max_family_minus_matched_top_m_over_all_runs": 1.1102230246251565e-16,
+    "holds": true,
+    "statement": "'the family beats the matched top-m' is unsatisfiable by construction; this is an implementation audit, never support for H3"
+  }
+}

@@ -124,7 +124,8 @@ not evaluable on any MLP seed there (the random-frequency control degenerates).
 This is the study's central negative result, and §21 requires that it be reported exactly: **the
 Fourier evidence tested does not, by the pre-registered standard, identify the learned mechanism in
 either architecture.** Everything in §4–§6 is therefore a description of measured structure, not a
-mechanism claim.
+mechanism claim. At 100,000 steps the externally executed S1 block returns the same verdict — G1–G3 10/10,
+G4 0/10, `neither_passes` — re-derived here with the frozen code (§16.3).
 
 ---
 
@@ -210,7 +211,9 @@ below 5 %):
 `structured_fraction_of_live` is the metric behind G1 and behind the headline architecture gap of
 +0.085, and for the MLP it is **still rising at the budget in 8 of 10 seeds** — in seed 0 from 0.223 at
 step 8,000 to 0.861 at 20,000 to 0.881 at 25,000, while the transformer's has flattened (0.959 to
-0.965). A longer budget would therefore be expected to **shrink** the gap this study reports.
+0.965). A longer budget would therefore be expected to **shrink** the gap this study reports. **Measured at
+100,000 steps on external compute (§16.2): the median gap closes to 0.0000 and the MLP's fraction is settled
+in 10 of 10 seeds.**
 
 The waveform shares are unsettled by more still — the transformer's sinusoid share moves **0.255 in
 absolute terms** between steps 20,000 and 25,000. This does not touch the §8.1 trajectory result, which
@@ -690,6 +693,9 @@ filled in from conjecture (master prompt §22):
   (§6). Changing it requires a full re-run and must not be motivated by the outcome.
 - **The 11 `[HUMAN AUTHORS MUST COMPLETE]` placeholders** in [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
 - **The `txf_mul_*` runs** (**E6**) and the explorer update (**E3**), both reserved.
+- **D9** — whether the externally executed 100,000-step block and the reviewer's follow-up analyses (§16)
+  enter the study, under the reviewer's own conditions (local reproduction of a seed pair first; the
+  competition's rules on external compute).
 
 ---
 
@@ -731,3 +737,189 @@ about what we remember doing.
 **The explorer (`web/`) still shows the pre-study runs** and is deliberately untouched; the required
 changes are specified in [`docs/dev/EXPLORER_UPDATE_PLAN.md`](docs/dev/EXPLORER_UPDATE_PLAN.md) and are
 blocked on human review (**E3**).
+
+## 16. Externally executed follow-up blocks at 100,000 steps — verified, reported, not yet reproduced here
+
+> **Status.** The runs in this section were executed by the study's external reviewer on the reviewer's own
+> AWS account — the 100,000-step convergence block **S1** on 2026-09-05 and the **two-hot control at 10 seeds**
+> on 2026-09-07 — and handed back on 2026-09-08 as an unmodified bundle (provenance, hashes and what was
+> checked: [`docs/external/README.md`](docs/external/README.md)). Nothing above this section was changed by
+> it. Each number below is marked **(v)** if it was re-derived in this repository from the bundle's artifacts
+> with this branch's frozen code, or **(r)** if it comes from the reviewer's own scripts, which are not in the
+> bundle. Under the reviewer's own runbook (§0.3) no S1 number enters a submission before at least one seed
+> pair has been reproduced on the authors' hardware; that has not been run. Whether the block enters the
+> study at all is **D9** (`docs/HUMAN_DECISIONS.md`).
+
+### 16.1 What ran (v)
+
+| item | S1 convergence block | two-hot control ×10 |
+|---|---|---|
+| runs | 20: seeds 0–9 × {transformer, MLP}, `--study conv100k` | 10: `mlp_twohot`, seeds 0–9, `arch25k` |
+| steps | **100,000** (4× the primary block) | 25,000 (frozen) |
+| every other flag | the frozen `arch25k` configuration (§1) | byte-identical to `matrix_twohot_20260904T022540Z.json` |
+| code | `42dd79a` on branch `arch-study-convergence` = this branch's `fda066e` + ten `CHECKPOINT_GRID` entries above 25,000 + the runbook; no other change | same |
+| environment | AWS EC2 `c7i.16xlarge`, Linux x86_64, Python 3.12.14, torch 2.12.1+cpu, numpy 2.4.6; 20 single-threaded runs in parallel, ~10.75 h wall clock | same instance class |
+| outcome | 20/20 completed, 0 failed | 10/10 completed, 0 failed |
+| integrity checked here | 30/30 manifests at `42dd79a`, status `completed`; split hash per seed identical to ours (23 compared); **829/829** checkpoint SHA-256 match | (included) |
+| reports checked here | the frozen `decision_tree`, `statistics_report`, `h3_report`, `h4_report` of this branch, re-run on the bundle's `aggregate_conv100k`, reproduce the bundle's four reports byte-for-byte apart from timestamps, commit stamps and paths | — |
+
+The grid extension is the one declared deviation from a pre-registered constant (`docs/PREREGISTRATION.md`
+§12). It is additive — a 25,000-step run still selects exactly the same 19 checkpoints — and it is **not
+merged** into this branch.
+
+### 16.2 The B3 question: the MLP settles, and the gap closes (v)
+
+`structured_fraction_of_live`, median over 10 seeds, at each block's final checkpoint:
+
+| architecture | 25,000 steps (this study, §5) | 100,000 steps (S1) |
+|---|---|---|
+| transformer | 0.9824 | **1.0000** |
+| MLP | 0.8848 | **1.0000** |
+| gap, transformer − MLP | **+0.0977** | **0.0000** |
+
+Two statistics of the same 25k metric appear in this document and should not be confused: **+0.0977** is
+the difference between the two per-architecture medians; **+0.0850** (§5.1, §7) is the median of the ten
+paired per-seed differences under the family definition, from `h3_report.json`. At 100,000 steps both are
+zero (`conv100k_reports/h3_report.json`: `gap_under_top1_median = gap_under_family_median = 0.0`).
+
+Per seed, within the S1 runs (the step-25,000 column is the S1 run's own checkpoint, on Linux, and differs
+from our Windows runs at the third decimal — see 16.8):
+
+| seed | MLP @25k | MLP @90k | MLP @100k | Δ 90k→100k | transformer @25k | @90k | @100k | Δ 90k→100k |
+|---|---|---|---|---|---|---|---|---|
+| 0 | 0.8691 | 1.0000 | 1.0000 | 0.00 % | 1.0000 | 1.0000 | 1.0000 | 0.00 % |
+| 1 | 0.8828 | 0.9941 | 0.9941 | 0.00 % | 0.9570 | 1.0000 | 1.0000 | 0.00 % |
+| 2 | 0.8887 | 0.9219 | 0.9141 | 0.85 % | 0.9844 | 0.8770 | **0.8047** | **8.24 %** |
+| 3 | 0.9551 | 0.9883 | 0.9922 | 0.40 % | 0.9707 | 0.9785 | 0.9824 | 0.40 % |
+| 4 | 0.9336 | 1.0000 | 1.0000 | 0.00 % | 0.9941 | 1.0000 | 1.0000 | 0.00 % |
+| 5 | 0.8633 | 0.9746 | 0.9902 | 1.60 % | 0.9980 | 1.0000 | 1.0000 | 0.00 % |
+| 6 | 0.8574 | 1.0000 | 1.0000 | 0.00 % | 1.0000 | 0.9980 | 0.9980 | 0.00 % |
+| 7 | 0.8672 | 1.0000 | 1.0000 | 0.00 % | 0.9746 | 1.0000 | 1.0000 | 0.00 % |
+| 8 | 0.8828 | 1.0000 | 1.0000 | 0.00 % | 0.9766 | 0.9922 | 0.9980 | 0.59 % |
+| 9 | 0.8496 | 1.0000 | 1.0000 | 0.00 % | 1.0000 | 1.0000 | 1.0000 | 0.00 % |
+
+Convergence by the study's own rule (B9: < 5 % change between the last two checkpoints, here
+90,000 → 100,000): **MLP 10/10 settled** (2/10 at the 25k budget, B3), **transformer 9/10** — seed 2's
+fraction fell from 0.877 to 0.805 in the last 10,000 steps and is still moving. So at 100,000 steps the one
+unsettled metric–seed pair in the block sits on the transformer side. All 20 runs stay generalized (minimum
+final test accuracy 0.9992; no de-grokking).
+
+What this settles: §5.1's prediction — a longer budget shrinks the gap — holds, and the "fixed-budget
+comparison" caveat now has a measured endpoint for this one metric. What it does not settle: every other
+number in this document is still a 25,000-step number.
+
+### 16.3 The gate at 100,000 steps: `neither_passes`, as D6 predicted (v)
+
+| criterion | transformer | MLP |
+|---|---|---|
+| G1 structure | 10/10 | 10/10 |
+| G2 phase relation | 10/10 | 10/10 |
+| G3 end-to-end formula | 10/10 | 10/10 |
+| G4 causality | **0/10** | **0/10** |
+
+Identical pass pattern to §3. D6 said a longer budget would make G4 *less* discriminating, because the
+structured set grows; at 100,000 steps that set is ~100 % of the live neurons in both architectures, so the
+size-matched control has nothing left to contrast against. Verdict unchanged, reason confirmed.
+
+### 16.4 Key-frequency counts at 100,000 steps (v)
+
+Per selection rule, median (range) over 10 seeds, from the runs' frozen `key_frequencies/step100000.json`;
+the 25,000-step values of §5 alongside:
+
+| rule | transformer @100k | transformer @25k | MLP @100k | MLP @25k |
+|---|---|---|---|---|
+| `nanda` (primary) | **4.5** (3–5) | 4.5 (3–8) | **11** (9–12) | 12 (9–14) |
+| `neuron_clusters` | 4 (3–5) | 4 (3–5) | 8 (7–9) | 9 (8–11) |
+| `embedding_threshold` | 5 (3–6) | 5 (3–5) | 7 (7–9) | 9 (8–10) |
+| `logit_sum_directions` | 4 (3–5) | 3.5 (2–5) | 7 (6–9) | 7 (6–9) |
+| `embedding_top8` | 5 (3–6) | 5 (3–5) | 7 (7–8) | 8 (8–8) |
+
+The count difference — roughly 4–5 against 11 — is stable across budgets and across all five rules. *Which*
+frequencies: seed-dependent in both architectures at 25k (§5) and, per the reviewer's S3 (16.6), at 100k.
+
+### 16.5 Attention at 100,000 steps (v)
+
+Median Δ test accuracy over the 10 transformer seeds, from the runs' frozen `causal_ablation/step100000.json`,
+with §6's 25,000-step values:
+
+| ablation | @100k | @25k (§6) |
+|---|---|---|
+| `fix_attention_to_mean` | **−0.415** (−0.549 … −0.375) | −0.336 (−0.506 … −0.201) |
+| `ablate_head_k__mean`, k = 0…3 | −0.519 / −0.523 / −0.493 / −0.548 | −0.487 / −0.476 / −0.460 / −0.463 |
+| `ablate_head_k__zero`, k = 0…3 | −0.537 / −0.532 / −0.562 / −0.598 | −0.471 / −0.464 / −0.443 / −0.491 |
+
+The input-dependent part of attention costs more at 100k than at 25k. As in §6, this shows attention is
+load-bearing; it does not show that attention is *why* the transformer uses fewer frequencies.
+
+### 16.6 The reviewer's own analyses on the S1 checkpoints (r)
+
+Reported from [`docs/external/S2_S3_FINDINGS.md`](docs/external/S2_S3_FINDINGS.md); outputs in
+`training/results/external/conv100k/`. The scripts are **not** in the bundle, so none of this has been
+re-derived here.
+
+**S2 — leave-one-out causal ranking** (no spectral quantity enters the ranking), fixed cardinality grid,
+50 random same-size controls. Median over 10 seeds:
+
+| quantity | MLP | transformer |
+|---|---|---|
+| k\* necessity (remove-top-k test acc < 0.5) | 320 (62 %) | 128 (25 %) |
+| random-order necessity at that k | acc ≈ 1.0 | acc ≈ 0.996 |
+| k\* sufficiency (keep-top-k acc ≥ 0.9) | 192 (= random control) | 512, never below the full set (random control: 256) |
+| neurons holding 90 % of one key frequency's power | ~50 (43–62) | ~93 (81–124) |
+| Spearman, causal rank vs IPR rank | 0.37 | 0.52 |
+
+Reported pattern: in the MLP the causal ranking buys nothing over random in either direction; in the
+transformer the top quarter of neurons is collectively necessary but not sufficient. No group of tens of
+neurons is decisive in either — consistent with §6.1's final-checkpoint result under a different ranking.
+
+**S2b — percentile ablation ranked by each run's own key-frequency power**, against random and against a
+non-key-power ranking. Median test accuracy after removal:
+
+| removed | MLP key-ranked | MLP random | transformer key-ranked | transformer non-key-ranked | transformer random |
+|---|---|---|---|---|---|
+| 1 % (5) | 1.000 | 1.000 | 0.999 | 0.999 | 1.000 |
+| 5 % (26) | 1.000 | 1.000 | 0.947 | 0.919 | 1.000 |
+| 10 % (51) | 1.000 | 1.000 | 0.874 | 0.873 | 1.000 |
+| 25 % (128) | 0.984 | 1.000 | 0.540 | 0.486 | 0.997 |
+| 50 % (256) | 0.516 | 0.997 | 0.211 | 0.138 | 0.941 |
+
+Reported diagnostics: in the MLP the key and non-key rankings pick disjoint neurons (overlap 0.00 at
+1–10 %), i.e. frequency-specialised clusters; in the transformer the two rankings select nearly the same
+neurons (correlation 0.965, overlap ≈ 1.0), i.e. its high-power neurons carry all of its frequencies at
+once. This is the same asymmetry §6.1 measured at 25k with the structure-score ranking (MLP discriminable
+only from 50 %, transformer from 5 %).
+
+**S3 — frequency-family comparison across the 20 runs**, every family-aware number next to a size-matched
+random-set null: within-architecture, cross-architecture and family-aware Jaccard all sit at the null; no
+frequency is used by ≥ 8 of 10 seeds in either architecture (maximum 5/10, MLP frequency 4; 3/10,
+transformer frequency 52); within a run the five selection rules agree (pairwise Jaccard 0.68–1.00). The
+reported architecture difference is the *number* of frequencies (16.4), not their identity.
+
+### 16.7 The two-hot control at 10 seeds (v for the runs and counts, r for S2)
+
+Seeds 0–2 reproduce our three Windows runs behaviourally — identical split hashes; memorization step
+230/230/230 against our 230/240/230; generalization step 12,575/14,100/12,125 against our
+12,775/13,300/12,500 (v). Key-frequency counts at 25,000 steps from the runs' frozen artifacts (v): `nanda`
+selects **all 56 frequencies in 10 of 10 seeds** (our three: 56/56/56), `neuron_clusters` 16 (12–19) against
+our 14 (13–15), `logit_sum_directions` 0 in every seed — the rules disagree wildly, unlike the
+shared-embedding models, because the two-hot logit map's spectrum is flat. Structured fraction of live
+neurons 0.64–0.71, settled 6/10 (r). The reviewer's S2 on these checkpoints (r): k\* necessity 192, k\*
+sufficiency 192 against a random control of 384, causal-vs-IPR Spearman 0.87–0.89, identical across all
+10 seeds — the one configuration of the three where a ranked group is both necessary and sufficient and
+beats its control.
+
+Reported reading, for the authors to weigh (D9): changing only the input parametrization removes the
+shared-embedding MLP's pattern, so "architecture" in any causal claim here must include the embedding.
+
+### 16.8 Caveats
+
+- **Platform.** S1 ran on Linux x86_64; our blocks on Windows AMD64, same torch and numpy. The S1 runs' own
+  step-25,000 medians are 0.876 (MLP) and 0.989 (transformer) against our 0.885 and 0.982 — same seeds,
+  different platform, third-decimal drift. This is why the runbook's reproduction condition exists, and it
+  has not been met.
+- **Scripts.** S2, S2b and S3 (and the two-hot S2) were produced by scripts that are not in the bundle;
+  requested 2026-09-08. Until they arrive, 16.6 and the S2 part of 16.7 are the reviewer's numbers.
+- **`run_manifest.csv`** in the bundle does not index the S1 runs; the index is `aggregate_conv100k/index.json`.
+- **Nothing here reopens the gate**, and no 25,000-step number in §1–§15 was changed.
+
+---

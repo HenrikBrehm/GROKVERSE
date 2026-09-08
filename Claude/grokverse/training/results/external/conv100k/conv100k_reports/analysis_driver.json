@@ -1,0 +1,2653 @@
+{
+  "runs": [
+    "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+    "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+    "txf_add_p113_wd1.0_frac0.3_seed9_conv100k"
+  ],
+  "points": [
+    "crossing",
+    "final"
+  ],
+  "key_rule": "nanda",
+  "seed": 0,
+  "n_calls": 260,
+  "analysis_git_commit": "42dd79a49225abe33f1b4f144acb98ec26d47f69",
+  "started_utc": "2026-09-05T20:49:51.805496+00:00",
+  "outcomes": [
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "transformer_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'mlp'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "mlp_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "mlp_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "mlp_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "mlp_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "mlp_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "mlp_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "mlp_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "mlp_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "mlp_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "mlp_mechanism",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "wave_fitting",
+      "point": "",
+      "step": null,
+      "status": "skipped",
+      "detail": "not defined for arch 'transformer'",
+      "seconds": 0.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 93.41
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 31.92
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9250,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.23
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.24
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9250,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.68
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.38
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9250,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.35
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.64
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9250,
+      "status": "ok",
+      "detail": "",
+      "seconds": 21.11
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.5
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9250,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.73
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.11
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9250,
+      "status": "ok",
+      "detail": "",
+      "seconds": 68.42
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 50.39
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 92.44
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 31.4
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9775,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.23
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.22
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9775,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.62
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.39
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9775,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.35
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.64
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9775,
+      "status": "ok",
+      "detail": "",
+      "seconds": 19.11
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.25
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9775,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.79
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.13
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9775,
+      "status": "ok",
+      "detail": "",
+      "seconds": 70.81
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 53.93
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 88.31
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 30.82
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.22
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.21
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.59
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.37
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.32
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.64
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 20.67
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.25
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.66
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.01
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 57.55
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 47.54
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 87.17
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 27.11
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.22
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.21
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.64
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.33
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.39
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.62
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 21.85
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.9
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.73
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.98
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8125,
+      "status": "ok",
+      "detail": "",
+      "seconds": 57.89
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 49.54
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 86.71
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 27.48
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8675,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.22
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.21
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 8675,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.6
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.3
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 8675,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.31
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.61
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 8675,
+      "status": "ok",
+      "detail": "",
+      "seconds": 20.44
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.91
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 8675,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.66
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.08
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8675,
+      "status": "ok",
+      "detail": "",
+      "seconds": 59.99
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 44.97
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 92.26
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 32.09
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.22
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.2
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.64
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.33
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.36
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.63
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 22.45
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.65
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.71
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.04
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 66.2
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 50.69
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 93.98
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 32.56
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9725,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.22
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.21
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9725,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.64
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.37
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9725,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.35
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.63
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9725,
+      "status": "ok",
+      "detail": "",
+      "seconds": 20.41
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.02
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9725,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.73
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.97
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9725,
+      "status": "ok",
+      "detail": "",
+      "seconds": 69.12
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 48.71
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 92.66
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 31.44
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.22
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.2
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.62
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.35
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.32
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.64
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 18.03
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.41
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.69
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.09
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9325,
+      "status": "ok",
+      "detail": "",
+      "seconds": 68.5
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 49.7
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 90.5
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 29.51
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9700,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.21
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.21
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9700,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.65
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.37
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9700,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.36
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.61
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9700,
+      "status": "ok",
+      "detail": "",
+      "seconds": 20.43
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.78
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9700,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.75
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.01
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9700,
+      "status": "ok",
+      "detail": "",
+      "seconds": 59.97
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 44.87
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 93.06
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 31.45
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 9550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.21
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.2
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "mlp_mechanism",
+      "point": "crossing",
+      "step": 9550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.59
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "mlp_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.32
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "wave_fitting",
+      "point": "crossing",
+      "step": 9550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 1.35
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "wave_fitting",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.61
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 9550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 24.93
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.61
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 9550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.72
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.0
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 9550,
+      "status": "ok",
+      "detail": "",
+      "seconds": 64.22
+    },
+    {
+      "run": "mlp_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 45.85
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 117.01
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 29.76
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.76
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.95
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "transformer_mechanism",
+      "point": "crossing",
+      "step": 8100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.09
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "transformer_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.45
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 8100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.85
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.98
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 8100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.46
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.03
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 156.71
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed0_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 142.98
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 113.0
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 27.84
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 6650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.76
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.96
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "transformer_mechanism",
+      "point": "crossing",
+      "step": 6650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.35
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "transformer_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.29
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 6650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.59
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.94
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 6650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.49
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.15
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 6650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 155.15
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed1_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 143.84
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 114.8
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 28.57
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.75
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.94
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "transformer_mechanism",
+      "point": "crossing",
+      "step": 8650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.22
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "transformer_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.24
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 8650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.61
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.85
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 8650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.48
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.04
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 154.55
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed2_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 154.66
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 115.95
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 29.26
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 7650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.76
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.94
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "transformer_mechanism",
+      "point": "crossing",
+      "step": 7650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 8.99
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "transformer_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.28
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 7650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.1
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.81
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 7650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.46
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.13
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 7650,
+      "status": "ok",
+      "detail": "",
+      "seconds": 157.69
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed3_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 144.29
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 112.71
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 26.61
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 10150,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.77
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.95
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "transformer_mechanism",
+      "point": "crossing",
+      "step": 10150,
+      "status": "ok",
+      "detail": "",
+      "seconds": 8.8
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "transformer_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.16
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 10150,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.84
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.59
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 10150,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.41
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.92
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 10150,
+      "status": "ok",
+      "detail": "",
+      "seconds": 152.63
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed4_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 140.58
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 111.97
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 25.55
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 6275,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.76
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.95
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "transformer_mechanism",
+      "point": "crossing",
+      "step": 6275,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.07
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "transformer_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.65
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 6275,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.19
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.47
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 6275,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.52
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.94
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 6275,
+      "status": "ok",
+      "detail": "",
+      "seconds": 175.22
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed5_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 152.61
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 122.54
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 28.63
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 5425,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.77
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.95
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "transformer_mechanism",
+      "point": "crossing",
+      "step": 5425,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.12
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "transformer_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.32
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 5425,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.73
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.91
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 5425,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.46
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.93
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 5425,
+      "status": "ok",
+      "detail": "",
+      "seconds": 156.78
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed6_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 145.4
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 115.03
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 28.07
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.76
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.94
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "transformer_mechanism",
+      "point": "crossing",
+      "step": 8100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.15
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "transformer_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.43
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 8100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.46
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.47
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 8100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.46
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.16
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8100,
+      "status": "ok",
+      "detail": "",
+      "seconds": 160.15
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed7_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 144.13
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 115.1
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 28.81
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 8175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.79
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.95
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "transformer_mechanism",
+      "point": "crossing",
+      "step": 8175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.13
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "transformer_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.66
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 8175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.39
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.7
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 8175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.46
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.93
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 8175,
+      "status": "ok",
+      "detail": "",
+      "seconds": 163.44
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed8_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 148.48
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "structure_over_time",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 114.69
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "progress_measures",
+      "point": "",
+      "step": null,
+      "status": "ok",
+      "detail": "",
+      "seconds": 30.29
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "key_frequencies",
+      "point": "crossing",
+      "step": 5750,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.79
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "key_frequencies",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 0.97
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "transformer_mechanism",
+      "point": "crossing",
+      "step": 5750,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.24
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "transformer_mechanism",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 9.71
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "logit_formula_fit",
+      "point": "crossing",
+      "step": 5750,
+      "status": "ok",
+      "detail": "",
+      "seconds": 2.86
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "logit_formula_fit",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 3.03
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "h3_validity",
+      "point": "crossing",
+      "step": 5750,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.49
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "h3_validity",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 4.02
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "causal_ablation",
+      "point": "crossing",
+      "step": 5750,
+      "status": "ok",
+      "detail": "",
+      "seconds": 164.01
+    },
+    {
+      "run": "txf_add_p113_wd1.0_frac0.3_seed9_conv100k",
+      "module": "causal_ablation",
+      "point": "final",
+      "step": 100000,
+      "status": "ok",
+      "detail": "",
+      "seconds": 146.06
+    }
+  ],
+  "summary": {
+    "counts": {
+      "skipped": 30,
+      "ok": 260
+    },
+    "failed": [],
+    "missing_modules": []
+  }
+}

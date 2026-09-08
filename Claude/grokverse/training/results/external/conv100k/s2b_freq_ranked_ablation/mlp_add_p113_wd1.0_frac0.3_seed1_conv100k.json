@@ -1,0 +1,193 @@
+{
+ "run_id": "mlp_add_p113_wd1.0_frac0.3_seed1_conv100k",
+ "arch": "mlp",
+ "seed": 1,
+ "n_neurons": 512,
+ "n_alive": 512,
+ "key_frequencies": [
+  1,
+  6,
+  16,
+  18,
+  26,
+  29,
+  33,
+  36,
+  37,
+  52,
+  56
+ ],
+ "params": {
+  "percents": [
+   1,
+   5,
+   10,
+   25,
+   50
+  ],
+  "n_control": 50,
+  "ranking": "summed u_a+u_b power at primary key frequencies, desc",
+  "rng_seed": 1
+ },
+ "baseline": {
+  "train_loss": 1.107681543554893e-06,
+  "test_loss": 7.352994601509812e-06,
+  "train_acc": 1.0,
+  "test_acc": 1.0
+ },
+ "cuts": [
+  {
+   "percent": 1,
+   "k": 5,
+   "removed_key_power_share": 0.018701569718999955,
+   "removed_nonkey_power_share": 0.0031243397042945284,
+   "observed": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 14.133395525289727
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 14.239850461904705
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "26": 5
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 5,
+   "k": 26,
+   "removed_key_power_share": 0.08945938852916233,
+   "removed_nonkey_power_share": 0.01411750958368062,
+   "observed": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 11.729164073545112
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 12.811246099193887
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "16": 1,
+    "18": 4,
+    "26": 21
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 10,
+   "k": 51,
+   "removed_key_power_share": 0.16505820184696207,
+   "removed_nonkey_power_share": 0.02545981976151608,
+   "observed": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 10.001859492360447
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 11.90925046822706
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "16": 6,
+    "18": 14,
+    "26": 31
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 25,
+   "k": 128,
+   "removed_key_power_share": 0.3776108719018647,
+   "removed_nonkey_power_share": 0.10050138914327893,
+   "observed": {
+    "test_acc": 0.9992168270306556,
+    "train_acc": 1.0,
+    "margin": 5.633025678718564
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 8.851795710360241
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "6": 6,
+    "16": 32,
+    "18": 37,
+    "26": 45,
+    "29": 5,
+    "56": 3
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 50,
+   "k": 256,
+   "removed_key_power_share": 0.6739139703238208,
+   "removed_nonkey_power_share": 0.22392268499868245,
+   "observed": {
+    "test_acc": 0.8027522935779816,
+    "train_acc": 0.9002871312973114,
+    "margin": 1.1066426161030427
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.9586037144775117,
+    "train_acc": 0.9874706342991386,
+    "margin": 2.6702004735470255
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.9974916088610428,
+    "test_acc_q05": 0.9856847169389125,
+    "test_acc_q95": 0.9999496531662564
+   },
+   "z_vs_random": 49.909555843504215,
+   "removed_group_dominant_freq_hist": {
+    "1": 2,
+    "6": 40,
+    "16": 58,
+    "18": 51,
+    "26": 51,
+    "29": 38,
+    "33": 6,
+    "37": 4,
+    "56": 6
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  }
+ ],
+ "elapsed_seconds": 2.88
+}

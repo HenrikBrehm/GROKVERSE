@@ -413,3 +413,42 @@ Human review of `docs/HUMAN_DECISIONS.md`, now including **D7** and **D8**.
 - `git branch -r --contains 1076dee` -> `origin/GROKVERSE-MP`; `git log --oneline origin/GROKVERSE-MP..HEAD` -> 4 commits; `git branch -r` -> no `arch-study-convergence`.
 - `Claude/grokverse/RESULTS.md` 3, 5, 6, 6.1, 11; `training/results/aggregate/TABLES.md` (`key_frequencies` block); `training/runs/*_frac0.3_seed?_arch25k/analysis/key_frequencies/step025000.json`.
 - `.gitignore` (line 2); `GROKVERSE/Mentoring/` (local).
+
+---
+
+## 2026-09-08
+
+### What was done
+- Received the external reviewer's data bundle (`grokverse_run_data.zip`, 1.33 GB, SHA-256 `c6e532ef…add44`, via a presigned S3 link valid 24 h): the 100,000-step convergence block S1 (20 runs, run 2026-09-05 on the reviewer's AWS EC2 `c7i.16xlarge`), the two-hot control at 10 seeds (2026-09-07), the executed source tree with git history, and four reviewer-authored documents. Unpacked into the gitignored `Claude/grokverse/training/external/`; small outputs copied to `training/results/external/`, documents to `docs/external/` (verbatim); the reviewer's branch `arch-study-convergence` fetched from the bundled tree as a local branch, not pushed.
+- Verified the bundle against this repository: 30/30 manifests at commit `42dd79a` (= our `fda066e` + `CHECKPOINT_GRID` entries above 25,000 + runbook, nothing else), 23/23 split hashes identical to ours per seed, 829/829 checkpoint SHA-256 match; the frozen `decision_tree`, `statistics_report`, `h3_report`, `h4_report` re-run on the bundle's aggregate reproduce the reviewer's reports byte-for-byte apart from timestamps and paths; the reviewer's per-seed table recomputed from raw trajectories, every value agrees.
+- Wrote `RESULTS.md` §16 (separate, labelled; (v)/(r) marks), appended the measured endpoint to `LIMITATIONS.md` B3, noted the external block in `PREREGISTRATION.md` §12, added disclosure rows and a new §9 "External input" to `AI_DISCLOSURE.md`, escalated **D9**, updated `README.md`, labbook entry 110, `PROGRESS.md`.
+- Archived Henrik's reply and today's chat messages in `GROKVERSE/Mentoring/` (file renamed to the 2026-09-08 range; contributions table and open items updated). No result file above §16 and no code was changed.
+
+### Results
+- At 100,000 steps the MLP's structured fraction settles (10/10 seeds; 2/10 at 25k) at a median of 1.0000, as does the transformer's; the 25k gap of +0.0977 closes to 0.0000. The one unsettled seed is now transformer seed 2 (0.877 → 0.805 between 90k and 100k, still moving). All 20 runs stay generalized (min test acc 0.9992).
+- The gate at 100k is `neither_passes` with the same G1–G3 10/10, G4 0/10 pattern — D6's prediction (a larger structured set makes the size-matched control less discriminating) confirmed.
+- Key-frequency counts at 100k: 4.5 (3–5) vs 11 (9–12) under `nanda`, 4 vs 8 under `neuron_clusters`; the count difference holds at both budgets under all five rules.
+- Attention at 100k: fixing attention to its mean costs 0.415 (25k: 0.336); single heads 0.49–0.55.
+- The reviewer's own S2/S2b/S3 (reported only): the transformer's top quarter of LOO-ranked neurons is collectively necessary but not sufficient; the MLP's ranking buys nothing over random; key-frequency-ranked percentile removal harms the transformer from 5 % and the MLP from 50 %, matching our §6.1 asymmetry under a different ranking; frequency sets sit at the size-matched null in both architectures.
+- Two-hot at 10 seeds: `nanda` selects all 56 frequencies in every seed (our three: the same); seeds 0–2 reproduce our runs behaviourally.
+- The "+0.085 vs +0.0977" note in the reviewer's findings is not a discrepancy: paired per-seed median under the family definition vs difference of the per-architecture medians, same metric, same block.
+- **Missing:** the three scripts behind S2/S2b/S3 (`training/run_s2_ranked_ablation.py`, `run_s2b_freq_ranked_ablation.py`, `run_s3_frequency_families.py`) are neither in the bundle nor in the bundled source tree; those numbers cannot be re-derived here.
+
+### Decisions
+- Bulk data (1.5 GB) stays out of git (`training/external/` gitignored, like `training/runs/`); the reviewer's small outputs and documents are tracked as unmodified copies so `RESULTS.md` §16 can cite them.
+- The reviewer's `CHECKPOINT_GRID` extension is not merged; it is disclosed as a declared deviation on the reviewer's branch and left to D9.
+- The reviewer's documents are stored verbatim, including the runbook that names the reviewer; this repository's own documents keep "external reviewer". The bundled git history (work e-mail as commit author) stays out of git. Naming is the authors' call (D9).
+- The reviewer's branch is held locally and **not pushed**; nothing was pushed this session.
+- The local 100k reproduction (runbook §0.3, ≈ 20 CPU-hours) was not started: compute is a human decision (`AI_DISCLOSURE.md` §1).
+
+### Open tasks
+- [ ] **D9** — accept the external block on the runbook's terms? competition rules on external compute? name the reviewer? merge the grid?
+- [ ] Ask the reviewer for the three S2/S2b/S3 scripts (draft reply in `GROKVERSE/Mentoring/Antwort-Entwurf 2026-09-08.md`).
+- [ ] Decide whether to add the reviewer (`CatiaV5`) as a collaborator on the public repository — her question of 2026-09-08.
+- [ ] Reproduce ≥ 1 seed pair at 100,000 steps locally before any S1 number is used (MLP ≈ 3.6 h, transformer ≈ 16 h) from a worktree of `arch-study-convergence`.
+- [ ] Unchanged and still human-only: the final interpretation, the `AI_DISCLOSURE.md` placeholders (now also §9), the `txf_mul_*` runs, the explorer update.
+
+### Evidence
+- `Claude/grokverse/docs/external/README.md` (provenance and every check) · `RESULTS.md` §16 · `docs/LIMITATIONS.md` B3 · `docs/PREREGISTRATION.md` §12 · `AI_DISCLOSURE.md` §5, §9 · `docs/HUMAN_DECISIONS.md` D9 · `docs/LABBOOK.md` 110 · `PROGRESS.md` 2026-09-08
+- `training/results/external/` (tracked copies) · `training/external/` (bundle, gitignored) · local branch `arch-study-convergence` at `42dd79a`
+- [[External convergence block S1 at 100k and follow-ups]] · [[Graded structured-neuron ablation]]

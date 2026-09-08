@@ -1,0 +1,190 @@
+{
+ "run_id": "mlp_add_p113_wd1.0_frac0.3_seed3_conv100k",
+ "arch": "mlp",
+ "seed": 3,
+ "n_neurons": 512,
+ "n_alive": 512,
+ "key_frequencies": [
+  4,
+  28,
+  33,
+  36,
+  38,
+  41,
+  50,
+  51,
+  56
+ ],
+ "params": {
+  "percents": [
+   1,
+   5,
+   10,
+   25,
+   50
+  ],
+  "n_control": 50,
+  "ranking": "summed u_a+u_b power at primary key frequencies, desc",
+  "rng_seed": 3
+ },
+ "baseline": {
+  "train_loss": 1.116913847222285e-06,
+  "test_loss": 5.865022345641924e-06,
+  "train_acc": 1.0,
+  "test_acc": 1.0
+ },
+ "cuts": [
+  {
+   "percent": 1,
+   "k": 5,
+   "removed_key_power_share": 0.02390126346692474,
+   "removed_nonkey_power_share": 0.029974930532946767,
+   "observed": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 13.807816832315668
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 14.34485164445192
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "36": 3,
+    "56": 2
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 5,
+   "k": 26,
+   "removed_key_power_share": 0.10760307583575422,
+   "removed_nonkey_power_share": 0.048696725455345084,
+   "observed": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 10.355010085766473
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 11.816472538115567
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "4": 5,
+    "36": 19,
+    "56": 2
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 10,
+   "k": 51,
+   "removed_key_power_share": 0.1996495345338098,
+   "removed_nonkey_power_share": 0.0879716422930546,
+   "observed": {
+    "test_acc": 0.9998881181472365,
+    "train_acc": 1.0,
+    "margin": 8.376655414929996
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 1.0,
+    "train_acc": 1.0,
+    "margin": 10.287554429857797
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 1.0,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": null,
+   "removed_group_dominant_freq_hist": {
+    "4": 5,
+    "36": 39,
+    "50": 2,
+    "56": 5
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 25,
+   "k": 128,
+   "removed_key_power_share": 0.4527390219520072,
+   "removed_nonkey_power_share": 0.2772212255314049,
+   "observed": {
+    "test_acc": 0.9767285746251958,
+    "train_acc": 0.9945184025058731,
+    "margin": 3.660609773855407
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.9996643544417095,
+    "train_acc": 1.0,
+    "margin": 5.3789529840581105
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.9999977623629448,
+    "test_acc_q05": 1.0,
+    "test_acc_q95": 1.0
+   },
+   "z_vs_random": 1485.5714285718368,
+   "removed_group_dominant_freq_hist": {
+    "4": 20,
+    "36": 60,
+    "50": 29,
+    "56": 19
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  },
+  {
+   "percent": 50,
+   "k": 256,
+   "removed_key_power_share": 0.760653524534842,
+   "removed_nonkey_power_share": 0.5281326805736891,
+   "observed": {
+    "test_acc": 0.31684940702618036,
+    "train_acc": 0.4573218480814409,
+    "margin": -0.3368387959286305
+   },
+   "nonkey_ranked_control": {
+    "test_acc": 0.8707764600581785,
+    "train_acc": 0.9464891673192378,
+    "margin": 1.1076332582928372
+   },
+   "random_control": {
+    "n": 50,
+    "test_acc_mean": 0.9939471917654956,
+    "test_acc_q05": 0.9779313045424033,
+    "test_acc_q95": 0.999451778921459
+   },
+   "z_vs_random": 101.5229419738799,
+   "removed_group_dominant_freq_hist": {
+    "4": 49,
+    "28": 3,
+    "33": 2,
+    "36": 61,
+    "38": 12,
+    "50": 55,
+    "51": 43,
+    "56": 31
+   },
+   "removed_group_key_dominant_fraction": 1.0
+  }
+ ],
+ "elapsed_seconds": 2.95
+}
