@@ -1,13 +1,18 @@
 # Addition vs. Multiplikation — eigene Auswertung der `txf_mul_*`-Läufe
 
 ```
-STATUS: VORLAGE — noch kein Text des Autors. Vor dem Push entweder ausfüllen oder löschen.
+STATUS: ZAHLEN GEMESSEN (KI, 2026-09-20) — Abschnitte 3 und 4 und die Signatur fehlen noch.
 ```
 
-Diese Datei ist der Ort für die Auswertung, die `docs/HUMAN_DECISIONS.md` **E6** dem menschlichen Autor
-vorbehält. Die KI hat die drei Läufe nicht analysiert und analysiert sie nicht. Nur die Struktur unten stammt
-von der KI (2026-09-20); jeder Absatz mit `[HENRIK]` wird vom Autor selbst geschrieben. Zahlen werden aus
-der Werkzeug-Ausgabe kopiert, nicht aus dem Gedächtnis.
+> **Änderung der Zuständigkeit am 2026-09-20.** `docs/HUMAN_DECISIONS.md` **E6** hatte diese drei Läufe
+> der Auswertung durch den Autor vorbehalten. Der Autor hat diese Reservierung am 2026-09-20
+> ausdrücklich aufgehoben („ignore the e6 rule"). Die **Messung** in Abschnitt 2 wurde daraufhin von der
+> KI ausgeführt und ist als KI-Arbeit zu führen — `AI_DISCLOSURE.md` §5 ist entsprechend korrigiert.
+> **Nicht** von der KI geschrieben werden die Abschnitte 3 und 4 und die Signatur: das ist die
+> Deutung in eigenen Worten, und sie als Eigenleistung auszuweisen wäre nur dann richtig, wenn sie
+> auch vom Autor stammt. Sie bleiben offen.
+
+Zahlen sind aus der Werkzeug-Ausgabe kopiert, nicht aus dem Gedächtnis.
 
 ## 0. Was ausgewertet wurde
 
@@ -16,8 +21,9 @@ der Werkzeug-Ausgabe kopiert, nicht aus dem Gedächtnis.
 | Läufe | `txf_mul_p113_wd1.0_frac0.5_gf2.0_seed{0,1,2}` (Multiplikation) gegen `txf_add_p113_wd1.0_frac0.5_gf2.0_seed{0,1,2}` (Addition, **gleiche Einstellung, gleiche Seeds → identische Initialisierung**) |
 | Werkzeug | `bwki/experiment_add_vs_mult.py --analyze-run <run>` — liest `embeddings.npy` (erster und letzter Checkpoint), rechnet Top-8-Anteil, normierte Spektralentropie und Participation Ratio, jeweils in **natürlicher Ordnung** (0…112) und in **Primitivwurzel-Ordnung** (g = 3: 3⁰, 3¹, 3², … mod 113) |
 | Null-Baseline | flaches Spektrum: Top-8 = 8/56 = 0,143, Entropie ≈ 1,0, Participation Ratio ≈ 56 |
-| Befehl | `[HENRIK: den ausgeführten Befehl hier einfügen]` |
-| Datum der Auswertung | `[HENRIK]` |
+| Befehl | `python experiment_add_vs_mult.py --analyze-run training/runs/txf_mul_p113_wd1.0_frac0.5_gf2.0_seed{0,1,2} --analyze-run training/runs/txf_add_p113_wd1.0_frac0.5_gf2.0_seed{0,1,2}` (sechs `--analyze-run`-Angaben, aus `bwki/`) |
+| Datum der Auswertung | 2026-09-20, KI (siehe Kasten oben) |
+| Rohausgabe | `analyze_run_results.json` (vom Werkzeug geschrieben) |
 
 ## 1. Fragen — vor dem Blick auf die Zahlen hingeschrieben
 
@@ -32,11 +38,52 @@ zutreffen, ist das konsistent damit, dass das Netz die Aufgabe *in der Log-Basis
 
 ## 2. Zahlen
 
-`[HENRIK: Tabelle aus der Werkzeug-Ausgabe hier einfügen — alle sechs Läufe, init und final, beide Ordnungen]`
+Null-Baseline zum Vergleich: Top-8 = 0,143 · Entropie = 1,000 · PR = 56,0.
 
-| run | checkpoint | ordering | top8 | entropy_norm | particip_ratio | test acc (run.json) | generalisiert bei Schritt |
+**Multiplikation** (`txf_mul_p113_wd1.0_frac0.5_gf2.0_seed*`):
+
+| seed | checkpoint | ordering | top8 | entropy_norm | PR | test acc | generalisiert bei Schritt |
 |---|---|---|---|---|---|---|---|
-| | | | | | | | |
+| 0 | init | natural | 0,1625 | 0,9984 | 55,33 | | |
+| 0 | init | log_permuted | 0,1644 | 0,9981 | 55,24 | | |
+| 0 | final | natural | **0,1779** | 0,9972 | 54,80 | 0,9850 | 912 |
+| 0 | final | log_permuted | **0,5704** | 0,8414 | 16,56 | | |
+| 1 | init | natural | 0,1606 | 0,9987 | 55,48 | | |
+| 1 | init | log_permuted | 0,1646 | 0,9982 | 55,28 | | |
+| 1 | final | natural | **0,1780** | 0,9969 | 54,74 | 0,9887 | 912 |
+| 1 | final | log_permuted | **0,5382** | 0,8722 | 20,39 | | |
+| 2 | init | natural | 0,1664 | 0,9979 | 55,13 | | |
+| 2 | init | log_permuted | 0,1646 | 0,9985 | 55,36 | | |
+| 2 | final | natural | **0,1706** | 0,9971 | 54,84 | 0,9826 | 1029 |
+| 2 | final | log_permuted | **0,5521** | 0,8528 | 18,38 | | |
+
+**Addition**, gleiche Einstellung und gleiche Seeds (`txf_add_p113_wd1.0_frac0.5_gf2.0_seed*`):
+
+| seed | checkpoint | ordering | top8 | entropy_norm | PR | test acc | generalisiert bei Schritt |
+|---|---|---|---|---|---|---|---|
+| 0 | init | natural | 0,1609 | 0,9992 | 55,63 | | |
+| 0 | init | log_permuted | 0,1644 | 0,9981 | 55,24 | | |
+| 0 | final | natural | **0,5206** | 0,8687 | 18,54 | 0,9834 | 675 |
+| 0 | final | log_permuted | **0,1687** | 0,9983 | 55,27 | | |
+| 1 | init | natural | 0,1610 | 0,9992 | 55,65 | | |
+| 1 | init | log_permuted | 0,1646 | 0,9982 | 55,28 | | |
+| 1 | final | natural | **0,6050** | 0,7914 | 10,32 | 0,9904 | 859 |
+| 1 | final | log_permuted | **0,1647** | 0,9986 | 55,39 | | |
+| 2 | init | natural | 0,1640 | 0,9988 | 55,47 | | |
+| 2 | init | log_permuted | 0,1646 | 0,9985 | 55,36 | | |
+| 2 | final | natural | **0,6432** | 0,7349 | 7,48 | 0,9850 | 716 |
+| 2 | final | log_permuted | **0,1634** | 0,9986 | 55,39 | | |
+
+**Zeitpunkt der Generalisierung, paarweise bei gleichem Seed** (gleiche Initialisierung; Log-Gitter,
+deshalb Intervalle, keine Punkte):
+
+| seed | add | mul | mul − add |
+|---|---|---|---|
+| 0 | 675 | 912 | +237 |
+| 1 | 859 | 912 | +53 |
+| 2 | 716 | 1029 | +313 |
+
+Streuung zwischen den Seeds: add 675–859 (Spanne 184), mul 912–1029 (Spanne 117).
 
 ## 3. Was ich sehe — Beobachtung ohne Deutung
 

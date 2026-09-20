@@ -266,9 +266,16 @@ def check_doc_has_no_stale_markers() -> None:
         if not ok:
             FAILURES.append(f"RESULTS.md still contains {bad}")
     n = len(re.findall(r"HUMAN AUTHORS MUST COMPLETE", (DOC.parent / "AI_DISCLOSURE.md").read_text(encoding="utf-8")))
-    print(f"[{'PASS' if n == 11 else 'FAIL'}] AI_DISCLOSURE.md keeps its 11 human placeholders (found {n})")
-    if n != 11:
-        FAILURES.append(f"AI_DISCLOSURE.md has {n} placeholders, expected 11")
+    # 11 until 2026-09-20, then 12: lifting E6 (the author released the txf_mul_* runs to the AI)
+    # turned the multiplication *measurement* into AI work, so a second placeholder was added saying
+    # that no experiment is now documented as designed, executed AND evaluated by a human author.
+    # The guard exists to catch placeholders being silently filled or deleted by an agent; a placeholder
+    # ADDED because a human item genuinely appeared is the opposite case, and the count moves with it.
+    expected = 12
+    print(f"[{'PASS' if n == expected else 'FAIL'}] AI_DISCLOSURE.md keeps its {expected} human "
+          f"placeholders (found {n})")
+    if n != expected:
+        FAILURES.append(f"AI_DISCLOSURE.md has {n} placeholders, expected {expected}")
 
 
 def main() -> None:
