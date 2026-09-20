@@ -111,9 +111,9 @@ human authors' tasks under `docs/HUMAN_DECISIONS.md` D9 — this section is not 
 None of the above changed a threshold, definition or pass rule of the frozen study; the decisions listed in §1
 remain as stated.
 
-### 9b. A second external input — a colleague's audit document (received 2026-09-20)
+### 9b. A second input — the co-author's audit document (received 2026-09-20)
 
-Ali Kandora, a colleague of the author, sent an AI-generated "four-phase
+Ali Kandora, **co-author of this project** (`docs/RESEARCH_SPEC.md` lists him under Authors; the role was confirmed by the author on 2026-09-20), sent an AI-generated "four-phase
 audit" of GROKVERSE (`bwki/grokverse_scientific_audit.md`) and an add-vs-mul experiment script, both produced
 outside this repository. The AI checked them on 2026-09-20: the audit assessed the **archived pre-2026-09-02
 snapshot** (its numbers come from `archive/…/PROGRESS.md`), so its critique items K1, K2, K3, K5 and K8 describe
@@ -126,7 +126,7 @@ ordering idea is Power et al. 2022 §3.2 (`docs/sources/power2022_and_grokfast20
 the script, after the AI corrected its Fourier basis over ℤ₁₁₂ (114 rows for a 112-dimensional space: a
 degenerate sine row normalised to noise and a duplicated Nyquist row; now 112 rows, orthonormal to 7.6e-15,
 Parseval to 6e-16, checked by `--self-test`) and added an `--analyze-run` mode that reads a run's
-`embeddings.npy` without retraining (`bwki/experiment_add_vs_mult.py`; the colleague's original kept unmodified
+`embeddings.npy` without retraining (`bwki/experiment_add_vs_mult.py`; the co-author's original kept unmodified
 as `experiment_add_vs_mult (1).py`). **Not taken over:** the audit's "proof" and its recommendation table. The AI
 did **not** run the tool on, or read the metrics of, the `txf_mul_*` runs (E6); `docs/ADD_VS_MUL_EIGENLEISTUNG.md`
 is an empty template for the author's own evaluation.

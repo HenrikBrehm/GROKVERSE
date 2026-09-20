@@ -151,7 +151,7 @@ Participation Ratio daneben lesen; die Transition liegt auf einem Log-Gitter (In
 
 | | |
 |---|---|
-| KI | Skript `experiment_add_vs_mult.py` (Entwurf von Ali Kandora, einem Kollegen des Autors; Fourier-Basis-Fehler bei geradem n von der KI korrigiert und per Self-Test verifiziert), der Modus `--analyze-run`, diese Vorlage |
+| KI | Skript `experiment_add_vs_mult.py` (Entwurf von Ali Kandora, Mitautor des Projekts; Fourier-Basis-Fehler bei geradem n von der KI korrigiert und per Self-Test verifiziert), der Modus `--analyze-run`, diese Vorlage |
 | Autor | Hat die Frage gestellt und die Reservierung E6 gesetzt (`docs/HUMAN_DECISIONS.md` E6; `PROGRESS.md` 2026-08-18) und sie am 2026-09-20 aufgehoben. **Offen:** Bestätigung oder Ersetzung von §3 und §4 in eigenen Worten und die Signatur unten. Solange das offen ist, ist diese Auswertung KI-Arbeit und wird in `AI_DISCLOSURE.md` §5 auch so geführt. |
 
 ## Signatur
