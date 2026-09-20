@@ -16,6 +16,7 @@ Full operating manual and plan are imported and binding:
 - Determinism: every run seeded; same config+seed => same curve.
 - Maintain AI_DISCLOSURE.md from day one (BWKI + EU AI Act).
 - Reproduce reality first, make it beautiful second.
+- **E6 — the `txf_mul_*` runs are reserved for the human author's own evaluation** (`docs/HUMAN_DECISIONS.md` E6, `AI_DISCLOSURE.md` §5): do not open their `run.json` or `embeddings.npy`, do not compute, quote or interpret their metrics. The tool `bwki/experiment_add_vs_mult.py --analyze-run` exists for the author to run himself.
 
 ---
 
