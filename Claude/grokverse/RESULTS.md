@@ -740,7 +740,7 @@ blocked on human review (**E3**).
 
 ## 16. Externally executed follow-up blocks at 100,000 steps — verified, reported, not yet reproduced here
 
-> **Status.** The runs in this section were executed by the study's external reviewer on the reviewer (Dr. Jana Stucke)'s own
+> **Status.** The runs in this section were executed by the study's external reviewer, Dr. Jana Stucke, on the reviewer's own
 > AWS account — the 100,000-step convergence block **S1** on 2026-09-05 and the **two-hot control at 10 seeds**
 > on 2026-09-07 — and handed back on 2026-09-08 as an unmodified bundle (provenance, hashes and what was
 > checked: [`docs/external/README.md`](docs/external/README.md)). Nothing above this section was changed by
