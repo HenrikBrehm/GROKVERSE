@@ -147,6 +147,19 @@ export function Explorer() {
 
   return (
     <main style={{ position: "relative", width: "100vw", height: "100vh", overflow: "hidden" }}>
+      {/* Scope notice — the explorer serves the reproduction-phase runs; the pre-registered
+          architecture study is reported in RESULTS.md and not yet reflected here (E3). */}
+      <div data-testid="study-notice" style={{
+        position: "absolute", top: 8, left: "50%", transform: "translateX(-50%)", zIndex: 5,
+        maxWidth: "min(760px, 92vw)", padding: "6px 12px", borderRadius: 8, fontSize: 12, lineHeight: 1.35,
+        color: "#e8ecf5", background: "rgba(10,12,20,0.72)", border: "1px solid rgba(255,255,255,0.12)",
+        backdropFilter: "blur(6px)", textAlign: "center",
+      }}>
+        This explorer shows the <strong>reproduction-phase runs (June 2026)</strong>. The pre-registered
+        architecture study (September 2026, 10 paired seeds, evidence gate <code>neither_passes</code>) is
+        reported in <code>RESULTS.md</code>; this view has not been updated to it (see{" "}
+        <code>docs/dev/EXPLORER_UPDATE_PLAN.md</code>).
+      </div>
       <Canvas camera={{ position: [0, 0, 3.4], fov: 50 }} dpr={[1, 2]} style={{ position: "absolute", inset: 0 }}>
         <EmbeddingView3D run={run} stepF={stepF} autoRotate={!reducedMotion} />
       </Canvas>
