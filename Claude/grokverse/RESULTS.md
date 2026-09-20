@@ -328,7 +328,7 @@ them is not.
 ### 6.1 The graded ablation: there *is* a small load-bearing set — at the transition
 
 §6 point 1 concedes that G4 cannot discriminate because the structured set is 86–100 % of the live
-neurons. An external reviewer raised the same objection independently on 2026-09-05: removing 88–98 %
+neurons. An external reviewer (Dr. Jana Stucke) raised the same objection independently on 2026-09-05: removing 88–98 %
 of a network tells you nothing about *which* neurons mattered. That objection is testable, and
 `docs/PREREGISTRATION.md` §14 pre-registers the test — written before any graded number was inspected,
 human approval open as **D7**.
@@ -740,7 +740,7 @@ blocked on human review (**E3**).
 
 ## 16. Externally executed follow-up blocks at 100,000 steps — verified, reported, not yet reproduced here
 
-> **Status.** The runs in this section were executed by the study's external reviewer on the reviewer's own
+> **Status.** The runs in this section were executed by the study's external reviewer on the reviewer (Dr. Jana Stucke)'s own
 > AWS account — the 100,000-step convergence block **S1** on 2026-09-05 and the **two-hot control at 10 seeds**
 > on 2026-09-07 — and handed back on 2026-09-08 as an unmodified bundle (provenance, hashes and what was
 > checked: [`docs/external/README.md`](docs/external/README.md)). Nothing above this section was changed by

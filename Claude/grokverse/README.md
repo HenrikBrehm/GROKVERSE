@@ -75,7 +75,7 @@ Stated explicitly, because the earlier version of `RESULTS.md` did claim some of
 The architecture study on branch `GROKVERSE-MP` (local name until 2026-09-04: `arch-study`) is complete: **51 runs, all completed, none failed**; 24
 test files and 1,913 automated checks; every threshold frozen before the runs at commit `0b55e1d`.
 
-On 2026-09-08 the study's external reviewer handed back a **100,000-step convergence block** (20 runs, the
+On 2026-09-08 the study's external reviewer, Dr. Jana Stucke, handed back a **100,000-step convergence block** (20 runs, the
 frozen configuration, the reviewer's own AWS compute) and a **10-seed two-hot control**. Integrity verified and
 the gate re-derived here: the MLP's structured fraction settles at 1.000 in 10 of 10 seeds, the 25k architecture
 gap closes to zero, and the gate still returns `neither_passes`. Reported separately in

@@ -332,7 +332,7 @@ Next: human review of `docs/HUMAN_DECISIONS.md`, then the explorer update per
 ## [2026-09-20] Submission day — readiness pass, colleague's audit assessed, nothing scientific changed
 
 Done (all AI; details and actor split in `AI_DISCLOSURE.md` changelog 2026-09-20 and §9b):
-- **Colleague's audit + script received and assessed.** The audit evaluated the archived pre-2026-09-02
+- **Colleague's audit + script received and assessed** (Ali Kandora). The audit evaluated the archived pre-2026-09-02
   snapshot; its "proof" has one incorrect step (L2 ≠ LASSO; the delta target's spectrum is exactly flat,
   top-8 = 8/56) and one overclaimed step; its ℤ₁₁₂ Fourier basis was overcomplete (114 rows). Script corrected
   and self-tested (`bwki/experiment_add_vs_mult.py`), `--analyze-run` added and verified on `add` runs only.

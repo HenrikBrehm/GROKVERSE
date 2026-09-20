@@ -55,7 +55,7 @@ Participation Ratio daneben lesen; die Transition liegt auf einem Log-Gitter (In
 
 | | |
 |---|---|
-| KI | Skript `experiment_add_vs_mult.py` (Entwurf eines externen Kollegen; Fourier-Basis-Fehler bei geradem n von der KI korrigiert und per Self-Test verifiziert), der Modus `--analyze-run`, diese Vorlage |
+| KI | Skript `experiment_add_vs_mult.py` (Entwurf von Ali Kandora, einem Kollegen des Autors; Fourier-Basis-Fehler bei geradem n von der KI korrigiert und per Self-Test verifiziert), der Modus `--analyze-run`, diese Vorlage |
 | Autor | `[HENRIK: was du selbst gemacht hast — Frage gestellt, Befehl ausgeführt, Zahlen gelesen, Abschnitte 3 und 4 geschrieben, …]` |
 
 ## Signatur
