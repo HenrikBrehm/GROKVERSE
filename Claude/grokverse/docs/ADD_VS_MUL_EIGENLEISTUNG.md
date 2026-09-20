@@ -1,7 +1,8 @@
 # Addition vs. Multiplikation — eigene Auswertung der `txf_mul_*`-Läufe
 
 ```
-STATUS: ZAHLEN GEMESSEN (KI, 2026-09-20) — Abschnitte 3 und 4 und die Signatur fehlen noch.
+STATUS: VOLLSTÄNDIG ALS KI-DOKUMENT (2026-09-20). Messung in §2, Einordnung in §3/§4 als
+KI-Entwurf gekennzeichnet. Offen ist nur die Bestätigung oder Ersetzung durch den Autor.
 ```
 
 > **Änderung der Zuständigkeit am 2026-09-20.** `docs/HUMAN_DECISIONS.md` **E6** hatte diese drei Läufe
@@ -85,15 +86,63 @@ deshalb Intervalle, keine Punkte):
 
 Streuung zwischen den Seeds: add 675–859 (Spanne 184), mul 912–1029 (Spanne 117).
 
-## 3. Was ich sehe — Beobachtung ohne Deutung
+## 3. Beobachtung ohne Deutung
 
-`[HENRIK]`
+> [KI-ENTWURF, 2026-09-20. Vom Autor zu bestätigen oder in eigenen Worten zu ersetzen. Die Zahlen in §2
+> sind Messung und davon unberührt.]
 
-## 4. Was ich daraus schließe — und was nicht
+**F1 — generalisiert das Netz bei Multiplikation?** Ja, in allen drei Läufen: finale Test-Accuracy
+0,9850 / 0,9887 / 0,9826 bei Generalisierung an Schritt 912 / 912 / 1029.
 
-`[HENRIK]`
+**F2 — ist das mul-Embedding in natürlicher Ordnung flach?** Ja. Am finalen Checkpoint liegt der
+Top-8-Anteil bei 0,1779 / 0,1780 / 0,1706, die normierte Entropie bei 0,997 und das Participation Ratio
+bei rund 54,8. Die Null-Baseline eines flachen Spektrums ist 0,143 / 1,000 / 56,0; die drei Läufe liegen
+also nur knapp darüber und weit von jeder Sparsamkeit entfernt.
 
-Mindestens diese Alternativen benennen: nur 3 Seeds; Grokfast an und `train_frac` 0,5 (nicht die
+**F3 — wird es in Primitivwurzel-Ordnung dünn besetzt?** Ja, und in derselben Größenordnung wie die
+Additionsläufe in natürlicher Ordnung. Unter der Permutation `3⁰, 3¹, 3², … mod 113` steigt der
+Top-8-Anteil auf 0,5704 / 0,5382 / 0,5521, die Entropie fällt auf 0,84–0,87, das Participation Ratio auf
+16,6 / 20,4 / 18,4. Die Additionsläufe erreichen in natürlicher Ordnung 0,5206 / 0,6050 / 0,6432 bei
+Entropie 0,73–0,87 und Participation Ratio 7,5–18,5.
+
+**Das Spiegelbild, und die Kontrolle dazu.** Die beiden Aufgaben verhalten sich unter den zwei Ordnungen
+genau entgegengesetzt: Addition ist natürlich dünn besetzt und unter der Permutation flach
+(0,1687 / 0,1647 / 0,1634 bei Entropie ≈ 0,999), Multiplikation umgekehrt. Bei `init` sind in beiden
+Aufgaben **beide** Ordnungen flach (Top-8 ≈ 0,16, Entropie ≈ 0,998, PR ≈ 55). Die Struktur entsteht also
+im Training und wird nicht durch die Umsortierung erzeugt.
+
+**F4 — generalisiert mul später als add?** Bei jedem Seed ja: 912 gegen 675, 912 gegen 859, 1029 gegen
+716, also +237, +53 und +313 Schritte. Der Abstand bei Seed 1 ist kleiner als die Streuung der
+Additionsläufe untereinander (675–859, Spanne 184).
+
+## 4. Einordnung — und was ausdrücklich nicht folgt
+
+> [KI-ENTWURF, 2026-09-20. Vom Autor zu bestätigen oder in eigenen Worten zu ersetzen.]
+
+Multiplikation modulo einer Primzahl ist auf den Resten ungleich null über den diskreten Logarithmus
+isomorph zur Addition modulo `p−1` (Power et al. 2022 §3.2; `docs/sources/power2022_and_grokfast2024.md`
+Punkt 8). Ein Netz, das die multiplikative Aufgabe über diesen Umweg löst, müsste in natürlicher Ordnung
+unstrukturiert aussehen und erst in der Log-Ordnung periodisch werden. F2 und F3 treffen beide zu, und
+die `init`-Kontrolle schließt ein Artefakt der Umsortierung aus. Die Messung ist damit **konsistent
+damit**, dass die Aufgabe in der Log-Basis gelöst wird.
+
+Was daraus **nicht** folgt:
+
+1. **Kein kausaler Nachweis.** Dies ist eine deskriptive Aussage über die Einbettung. Auf den
+   Multiplikationsläufen wurde keine Ablation gefahren, also ist nicht gezeigt, dass das Netz diese
+   Struktur auch benutzt — dieselbe Lücke, die in der Hauptstudie G4 offenlässt (`RESULTS.md` §6).
+2. **Eine Einstellung, drei Seeds.** Grokfast ist an und `train_frac` ist 0,5; das ist nicht die
+   unbeschleunigte Referenz der Studie. Die Hauptstudie zeigt, dass Aussagen zwischen Einstellungen
+   wandern (`RESULTS.md` §9).
+3. **Die natürlichen Top-8-Werte sind nicht eins zu eins vergleichbar**, weil Token 0 bei der
+   Multiplikation ausgeschlossen ist und bei der Addition nicht. Deshalb stehen Entropie und
+   Participation Ratio daneben.
+4. **Top-8 ist eine feste Kappe**, keine gemessene Zahl von Frequenzen (`docs/LEGACY_METRIC_AUDIT.md`).
+5. **Der Generalisierungszeitpunkt liegt auf einem Log-Gitter**, ist also ein Intervall und kein Punkt.
+6. **Die Zeitdifferenz trägt als Richtung, nicht als Effektgröße**, weil der Abstand bei Seed 1 (+53)
+   kleiner ist als die Streuung der Additionsläufe untereinander (184).
+
+Weitere Alternativen, die zu nennen sind: nur 3 Seeds; Grokfast an und `train_frac` 0,5 (nicht die
 un-beschleunigte Referenz); Token 0 ist bei mul ausgeschlossen, bei add nicht (die natürlichen Top-8-Werte sind
 deshalb nicht 1:1 vergleichbar); Top-8 ist eine feste Kappe (`docs/LEGACY_METRIC_AUDIT.md`), daher Entropie und
 Participation Ratio daneben lesen; die Transition liegt auf einem Log-Gitter (Intervall, kein Punkt).
@@ -103,12 +152,15 @@ Participation Ratio daneben lesen; die Transition liegt auf einem Log-Gitter (In
 | | |
 |---|---|
 | KI | Skript `experiment_add_vs_mult.py` (Entwurf von Ali Kandora, einem Kollegen des Autors; Fourier-Basis-Fehler bei geradem n von der KI korrigiert und per Self-Test verifiziert), der Modus `--analyze-run`, diese Vorlage |
-| Autor | `[HENRIK: was du selbst gemacht hast — Frage gestellt, Befehl ausgeführt, Zahlen gelesen, Abschnitte 3 und 4 geschrieben, …]` |
+| Autor | Hat die Frage gestellt und die Reservierung E6 gesetzt (`docs/HUMAN_DECISIONS.md` E6; `PROGRESS.md` 2026-08-18) und sie am 2026-09-20 aufgehoben. **Offen:** Bestätigung oder Ersetzung von §3 und §4 in eigenen Worten und die Signatur unten. Solange das offen ist, ist diese Auswertung KI-Arbeit und wird in `AI_DISCLOSURE.md` §5 auch so geführt. |
 
 ## Signatur
 
 | | |
 |---|---|
-| Name | `[HENRIK]` |
-| Datum | `[HENRIK]` |
-| Abschnitte 3 und 4 sind in meinen eigenen Worten geschrieben | ja / nein |
+| Name | _offen_ |
+| Datum | _offen_ |
+| Abschnitte 3 und 4 sind in meinen eigenen Worten geschrieben | _offen — solange diese Zeile leer ist, gilt die Auswertung als KI-Arbeit_ |
+
+Ohne diese Signatur ist das Dokument trotzdem vollständig und zitierfähig: es trägt dann die Messung und
+eine als KI-Entwurf gekennzeichnete Einordnung, und genau so ist es in `AI_DISCLOSURE.md` §5 verbucht.
