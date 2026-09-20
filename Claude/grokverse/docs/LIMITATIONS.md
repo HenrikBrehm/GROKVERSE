@@ -121,8 +121,8 @@ answers the question the design left open; none of them is a hedge added after t
 Neither. G1, G2 and G3 hold on **10 of 10 seeds for both** architectures at the final checkpoint; **G4
 fails 0/10 in both**. Within G4, `keep_structured` is *sufficient* 10/10 in both, and the failure is
 entirely in the necessity conditions: `remove_structured` is not necessary in either architecture,
-because the size-matched random control does **0.873** (MLP) and **0.916** (transformer) of the same
-damage. `remove_key_freqs` is necessary 10/10 for the MLP and 0/10 for the transformer — but only
+because the size-matched random control does **0.878** (MLP) and **0.910** (transformer) of the same
+damage (control values as re-run after the 2026-09-06 determinism fix, D8 — `docs/LABBOOK.md` 1175; aligned with `RESULTS.md` §6 on 2026-09-20). `remove_key_freqs` is necessary 10/10 for the MLP and 0/10 for the transformer — but only
 because the gate was wired to `remove_key_subspace_from_residual`; the embedding-level ablation gives
 10/10 (see B9 and **D5**). Source: `training/results/decision_tree_final.json`.
 

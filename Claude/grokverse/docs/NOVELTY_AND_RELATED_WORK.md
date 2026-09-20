@@ -41,7 +41,7 @@ datasets, controlled by weight decay and the training fraction.
 
 **Our relation.** The phenomenon we measure; the definition we use for "grokked". Not a contribution.
 
-## 3. Lee, Kim, Choi, Kim (2024), Grokfast — arXiv:2405.20233 `V`
+## 3. Lee, Kang, Kim & Lee (2024), Grokfast — arXiv:2405.20233 `V`
 
 **What it establishes.** Amplifying the slow (EMA) component of the gradient accelerates grokking.
 

@@ -133,9 +133,11 @@ aggregate tables alone, so no figure can drift from the numbers.
 ## Run the explorer
 
 ```bash
-# from web/
+# from web/  (Node 20+, pnpm 10 — with pnpm 9 `install` stops at "packages field missing or empty";
+#             `npx pnpm@10 install` works without a global pnpm)
 pnpm install
 pnpm dev   # open http://localhost:3000
+pnpm build # production build; verified clean 2026-09-20 (Next.js 14.2.15, pnpm 10.34.5)
 ```
 
 Scrub training to watch the 113 token embeddings reorganize from a blob into a periodic **ring** in 3D,

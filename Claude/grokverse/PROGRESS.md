@@ -327,3 +327,32 @@ Open questions / risks:
 
 Next: human review of `docs/HUMAN_DECISIONS.md`, then the explorer update per
 `docs/dev/EXPLORER_UPDATE_PLAN.md`.
+
+
+## [2026-09-20] Submission day — readiness pass, colleague's audit assessed, nothing scientific changed
+
+Done (all AI; details and actor split in `AI_DISCLOSURE.md` changelog 2026-09-20 and §9b):
+- **Colleague's audit + script received and assessed.** The audit evaluated the archived pre-2026-09-02
+  snapshot; its "proof" has one incorrect step (L2 ≠ LASSO; the delta target's spectrum is exactly flat,
+  top-8 = 8/56) and one overclaimed step; its ℤ₁₁₂ Fourier basis was overcomplete (114 rows). Script corrected
+  and self-tested (`bwki/experiment_add_vs_mult.py`), `--analyze-run` added and verified on `add` runs only.
+  The `txf_mul_*` runs were **not** analysed (E6); `docs/ADD_VS_MUL_EIGENLEISTUNG.md` is the author's template.
+- **Readiness checks:** `python tests/run_all.py` **24/24 green**; `web/node_modules` was incomplete
+  (`styled-jsx` missing) → reinstalled from the lockfile with pnpm 10.34.5 (pnpm 9 rejects the workspace file)
+  → **`pnpm build` clean** (Next.js 14.2.15). Nothing under `web/` changed (E3).
+- **Attribution fixes:** Grokfast author list corrected to Lee, Kang, Kim & Lee (`docs/NOVELTY_AND_RELATED_WORK.md`);
+  Grokfast entry added to `THIRD_PARTY.md` (it was missing); pnpm-10 note in `README.md`; `__pycache__/` ignored.
+- **Disclosure:** preparation material `Claude/PREP/` now listed in `AI_DISCLOSURE.md` §6; §9b added.
+
+Found and escalated, not changed: `Claude/PREP/` is tracked and public although marked "not for submission";
+`docs/sources/power2022_and_grokfast2024.md` item 8 quotes the multiplication runs' generalization steps (a
+one-sentence E6 departure); `docs/RESEARCH_SPEC.md` names the reviewer, the rest of the repository does not (D9);
+`CLAUDE.md` does not state E6; the video was recorded from the reproduction-phase results and states two claims
+that `RESULTS.md` §11 has since withdrawn.
+
+Verification: every number quoted above is in `AI_DISCLOSURE.md` §9b or reproducible with
+`bwki/experiment_add_vs_mult.py --self-test`.
+
+Open (human only, in order): `docs/HUMAN_DECISIONS.md` A–F incl. D5–D9 + sign-off (post hoc, dated today);
+`txf_mul_*` evaluation; the 12 `AI_DISCLOSURE.md` placeholders; author's revision of the written submission;
+push; upload (bw-ki.de, 23:59).

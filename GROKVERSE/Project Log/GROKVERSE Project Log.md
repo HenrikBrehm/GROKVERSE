@@ -452,3 +452,29 @@ Human review of `docs/HUMAN_DECISIONS.md`, now including **D7** and **D8**.
 - `Claude/grokverse/docs/external/README.md` (provenance and every check) · `RESULTS.md` §16 · `docs/LIMITATIONS.md` B3 · `docs/PREREGISTRATION.md` §12 · `AI_DISCLOSURE.md` §5, §9 · `docs/HUMAN_DECISIONS.md` D9 · `docs/LABBOOK.md` 110 · `PROGRESS.md` 2026-09-08
 - `training/results/external/` (tracked copies) · `training/external/` (bundle, gitignored) · local branch `arch-study-convergence` at `42dd79a`
 - [[External convergence block S1 at 100k and follow-ups]] · [[Graded structured-neuron ablation]]
+
+---
+
+## 2026-09-20 — Abgabetag
+
+### What was done
+- Received from a colleague of the author an AI-generated four-phase audit of GROKVERSE (`bwki/grokverse_scientific_audit.md`) plus an add-vs-mul experiment script. Verified with three subagents: the audit assessed the **archived pre-2026-09-02 snapshot** (its K1/K2/K3/K5/K8 are already closed in the current study); its "proof" step 3 is wrong (L2 on a fixed orthonormal basis is not LASSO-like; the delta target of its own step 1 has an exactly flat spectrum, top-8 = 8/56 = 0.1429 — the very number its own §2.2 quotes as a criticism) and step 1 overclaims a finite CE optimum; its Fourier basis over ℤ₁₁₂ was overcomplete (114 rows; degenerate sine row, duplicated Nyquist row). Script corrected (`bwki/experiment_add_vs_mult.py`, `--self-test`: orthonormality 7.6e-15, Parseval 6e-16), `--analyze-run` mode added and verified on `add` runs only; the original kept as `experiment_add_vs_mult (1).py`. Disclosed in `AI_DISCLOSURE.md` §9b.
+- Submission readiness: test suite 24/24 green; `web/node_modules` found incomplete (`styled-jsx` missing), reinstalled with pnpm 10 (pnpm 9 rejects `pnpm-workspace.yaml`, which has no `packages` field) — `pnpm build` clean, nothing under `web/` changed (E3). Grokfast author list corrected (`docs/NOVELTY_AND_RELATED_WORK.md`), Grokfast attribution added to `THIRD_PARTY.md`, pnpm note in `README.md`, `__pycache__/` ignored.
+- `docs/ADD_VS_MUL_EIGENLEISTUNG.md` created as a headings-only template for the author's own evaluation of the `txf_mul_*` runs (E6). The AI did not read those runs' metrics.
+- A draft of the written submission assembled by a subagent from the repository's records (`bwki/PROJEKTDOKUMENTATION_ENTWURF.md`, outside the repo folder), labelled AI-drafted, with the own-work and interpretation sections left to the author.
+
+### Results
+- Confirmed BWKI deadline: **2026-09-20, 23:59** (bw-ki.de); submission = written documentation + executable code + video (2–4 min). No written documentation existed before today.
+
+### Decisions
+- None taken by the AI. Escalated to the author: whether `Claude/PREP/` stays tracked (marked "not for submission", but public); the one-sentence E6 departure in `docs/sources/power2022_and_grokfast2024.md` item 8; whether the reviewer is named (D9; `docs/RESEARCH_SPEC.md` names her, the rest does not); the E6 rule missing from `CLAUDE.md`; an explorer notice; `git push` (one commit ahead plus today's changes).
+
+### Open tasks
+- [ ] `docs/HUMAN_DECISIONS.md` A–F, D5–D9, status line and sign-off — dated today, i.e. post hoc.
+- [ ] `txf_mul_*` evaluation by the author (`--analyze-run`, then `docs/ADD_VS_MUL_EIGENLEISTUNG.md`).
+- [ ] `AI_DISCLOSURE.md`: the 12 `[HUMAN AUTHORS MUST COMPLETE]` placeholders.
+- [ ] Projektdokumentation: author's revision of the draft, then PDF.
+- [ ] Push; upload at competition.bw-ki.de.
+
+### Evidence
+- `Claude/grokverse/AI_DISCLOSURE.md` §6, §9b, changelog 2026-09-20 · `Claude/grokverse/PROGRESS.md` 2026-09-20 · `bwki/experiment_add_vs_mult.py --self-test` · `bwki/analyze_run_results.json` (add runs only)
