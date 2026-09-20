@@ -1,3 +1,10 @@
+> ## ⚠ VERALTET — NICHT DARAUS FILMEN (Stand 2026-09-20)
+>
+> Dieses Skript ist vom 2026-08-18 und stammt aus der Reproduktionsphase. Es enthält mindestens drei
+> Aussagen, die die Architekturstudie seither **zurückgezogen** hat: die 76-%-Top-8-Schlagzeile, den
+> „sparser circuit"-Schluss und die 50/50-Attention als Nachweis der Schaltung. Die aktuelle Fassung ist
+> **`pitch/script_2026-09-20.md`**. Diese Datei bleibt als Beleg der Projektgeschichte stehen.
+
 # GROKVERSE — Spoken Pitch Script
 
 **Total runtime: ~3:30–4:30 min.** Timings are approximate and marked per section.
